@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <PathDelim Value="\"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+        <CompatibilityMode Value="True"/>
+      </Flags>
+      <Title Value="tgadminhelperd"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="\languages"/>
+    </i18n>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <MinorVersionNr Value="1"/>
+    </VersionInfo>
+    <BuildModes Count="4" Active="Linux">
+      <Item1 Name="Default" Default="True"/>
+      <Item2 Name="Debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="tgadminhelperd.new"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\brook-telegram;C:\lazarus-stable\ccr\brookfreepascal\brokers\Tardigrade\"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <VerifyObjMethodCallValidity Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+              <UseHeaptrc Value="True"/>
+              <TrashVariables Value="True"/>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dUseCThreads"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="Release">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="tgadminhelperd.new"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\brook-telegram;C:\lazarus-stable\ccr\brookfreepascal\brokers\Tardigrade\"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dUseCThreads"/>
+          </Other>
+        </CompilerOptions>
+      </Item3>
+      <Item4 Name="Linux">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="nogui"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="tgadminhelperd.new"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\brook-telegram;C:\lazarus-stable\ccr\brookfreepascal\brokers\Tardigrade\"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="linux"/>
+            <Optimizations>
+              <OptimizationLevel Value="3"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsDwarf2Set"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx6058="True" idx3124="True" idx3123="True" idx3104="True"/>
+            </CompilerMessages>
+            <CustomOptions Value="-dUseCThreads"/>
+            <OtherDefines Count="2">
+              <Define0 Value="UseCThreads"/>
+              <Define1 Value="SynapseHTTP"/>
+            </OtherDefines>
+          </Other>
+        </CompilerOptions>
+      </Item4>
+      <SharedMatrixOptions Count="1">
+        <Item1 ID="405140618928" Modes="Linux" Type="IDEMacro" MacroName="LCLWidgetType" Value="nogui"/>
+      </SharedMatrixOptions>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <CommandLineParams Value="--install"/>
+      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default">
+          <local>
+            <CommandLineParams Value="--install"/>
+          </local>
+        </Mode0>
+      </Modes>
+    </RunParams>
+    <RequiredPackages Count="7">
+      <Item1>
+        <PackageName Value="AlgExPkg"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="BrookTardigrade"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="dOpfRT"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LazUtils"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="fptelegram"/>
+        <MinVersion Release="4" Build="2" Valid="True"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="RUtilsPkg"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="BrookRT"/>
+      </Item7>
+    </RequiredPackages>
+    <Units Count="49">
+      <Unit0>
+        <Filename Value="tgadminhelperd.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="12" Y="9"/>
+        <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="..\HelperBots\brokers.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="33" Y="14"/>
+        <UsageCount Value="200"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\HelperBots\configuration.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="34"/>
+        <CursorPos X="31" Y="30"/>
+        <UsageCount Value="207"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\fp-instagramscrapper\instagramscrapper.pas"/>
+        <UnitName Value="InstagramScrapper"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1403"/>
+        <CursorPos X="94" Y="1421"/>
+        <UsageCount Value="64"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\HelperBots\workercommentnotify.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="115"/>
+        <CursorPos X="37" Y="39"/>
+        <UsageCount Value="64"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\HelperBots\str_resources.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4"/>
+        <CursorPos X="76" Y="10"/>
+        <UsageCount Value="240"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\brook-telegram\brooktelegramaction.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="36"/>
+        <CursorPos X="16" Y="48"/>
+        <UsageCount Value="200"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\HelperBots\landingaction.pas"/>
+        <UnitName Value="LandingAction"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="36"/>
+        <CursorPos X="48" Y="48"/>
+        <UsageCount Value="67"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\HelperBots\actioninstatube.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1291"/>
+        <CursorPos X="3" Y="644"/>
+        <UsageCount Value="65"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="659"/>
+        <CursorPos X="14" Y="672"/>
+        <UsageCount Value="58"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\HelperBots\workers.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="60"/>
+        <UsageCount Value="76"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\HelperBots\workercommentssave.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="39"/>
+        <CursorPos X="27" Y="45"/>
+        <UsageCount Value="80"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\brokers\Tardigrade\brooktardigradebroker.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="BrookTardigradeBroker"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="256"/>
+        <CursorPos X="27" Y="116"/>
+        <UsageCount Value="223"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\HelperBots\proxyutils.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="50"/>
+        <CursorPos X="3" Y="101"/>
+        <UsageCount Value="244"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\HelperBots\sessionlists.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="41"/>
+        <CursorPos X="17" Y="51"/>
+        <UsageCount Value="82"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\HelperBots\workeryoutubedl.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="229"/>
+        <CursorPos X="30" Y="248"/>
+        <UsageCount Value="63"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\fp-youtube-dl\youtubedl.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="42"/>
+        <CursorPos X="20" Y="53"/>
+        <UsageCount Value="65"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\taskworker\taskworker.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="24"/>
+        <CursorPos X="15" Y="36"/>
+        <UsageCount Value="268"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\HelperBots\pyrogram\fp_pyrogram.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="68"/>
+        <CursorPos X="26" Y="79"/>
+        <UsageCount Value="112"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\HelperBots\actionalgebric.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="715"/>
+        <CursorPos X="24" Y="722"/>
+        <UsageCount Value="225"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\HelperBots\actionalgebricbot.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="57"/>
+        <CursorPos X="3" Y="15"/>
+        <UsageCount Value="211"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="..\HelperBots\actioncalculator.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="13"/>
+        <CursorPos Y="25"/>
+        <UsageCount Value="43"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="..\ValuteRates\cryptocompare.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="82"/>
+        <CursorPos X="26" Y="104"/>
+        <UsageCount Value="10"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\brook-telegram\brk_tg_config.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="104"/>
+        <CursorPos X="11" Y="117"/>
+        <UsageCount Value="235"/>
+        <Loaded Value="True"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\HelperBots\actionbasebot.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="36" Y="34"/>
+        <UsageCount Value="71"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="..\CurrencyRates\cbrvalutes.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="208"/>
+        <CursorPos X="3" Y="92"/>
+        <UsageCount Value="235"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="..\CurrencyRates\cryptocompare.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="32"/>
+        <CursorPos X="3" Y="104"/>
+        <UsageCount Value="235"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="C:\lazarus\ccr\brookfreepascal\brokers\Tardigrade\brooktardigradebroker.pas"/>
+        <UnitName Value="BrookTardigradeBroker"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="69"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="..\HelperBots\amanexbot.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="349"/>
+        <CursorPos X="33" Y="365"/>
+        <UsageCount Value="200"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="..\HelperBots\baikalasia.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="85"/>
+        <CursorPos X="25" Y="88"/>
+        <UsageCount Value="100"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="..\HelperBots\amanex_orm.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="70"/>
+        <CursorPos Y="94"/>
+        <UsageCount Value="220"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="adminhelper_orm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="327"/>
+        <CursorPos X="14" Y="341"/>
+        <UsageCount Value="241"/>
+        <Loaded Value="True"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\plugins\algex\src\algex.pas"/>
+        <UnitName Value="AlgEx"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="363"/>
+        <CursorPos X="26" Y="384"/>
+        <UsageCount Value="36"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="..\HelperBots\config_loader.pas"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos Y="10"/>
+        <UsageCount Value="366"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="..\fp-telegram\tgutils.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="2"/>
+        <CursorPos X="10" Y="15"/>
+        <UsageCount Value="178"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="..\botbulksender\botbulk.pas"/>
+        <UnitName Value="BotBulk"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="196"/>
+        <CursorPos Y="219"/>
+        <UsageCount Value="211"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="..\botbulksender\bulksend_db.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="55"/>
+        <CursorPos X="47" Y="55"/>
+        <UsageCount Value="98"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="..\botbulksender\tgsenderworker.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="51"/>
+        <CursorPos X="56" Y="61"/>
+        <UsageCount Value="103"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="actionadminhelper.pas"/>
+        <IsPartOfProject Value="True"/>
+        <TopLine Value="227"/>
+        <CursorPos X="44" Y="240"/>
+        <UsageCount Value="257"/>
+        <Loaded Value="True"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\botbulksender\opbulksend.pas"/>
+        <UnitName Value="opBulkSend"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="3" Y="76"/>
+        <UsageCount Value="99"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\iamprcompany\iampr_mysql.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="72"/>
+        <CursorPos X="11" Y="85"/>
+        <UsageCount Value="45"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\LR\LRMirBot\bodytest_orm.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="585"/>
+        <CursorPos X="17" Y="598"/>
+        <UsageCount Value="45"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\LR\LRMirBot\bodytest_orm_tests.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="146"/>
+        <CursorPos X="13" Y="148"/>
+        <UsageCount Value="45"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\plugins\dopf\core\dopf.pas"/>
+        <UnitName Value="dOpf"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="20"/>
+        <CursorPos X="3" Y="34"/>
+        <UsageCount Value="10"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="adminhelper_conf.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="52"/>
+        <CursorPos X="5" Y="78"/>
+        <UsageCount Value="207"/>
+        <Loaded Value="True"/>
+      </Unit44>
+      <Unit45>
+        <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\plugins\dopf\core\dsqlbuilder.pas"/>
+        <UnitName Value="dSqlBuilder"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="33"/>
+        <CursorPos X="21" Y="40"/>
+        <UsageCount Value="77"/>
+      </Unit45>
+      <Unit46>
+        <Filename Value="C:\lazarus-stable\fpcsrc\rtl\objpas\classes\classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="688"/>
+        <CursorPos X="14" Y="700"/>
+        <UsageCount Value="10"/>
+      </Unit46>
+      <Unit47>
+        <Filename Value="..\fp-telegram\tgtypes.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="415"/>
+        <CursorPos X="14" Y="428"/>
+        <UsageCount Value="19"/>
+      </Unit47>
+      <Unit48>
+        <Filename Value="C:\lazarus-stable\fpcsrc\rtl\objpas\fgl.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="532"/>
+        <CursorPos X="3" Y="536"/>
+        <UsageCount Value="5"/>
+      </Unit48>
+    </Units>
+    <OtherDefines Count="2">
+      <Define0 Value="UseCThreads"/>
+      <Define1 Value="SynapseHTTP"/>
+    </OtherDefines>
+    <JumpHistory Count="1">
+      <Position1>
+        <Filename Value="adminhelper_conf.pas"/>
+        <Caret Line="30" Column="51" TopLine="7"/>
+      </Position1>
+    </JumpHistory>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="tgadminhelperd.new"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\IAmBot;..\brook-telegram;C:\lazarus-stable\ccr\brookfreepascal\brokers\Tardigrade\"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <CustomOptions Value="-dUseCThreads"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
