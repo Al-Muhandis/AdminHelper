@@ -248,6 +248,6 @@ begin
 end;
 
 initialization
-  TAdminHelper.Register('/moderatorhelper/:token/');
+  TAdminHelper.Register('/adminhelper/:token/');
 
 end.

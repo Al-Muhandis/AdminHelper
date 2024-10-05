@@ -10,7 +10,7 @@
         <MainUnitHasScaledStatement Value="False"/>
         <CompatibilityMode Value="True"/>
       </Flags>
-      <Title Value="tgadminhelperd"/>
+      <Title Value="adminhelperd"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
@@ -29,7 +29,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="tgadminhelperd.new"/>
+            <Filename Value="adminhelperd.new"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -73,7 +73,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="tgadminhelperd.new"/>
+            <Filename Value="adminhelperd.new"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -104,7 +104,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="tgadminhelperd.new"/>
+            <Filename Value="adminhelperd.new"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -183,9 +183,9 @@
         <PackageName Value="BrookRT"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="49">
+    <Units Count="50">
       <Unit0>
-        <Filename Value="tgadminhelperd.lpr"/>
+        <Filename Value="adminhelperd.lpr"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="4"/>
         <CursorPos X="12" Y="9"/>
@@ -461,7 +461,7 @@
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="227"/>
-        <CursorPos X="44" Y="240"/>
+        <CursorPos X="38" Y="251"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit38>
@@ -504,10 +504,9 @@
       <Unit44>
         <Filename Value="adminhelper_conf.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="52"/>
-        <CursorPos X="5" Y="78"/>
+        <TopLine Value="63"/>
+        <CursorPos X="5" Y="65"/>
         <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit44>
@@ -540,6 +539,15 @@
         <CursorPos X="3" Y="536"/>
         <UsageCount Value="5"/>
       </Unit48>
+      <Unit49>
+        <Filename Value="brokers.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="36" Y="14"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit49>
     </Units>
     <OtherDefines Count="2">
       <Define0 Value="UseCThreads"/>
@@ -556,7 +564,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="tgadminhelperd.new"/>
+      <Filename Value="adminhelperd.new"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
