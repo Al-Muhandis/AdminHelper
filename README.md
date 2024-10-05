@@ -7,7 +7,10 @@ If it is indeed a spam message, the member's rating is increased.
 At a certain number of points, the message is automatically deleted without the administrators' approval. 
 If the spam message is incorrectly identified as spam, the member's rating is downgraded
 
+# Architecture
+The software implements the telegram bot as a web server in webhook mode
+
 # Dependencies
-- fp-telegram
-- brook-telegram
-- BrookForFreePascal & BrookFramework
+- fp-telegram (Telegram bots API wrapper)
+- brook-telegram (Plugin for BrookFoFreePascal)
+- BrookForFreePascal & BrookFramework (HTTP server)
