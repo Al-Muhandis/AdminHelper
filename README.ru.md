@@ -17,5 +17,6 @@
 
 # Зависимости
 - fp-telegram (Telegram bots API wrapper)
-- brook-telegram (Plugin for BrookFoFreePascal)
-- BrookForFreePascal & BrookFramework (HTTP server)
+- brook-telegram (Телеграм плагин for BrookFoFreePascal)
+- BrookForFreePascal & BrookFramework (HTTP сервер)
+- dOPF (ORM)

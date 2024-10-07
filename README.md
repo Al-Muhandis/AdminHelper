@@ -18,3 +18,4 @@ The software implements the telegram bot as a web server in webhook mode
 - fp-telegram (Telegram bots API wrapper)
 - brook-telegram (Plugin for BrookFoFreePascal)
 - BrookForFreePascal & BrookFramework (HTTP server)
+- dOPF (ORM)
