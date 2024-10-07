@@ -1,9 +1,28 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
 
 #: actionadminhelper._shelptext
 msgid "Help Text for TAdminHelper"
 msgstr ""
+"Бот помогает модерировать сообщения и быстро банить спамеров в группах. \n"
+"Участники группы сами уведомляют администраторов о спам сообщении с помощью команды `/spam`. \n"
+"Команду следует отправить в ответ на спам сообщение. \n"
+"Всем администраторам приходит копия сообщения с возможностью указания правильно ли участник указал на спам-сообщение. \n"
+"Если это действительно спам-сообщение, то рейтинг участника повышается. \n"
+"При определенном количестве баллов сообщение автоматически удаляется без одобрения администраторов. \n"
+"В случае неверного определения спам сообщения рейтинг участника понижается.\n"
+"Для того, чтобы бот получил список администраторов в группе или в случае удаления или добавления нового, следует любому из действующих администраторов отправить команду `/update`\n"
+"Благодаря тому, что эти команды мгновенно удаляются самим ботом в группе - репорты и обновления происходит незаметно для пользователей "
 
 #: actionadminhelper._sinspctdmsghsdlt
 msgid "The message was successfully deleted and the spammer was banned"
@@ -19,7 +38,7 @@ msgstr ""
 
 #: actionadminhelper._sstarttext
 msgid "Start Text for TAdminHelper"
-msgstr ""
+msgstr "Бот помогает быстро и бесшумно банить спамеров. Подробности можно узнать с помощью команды /help"
 
 #: brooktelegramaction.str_browse
 msgid "Browse"
@@ -113,4 +132,3 @@ msgstr ""
 #: brooktelegramaction.str_yesterday
 msgid "Yesterday"
 msgstr ""
-

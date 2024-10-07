@@ -45,6 +45,8 @@ resourcestring
   _sInspctdMsgHsDlt=    'The message was successfully deleted and the spammer was banned';
   _sInspctdMsgIsNtSpm=  'The message is marked as NOT spam. Erroneous complaint';
   _sInspctdMsgWsChckdOt='The message has already been verified';
+  _sStartText=          'Start Text for TAdminHelper';
+  _sHelpText=           'Help Text for TAdminHelper';
 
 const
   _PowerRate = 10;
@@ -222,8 +224,8 @@ begin
   Bot.CallbackHandlers['spam']:=@BtClbckSpam;
   Bot.CommandHandlers['/update']:=@BtCmndUpdate;
 
-  Bot.StartText:='Start text';
-  Bot.HelpText:='Help text';
+  Bot.StartText:=_sStartText;
+  Bot.HelpText:=_sHelpText;
 end;
 
 destructor TAdminHelper.Destroy;
