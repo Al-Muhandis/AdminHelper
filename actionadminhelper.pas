@@ -21,7 +21,8 @@ type
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     function GetBotORM: TBotORM;
-    procedure Complaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer);
+    procedure Complaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
+      aInspectedChatName: String = '');
     procedure InspectForBan(aComplainant, aInspectedChat, aInspectedUser: Int64;
       aInspectedMessage: LongInt; aIsSpam: Boolean);
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
@@ -57,6 +58,26 @@ begin
   Result:=_dSpm+' '+aChat.ToString+' '+aMsg.ToString+' '+IsSpam.ToString;
 end;
 
+function BuildMsgUrl(aChatName: String; aChatID: Int64; aMsgID: Integer): String;
+const
+  _ChatIDPrefix='-100';
+var
+  aTpl: String;
+begin
+  if aChatName.IsEmpty then
+  begin
+    aChatName:=aChatID.ToString;
+    if StartsStr(_ChatIDPrefix, aChatName) then
+      aChatName:=RightStr(aChatName, Length(aChatName)-Length(_ChatIDPrefix))
+    else
+      Exit('https://t.me/'); { #todo : Maybe other handling? }
+    aTpl:='https://t.me/c/%s/%d';
+  end
+  else
+    aTpl:='https://t.me/%s/%d';
+  Result:=Format(aTpl, [aChatName, aMsgID]);
+end;
+
 { TAdminHelper }
 
 procedure TAdminHelper.BtClbckSpam(ASender: TObject; ACallback: TCallbackQueryObj);
@@ -86,16 +107,18 @@ var
   aInspectedMessage: TTelegramMessageObj;
   aComplainant, aInspectedUser, aInspectedChat: Int64;
   aInspectedMessageID: Integer;
+  aInspectedChatName: String;
 begin
   aInspectedMessage:=aMessage.ReplyToMessage;
   if Assigned(aInspectedMessage) then
   begin
     aComplainant:=aMessage.From.ID;
     aInspectedChat:=aInspectedMessage.ChatId;
+    aInspectedChatName:=aInspectedMessage.Chat.Username;
     aInspectedUser:=aInspectedMessage.From.ID;
     aInspectedMessageID:=aInspectedMessage.MessageId;
     Bot.deleteMessage(aMessage.MessageId);                                             
-    Complaint(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessageID);
+    Complaint(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessageID, aInspectedChatName);
   end
   else
     Bot.deleteMessage(aMessage.MessageId);
@@ -120,7 +143,8 @@ begin
   Result:=FBotORM;
 end;
 
-procedure TAdminHelper.Complaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer);
+procedure TAdminHelper.Complaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
+  aInspectedChatName: String);
 var
   aChatMembers: TopfChatMembers.TEntities;
   aChatMember: TChatMember;
@@ -128,13 +152,16 @@ var
   procedure SendToModerator(aModerator: Int64);
   var
     aReplyMarkup: TReplyMarkup;
+    aKB: TInlineKeyboard;
   begin
     aReplyMarkup:=TReplyMarkup.Create;
     try
-      aReplyMarkup.CreateInlineKeyBoard.Add.AddButtons(
+      aKB:=aReplyMarkup.CreateInlineKeyBoard;
+      aKB.Add.AddButtons(
         ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
         'It isn''t spam!', RouteCmdSpam(aInspectedChat, aInspectedMessage, False)]
       );
+      aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
       Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, False, aReplyMarkup);
     finally
       aReplyMarkup.Free;
