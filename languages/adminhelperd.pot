@@ -21,6 +21,16 @@ msgstr ""
 msgid "Start Text for TAdminHelper"
 msgstr ""
 
+#: actionadminhelper._syrrghts
+#, object-pascal-format
+msgid "Status: %s"
+msgstr ""
+
+#: actionadminhelper._syrrtng
+#, object-pascal-format
+msgid "Your rating is %d"
+msgstr ""
+
 #: brooktelegramaction.str_browse
 msgid "Browse"
 msgstr ""

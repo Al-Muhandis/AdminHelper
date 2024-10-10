@@ -17,7 +17,8 @@ type
     FBotConfig: TBotConf;
     FBotORM: TBotORM;
     FDBConfig: TDBConf;
-    procedure BtClbckSpam({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);
+    procedure BtClbckSpam({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);                     
+    procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     function GetBotORM: TBotORM;
@@ -48,10 +49,18 @@ resourcestring
   _sInspctdMsgWsChckdOt='The message has already been verified';
   _sStartText=          'Start Text for TAdminHelper';
   _sHelpText=           'Help Text for TAdminHelper';
+  _sYrRtng=             'Your rating is %d';
+  _sYrRghts=            'Status: %s';
 
 const
   _PowerRate = 10;
   _dSpm = 'spam';
+  _LvlStndrd='Standard';
+  _LvlGrd='Guard';
+
+  _emjSheriff='🛡';
+
+
 
 function RouteCmdSpam(aChat: Int64; aMsg: Integer; IsSpam: Boolean): String;
 begin
@@ -100,6 +109,20 @@ begin
       Bot.sendMessage(_sInspctdMsgWsChckdOt)
   else
     Bot.Logger.Error(Format('There is no the message #d in the chat #d', [aInspectedMessage, aInspectedChat]));
+end;
+
+procedure TAdminHelper.BtCmndSettings(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
+var
+  aRate: Integer;
+  aStatus, aMsg: String;
+begin
+  aRate:=ORM.UserByID(aMessage.From.ID).Rate;
+  if aRate<_PowerRate then
+    aStatus:=_LvlStndrd
+  else
+    aStatus:=_emjSheriff+' '+_LvlGrd;
+  aMsg:=Format(_sYrRtng, [aRate])+LineEnding+Format(_sYrRghts, [aStatus]);
+  Bot.sendMessage(aMsg);
 end;
 
 procedure TAdminHelper.BtCmndSpam(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
@@ -250,6 +273,7 @@ begin
   Bot.CommandHandlers['/spam']:=@BtCmndSpam;
   Bot.CallbackHandlers['spam']:=@BtClbckSpam;
   Bot.CommandHandlers['/update']:=@BtCmndUpdate;
+  Bot.CommandHandlers['/settings']:=@BtCmndSettings;
 
   Bot.StartText:=_sStartText;
   Bot.HelpText:=_sHelpText;

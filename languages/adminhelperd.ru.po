@@ -40,6 +40,16 @@ msgstr ""
 msgid "Start Text for TAdminHelper"
 msgstr "Бот помогает быстро и бесшумно банить спамеров. Подробности можно узнать с помощью команды /help"
 
+#: actionadminhelper._syrrghts
+#, object-pascal-format
+msgid "Status: %s"
+msgstr "Статус: %s"
+
+#: actionadminhelper._syrrtng
+#, object-pascal-format
+msgid "Your rating is %d"
+msgstr "Ваш рейтинг %d"
+
 #: brooktelegramaction.str_browse
 msgid "Browse"
 msgstr ""

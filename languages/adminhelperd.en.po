@@ -39,6 +39,16 @@ msgstr ""
 msgid "Start Text for TAdminHelper"
 msgstr "The bot helps quickly and silently ban spammers. See details by /help command"
 
+#: actionadminhelper._syrrghts
+#, object-pascal-format
+msgid "Status: %s"
+msgstr ""
+
+#: actionadminhelper._syrrtng
+#, object-pascal-format
+msgid "Your rating is %d"
+msgstr ""
+
 #: brooktelegramaction.str_browse
 msgid "Browse"
 msgstr ""
@@ -131,3 +141,4 @@ msgstr ""
 #: brooktelegramaction.str_yesterday
 msgid "Yesterday"
 msgstr ""
+

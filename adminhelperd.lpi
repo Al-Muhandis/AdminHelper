@@ -196,14 +196,14 @@
         <Filename Value="..\HelperBots\brokers.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="33" Y="14"/>
-        <UsageCount Value="195"/>
+        <UsageCount Value="192"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\HelperBots\configuration.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="34"/>
         <CursorPos X="31" Y="30"/>
-        <UsageCount Value="202"/>
+        <UsageCount Value="199"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\fp-instagramscrapper\instagramscrapper.pas"/>
@@ -211,21 +211,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1403"/>
         <CursorPos X="94" Y="1421"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="56"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\HelperBots\workercommentnotify.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="115"/>
         <CursorPos X="37" Y="39"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="56"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\HelperBots\str_resources.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="76" Y="10"/>
-        <UsageCount Value="235"/>
+        <UsageCount Value="232"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\brook-telegram\brooktelegramaction.pas"/>
@@ -241,34 +241,34 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="36"/>
         <CursorPos X="48" Y="48"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="59"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\HelperBots\actioninstatube.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="1291"/>
         <CursorPos X="3" Y="644"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="57"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="659"/>
         <CursorPos X="14" Y="672"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="50"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\HelperBots\workers.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="60"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="68"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\HelperBots\workercommentssave.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="39"/>
         <CursorPos X="27" Y="45"/>
-        <UsageCount Value="75"/>
+        <UsageCount Value="72"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\brokers\Tardigrade\brooktardigradebroker.pas"/>
@@ -284,70 +284,70 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="50"/>
         <CursorPos X="3" Y="101"/>
-        <UsageCount Value="239"/>
+        <UsageCount Value="236"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\HelperBots\sessionlists.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="41"/>
         <CursorPos X="17" Y="51"/>
-        <UsageCount Value="77"/>
+        <UsageCount Value="74"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\HelperBots\workeryoutubedl.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="229"/>
         <CursorPos X="30" Y="248"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="55"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\fp-youtube-dl\youtubedl.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="42"/>
         <CursorPos X="20" Y="53"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="57"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\taskworker\taskworker.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="24"/>
         <CursorPos X="15" Y="36"/>
-        <UsageCount Value="263"/>
+        <UsageCount Value="260"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\HelperBots\pyrogram\fp_pyrogram.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="68"/>
         <CursorPos X="26" Y="79"/>
-        <UsageCount Value="107"/>
+        <UsageCount Value="104"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\HelperBots\actionalgebric.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="715"/>
         <CursorPos X="24" Y="722"/>
-        <UsageCount Value="220"/>
+        <UsageCount Value="217"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\HelperBots\actionalgebricbot.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="57"/>
         <CursorPos X="3" Y="15"/>
-        <UsageCount Value="206"/>
+        <UsageCount Value="203"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\HelperBots\actioncalculator.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos Y="25"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="35"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\ValuteRates\cryptocompare.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="82"/>
         <CursorPos X="26" Y="104"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\brook-telegram\brk_tg_config.pas"/>
@@ -362,55 +362,55 @@
         <Filename Value="..\HelperBots\actionbasebot.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="36" Y="34"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="63"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\CurrencyRates\cbrvalutes.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="208"/>
         <CursorPos X="3" Y="92"/>
-        <UsageCount Value="230"/>
+        <UsageCount Value="227"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\CurrencyRates\cryptocompare.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="32"/>
         <CursorPos X="3" Y="104"/>
-        <UsageCount Value="230"/>
+        <UsageCount Value="227"/>
       </Unit26>
       <Unit27>
         <Filename Value="C:\lazarus\ccr\brookfreepascal\brokers\Tardigrade\brooktardigradebroker.pas"/>
         <UnitName Value="BrookTardigradeBroker"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="61"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\HelperBots\amanexbot.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="349"/>
         <CursorPos X="33" Y="365"/>
-        <UsageCount Value="195"/>
+        <UsageCount Value="192"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\HelperBots\baikalasia.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="85"/>
         <CursorPos X="25" Y="88"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="92"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\HelperBots\amanex_orm.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="70"/>
         <CursorPos Y="94"/>
-        <UsageCount Value="215"/>
+        <UsageCount Value="212"/>
       </Unit30>
       <Unit31>
         <Filename Value="adminhelper_orm.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="102"/>
-        <CursorPos X="20" Y="114"/>
+        <TopLine Value="384"/>
+        <CursorPos X="3" Y="404"/>
         <UsageCount Value="241"/>
         <Loaded Value="True"/>
       </Unit31>
@@ -420,20 +420,20 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="363"/>
         <CursorPos X="26" Y="384"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="28"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\HelperBots\config_loader.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="10"/>
-        <UsageCount Value="361"/>
+        <UsageCount Value="358"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\fp-telegram\tgutils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="2"/>
         <CursorPos X="10" Y="15"/>
-        <UsageCount Value="173"/>
+        <UsageCount Value="170"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\botbulksender\botbulk.pas"/>
@@ -441,28 +441,28 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="196"/>
         <CursorPos Y="219"/>
-        <UsageCount Value="206"/>
+        <UsageCount Value="203"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\botbulksender\bulksend_db.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="55"/>
         <CursorPos X="47" Y="55"/>
-        <UsageCount Value="93"/>
+        <UsageCount Value="90"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\botbulksender\tgsenderworker.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos X="56" Y="61"/>
-        <UsageCount Value="98"/>
+        <UsageCount Value="95"/>
       </Unit37>
       <Unit38>
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="157"/>
-        <CursorPos X="115" Y="164"/>
+        <TopLine Value="43"/>
+        <CursorPos X="19" Y="58"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit38>
@@ -471,28 +471,28 @@
         <UnitName Value="opBulkSend"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="76"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="91"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\iamprcompany\iampr_mysql.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="72"/>
         <CursorPos X="11" Y="85"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="37"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\LR\LRMirBot\bodytest_orm.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="585"/>
         <CursorPos X="17" Y="598"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="37"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\LR\LRMirBot\bodytest_orm_tests.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="146"/>
         <CursorPos X="13" Y="148"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="37"/>
       </Unit42>
       <Unit43>
         <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\plugins\dopf\core\dopf.pas"/>
@@ -500,7 +500,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="20"/>
         <CursorPos X="3" Y="34"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit43>
       <Unit44>
         <Filename Value="adminhelper_conf.pas"/>
@@ -517,28 +517,28 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="33"/>
         <CursorPos X="21" Y="40"/>
-        <UsageCount Value="72"/>
+        <UsageCount Value="69"/>
       </Unit45>
       <Unit46>
         <Filename Value="C:\lazarus-stable\fpcsrc\rtl\objpas\classes\classesh.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="688"/>
         <CursorPos X="14" Y="700"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="2"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\fp-telegram\tgtypes.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="415"/>
         <CursorPos X="14" Y="428"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="11"/>
       </Unit47>
       <Unit48>
         <Filename Value="brokers.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="5"/>
         <CursorPos X="38" Y="5"/>
-        <UsageCount Value="80"/>
+        <UsageCount Value="104"/>
         <Loaded Value="True"/>
       </Unit48>
     </Units>
@@ -548,124 +548,124 @@
     </OtherDefines>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="adminhelper_conf.pas"/>
-        <Caret Line="30" Column="51" TopLine="7"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="97" Column="57" TopLine="79"/>
       </Position1>
       <Position2>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="224" Column="37" TopLine="210"/>
+        <Caret Line="24" Column="15" TopLine="11"/>
       </Position2>
       <Position3>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="21" Column="15" TopLine="8"/>
+        <Caret Line="152" Column="3" TopLine="126"/>
       </Position3>
       <Position4>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="90" Column="3" TopLine="84"/>
+        <Caret Line="24" Column="15" TopLine="11"/>
       </Position4>
       <Position5>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="24" Column="15" TopLine="11"/>
+        <Caret Line="61" Column="21" TopLine="54"/>
       </Position5>
       <Position6>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="136" Column="82" TopLine="123"/>
+        <Caret Line="78" Column="17" TopLine="56"/>
       </Position6>
       <Position7>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="24" Column="24" TopLine="11"/>
+        <Caret Line="102" Column="75" TopLine="80"/>
       </Position7>
       <Position8>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="46" Column="80" TopLine="24"/>
+        <Caret Line="197" Column="28" TopLine="175"/>
       </Position8>
       <Position9>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="95" Column="23" TopLine="76"/>
+        <Caret Line="78" Column="17" TopLine="66"/>
       </Position9>
       <Position10>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="100" Column="80" TopLine="82"/>
+        <Caret Line="102" Column="28" TopLine="80"/>
       </Position10>
       <Position11>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="25" Column="38" TopLine="11"/>
+        <Caret Line="197" Column="28" TopLine="175"/>
       </Position11>
       <Position12>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="139" Column="10" TopLine="120"/>
+        <Caret Line="24" Column="15" TopLine="13"/>
       </Position12>
       <Position13>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="145" Column="74" TopLine="126"/>
+        <Caret Line="69" Column="46" TopLine="56"/>
       </Position13>
       <Position14>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="101" Column="100" TopLine="83"/>
+        <Caret Line="67" Column="32" TopLine="56"/>
       </Position14>
       <Position15>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="126" Column="33" TopLine="121"/>
+        <Caret Line="120" Column="23" TopLine="101"/>
       </Position15>
       <Position16>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="166" Column="19" TopLine="145"/>
+        <Caret Line="24" Column="15" TopLine="11"/>
       </Position16>
       <Position17>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="24" Column="24" TopLine="11"/>
+        <Caret Line="172" Column="3" TopLine="146"/>
       </Position17>
       <Position18>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="47" Column="80" TopLine="25"/>
+        <Caret Line="20" Column="15" TopLine="11"/>
       </Position18>
       <Position19>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="97" Column="57" TopLine="79"/>
+        <Caret Line="100" Column="13" TopLine="83"/>
       </Position19>
       <Position20>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="24" Column="15" TopLine="11"/>
+        <Caret Line="26" Column="15" TopLine="13"/>
       </Position20>
       <Position21>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="152" Column="3" TopLine="126"/>
+        <Caret Line="197" Column="68" TopLine="165"/>
       </Position21>
       <Position22>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="24" Column="15" TopLine="11"/>
+        <Caret Line="34" Column="17" TopLine="17"/>
       </Position22>
       <Position23>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="61" Column="21" TopLine="54"/>
+        <Caret Line="253" Column="52" TopLine="236"/>
       </Position23>
       <Position24>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="78" Column="17" TopLine="56"/>
+        <Caret Line="21" Column="44" TopLine="9"/>
       </Position24>
       <Position25>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="102" Column="75" TopLine="80"/>
+        <Caret Line="109" Column="18" TopLine="106"/>
       </Position25>
       <Position26>
-        <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="197" Column="28" TopLine="175"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="122" Column="14" TopLine="109"/>
       </Position26>
       <Position27>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="78" Column="17" TopLine="66"/>
+        <Caret Line="21" Column="113" TopLine="20"/>
       </Position27>
       <Position28>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="102" Column="28" TopLine="80"/>
+        <Caret Line="113" Column="23" TopLine="106"/>
       </Position28>
       <Position29>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="197" Column="28" TopLine="175"/>
+        <Caret Line="109" Column="50" TopLine="107"/>
       </Position29>
       <Position30>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="24" Column="15" TopLine="13"/>
+        <Caret Line="111" Column="53" TopLine="107"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
