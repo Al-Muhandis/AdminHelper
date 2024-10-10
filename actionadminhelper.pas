@@ -195,7 +195,7 @@ begin
   if aIsSpam then
   begin
     Bot.Logger.Debug(Format('aInspectedMessage: %d', [aInspectedMessage]));
-    Bot.deleteMessage(aInspectedMessage);
+    Bot.deleteMessage(aInspectedChat, aInspectedMessage);
     Bot.banChatMember(aInspectedChat, aInspectedUser);
     Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgHsDlt);
   end
