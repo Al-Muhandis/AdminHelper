@@ -26,6 +26,7 @@ type
       aInspectedChatName: String = '');
     procedure InspectForBan(aComplainant, aInspectedChat, aInspectedUser: Int64;
       aInspectedMessage: LongInt; aIsSpam: Boolean);
+    procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
   protected
     property BotConfig: TBotConf read FBotConfig write FBotConfig;
@@ -104,9 +105,14 @@ begin
     Exit;
   if ORM.GetMessage(aInspectedChat, aInspectedMessage) then
     if ORM.ModifyMessageIfNotChecked(aIsSpam) then
-      InspectForBan(Bot.CurrentChatId, aInspectedChat, ORM.Message.User,  aInspectedMessage, aIsSpam)
-    else
-      Bot.sendMessage(_sInspctdMsgWsChckdOt)
+    begin
+      InspectForBan(Bot.CurrentChatId, aInspectedChat, ORM.Message.User,  aInspectedMessage, aIsSpam);
+      ChangeKeyboardAfterCheckedOut(aIsSpam, ORM.Message.User);
+    end
+    else begin
+      ChangeKeyboardAfterCheckedOut(ORM.Message.IsSpam=1, ORM.Message.User);
+      Bot.answerCallbackQuery(ACallback.ID, _sInspctdMsgWsChckdOt);
+    end
   else
     Bot.Logger.Error(Format('There is no the message #d in the chat #d', [aInspectedMessage, aInspectedChat]));
 end;
@@ -224,6 +230,24 @@ begin
   end
   else
     Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgIsNtSpm);
+end;
+
+procedure TAdminHelper.ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
+var
+  aReplyMarkup: TReplyMarkup;
+  s: String;
+begin
+  aReplyMarkup:=TReplyMarkup.Create;
+  try
+    if aIsSpam then
+      s:='Banned user'
+    else
+      s:='Inspected user';
+    aReplyMarkup.CreateInlineKeyBoard.Add.AddButtonUrl(s, Format('tg://user?id=%d', [aInspectedUser]));
+    Bot.editMessageReplyMarkup(Bot.CurrentMessage.ChatId, Bot.CurrentMessage.MessageId, EmptyStr, aReplyMarkup);
+  finally
+    aReplyMarkup.Free;
+  end;
 end;
 
 procedure TAdminHelper.UpdateModeratorsForChat(aChat, aFrom: Int64);
