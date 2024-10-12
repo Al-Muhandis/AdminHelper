@@ -67,10 +67,12 @@ type
   private
     FChat: Int64;
     FComplainant: Int64;
+    FID: Integer;
     FMessage: Integer;
   public
     procedure Clear; override;
   published
+    property ID: Integer read FID write FID;
     property Chat: Int64 read FChat write FChat;
     property Message: Integer read FMessage write FMessage;
     property Complainant: Int64 read FComplainant write FComplainant;
