@@ -61,6 +61,8 @@ const
 
   _emjSheriff='🛡';
 
+  _tgErrBtnUsrPrvcyRstrctd='Bad Request: BUTTON_USER_PRIVACY_RESTRICTED';
+
 
 
 function RouteCmdSpam(aChat: Int64; aMsg: Integer; IsSpam: Boolean): String;
@@ -245,6 +247,8 @@ begin
       s:='Inspected user';
     aReplyMarkup.CreateInlineKeyBoard.Add.AddButtonUrl(s, Format('tg://user?id=%d', [aInspectedUser]));
     Bot.editMessageReplyMarkup(Bot.CurrentMessage.ChatId, Bot.CurrentMessage.MessageId, EmptyStr, aReplyMarkup);
+    if (Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd) then
+      Bot.editMessageReplyMarkup(Bot.CurrentMessage.ChatId, Bot.CurrentMessage.MessageId, EmptyStr, nil);
   finally
     aReplyMarkup.Free;
   end;
