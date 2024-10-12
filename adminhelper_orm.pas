@@ -276,7 +276,9 @@ begin
     Entity.Chat:=       aInspectedChat;
     Entity.Message:=    aInspectedMessage;
     Entity.Complainant:=aComplainant;
-    Add(False);
+    if Find('chat=:chat AND message=:message AND complainant=:complainant') then
+      Exit;
+    Add(True);
     Apply;
   end;
 end;
