@@ -16,16 +16,16 @@ type
   private
     FBotConfig: TBotConf;
     FBotORM: TBotORM;
-    FDBConfig: TDBConf;
+    FDBConfig: TDBConf;                             
+    procedure BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64;
+      aInspectedMessage: LongInt; aIsSpam: Boolean);
     procedure BtClbckSpam({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);                     
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
     function GetBotORM: TBotORM;
-    procedure InspectForBan(aComplainant, aInspectedChat, aInspectedUser: Int64;
-      aInspectedMessage: LongInt; aIsSpam: Boolean);
-    procedure SpamCommand(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
+    procedure SendComplaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
       aInspectedChatName: String = '');
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
   protected
@@ -149,7 +149,7 @@ begin
     aInspectedUser:=aInspectedMessage.From.ID;
     aInspectedMessageID:=aInspectedMessage.MessageId;
     Bot.deleteMessage(aMessage.MessageId);                                             
-    SpamCommand(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessageID, aInspectedChatName);
+    SendComplaint(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessageID, aInspectedChatName);
   end
   else
     Bot.deleteMessage(aMessage.MessageId);
@@ -174,7 +174,7 @@ begin
   Result:=FBotORM;
 end;
 
-procedure TAdminHelper.SpamCommand(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
+procedure TAdminHelper.SendComplaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
   aInspectedChatName: String);
 var
   aChatMembers: TopfChatMembers.TEntities;
@@ -219,7 +219,7 @@ begin
     InspectForBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
 end;
 
-procedure TAdminHelper.InspectForBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
+procedure TAdminHelper.BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
   aIsSpam: Boolean);
 begin
   ORM.UpdateRatings(aComplainant, aInspectedChat, aInspectedMessage, aIsSpam);
