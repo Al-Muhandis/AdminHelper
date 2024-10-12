@@ -21,12 +21,12 @@ type
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
+    procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
     function GetBotORM: TBotORM;
-    procedure Complaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
-      aInspectedChatName: String = '');
     procedure InspectForBan(aComplainant, aInspectedChat, aInspectedUser: Int64;
       aInspectedMessage: LongInt; aIsSpam: Boolean);
-    procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
+    procedure SpamCommand(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
+      aInspectedChatName: String = '');
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
   protected
     property BotConfig: TBotConf read FBotConfig write FBotConfig;
@@ -149,7 +149,7 @@ begin
     aInspectedUser:=aInspectedMessage.From.ID;
     aInspectedMessageID:=aInspectedMessage.MessageId;
     Bot.deleteMessage(aMessage.MessageId);                                             
-    Complaint(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessageID, aInspectedChatName);
+    SpamCommand(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessageID, aInspectedChatName);
   end
   else
     Bot.deleteMessage(aMessage.MessageId);
@@ -174,7 +174,7 @@ begin
   Result:=FBotORM;
 end;
 
-procedure TAdminHelper.Complaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
+procedure TAdminHelper.SpamCommand(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
   aInspectedChatName: String);
 var
   aChatMembers: TopfChatMembers.TEntities;
@@ -222,7 +222,7 @@ end;
 procedure TAdminHelper.InspectForBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
   aIsSpam: Boolean);
 begin
-  ORM.DoAfterMessageChecking(aComplainant, aInspectedChat, aInspectedMessage, aIsSpam);
+  ORM.UpdateRatings(aComplainant, aInspectedChat, aInspectedMessage, aIsSpam);
   if aIsSpam then
   begin
     Bot.Logger.Debug(Format('aInspectedMessage: %d', [aInspectedMessage]));

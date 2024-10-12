@@ -114,13 +114,13 @@ type
     procedure ClearModeratorsForChat(aChat: Int64);
     constructor Create(aDBConf: TDBConf);
     destructor Destroy; override;
-    procedure DoAfterMessageChecking(aComplainantID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
     function GetOrAddMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
-    function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;
+    function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;   
+    procedure UpdateRatings(aComplainantID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
     function UserByID(aUserID: Int64): TBotUser;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
     property Message: TTelegramMessage read GetMessage;
@@ -325,7 +325,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TBotORM.DoAfterMessageChecking(aComplainantID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+procedure TBotORM.UpdateRatings(aComplainantID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
 var
   aComplaints: TopfComplaints.TEntities;
   aComplaint: TComplaint;
