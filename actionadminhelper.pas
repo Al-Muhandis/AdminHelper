@@ -108,7 +108,7 @@ begin
   if ORM.GetMessage(aInspectedChat, aInspectedMessage) then
     if ORM.ModifyMessageIfNotChecked(aIsSpam) then
     begin
-      InspectForBan(Bot.CurrentChatId, aInspectedChat, ORM.Message.User,  aInspectedMessage, aIsSpam);
+      BanOrNotToBan(Bot.CurrentChatId, aInspectedChat, ORM.Message.User,  aInspectedMessage, aIsSpam);
       ChangeKeyboardAfterCheckedOut(aIsSpam, ORM.Message.User);
     end
     else begin
@@ -216,7 +216,7 @@ begin
     Exit;
   ORM.AddComplaint(aComplainant, aInspectedChat, aInspectedMessage);
   if ORM.UserByID(aComplainant).Rate>_PowerRate then
-    InspectForBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
+    BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
 end;
 
 procedure TAdminHelper.BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
