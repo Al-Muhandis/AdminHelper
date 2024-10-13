@@ -200,6 +200,8 @@ var
   end;
 
 begin
+  if ORM.UserByID(aComplainant).Rate>_PowerRate then
+    BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
   if not ORM.GetOrAddMessage(aInspectedUser, aInspectedChat, aInspectedMessage) then
   begin
     aChatMembers:=TopfChatMembers.TEntities.Create;
@@ -215,8 +217,6 @@ begin
   if ORM.Message.IsSpam<>0 then
     Exit;
   ORM.AddComplaint(aComplainant, aInspectedChat, aInspectedMessage);
-  if ORM.UserByID(aComplainant).Rate>_PowerRate then
-    BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
 end;
 
 procedure TAdminHelper.BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
