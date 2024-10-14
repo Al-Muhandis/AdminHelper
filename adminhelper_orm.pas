@@ -280,6 +280,8 @@ begin
       Exit;
     Add(True);
     Apply;
+    Con.Logger.LogFmt(ltCustom, '#DebugInfo: сomplaint (chat #%d, message #%d, complainant #%d) has been added',
+      [aInspectedChat, aInspectedMessage, aComplainant]);
   end;
 end;
 
@@ -353,6 +355,8 @@ begin
         else
           opUsers.Add(False);
         opUsers.Apply;
+        Con.Logger.LogFmt(ltCustom, '#DebugInfo: the member (#%d) rating (now: %d p.) has been updated. Inspector: #%d',
+          [aComplaint.Complainant, aRate, aComplainantID]);
       end;
   finally
     aComplaints.Free;
