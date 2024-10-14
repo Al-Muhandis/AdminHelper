@@ -120,7 +120,7 @@ type
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;   
-    procedure UpdateRatings(aComplainantID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+    procedure UpdateRatings(aInspectorID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
     function UserByID(aUserID: Int64): TBotUser;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
     property Message: TTelegramMessage read GetMessage;
@@ -327,7 +327,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TBotORM.UpdateRatings(aComplainantID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+procedure TBotORM.UpdateRatings(aInspectorID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
 var
   aComplaints: TopfComplaints.TEntities;
   aComplaint: TComplaint;
@@ -341,7 +341,7 @@ begin
     if opComplaints.Find(aComplaints, 'chat=:chat AND message=:message') then
       for aComplaint in aComplaints do
       begin
-        if aComplainantID=aComplaint.Complainant then
+        if aInspectorID=aComplaint.Complainant then
           Continue;
         aIsNew:=not GetUserByID(aComplaint.Complainant);
         aRate:=opUsers.Entity.Rate;
@@ -356,7 +356,7 @@ begin
           opUsers.Add(False);
         opUsers.Apply;
         Con.Logger.LogFmt(ltCustom, '#DebugInfo: the member (#%d) rating (now: %d p.) has been updated. Inspector: #%d',
-          [aComplaint.Complainant, aRate, aComplainantID]);
+          [aComplaint.Complainant, aRate, aInspectorID]);
       end;
   finally
     aComplaints.Free;
