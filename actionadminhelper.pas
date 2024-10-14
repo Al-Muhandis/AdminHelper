@@ -201,7 +201,10 @@ var
 
 begin
   if ORM.UserByID(aComplainant).Rate>_PowerRate then
+  begin
     BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
+    Exit;
+  end;
   if not ORM.GetOrAddMessage(aInspectedUser, aInspectedChat, aInspectedMessage) then
   begin
     aChatMembers:=TopfChatMembers.TEntities.Create;
