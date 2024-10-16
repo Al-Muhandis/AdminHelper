@@ -196,7 +196,7 @@ var
     try
       aKB:=aReplyMarkup.CreateInlineKeyBoard;
       aIsAlreadyBanned:=aSpamStatus=_msSpam;
-      if aIsAlreadyBanned then
+      if not aIsAlreadyBanned then
       begin
         aKB.Add.AddButtons(
           ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
@@ -218,13 +218,9 @@ begin
   aSpamStatus:=_msUnknown;
   aRate:=ORM.UserByID(aComplainant).Rate;
   if aRate>_PowerRatePatrol then
-  begin
-    if aRate>_PowerRateGuard then
-      Exit;
     aSpamStatus:=_msSpam;
-  end;
   ORM.SaveMessage(aInspectedUser, aInspectedChat, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
-  if aIsNotifyAdmins then
+  if (aRate<=_PowerRateGuard ) and aIsNotifyAdmins then
   begin
     aChatMembers:=TopfChatMembers.TEntities.Create;
     try
