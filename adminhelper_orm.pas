@@ -116,7 +116,8 @@ type
     destructor Destroy; override;
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
-    function GetOrAddMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
+    procedure SaveMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer;
+      out aIsNotifyAdmins: Boolean; aSpamStatus: Integer = 0);
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;   
@@ -125,6 +126,13 @@ type
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
     property Message: TTelegramMessage read GetMessage;
   end;
+
+const
+    _msUnknown = 0;
+    _msSpam    = 1;
+    _msNotSpam = -1;
+
+    _Penalty = 6;
 
 implementation
 
@@ -301,12 +309,16 @@ begin
   end;
 end;
 
-function TBotORM.GetOrAddMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
+  { You must to notify administrators if there is no yet the inspected message
+    or if a spam command is sending by patrol member }
+procedure TBotORM.SaveMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer; out
+  aIsNotifyAdmins: Boolean; aSpamStatus: Integer);
 begin
-  Result:=GetMessage(aInspectedChat, aInspectedMessage);
-  if not Result then
+  aIsNotifyAdmins:=not GetMessage(aInspectedChat, aInspectedMessage);
+  if aIsNotifyAdmins then
   begin
     opMessages.Entity.User:=aInspectedUser;
+    opMessages.Entity.IsSpam:=aSpamStatus;
     opMessages.Add(False);
     opMessages.Apply;
   end;
@@ -340,15 +352,15 @@ begin
   try
     if opComplaints.Find(aComplaints, 'chat=:chat AND message=:message') then
       for aComplaint in aComplaints do
-      begin
+      begin                    {
         if aInspectorID=aComplaint.Complainant then
-          Continue;
+          Continue;               }
         aIsNew:=not GetUserByID(aComplaint.Complainant);
         aRate:=opUsers.Entity.Rate;
         if aIsSpam then
           Inc(aRate)
         else
-          Dec(aRate, 5);
+          Dec(aRate, _Penalty);
         opUsers.Entity.Rate:=aRate;
         if not aIsNew then
           opUsers.Modify(False)

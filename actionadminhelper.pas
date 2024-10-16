@@ -54,16 +54,17 @@ resourcestring
   _sYrRghts=            'Status: %s';
 
 const
-  _PowerRate = 10;
+  _PowerRatePatrol = 11;
+  _PowerRateGuard = _PowerRatePatrol*3;
   _dSpm = 'spam';
   _LvlStndrd='Standard';
-  _LvlGrd='Guard';
+  _LvlPatrol='Patrol';  
+  _LvlGrd=   'Guard';
 
-  _emjSheriff='🛡';
+  _emjSheriff='🛡'; 
+  _emjPatrol='🚓';
 
   _tgErrBtnUsrPrvcyRstrctd='Bad Request: BUTTON_USER_PRIVACY_RESTRICTED';
-
-
 
 function RouteCmdSpam(aChat: Int64; aMsg: Integer; IsSpam: Boolean): String;
 begin
@@ -125,10 +126,13 @@ var
   aStatus, aMsg: String;
 begin
   aRate:=ORM.UserByID(aMessage.From.ID).Rate;
-  if aRate<_PowerRate then
+  if aRate<_PowerRatePatrol then
     aStatus:=_LvlStndrd
   else
-    aStatus:=_emjSheriff+' '+_LvlGrd;
+    if aRate<_PowerRateGuard then
+      aStatus:=_emjPatrol+' '+_LvlPatrol
+    else
+      aStatus:=_emjSheriff+' '+_LvlGrd;
   aMsg:=Format(_sYrRtng, [aRate])+LineEnding+Format(_sYrRghts, [aStatus]);
   Bot.sendMessage(aMsg);
 end;
@@ -179,47 +183,64 @@ procedure TAdminHelper.SendComplaint(aComplainant, aInspectedChat, aInspectedUse
 var
   aChatMembers: TopfChatMembers.TEntities;
   aChatMember: TChatMember;
+  aSpamStatus, aRate: Integer;
+  aIsNotifyAdmins: Boolean;
 
-  procedure SendToModerator(aModerator: Int64);
+  procedure SendToModerator(aModerator: Int64; aSpamStatus: Integer);
   var
     aReplyMarkup: TReplyMarkup;
     aKB: TInlineKeyboard;
+    aIsAlreadyBanned: Boolean;
   begin
     aReplyMarkup:=TReplyMarkup.Create;
     try
       aKB:=aReplyMarkup.CreateInlineKeyBoard;
-      aKB.Add.AddButtons(
-        ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
-        'It isn''t spam!', RouteCmdSpam(aInspectedChat, aInspectedMessage, False)]
-      );
-      aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
-      Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, False, aReplyMarkup);
+      aIsAlreadyBanned:=aSpamStatus=_msSpam;
+      if aIsAlreadyBanned then
+      begin
+        aKB.Add.AddButtons(
+          ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
+          'It isn''t spam!', RouteCmdSpam(aInspectedChat, aInspectedMessage, False)]
+        );
+        aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
+      end
+      else begin
+        aKB.Add.AddButtonUrl('Banned user', Format('tg://user?id=%d', [aInspectedUser]));
+        aKB.Add.AddButtonUrl('Complainant', Format('tg://user?id=%d', [aComplainant]));
+      end;
+      Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsAlreadyBanned, aReplyMarkup);
     finally
       aReplyMarkup.Free;
     end;
   end;
 
 begin
-  if ORM.UserByID(aComplainant).Rate>_PowerRate then
+  aSpamStatus:=_msUnknown;
+  aRate:=ORM.UserByID(aComplainant).Rate;
+  if aRate>_PowerRatePatrol then
   begin
-    BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
-    Exit;
+    if aRate>_PowerRateGuard then
+      Exit;
+    aSpamStatus:=_msSpam;
   end;
-  if not ORM.GetOrAddMessage(aInspectedUser, aInspectedChat, aInspectedMessage) then
+  ORM.SaveMessage(aInspectedUser, aInspectedChat, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
+  if aIsNotifyAdmins then
   begin
     aChatMembers:=TopfChatMembers.TEntities.Create;
     try
       ORM.GetModeratorsByChat(aInspectedChat, aChatMembers);
       for aChatMember in aChatMembers do
         if aChatMember.Moderator then
-          SendToModerator(aChatMember.User);
+          SendToModerator(aChatMember.User, aSpamStatus);
     finally
       aChatMembers.Free;
     end;
-  end;
-  if ORM.Message.IsSpam<>0 then
-    Exit;
-  ORM.AddComplaint(aComplainant, aInspectedChat, aInspectedMessage);
+  end;    {
+  if ORM.Message.IsSpam<>_msUnknown then
+    Exit;}
+  ORM.AddComplaint(aComplainant, aInspectedChat, aInspectedMessage); 
+  if aRate>_PowerRatePatrol then
+    BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
 end;
 
 procedure TAdminHelper.BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
@@ -228,7 +249,6 @@ begin
   ORM.UpdateRatings(aComplainant, aInspectedChat, aInspectedMessage, aIsSpam);
   if aIsSpam then
   begin
-    Bot.Logger.Debug(Format('aInspectedMessage: %d', [aInspectedMessage]));
     Bot.deleteMessage(aInspectedChat, aInspectedMessage);
     Bot.banChatMember(aInspectedChat, aInspectedUser);
     Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgHsDlt);
