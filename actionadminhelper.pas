@@ -107,6 +107,7 @@ begin
   if not ORM.IsModerator(aInspectedChat, ACallback.From.ID) then
     Exit;
   if ORM.GetMessage(aInspectedChat, aInspectedMessage) then
+  begin
     if ORM.ModifyMessageIfNotChecked(aIsSpam) then
     begin
       BanOrNotToBan(Bot.CurrentChatId, aInspectedChat, ORM.Message.User,  aInspectedMessage, aIsSpam);
@@ -116,8 +117,9 @@ begin
       ChangeKeyboardAfterCheckedOut(ORM.Message.IsSpam=1, ORM.Message.User);
       Bot.answerCallbackQuery(ACallback.ID, _sInspctdMsgWsChckdOt);
     end
+  end
   else
-    Bot.Logger.Error(Format('There is no the message #d in the chat #d', [aInspectedMessage, aInspectedChat]));
+    Bot.Logger.Error(Format('There is no the message #%d in the chat #%d', [aInspectedMessage, aInspectedChat]));
 end;
 
 procedure TAdminHelper.BtCmndSettings(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
@@ -173,7 +175,7 @@ end;
 
 function TAdminHelper.GetBotORM: TBotORM;
 begin
-  if not Assigned(FBotORM) then
+  if FBotORM=nil then
     FBotORM:=TBotORM.Create(DBConfig);
   Result:=FBotORM;
 end;
@@ -196,17 +198,17 @@ var
     try
       aKB:=aReplyMarkup.CreateInlineKeyBoard;
       aIsAlreadyBanned:=aSpamStatus=_msSpam;
-      if not aIsAlreadyBanned then
-      begin
+      if aIsAlreadyBanned then
+      begin    
+        aKB.Add.AddButtonUrl('Banned user', Format('tg://user?id=%d', [aInspectedUser]));
+        aKB.Add.AddButtonUrl('Complainant', Format('tg://user?id=%d', [aComplainant]));
+      end
+      else begin
         aKB.Add.AddButtons(
           ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
           'It isn''t spam!', RouteCmdSpam(aInspectedChat, aInspectedMessage, False)]
         );
         aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
-      end
-      else begin
-        aKB.Add.AddButtonUrl('Banned user', Format('tg://user?id=%d', [aInspectedUser]));
-        aKB.Add.AddButtonUrl('Complainant', Format('tg://user?id=%d', [aComplainant]));
       end;
       Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsAlreadyBanned, aReplyMarkup);
     finally

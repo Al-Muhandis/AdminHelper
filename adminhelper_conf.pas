@@ -40,26 +40,6 @@ uses
   RUtils, dateutils, jsonparser, jsonscanner, tgsendertypes
   ;
 
-procedure SaveConfig(aConf: TConf);
-begin
-  SaveToJSON(aConf, ChangeFileExt(ParamStr(0), '.json'));
-end;
-
-function LoadJSONObjectFromFile(const AFileName: String): TJSONObject;
-var
-  AJSON: TStringList;
-begin
-  if not FileExists(AFileName) then
-    Exit;
-  AJSON:=TStringList.Create;
-  try
-    AJSON.LoadFromFile(AFileName);
-    Result:=StringToJSONObject(AJSON.Text);
-  finally
-    AJSON.Free;
-  end;
-end;
-
 { TConf }
 
 constructor TConf.Create;
