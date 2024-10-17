@@ -211,6 +211,8 @@ var
         aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
       end;
       Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsAlreadyBanned, aReplyMarkup);
+      if (Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd) then
+        Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsAlreadyBanned, nil);
     finally
       aReplyMarkup.Free;
     end;
