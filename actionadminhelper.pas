@@ -289,21 +289,24 @@ begin
       Exit;
   ORM.ClearModeratorsForChat(aChat);
   Bot.getChatAdministrators(aChat, aModerators);
-  aModeratorIDs:=TInt64List.Create;
-  try                                      
-    aModeratorIDs.Capacity:=aModerators.Count;
-    for m in aModerators do
-      with (m.Value as TJSONObject).Objects['user'] do
-        if not Booleans['is_bot'] then
-          aModeratorIDs.Add(Int64s['id']);
+  try
+    aModeratorIDs:=TInt64List.Create;
     try
-      ORM.AddChatMembers(aChat, True, aModeratorIDs);
-    except
-      on E: Exception do
-        Bot.Logger.Error('UpdateModeratorsForChat. '+e.ClassName+': '+e.Message);
+      aModeratorIDs.Capacity:=aModerators.Count;
+      for m in aModerators do
+        with (m.Value as TJSONObject).Objects['user'] do
+          if not Booleans['is_bot'] then
+            aModeratorIDs.Add(Int64s['id']);
+      try
+        ORM.AddChatMembers(aChat, True, aModeratorIDs);
+      except
+        on E: Exception do
+          Bot.Logger.Error('UpdateModeratorsForChat. '+e.ClassName+': '+e.Message);
+      end;
+    finally
+      aModeratorIDs.Free;
     end;
-  finally
-    aModeratorIDs.Free;
+  finally  
     aModerators.Free;
   end;
 end;
