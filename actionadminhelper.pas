@@ -25,8 +25,8 @@ type
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
     function GetBotORM: TBotORM;
-    procedure SendComplaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
-      aInspectedChatName: String = '');
+    procedure SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: Int64;
+      aInspectedMessage: Integer; aInspectedChatName: String = '');
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
   protected
     property BotConfig: TBotConf read FBotConfig write FBotConfig;
@@ -41,7 +41,7 @@ type
 implementation
 
 uses
-  eventlog, sysutils, StrUtils, adminhelper_conf, fgl
+  eventlog, sysutils, StrUtils, adminhelper_conf, fgl, tgutils
   ;
 
 resourcestring
@@ -142,20 +142,21 @@ end;
 procedure TAdminHelper.BtCmndSpam(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
 var
   aInspectedMessage: TTelegramMessageObj;
-  aComplainant, aInspectedUser, aInspectedChat: Int64;
+  aInspectedChat: Int64;
   aInspectedMessageID: Integer;
   aInspectedChatName: String;
+  aComplainant, aInspectedUser: TTelegramUserObj;
 begin
   aInspectedMessage:=aMessage.ReplyToMessage;
   if Assigned(aInspectedMessage) then
   begin
-    aComplainant:=aMessage.From.ID;
+    aComplainant:=aMessage.From;
     aInspectedChat:=aInspectedMessage.ChatId;
     aInspectedChatName:=aInspectedMessage.Chat.Username;
-    aInspectedUser:=aInspectedMessage.From.ID;
+    aInspectedUser:=aInspectedMessage.From;
     aInspectedMessageID:=aInspectedMessage.MessageId;
     Bot.deleteMessage(aMessage.MessageId);                                             
-    SendComplaint(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessageID, aInspectedChatName);
+    SendComplaint(aComplainant, aInspectedUser, aInspectedChat, aInspectedMessageID, aInspectedChatName);
   end
   else
     Bot.deleteMessage(aMessage.MessageId);
@@ -180,8 +181,8 @@ begin
   Result:=FBotORM;
 end;
 
-procedure TAdminHelper.SendComplaint(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: Integer;
-  aInspectedChatName: String);
+procedure TAdminHelper.SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: Int64;
+  aInspectedMessage: Integer; aInspectedChatName: String);
 var
   aChatMembers: TopfChatMembers.TEntities;
   aChatMember: TChatMember;
@@ -200,8 +201,10 @@ var
       aIsAlreadyBanned:=aSpamStatus=_msSpam;
       if aIsAlreadyBanned then
       begin    
-        aKB.Add.AddButtonUrl('Banned user', Format('tg://user?id=%d', [aInspectedUser]));
-        aKB.Add.AddButtonUrl('Complainant', Format('tg://user?id=%d', [aComplainant]));
+        aKB.Add.AddButtonUrl('Banned user: '+CaptionFromUser(aInspectedUser),
+          Format('tg://user?id=%d', [aInspectedUser.ID]));
+        aKB.Add.AddButtonUrl('Complainant: '+CaptionFromUser(aComplainant),
+          Format('tg://user?id=%d', [aComplainant.ID]));
       end
       else begin
         aKB.Add.AddButtons(
@@ -220,10 +223,10 @@ var
 
 begin
   aSpamStatus:=_msUnknown;
-  aRate:=ORM.UserByID(aComplainant).Rate;
+  aRate:=ORM.UserByID(aComplainant.ID).Rate;
   if aRate>_PowerRatePatrol then
     aSpamStatus:=_msSpam;
-  ORM.SaveMessage(aInspectedUser, aInspectedChat, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
+  ORM.SaveMessage(aInspectedUser.ID, aInspectedChat, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
   if (aRate<=_PowerRateGuard ) and aIsNotifyAdmins then
   begin
     aChatMembers:=TopfChatMembers.TEntities.Create;
@@ -238,9 +241,9 @@ begin
   end;    {
   if ORM.Message.IsSpam<>_msUnknown then
     Exit;}
-  ORM.AddComplaint(aComplainant, aInspectedChat, aInspectedMessage); 
+  ORM.AddComplaint(aComplainant.ID, aInspectedChat, aInspectedMessage); 
   if aRate>_PowerRatePatrol then
-    BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser, aInspectedMessage, True);
+    BanOrNotToBan(aComplainant.ID, aInspectedChat, aInspectedUser.ID, aInspectedMessage, True);
 end;
 
 procedure TAdminHelper.BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
