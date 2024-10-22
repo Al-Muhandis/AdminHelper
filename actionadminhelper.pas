@@ -215,8 +215,8 @@ var
         end; 
         Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsDefinitelySpam, aReplyMarkup);
         aIsUserPrivacy:=(Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd);
-      end
-      else
+      end;
+      if aIsUserPrivacy then
         Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsDefinitelySpam, nil);
     finally
       aReplyMarkup.Free;
@@ -229,7 +229,7 @@ begin
   if aRate>_PowerRatePatrol then
     aSpamStatus:=_msSpam;
   ORM.SaveMessage(aInspectedUser.ID, aInspectedChat, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
-  if (aRate<=_PowerRateGuard ) and aIsNotifyAdmins then
+  if (aRate<=_PowerRateGuard) and aIsNotifyAdmins then
   begin
     aChatMembers:=TopfChatMembers.TEntities.Create;
     try
