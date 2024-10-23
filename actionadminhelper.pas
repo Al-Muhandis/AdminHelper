@@ -18,7 +18,8 @@ type
     FBotORM: TBotORM;
     FDBConfig: TDBConf;                             
     procedure BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64;
-      aInspectedMessage: LongInt; aIsSpam: Boolean);
+      aInspectedMessage: LongInt; aIsSpam: Boolean);                      
+    procedure BtClbckMessage({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);
     procedure BtClbckSpam({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);                     
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
@@ -66,9 +67,16 @@ const
 
   _tgErrBtnUsrPrvcyRstrctd='Bad Request: BUTTON_USER_PRIVACY_RESTRICTED';
 
+  _dtUsrPrvcy='UsrPrvcy';
+
 function RouteCmdSpam(aChat: Int64; aMsg: Integer; IsSpam: Boolean): String;
 begin
   Result:=_dSpm+' '+aChat.ToString+' '+aMsg.ToString+' '+IsSpam.ToString;
+end;
+
+function RouteMsgUsrPrvcy: String;
+begin
+  Result:='m'+' '+_dtUsrPrvcy;
 end;
 
 function BuildMsgUrl(aChatName: String; aChatID: Int64; aMsgID: Integer): String;
@@ -193,33 +201,41 @@ var
   var
     aReplyMarkup: TReplyMarkup;
     aKB: TInlineKeyboard;
+    aBndUsr, aCmplnnt: String;
   begin
     aReplyMarkup:=TReplyMarkup.Create;
     try
       aKB:=aReplyMarkup.CreateInlineKeyBoard;
-      if not aIsUserPrivacy  then
+      if aIsDefinitelySpam then
       begin
-        if aIsDefinitelySpam then
+        aBndUsr:= 'Banned user: '+CaptionFromUser(aInspectedUser);
+        aCmplnnt:='Complainant: '+CaptionFromUser(aComplainant);
+        if aIsUserPrivacy  then
         begin
-          aKB.Add.AddButtonUrl('Banned user: '+CaptionFromUser(aInspectedUser),
-            Format('tg://user?id=%d', [aInspectedUser.ID]));
-          aKB.Add.AddButtonUrl('Complainant: '+CaptionFromUser(aComplainant),
-            Format('tg://user?id=%d', [aComplainant.ID]));
+          aKB.Add.AddButton(aBndUsr,   RouteMsgUsrPrvcy);
+          aKB.Add.AddButton(aCmplnnt,  RouteMsgUsrPrvcy);
         end
         else begin
-          aKB.Add.AddButtons(
-            ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
-            'It isn''t spam!', RouteCmdSpam(aInspectedChat, aInspectedMessage, False)]
-          );
-          aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
-        end; 
-        Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsDefinitelySpam, aReplyMarkup);
-        aIsUserPrivacy:=(Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd);
+          aKB.Add.AddButtonUrl(aBndUsr,  Format('tg://user?id=%d', [aInspectedUser.ID]));
+          aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]));
+        end;
+      end
+      else begin
+        aKB.Add.AddButtons(
+          ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
+          'It isn''t spam!', RouteCmdSpam(aInspectedChat, aInspectedMessage, False)]
+        );
+        aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
       end;
-      if aIsUserPrivacy then
-        Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsDefinitelySpam, nil);
+      Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsDefinitelySpam, aReplyMarkup);
     finally
       aReplyMarkup.Free;
+    end;
+    if not aIsUserPrivacy then
+    begin
+      aIsUserPrivacy:=(Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd);
+      if aIsUserPrivacy then
+        SendToModerator(aModerator, aIsDefinitelySpam);
     end;
   end;
 
@@ -259,6 +275,18 @@ begin
   end
   else
     Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgIsNtSpm);
+end;
+
+procedure TAdminHelper.BtClbckMessage(ASender: TObject; ACallback: TCallbackQueryObj);
+var
+  aMsg: String;
+begin
+  case ExtractDelimited(2, ACallback.Data, [' ']) of
+    _dtUsrPrvcy: aMsg:='User privacy for one of the buttons restricted';
+  else
+    aMsg:='The message not defined';
+  end;
+  Bot.answerCallbackQuery(ACallback.ID, aMsg, True, EmptyStr, 1000);
 end;
 
 procedure TAdminHelper.ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
@@ -328,7 +356,8 @@ begin
 
   Bot.LogDebug:=BotConfig.Debug;
 
-  Bot.CommandHandlers['/spam']:=@BtCmndSpam;
+  Bot.CommandHandlers['/spam']:=@BtCmndSpam; 
+  Bot.CallbackHandlers['m']:=@BtClbckMessage;
   Bot.CallbackHandlers['spam']:=@BtClbckSpam;
   Bot.CommandHandlers['/update']:=@BtCmndUpdate;
   Bot.CommandHandlers['/settings']:=@BtCmndSettings;
