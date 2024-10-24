@@ -24,7 +24,7 @@ type
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
-    procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
+    procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64; aIsUserPrivacy: Boolean = False);
     function GetBotORM: TBotORM;
     procedure SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: Int64;
       aInspectedMessage: Integer; aInspectedChatName: String = '');
@@ -289,7 +289,7 @@ begin
   Bot.answerCallbackQuery(ACallback.ID, aMsg, True, EmptyStr, 1000);
 end;
 
-procedure TAdminHelper.ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64);
+procedure TAdminHelper.ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64; aIsUserPrivacy: Boolean);
 var
   aReplyMarkup: TReplyMarkup;
   s: String;
@@ -300,12 +300,19 @@ begin
       s:='Banned user'
     else
       s:='Inspected user';
-    aReplyMarkup.CreateInlineKeyBoard.Add.AddButtonUrl(s, Format('tg://user?id=%d', [aInspectedUser]));
+    if aIsUserPrivacy then                                                                             
+      aReplyMarkup.CreateInlineKeyBoard.Add.AddButton(s, RouteMsgUsrPrvcy)
+    else
+      aReplyMarkup.CreateInlineKeyBoard.Add.AddButtonUrl(s, Format('tg://user?id=%d', [aInspectedUser]));
     Bot.editMessageReplyMarkup(Bot.CurrentMessage.ChatId, Bot.CurrentMessage.MessageId, EmptyStr, aReplyMarkup);
-    if (Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd) then
-      Bot.editMessageReplyMarkup(Bot.CurrentMessage.ChatId, Bot.CurrentMessage.MessageId, EmptyStr, nil);
   finally
     aReplyMarkup.Free;
+  end;
+  if not aIsUserPrivacy then
+  begin
+    aIsUserPrivacy:=(Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd);
+    if aIsUserPrivacy then
+      ChangeKeyboardAfterCheckedOut(aIsSpam, aInspectedUser, True);
   end;
 end;
 
