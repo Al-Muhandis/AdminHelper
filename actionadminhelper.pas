@@ -184,8 +184,20 @@ begin
 end;
 
 procedure TAdminHelper.BtRcvChatMemberUpdated(ASender: TTelegramSender; aChatMemberUpdated: TTelegramChatMemberUpdated);
+var
+  aIsNew: Boolean;
+  aUserID: Int64;
 begin
-  ORM.UpdateUserAppearance(aChatMemberUpdated.NewChatMember.User.ID);
+  aUserID:=aChatMemberUpdated.NewChatMember.User.ID;
+  aIsNew:=not ORM.GetUserByID(aUserID);
+  if ORM.User.Spammer=1 then
+  begin
+    Bot.banChatMember(aChatMemberUpdated.Chat.ID, aUserID);
+    Bot.Logger.Warning('The user #%d (%s) was preventively banned',
+      [aUserID, CaptionFromUser(aChatMemberUpdated.NewChatMember.User)]);
+    Exit;
+  end;
+  ORM.SaveUserAppearance(aIsNew);
 end;
 
 function TAdminHelper.GetBotORM: TBotORM;
@@ -278,6 +290,7 @@ begin
     Bot.deleteMessage(aInspectedChat, aInspectedMessage);
     Bot.banChatMember(aInspectedChat, aInspectedUser);
     Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgHsDlt);
+    ORM.SaveUserSpamStatus(aInspectedUser);
   end
   else
     Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgIsNtSpm);

@@ -187,7 +187,7 @@
       <Unit0>
         <Filename Value="adminhelperd.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="62" Y="12"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -230,10 +230,9 @@
       <Unit6>
         <Filename Value="..\brook-telegram\brooktelegramaction.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="61"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\HelperBots\landingaction.pas"/>
@@ -252,11 +251,10 @@
       </Unit8>
       <Unit9>
         <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="2266"/>
-        <CursorPos X="3" Y="2269"/>
-        <UsageCount Value="97"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="518"/>
+        <CursorPos X="15" Y="530"/>
+        <UsageCount Value="99"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\HelperBots\workers.pas"/>
@@ -394,10 +392,9 @@
       <Unit29>
         <Filename Value="adminhelper_orm.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="369"/>
-        <CursorPos X="51" Y="378"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="23"/>
+        <CursorPos X="14" Y="35"/>
         <UsageCount Value="241"/>
         <Loaded Value="True"/>
       </Unit29>
@@ -439,8 +436,9 @@
       <Unit35>
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="149"/>
-        <CursorPos X="68" Y="188"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="184"/>
+        <CursorPos X="32" Y="200"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit35>
@@ -454,7 +452,7 @@
       <Unit37>
         <Filename Value="adminhelper_conf.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="10"/>
         <CursorPos X="3" Y="17"/>
         <UsageCount Value="207"/>
@@ -471,18 +469,17 @@
       <Unit39>
         <Filename Value="brokers.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="38" Y="5"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\fp-telegram\tgtypes.pas"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="408"/>
-        <CursorPos X="3" Y="422"/>
-        <UsageCount Value="36"/>
-        <Loaded Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="434"/>
+        <CursorPos X="16" Y="447"/>
+        <UsageCount Value="38"/>
       </Unit40>
       <Unit41>
         <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\core\brookaction.pas"/>
@@ -536,123 +533,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="448" Column="18" TopLine="425"/>
+        <Caret Line="398" Column="69" TopLine="394"/>
       </Position1>
       <Position2>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="446" Column="3" TopLine="424"/>
+        <Caret Line="132" Column="15" TopLine="132"/>
       </Position2>
       <Position3>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="130" Column="26" TopLine="112"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="190" Column="3" TopLine="188"/>
       </Position3>
       <Position4>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="401" Column="30" TopLine="400"/>
+        <Caret Line="139" Column="42" TopLine="117"/>
       </Position4>
       <Position5>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="130" Column="40" TopLine="119"/>
+        <Caret Line="289" Column="3" TopLine="274"/>
       </Position5>
       <Position6>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="406" Column="48" TopLine="399"/>
+        <Caret Line="113" Column="23" TopLine="102"/>
       </Position6>
       <Position7>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="129" Column="15" TopLine="119"/>
+        <Caret Line="289" Column="3" TopLine="285"/>
       </Position7>
       <Position8>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="393" TopLine="369"/>
+        <Caret Line="113" Column="14" TopLine="102"/>
       </Position8>
       <Position9>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="130" Column="15" TopLine="117"/>
+        <Caret Line="289" Column="3" TopLine="285"/>
       </Position9>
       <Position10>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="401" Column="39" TopLine="399"/>
+        <Caret Line="108" Column="14" TopLine="102"/>
       </Position10>
       <Position11>
-        <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="187" TopLine="186"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="240" TopLine="236"/>
       </Position11>
       <Position12>
-        <Filename Value="..\fp-telegram\tgtypes.pas"/>
-        <Caret Line="581" Column="3" TopLine="568"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="113" Column="14" TopLine="95"/>
       </Position12>
       <Position13>
-        <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
-        <Caret Line="529" Column="40" TopLine="516"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="190" Column="3" TopLine="188"/>
       </Position13>
       <Position14>
-        <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
-        <Caret Line="2267" Column="51" TopLine="2245"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="192" Column="33" TopLine="181"/>
       </Position14>
       <Position15>
-        <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
-        <Caret Line="2353" Column="55" TopLine="2332"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="133" Column="15" TopLine="122"/>
       </Position15>
       <Position16>
-        <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
-        <Caret Line="530" Column="15" TopLine="517"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="405" Column="38" TopLine="402"/>
       </Position16>
       <Position17>
-        <Filename Value="..\fp-telegram\tgsendertypes.pas"/>
-        <Caret Line="2269" Column="3" TopLine="2266"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="195" Column="66" TopLine="181"/>
       </Position17>
       <Position18>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="27" Column="38" TopLine="14"/>
+        <Caret Line="20" Column="15" TopLine="7"/>
       </Position18>
       <Position19>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="188" Column="3" TopLine="186"/>
+        <Caret Line="285" Column="3" TopLine="282"/>
       </Position19>
       <Position20>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="27" Column="15" TopLine="14"/>
+        <Caret Line="282" Column="37" TopLine="273"/>
       </Position20>
       <Position21>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="117" Column="103" TopLine="106"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="20" Column="28" TopLine="7"/>
       </Position21>
       <Position22>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="38" Column="22" TopLine="14"/>
+        <Caret Line="122" Column="20" TopLine="103"/>
       </Position22>
       <Position23>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="365" Column="29" TopLine="359"/>
+        <Caret Line="27" Column="15" TopLine="10"/>
       </Position23>
       <Position24>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="27" Column="15" TopLine="14"/>
+        <Caret Line="197" Column="53" TopLine="186"/>
       </Position24>
       <Position25>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="188" Column="3" TopLine="186"/>
+        <Caret Line="198" Column="5" TopLine="179"/>
       </Position25>
       <Position26>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="129" Column="15" TopLine="118"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="191" Column="77" TopLine="184"/>
       </Position26>
       <Position27>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="188" Column="68" TopLine="186"/>
+        <Caret Line="193" Column="22" TopLine="180"/>
       </Position27>
       <Position28>
-        <Filename Value="..\fp-telegram\tgtypes.pas"/>
-        <Caret Line="452" Column="14" TopLine="440"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="200" Column="32" TopLine="184"/>
       </Position28>
       <Position29>
         <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="399" Column="15" TopLine="392"/>
+        <Caret Line="133" Column="15" TopLine="119"/>
       </Position29>
       <Position30>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="128" Column="15" TopLine="118"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="200" Column="32" TopLine="184"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

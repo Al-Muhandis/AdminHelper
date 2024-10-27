@@ -25,7 +25,9 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint NOT NULL,
+  `appearance` bigint NOT NULL,
   `name` varchar(64) NOT NULL,
   `rate` int NOT NULL,
+  `spammer` int NOT NULL,
   PRIMARY KEY (`id`)
 );

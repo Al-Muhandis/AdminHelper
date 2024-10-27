@@ -22,6 +22,7 @@ type
     FName: String;
     FRate: Integer;
     FId: Int64;
+    FSpammer: Integer;
     function GetAppearanceAsDateTime: TDateTime;
     procedure SetAppearanceAsDateTime(AValue: TDateTime);
   public
@@ -31,6 +32,7 @@ type
     property ID: Int64 read FId write FId;
     property Name: String read FName write FName;
     property Rate: Integer read FRate write FRate;
+    property Spammer: Integer read FSpammer write FSpammer;
     property Appearance: Int64 read FAppearance write FAppearance;
   end;
 
@@ -101,17 +103,19 @@ type
     FopMessages: TopfMessages;
     FopUsers: TopfBotUsers;                       
     procedure AddChatMember(aChat, aUser: Int64; aModerator: Boolean); // Without Apply table
+    function Con: TdSQLdbConnector;
+    class procedure CreateDB({%H-}aConnection: TdSQLdbConnector);
     function GetMessage: TTelegramMessage;
     function GetopChatMembers: TopfChatMembers;
     function GetopComplaints: TopfComplaints;
     function GetopMessages: TopfMessages;
-    function GetopUsers: TopfBotUsers;
-    function Con: TdSQLdbConnector;
-    class procedure CreateDB({%H-}aConnection: TdSQLdbConnector);
+    function GetopUsers: TopfBotUsers;                           
+    function GetUser: TBotUser;
   protected
     property opMessages: TopfMessages read GetopMessages;
     property opComplaints: TopfComplaints read GetopComplaints; 
-    property opChatMembers: TopfChatMembers read GetopChatMembers;
+    property opChatMembers: TopfChatMembers read GetopChatMembers;   
+    property opUsers: TopfBotUsers read GetopUsers;
   public
     procedure AddChatMembers(aChat: Int64; aModerator: Boolean; aUsers: TInt64List);
     procedure AddComplaint(aComplainant, aInspectedChat: Int64; aInspectedMessage: Integer);
@@ -126,11 +130,13 @@ type
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;   
     procedure UpdateRatings(aInspectorID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
-    procedure UpdateUserAppearance(aUserID: Int64);
+    procedure SaveUserAppearance(aIsNew: Boolean);
+    procedure SaveUserSpamStatus(aUserID: Int64; aIsSpammer: Boolean = True);
+    procedure SaveUser(aIsNew: Boolean);
     function UserByID(aUserID: Int64): TBotUser;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
-    property Message: TTelegramMessage read GetMessage;        
-    property opUsers: TopfBotUsers read GetopUsers;
+    property Message: TTelegramMessage read GetMessage;
+    property User: TBotUser read GetUser;
   end;
 
 const
@@ -150,12 +156,12 @@ uses
 
 procedure TBotUser.SetAppearanceAsDateTime(AValue: TDateTime);
 begin
-  FAppearance:=DateTimeToUnix(AValue);
+  FAppearance:=DateTimeToUnix(AValue, False);
 end;
 
 function TBotUser.GetAppearanceAsDateTime: TDateTime;
 begin
-  Result:=UnixToDateTime(FAppearance);
+  Result:=UnixToDateTime(FAppearance, False);
 end;
 
 procedure TBotUser.Clear;
@@ -163,6 +169,7 @@ begin
   FName:=EmptyStr;
   FRate:=0;
   FAppearance:=0;
+  FSpammer:=_msUnknown;
 end;
 
 { TChatMember }
@@ -277,6 +284,11 @@ begin
   { #todo : Create tables }
 end;
 
+function TBotORM.GetUser: TBotUser;
+begin
+  Result:=opUsers.Entity;
+end;
+
 procedure TBotORM.AddChatMember(aChat, aUser: Int64; aModerator: Boolean);
 begin
   opChatMembers.Entity.Chat:=aChat;
@@ -381,11 +393,7 @@ begin
         else
           Dec(aRate, _Penalty);
         opUsers.Entity.Rate:=aRate;
-        if not aIsNew then
-          opUsers.Modify(False)
-        else
-          opUsers.Add(False);
-        opUsers.Apply;
+        SaveUser(aIsNew);
         Con.Logger.LogFmt(ltCustom, '#DebugInfo: the member (#%d) rating (now: %d p.) has been updated. Inspector: #%d',
           [aComplaint.Complainant, aRate, aInspectorID]);
       end;
@@ -394,15 +402,29 @@ begin
   end;
 end;
    { We assign an Appearance only if it is 0 (not defined yet) }
-procedure TBotORM.UpdateUserAppearance(aUserID: Int64);
-var
-  aIsNew: Boolean;
+procedure TBotORM.SaveUserAppearance(aIsNew: Boolean);
 begin
-  aIsNew:=not GetUserByID(aUserID);
   if opUsers.Entity.Appearance=0 then
     opUsers.Entity.AppearanceAsDateTime:=Now
   else
     Exit;
+  SaveUser(aIsNew);
+end;
+
+procedure TBotORM.SaveUserSpamStatus(aUserID: Int64; aIsSpammer: Boolean);
+var
+  aIsNew: Boolean;
+begin
+  aIsNew:=not GetUserByID(aUserID);
+  if aIsSpammer then
+    opUsers.Entity.Spammer:=_msSpam
+  else                       
+    opUsers.Entity.Spammer:=_msNotSpam;
+  SaveUser(aIsNew);
+end;
+
+procedure TBotORM.SaveUser(aIsNew: Boolean);
+begin
   if aIsNew then
     opUsers.Add(False)
   else
