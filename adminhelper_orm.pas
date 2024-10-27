@@ -18,15 +18,20 @@ type
 
   TBotUser = class(THelperObjctRoot)
   private
+    FAppearance: Int64;
     FName: String;
     FRate: Integer;
     FId: Int64;
+    function GetAppearanceAsDateTime: TDateTime;
+    procedure SetAppearanceAsDateTime(AValue: TDateTime);
   public
     procedure Clear; override;
+    property AppearanceAsDateTime: TDateTime read GetAppearanceAsDateTime write SetAppearanceAsDateTime;
   published
     property ID: Int64 read FId write FId;
     property Name: String read FName write FName;
     property Rate: Integer read FRate write FRate;
+    property Appearance: Int64 read FAppearance write FAppearance;
   end;
 
   { TChatMember }
@@ -104,7 +109,6 @@ type
     function Con: TdSQLdbConnector;
     class procedure CreateDB({%H-}aConnection: TdSQLdbConnector);
   protected
-    property opUsers: TopfBotUsers read GetopUsers;
     property opMessages: TopfMessages read GetopMessages;
     property opComplaints: TopfComplaints read GetopComplaints; 
     property opChatMembers: TopfChatMembers read GetopChatMembers;
@@ -122,9 +126,11 @@ type
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;   
     procedure UpdateRatings(aInspectorID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+    procedure UpdateUserAppearance(aUserID: Int64);
     function UserByID(aUserID: Int64): TBotUser;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
-    property Message: TTelegramMessage read GetMessage;
+    property Message: TTelegramMessage read GetMessage;        
+    property opUsers: TopfBotUsers read GetopUsers;
   end;
 
 const
@@ -137,15 +143,26 @@ const
 implementation
 
 uses
-  dOpf
+  dOpf, DateUtils
   ;
 
 { TBotUser }
+
+procedure TBotUser.SetAppearanceAsDateTime(AValue: TDateTime);
+begin
+  FAppearance:=DateTimeToUnix(AValue);
+end;
+
+function TBotUser.GetAppearanceAsDateTime: TDateTime;
+begin
+  Result:=UnixToDateTime(FAppearance);
+end;
 
 procedure TBotUser.Clear;
 begin
   FName:=EmptyStr;
   FRate:=0;
+  FAppearance:=0;
 end;
 
 { TChatMember }
@@ -357,6 +374,8 @@ begin
           Continue;               }
         aIsNew:=not GetUserByID(aComplaint.Complainant);
         aRate:=opUsers.Entity.Rate;
+        if opUsers.Entity.Appearance=0 then
+          opUsers.Entity.AppearanceAsDateTime:=Now;
         if aIsSpam then
           Inc(aRate)
         else
@@ -373,6 +392,22 @@ begin
   finally
     aComplaints.Free;
   end;
+end;
+   { We assign an Appearance only if it is 0 (not defined yet) }
+procedure TBotORM.UpdateUserAppearance(aUserID: Int64);
+var
+  aIsNew: Boolean;
+begin
+  aIsNew:=not GetUserByID(aUserID);
+  if opUsers.Entity.Appearance=0 then
+    opUsers.Entity.AppearanceAsDateTime:=Now
+  else
+    Exit;
+  if aIsNew then
+    opUsers.Add(False)
+  else
+    opUsers.Modify(False);
+  opUsers.Apply;
 end;
 
 function TBotORM.GetUserByID(aUserID: Int64): Boolean;
@@ -421,8 +456,7 @@ end;
 
 function TBotORM.UserByID(aUserID: Int64): TBotUser;
 begin
-  if not GetUserByID(aUserID) then
-    opUsers.Entity.Clear;
+  GetUserByID(aUserID);
   Result:=opUsers.Entity;
 end;
 

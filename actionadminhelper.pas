@@ -24,6 +24,7 @@ type
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
+    procedure BtRcvChatMemberUpdated({%H-}ASender: TTelegramSender; aChatMemberUpdated: TTelegramChatMemberUpdated);
     procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64; aIsUserPrivacy: Boolean = False);
     function GetBotORM: TBotORM;
     procedure SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: Int64;
@@ -180,6 +181,11 @@ begin
   aUserID:=aMessage.From.ID;
   Bot.deleteMessage(aChatID, aMsgID);
   UpdateModeratorsForChat(aChatID, aUserID);
+end;
+
+procedure TAdminHelper.BtRcvChatMemberUpdated(ASender: TTelegramSender; aChatMemberUpdated: TTelegramChatMemberUpdated);
+begin
+  ORM.UpdateUserAppearance(aChatMemberUpdated.NewChatMember.User.ID);
 end;
 
 function TAdminHelper.GetBotORM: TBotORM;
@@ -363,7 +369,8 @@ begin
 
   Bot.LogDebug:=BotConfig.Debug;
 
-  Bot.CommandHandlers['/spam']:=@BtCmndSpam; 
+  Bot.OnReceiveChatMemberUpdated:=@BtRcvChatMemberUpdated;
+  Bot.CommandHandlers['/spam']:=@BtCmndSpam;
   Bot.CallbackHandlers['m']:=@BtClbckMessage;
   Bot.CallbackHandlers['spam']:=@BtClbckSpam;
   Bot.CommandHandlers['/update']:=@BtCmndUpdate;
