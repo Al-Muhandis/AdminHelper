@@ -30,7 +30,7 @@ type
     procedure SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: TTelegramChatObj;
       aInspectedMessage: Integer);
     procedure SendMessagesToAdmins(aInspectedMessage: Int64; aInspectedChat: TTelegramChatObj; aInspectedUser,
-      aComplainant: TTelegramUserObj; aSpamStatus: Integer);
+      aComplainant: TTelegramUserObj; aIsSpam: Boolean; aIsPreventively: Boolean = False);
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
   protected
     property BotConfig: TBotConf read FBotConfig write FBotConfig;
@@ -52,6 +52,7 @@ resourcestring
   _sInspctdMsgHsDlt=    'The message was successfully deleted and the spammer was banned';
   _sInspctdMsgIsNtSpm=  'The message is marked as NOT spam. Erroneous complaint';
   _sInspctdMsgWsChckdOt='The message has already been verified';
+  _sPrvntvlyBnd=        'The user #%d (%s) was preventively banned';
   _sStartText=          'Start Text for TAdminHelper';
   _sHelpText=           'Help Text for TAdminHelper';
   _sYrRtng=             'Your rating is %d';
@@ -189,13 +190,14 @@ var
   aIsNew: Boolean;
   aUserID: Int64;
 begin
+  if aChatMemberUpdated.NewChatMember.StatusType<>msMember then
+    Exit;
   aUserID:=aChatMemberUpdated.NewChatMember.User.ID;
   aIsNew:=not ORM.GetUserByID(aUserID);
-  if (ORM.User.Spammer=1) and (aChatMemberUpdated.NewChatMember.StatusType=msMember) then
+  if ORM.User.Spammer=1 then
   begin
     Bot.banChatMember(aChatMemberUpdated.Chat.ID, aUserID);
-    Bot.Logger.Warning('The user #%d (%s) was preventively banned',
-      [aUserID, CaptionFromUser(aChatMemberUpdated.NewChatMember.User)]);
+    SendMessagesToAdmins(0, aChatMemberUpdated.Chat, aChatMemberUpdated.NewChatMember.User, nil, True, True);
     Exit;
   end;
   ORM.SaveUserAppearance(aIsNew);
@@ -220,14 +222,14 @@ begin
     aSpamStatus:=_msSpam;
   ORM.SaveMessage(aInspectedUser.ID, aInspectedChat.ID, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
   if (aRate<=_PowerRateGuard) and aIsNotifyAdmins then
-    SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus);
+    SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus=_msSpam);
   ORM.AddComplaint(aComplainant.ID, aInspectedChat.ID, aInspectedMessage); 
   if aRate>_PowerRatePatrol then
     BanOrNotToBan(aComplainant.ID, aInspectedChat.ID, aInspectedUser.ID, aInspectedMessage, True);
 end;
 
-procedure TAdminHelper.SendMessagesToAdmins(aInspectedMessage: Int64; aInspectedChat: TTelegramChatObj;
-  aInspectedUser, aComplainant: TTelegramUserObj; aSpamStatus: Integer);
+procedure TAdminHelper.SendMessagesToAdmins(aInspectedMessage: Int64; aInspectedChat: TTelegramChatObj; aInspectedUser,
+  aComplainant: TTelegramUserObj; aIsSpam: Boolean; aIsPreventively: Boolean);
 var
   aChatMembers: TopfChatMembers.TEntities;
   aIsUserPrivacy: Boolean;
@@ -245,15 +247,18 @@ var
       if aIsDefinitelySpam then
       begin
         aBndUsr:= 'Banned user: '+CaptionFromUser(aInspectedUser);
-        aCmplnnt:='Complainant: '+CaptionFromUser(aComplainant);
+        if not aIsPreventively then
+          aCmplnnt:='Complainant: '+CaptionFromUser(aComplainant);
         if aIsUserPrivacy  then
         begin
           aKB.Add.AddButton(aBndUsr,   RouteMsgUsrPrvcy);
-          aKB.Add.AddButton(aCmplnnt,  RouteMsgUsrPrvcy);
+          if not aIsPreventively then
+            aKB.Add.AddButton(aCmplnnt,  RouteMsgUsrPrvcy);
         end
         else begin
           aKB.Add.AddButtonUrl(aBndUsr,  Format('tg://user?id=%d', [aInspectedUser.ID]));
-          aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]));
+          if not aIsPreventively then
+            aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]));
         end;
       end
       else begin
@@ -263,7 +268,11 @@ var
         );
         aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChat, aInspectedMessage));
       end;
-      Bot.copyMessage(aModerator, aInspectedChat.ID, aInspectedMessage, aIsDefinitelySpam, aReplyMarkup);
+      if aIsPreventively then
+        Bot.sendMessage(aModerator, Format(_sPrvntvlyBnd, [aInspectedUser.ID, CaptionFromUser(aInspectedUser)]),
+          pmMarkdown, aIsDefinitelySpam, aReplyMarkup)
+      else
+        Bot.copyMessage(aModerator, aInspectedChat.ID, aInspectedMessage, aIsDefinitelySpam, aReplyMarkup);
     finally
       aReplyMarkup.Free;
     end;
@@ -282,7 +291,7 @@ begin
     aIsUserPrivacy:=False;
     for aChatMember in aChatMembers do
       if aChatMember.Moderator then
-        SendToModerator(aChatMember.User, aSpamStatus=_msSpam);
+        SendToModerator(aChatMember.User, aIsSpam);
   finally
     aChatMembers.Free;
   end;

@@ -17,6 +17,11 @@ msgstr ""
 msgid "The message has already been verified"
 msgstr ""
 
+#: actionadminhelper._sprvntvlybnd
+#, object-pascal-format
+msgid "The user #%d (%s) was preventively banned"
+msgstr ""
+
 #: actionadminhelper._sstarttext
 msgid "Start Text for TAdminHelper"
 msgstr ""
