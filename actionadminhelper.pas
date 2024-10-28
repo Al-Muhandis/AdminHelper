@@ -27,8 +27,10 @@ type
     procedure BtRcvChatMemberUpdated({%H-}ASender: TTelegramSender; aChatMemberUpdated: TTelegramChatMemberUpdated);
     procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64; aIsUserPrivacy: Boolean = False);
     function GetBotORM: TBotORM;
-    procedure SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: Int64;
-      aInspectedMessage: Integer; aInspectedChatName: String = '');
+    procedure SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: TTelegramChatObj;
+      aInspectedMessage: Integer);
+    procedure SendMessagesToAdmins(aInspectedMessage: Int64; aInspectedChat: TTelegramChatObj; aInspectedUser,
+      aComplainant: TTelegramUserObj; aSpamStatus: Integer);
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
   protected
     property BotConfig: TBotConf read FBotConfig write FBotConfig;
@@ -80,15 +82,16 @@ begin
   Result:='m'+' '+_dtUsrPrvcy;
 end;
 
-function BuildMsgUrl(aChatName: String; aChatID: Int64; aMsgID: Integer): String;
+function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer): String;
 const
   _ChatIDPrefix='-100';
 var
-  aTpl: String;
+  aTpl, aChatName: String;
 begin
+  aChatName:=aChat.Username;
   if aChatName.IsEmpty then
   begin
-    aChatName:=aChatID.ToString;
+    aChatName:=aChat.ID.ToString;
     if StartsStr(_ChatIDPrefix, aChatName) then
       aChatName:=RightStr(aChatName, Length(aChatName)-Length(_ChatIDPrefix))
     else
@@ -151,21 +154,19 @@ end;
 procedure TAdminHelper.BtCmndSpam(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
 var
   aInspectedMessage: TTelegramMessageObj;
-  aInspectedChat: Int64;
   aInspectedMessageID: Integer;
-  aInspectedChatName: String;
   aComplainant, aInspectedUser: TTelegramUserObj;
+  aInspectedChat: TTelegramChatObj;
 begin
   aInspectedMessage:=aMessage.ReplyToMessage;
   if Assigned(aInspectedMessage) then
   begin
     aComplainant:=aMessage.From;
-    aInspectedChat:=aInspectedMessage.ChatId;
-    aInspectedChatName:=aInspectedMessage.Chat.Username;
+    aInspectedChat:=aInspectedMessage.Chat;
     aInspectedUser:=aInspectedMessage.From;
     aInspectedMessageID:=aInspectedMessage.MessageId;
     Bot.deleteMessage(aMessage.MessageId);                                             
-    SendComplaint(aComplainant, aInspectedUser, aInspectedChat, aInspectedMessageID, aInspectedChatName);
+    SendComplaint(aComplainant, aInspectedUser, aInspectedChat, aInspectedMessageID);
   end
   else
     Bot.deleteMessage(aMessage.MessageId);
@@ -207,13 +208,30 @@ begin
   Result:=FBotORM;
 end;
 
-procedure TAdminHelper.SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: Int64;
-  aInspectedMessage: Integer; aInspectedChatName: String);
+procedure TAdminHelper.SendComplaint(aComplainant, aInspectedUser: TTelegramUserObj; aInspectedChat: TTelegramChatObj;
+  aInspectedMessage: Integer);
+var
+  aSpamStatus, aRate: Integer;
+  aIsNotifyAdmins: Boolean;
+begin
+  aSpamStatus:=_msUnknown;
+  aRate:=ORM.UserByID(aComplainant.ID).Rate;
+  if aRate>_PowerRatePatrol then
+    aSpamStatus:=_msSpam;
+  ORM.SaveMessage(aInspectedUser.ID, aInspectedChat.ID, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
+  if (aRate<=_PowerRateGuard) and aIsNotifyAdmins then
+    SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus);
+  ORM.AddComplaint(aComplainant.ID, aInspectedChat.ID, aInspectedMessage); 
+  if aRate>_PowerRatePatrol then
+    BanOrNotToBan(aComplainant.ID, aInspectedChat.ID, aInspectedUser.ID, aInspectedMessage, True);
+end;
+
+procedure TAdminHelper.SendMessagesToAdmins(aInspectedMessage: Int64; aInspectedChat: TTelegramChatObj;
+  aInspectedUser, aComplainant: TTelegramUserObj; aSpamStatus: Integer);
 var
   aChatMembers: TopfChatMembers.TEntities;
+  aIsUserPrivacy: Boolean;
   aChatMember: TChatMember;
-  aSpamStatus, aRate: Integer;
-  aIsNotifyAdmins, aIsUserPrivacy: Boolean;
 
   procedure SendToModerator(aModerator: Int64; aIsDefinitelySpam: Boolean);
   var
@@ -240,12 +258,12 @@ var
       end
       else begin
         aKB.Add.AddButtons(
-          ['It is spam', RouteCmdSpam(aInspectedChat, aInspectedMessage, True),
-          'It isn''t spam!', RouteCmdSpam(aInspectedChat, aInspectedMessage, False)]
+          ['It is spam', RouteCmdSpam(aInspectedChat.ID, aInspectedMessage, True),
+          'It isn''t spam!', RouteCmdSpam(aInspectedChat.ID, aInspectedMessage, False)]
         );
-        aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChatName, aInspectedChat, aInspectedMessage));
+        aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChat, aInspectedMessage));
       end;
-      Bot.copyMessage(aModerator, aInspectedChat, aInspectedMessage, aIsDefinitelySpam, aReplyMarkup);
+      Bot.copyMessage(aModerator, aInspectedChat.ID, aInspectedMessage, aIsDefinitelySpam, aReplyMarkup);
     finally
       aReplyMarkup.Free;
     end;
@@ -258,27 +276,16 @@ var
   end;
 
 begin
-  aSpamStatus:=_msUnknown;
-  aRate:=ORM.UserByID(aComplainant.ID).Rate;
-  if aRate>_PowerRatePatrol then
-    aSpamStatus:=_msSpam;
-  ORM.SaveMessage(aInspectedUser.ID, aInspectedChat, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
-  if (aRate<=_PowerRateGuard) and aIsNotifyAdmins then
-  begin
-    aChatMembers:=TopfChatMembers.TEntities.Create;
-    try
-      ORM.GetModeratorsByChat(aInspectedChat, aChatMembers);
-      aIsUserPrivacy:=False;
-      for aChatMember in aChatMembers do
-        if aChatMember.Moderator then
-          SendToModerator(aChatMember.User, aSpamStatus=_msSpam);
-    finally
-      aChatMembers.Free;
-    end;
+  aChatMembers:=TopfChatMembers.TEntities.Create;
+  try
+    ORM.GetModeratorsByChat(aInspectedChat.ID, aChatMembers);
+    aIsUserPrivacy:=False;
+    for aChatMember in aChatMembers do
+      if aChatMember.Moderator then
+        SendToModerator(aChatMember.User, aSpamStatus=_msSpam);
+  finally
+    aChatMembers.Free;
   end;
-  ORM.AddComplaint(aComplainant.ID, aInspectedChat, aInspectedMessage); 
-  if aRate>_PowerRatePatrol then
-    BanOrNotToBan(aComplainant.ID, aInspectedChat, aInspectedUser.ID, aInspectedMessage, True);
 end;
 
 procedure TAdminHelper.BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
