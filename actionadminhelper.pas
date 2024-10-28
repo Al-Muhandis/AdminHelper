@@ -190,7 +190,7 @@ var
 begin
   aUserID:=aChatMemberUpdated.NewChatMember.User.ID;
   aIsNew:=not ORM.GetUserByID(aUserID);
-  if ORM.User.Spammer=1 then
+  if (ORM.User.Spammer=1) and (aChatMemberUpdated.NewChatMember.StatusType=msMember) then
   begin
     Bot.banChatMember(aChatMemberUpdated.Chat.ID, aUserID);
     Bot.Logger.Warning('The user #%d (%s) was preventively banned',
