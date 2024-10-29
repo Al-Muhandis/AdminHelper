@@ -37,7 +37,7 @@ msgstr ""
 
 #: actionadminhelper._sprvntvlybnd
 #, object-pascal-format
-msgid "The user #%d (%s) was preventively banned"
+msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
 msgstr ""
 
 #: actionadminhelper._sstarttext

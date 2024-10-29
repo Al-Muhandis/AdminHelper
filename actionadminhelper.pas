@@ -52,7 +52,7 @@ resourcestring
   _sInspctdMsgHsDlt=    'The message was successfully deleted and the spammer was banned';
   _sInspctdMsgIsNtSpm=  'The message is marked as NOT spam. Erroneous complaint';
   _sInspctdMsgWsChckdOt='The message has already been verified';
-  _sPrvntvlyBnd=        'The user #%d (%s) was preventively banned';
+  _sPrvntvlyBnd=        'The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned';
   _sStartText=          'Start Text for TAdminHelper';
   _sHelpText=           'Help Text for TAdminHelper';
   _sYrRtng=             'Your rating is %d';
