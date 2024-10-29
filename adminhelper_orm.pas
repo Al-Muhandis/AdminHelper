@@ -343,14 +343,17 @@ end;
 procedure TBotORM.SaveMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer; out
   aIsNotifyAdmins: Boolean; aSpamStatus: Integer);
 begin
-  aIsNotifyAdmins:=not GetMessage(aInspectedChat, aInspectedMessage);
+  aIsNotifyAdmins:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
+  { No need to save message if there is not a first complaint and SpamStatus is unknown }
+  if not aIsNotifyAdmins and (aSpamStatus=_msUnknown) then
+    Exit;
+  opMessages.Entity.User:=aInspectedUser;
+  opMessages.Entity.IsSpam:=aSpamStatus;
   if aIsNotifyAdmins then
-  begin
-    opMessages.Entity.User:=aInspectedUser;
-    opMessages.Entity.IsSpam:=aSpamStatus;
-    opMessages.Add(False);
-    opMessages.Apply;
-  end;
+    opMessages.Add(False)
+  else
+    opMessages.Modify(False);
+  opMessages.Apply;
 end;
 
 constructor TBotORM.Create(aDBConf: TDBConf);
@@ -451,13 +454,13 @@ end;
 
 function TBotORM.ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;
 begin
-  Result:=Message.IsSpam=0;
+  Result:=Message.IsSpam=_msUnknown;
   if Result then
   begin
     if aIsSpam then
-      Message.IsSpam:=1
+      Message.IsSpam:=_msSpam
     else
-      Message.IsSpam:=-1;
+      Message.IsSpam:=-_msNotSpam;
     opMessages.Modify(False);
     opMessages.Apply;
   end;
