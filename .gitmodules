@@ -1,0 +1,9 @@
+[submodule "use/fp-telegram"]
+	path = use/fp-telegram
+	url = https://github.com/Al-Muhandis/fp-telegram/
+[submodule "use/brook-telegram"]
+	path = use/brook-telegram
+	url = https://github.com/Al-Muhandis/brook-telegram.git
+[submodule "use/brookframework"]
+	path = use/brookframework
+	url = https://github.com/risoflora/brookframework.git
