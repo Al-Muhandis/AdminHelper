@@ -9,7 +9,7 @@ uses
   CThreads,
 {$ENDIF}
   Interfaces, BrookApplication, BrookTardigradeBroker,
-  brk_tg_config, actionadminhelper, adminhelper_conf, brokers
+  actionadminhelper, adminhelper_conf, brokers
   ;
 
 {$R *.res}
