@@ -7,3 +7,6 @@
 [submodule "use/brookframework"]
 	path = use/brookframework
 	url = https://github.com/risoflora/brookframework.git
+[submodule "use/brookfreepascal"]
+	path = use/brookfreepascal
+	url = https://github.com/risoflora/brookfreepascal.git
