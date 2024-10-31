@@ -10,6 +10,8 @@ uses
 
 type
 
+  TDefenderStatus = (dsUnknown, dsStandard, dsPatrol, dsGuard);
+
   { TAdminHelper }
 
   TAdminHelper = class(TWebhookAction)
@@ -214,17 +216,27 @@ procedure TAdminHelper.SendComplaint(aComplainant, aInspectedUser: TTelegramUser
   aInspectedMessage: Integer);
 var
   aSpamStatus, aRate: Integer;
-  aIsNotifyAdmins: Boolean;
+  aIsNotifyAdmins, aIsNewbie: Boolean;
+  aDefenderStatus: TDefenderStatus;
 begin
   aSpamStatus:=_msUnknown;
+  aIsNewbie:=ORM.UserByID(aInspectedUser.ID).IsNewbie;
   aRate:=ORM.UserByID(aComplainant.ID).Rate;
-  if aRate>_PowerRatePatrol then
-    aSpamStatus:=_msSpam;
+  aDefenderStatus:=dsStandard;
+  if aRate>_PowerRateGuard then
+    aDefenderStatus:=dsGuard
+  else
+    if aRate>_PowerRatePatrol then
+      aDefenderStatus:=dsPatrol;
+  if aDefenderStatus>=dsPatrol then
+    if aIsNewbie or (aDefenderStatus>=dsGuard) then
+      aSpamStatus:=_msSpam;
   ORM.SaveMessage(aInspectedUser.ID, aInspectedChat.ID, aInspectedMessage, aIsNotifyAdmins, aSpamStatus);
-  if (aRate<=_PowerRateGuard) and aIsNotifyAdmins then
-    SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus=_msSpam);
+  if aIsNotifyAdmins then
+    if (aRate<=_PowerRateGuard) or aIsNewbie then
+      SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus=_msSpam);
   ORM.AddComplaint(aComplainant.ID, aInspectedChat.ID, aInspectedMessage); 
-  if aRate>_PowerRatePatrol then
+  if aSpamStatus=_msSpam then
     BanOrNotToBan(aComplainant.ID, aInspectedChat.ID, aInspectedUser.ID, aInspectedMessage, True);
 end;
 

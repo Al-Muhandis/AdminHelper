@@ -27,6 +27,7 @@ type
     procedure SetAppearanceAsDateTime(AValue: TDateTime);
   public
     procedure Clear; override;
+    function IsNewbie: Boolean;
     property AppearanceAsDateTime: TDateTime read GetAppearanceAsDateTime write SetAppearanceAsDateTime;
   published
     property ID: Int64 read FId write FId;
@@ -170,6 +171,13 @@ begin
   FRate:=0;
   FAppearance:=0;
   FSpammer:=_msUnknown;
+end;
+
+function TBotUser.IsNewbie: Boolean;
+const
+  _NewbieDays = 7; // one week
+begin
+  Result:=((Now-AppearanceAsDateTime)<=_NewbieDays) and (Rate<1)
 end;
 
 { TChatMember }
