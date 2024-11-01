@@ -130,7 +130,7 @@ type
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;   
-    procedure UpdateRatings(aInspectorID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+    procedure UpdateRatings(aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
     procedure SaveUserAppearance(aIsNew: Boolean);
     procedure SaveUserSpamStatus(aUserID: Int64; aIsSpammer: Boolean = True);
     procedure SaveUser(aIsNew: Boolean);
@@ -379,7 +379,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TBotORM.UpdateRatings(aInspectorID, aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+procedure TBotORM.UpdateRatings(aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
 var
   aComplaints: TopfComplaints.TEntities;
   aComplaint: TComplaint;
@@ -392,9 +392,7 @@ begin
   try
     if opComplaints.Find(aComplaints, 'chat=:chat AND message=:message') then
       for aComplaint in aComplaints do
-      begin                    {
-        if aInspectorID=aComplaint.Complainant then
-          Continue;               }
+      begin
         aIsNew:=not GetUserByID(aComplaint.Complainant);
         aRate:=opUsers.Entity.Rate;
         if opUsers.Entity.Appearance=0 then
@@ -405,8 +403,6 @@ begin
           Dec(aRate, _Penalty);
         opUsers.Entity.Rate:=aRate;
         SaveUser(aIsNew);
-        Con.Logger.LogFmt(ltCustom, '#DebugInfo: the member (#%d) rating (now: %d p.) has been updated. Inspector: #%d',
-          [aComplaint.Complainant, aRate, aInspectorID]);
       end;
   finally
     aComplaints.Free;

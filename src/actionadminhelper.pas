@@ -19,8 +19,7 @@ type
     FBotConfig: TBotConf;
     FBotORM: TBotORM;
     FDBConfig: TDBConf;                             
-    procedure BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64;
-      aInspectedMessage: LongInt; aIsSpam: Boolean);                      
+    procedure BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt; aIsSpam: Boolean);
     procedure BtClbckMessage({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);
     procedure BtClbckSpam({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);                     
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
@@ -125,7 +124,7 @@ begin
   begin
     if ORM.ModifyMessageIfNotChecked(aIsSpam) then
     begin
-      BanOrNotToBan(Bot.CurrentChatId, aInspectedChat, ORM.Message.User,  aInspectedMessage, aIsSpam);
+      BanOrNotToBan(aInspectedChat, ORM.Message.User,  aInspectedMessage, aIsSpam);
       ChangeKeyboardAfterCheckedOut(aIsSpam, ORM.Message.User);
     end
     else begin
@@ -237,7 +236,7 @@ begin
       SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus=_msSpam);
   ORM.AddComplaint(aComplainant.ID, aInspectedChat.ID, aInspectedMessage); 
   if aSpamStatus=_msSpam then
-    BanOrNotToBan(aComplainant.ID, aInspectedChat.ID, aInspectedUser.ID, aInspectedMessage, True);
+    BanOrNotToBan(aInspectedChat.ID, aInspectedUser.ID, aInspectedMessage, True);
 end;
 
 procedure TAdminHelper.SendMessagesToAdmins(aInspectedMessage: Int64; aInspectedChat: TTelegramChatObj; aInspectedUser,
@@ -309,10 +308,10 @@ begin
   end;
 end;
 
-procedure TAdminHelper.BanOrNotToBan(aComplainant, aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt;
-  aIsSpam: Boolean);
+procedure TAdminHelper.BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; aInspectedMessage: LongInt; aIsSpam: Boolean
+  );
 begin
-  ORM.UpdateRatings(aComplainant, aInspectedChat, aInspectedMessage, aIsSpam);
+  ORM.UpdateRatings(aInspectedChat, aInspectedMessage, aIsSpam);
   if aIsSpam then
   begin
     Bot.deleteMessage(aInspectedChat, aInspectedMessage);
