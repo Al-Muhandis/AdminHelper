@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `chat` bigint NOT NULL,
   `message` int NOT NULL,
   `user` bigint NOT NULL,
+  `executor` bigint NOT NULL,
   `isspam` int NOT NULL,
   PRIMARY KEY (`chat`,`message`)
 );

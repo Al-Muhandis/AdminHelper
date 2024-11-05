@@ -1,6 +1,18 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: actionadminhelper._sbnalrdyrlbck
+msgid "This ban action has already been rolled back"
+msgstr ""
+
+#: actionadminhelper._sbnrlbck
+msgid "The user's ban was rolled back: unbanning and rating returning "
+msgstr ""
+
+#: actionadminhelper._scnfrmtnrlbckbn
+msgid "Do you think the ban was wrong? If the ban is rolled back, the complainant's rating will be downgraded and the inspected user who sent this message will be unbanned."
+msgstr ""
+
 #: actionadminhelper._shelptext
 msgid "Help Text for TAdminHelper"
 msgstr ""
