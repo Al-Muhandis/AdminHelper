@@ -57,6 +57,7 @@ type
   TTelegramMessage = class(THelperObjctRoot)
   private
     FChat: Int64;
+    FExecutor: Int64;
     FUser: Int64;
     FIsSpam: Integer;
     FMessage: Integer;
@@ -67,6 +68,7 @@ type
     property Message: Integer read FMessage write FMessage;
     property User: Int64 read FUser write FUser;
     property IsSpam: Integer read FIsSpam write FIsSpam;
+    property Executor: Int64 read FExecutor write FExecutor;
   end;
 
   { TComplaint }
@@ -125,12 +127,13 @@ type
     destructor Destroy; override;
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
-    procedure SaveMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer;
+    procedure SaveMessage(aInspectedUser, aInspectedChat, aExecutor: Int64; aInspectedMessage: Integer;
       out aIsNotifyAdmins: Boolean; aSpamStatus: Integer = 0);
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
-    function ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;   
-    procedure UpdateRatings(aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+    function ModifyMessageIfNotChecked(aIsSpam: Boolean; aExecutor: Int64 = 0): Boolean;
+    procedure UpdateRatings(aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean; aIsRollback: Boolean = False;
+      aExecutor: Int64 = 0);
     procedure SaveUserAppearance(aIsNew: Boolean);
     procedure SaveUserSpamStatus(aUserID: Int64; aIsSpammer: Boolean = True);
     procedure SaveUser(aIsNew: Boolean);
@@ -197,6 +200,7 @@ begin
   FChat:=0;
   FUser:=0;
   FIsSpam:=0;
+  FExecutor:=0;
 end;
 
 { TComplaint }
@@ -348,15 +352,16 @@ end;
 
   { You must to notify administrators if there is no yet the inspected message
     or if a spam command is sending by patrol member }
-procedure TBotORM.SaveMessage(aInspectedUser, aInspectedChat: Int64; aInspectedMessage: Integer; out
+procedure TBotORM.SaveMessage(aInspectedUser, aInspectedChat, aExecutor: Int64; aInspectedMessage: Integer; out
   aIsNotifyAdmins: Boolean; aSpamStatus: Integer);
 begin
   aIsNotifyAdmins:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
   { No need to save message if there is not a first complaint and SpamStatus is unknown }
   if not aIsNotifyAdmins and (aSpamStatus=_msUnknown) then
     Exit;
-  opMessages.Entity.User:=aInspectedUser;
-  opMessages.Entity.IsSpam:=aSpamStatus;
+  Message.User:=aInspectedUser;
+  Message.IsSpam:=aSpamStatus;
+  Message.Executor:=aExecutor;
   if aIsNotifyAdmins then
     opMessages.Add(False)
   else
@@ -379,7 +384,8 @@ begin
   inherited Destroy;
 end;
 
-procedure TBotORM.UpdateRatings(aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean);
+procedure TBotORM.UpdateRatings(aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean; aIsRollback: Boolean;
+  aExecutor: Int64);
 var
   aComplaints: TopfComplaints.TEntities;
   aComplaint: TComplaint;
@@ -398,9 +404,22 @@ begin
         if opUsers.Entity.Appearance=0 then
           opUsers.Entity.AppearanceAsDateTime:=Now;
         if aIsSpam then
-          Inc(aRate)
-        else
-          Dec(aRate, _Penalty);
+        begin
+          if not aIsRollback then
+            Inc(aRate)
+          else begin
+            Dec(aRate);
+            { Zeroing guard rating }
+            if aExecutor=aComplaint.Complainant then
+              aRate:=0;
+          end;
+        end
+        else begin
+          if not aIsRollback then
+            Dec(aRate, _Penalty)
+          else
+            Inc(aRate, _Penalty);
+        end;
         opUsers.Entity.Rate:=aRate;
         SaveUser(aIsNew);
       end;
@@ -456,7 +475,7 @@ begin
     Result:=opChatMembers.Entity.Moderator;
 end;
 
-function TBotORM.ModifyMessageIfNotChecked(aIsSpam: Boolean): Boolean;
+function TBotORM.ModifyMessageIfNotChecked(aIsSpam: Boolean; aExecutor: Int64): Boolean;
 begin
   Result:=Message.IsSpam=_msUnknown;
   if Result then
@@ -464,7 +483,8 @@ begin
     if aIsSpam then
       Message.IsSpam:=_msSpam
     else
-      Message.IsSpam:=-_msNotSpam;
+      Message.IsSpam:=_msNotSpam;
+    Message.Executor:=aExecutor;
     opMessages.Modify(False);
     opMessages.Apply;
   end;
