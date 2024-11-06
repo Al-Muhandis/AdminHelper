@@ -302,7 +302,7 @@ var
             aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]));
         end;
         aKB.Add.AddButton('Is this erroneous ban?',
-          RouteCmdSpamLastChecking(aInspectedChat.ID, aInspectedMessage, False))
+          RouteCmdSpamLastChecking(aInspectedChat.ID, aInspectedMessage, True))
       end
       else begin
         aKB.Add.AddButtons(
@@ -451,7 +451,7 @@ begin
         'Yes, rollback ban action', RouteCmdSpamLastChecking(aInspectedChat, aInspectedMessage, False),
         'Close: ban was correct', 'ban hide'
       ]);
-    Bot.EditOrSendMessage(_sCnfrmtnRlbckBn, pmMarkdown, aReplyMarkup, True);
+    Bot.EditOrSendMessage(_sCnfrmtnRlbckBn, pmMarkdown, aReplyMarkup, False);
   finally             
     AReplyMarkup.Free;
   end;
