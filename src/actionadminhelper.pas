@@ -301,8 +301,9 @@ var
           if not aIsPreventively then
             aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]));
         end;
-        aKB.Add.AddButton('Is this erroneous ban?',
-          RouteCmdSpamLastChecking(aInspectedChat.ID, aInspectedMessage, True))
+        if not aIsPreventively then
+          aKB.Add.AddButton('Is this erroneous ban?',
+            RouteCmdSpamLastChecking(aInspectedChat.ID, aInspectedMessage, True))
       end
       else begin
         aKB.Add.AddButtons(
