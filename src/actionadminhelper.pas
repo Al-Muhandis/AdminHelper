@@ -449,7 +449,7 @@ begin
   try
     aReplyMarkup.CreateInlineKeyBoard.Add.AddButtons([
         'Yes, rollback ban action', RouteCmdSpamLastChecking(aInspectedChat, aInspectedMessage, False),
-        'Close: ban was correct', 'ban hide'
+        'Close: ban was correct', 'spam hide'
       ]);
     Bot.EditOrSendMessage(_sCnfrmtnRlbckBn, pmMarkdown, aReplyMarkup, False);
   finally             
