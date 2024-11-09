@@ -280,24 +280,24 @@ var
   var
     aReplyMarkup: TReplyMarkup;
     aKB: TInlineKeyboard;
-    aBndUsr, aCmplnnt: String;
+    aInspctdUsr, aCmplnnt: String;
   begin
     aReplyMarkup:=TReplyMarkup.Create;
     try
       aKB:=aReplyMarkup.CreateInlineKeyBoard;
       if aIsDefinitelySpam then
       begin
-        aBndUsr:= 'Banned user: '+CaptionFromUser(aInspectedUser);
+        aInspctdUsr:= 'Banned user: '+CaptionFromUser(aInspectedUser);
         if not aIsPreventively then
           aCmplnnt:='Complainant: '+CaptionFromUser(aComplainant);
         if aIsUserPrivacy  then
         begin
-          aKB.Add.AddButton(aBndUsr,   RouteMsgUsrPrvcy);
+          aKB.Add.AddButton(aInspctdUsr,   RouteMsgUsrPrvcy);
           if not aIsPreventively then
             aKB.Add.AddButton(aCmplnnt,  RouteMsgUsrPrvcy);
         end
         else begin
-          aKB.Add.AddButtonUrl(aBndUsr,  Format('tg://user?id=%d', [aInspectedUser.ID]));
+          aKB.Add.AddButtonUrl(aInspctdUsr,  Format('tg://user?id=%d', [aInspectedUser.ID]));
           if not aIsPreventively then
             aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]));
         end;
@@ -311,6 +311,11 @@ var
           'It isn''t spam!', RouteCmdSpam(aInspectedChat.ID, aInspectedMessage, False)]
         );
         aKB.Add.AddButtonUrl('Inspected message', BuildMsgUrl(aInspectedChat, aInspectedMessage));
+        aInspctdUsr:='Inspected user: '+CaptionFromUser(aInspectedUser);
+        if aIsUserPrivacy then         
+          aKB.Add.AddButton(aInspctdUsr, RouteMsgUsrPrvcy)
+        else
+          aKB.Add.AddButtonUrl(aInspctdUsr,  Format('tg://user?id=%d', [aInspectedUser.ID]));
       end;
       if aIsPreventively then
         Bot.sendMessage(aModerator, Format(_sPrvntvlyBnd, [aInspectedUser.ID, CaptionFromUser(aInspectedUser)]),
