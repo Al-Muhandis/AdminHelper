@@ -243,14 +243,11 @@ procedure TAdminHelper.BtRcvMessage(ASender: TObject; AMessage: TTelegramMessage
 begin
   if not Assigned(AMessage.From) or (AMessage.From.ID=AMessage.Chat.ID) then
     Exit; // if there is a private chat of the current user with bot then exit
-  if ORM.UserByID(AMessage.From.ID).IsNewbie then
+  if ORM.User.Spammer=_msSpam then
   begin
-    if ORM.User.Spammer=_msSpam then
-    begin
-      Bot.deleteMessage(AMessage.Chat.ID, AMessage.MessageId);
-      Bot.banChatMember(AMessage.Chat.ID, AMessage.From.ID);
-      SendMessagesToAdmins(AMessage.MessageId, AMessage.Chat, AMessage.From, nil, True, False);
-    end;
+    Bot.deleteMessage(AMessage.Chat.ID, AMessage.MessageId);
+    Bot.banChatMember(AMessage.Chat.ID, AMessage.From.ID);
+    SendMessagesToAdmins(AMessage.MessageId, AMessage.Chat, AMessage.From, nil, True, False);
   end;
 end;
 
