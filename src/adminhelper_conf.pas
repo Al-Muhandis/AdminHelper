@@ -19,6 +19,8 @@ type
     FAdminHelperBot: TBotConf;
     FAdminHelperDB: TDBConf;
     FDebug: TDebugInfo;
+    FGuardRate: Integer;
+    FPatrolRate: Integer;
     FPort: Integer;
   public
     constructor Create;
@@ -28,6 +30,8 @@ type
     property AdminHelperBot: TBotConf read FAdminHelperBot write FAdminHelperBot;
     property AdminHelperDB: TDBConf read FAdminHelperDB write FAdminHelperDB;
     property Port: Integer read FPort write FPort;
+    property PatrolRate: Integer read FPatrolRate write FPatrolRate;
+    property GuardRate: Integer read FGuardRate write FGuardRate;
 
   end;
 
@@ -47,6 +51,8 @@ begin
   FDebug:=TDebugInfo.Create;
   FAdminHelperBot:=TBotConf.Create;
   FAdminHelperDB:=TDBConf.Create;
+  FPatrolRate:=11;
+  FGuardRate:=FPatrolRate*3;
 end;
 
 destructor TConf.Destroy;

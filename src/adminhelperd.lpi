@@ -22,7 +22,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="17"/>
+      <BuildNr Value="18"/>
     </VersionInfo>
     <BuildModes Count="4" Active="Linux">
       <Item1 Name="Default" Default="True"/>
@@ -244,7 +244,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="41"/>
         <CursorPos X="17" Y="51"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\taskworker\taskworker.pas"/>
@@ -363,8 +363,9 @@
       <Unit25>
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="268"/>
-        <CursorPos X="39" Y="285"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="259"/>
+        <CursorPos X="30" Y="283"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit25>
@@ -378,10 +379,9 @@
       <Unit27>
         <Filename Value="adminhelper_conf.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="27"/>
-        <CursorPos X="3" Y="40"/>
+        <TopLine Value="47"/>
+        <CursorPos X="28" Y="55"/>
         <UsageCount Value="207"/>
         <Loaded Value="True"/>
       </Unit27>
@@ -473,119 +473,127 @@
       <Define0 Value="UseCThreads"/>
       <Define1 Value="SynapseHTTP"/>
     </OtherDefines>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="282" Column="69" TopLine="260"/>
+        <Caret Line="287" Column="32" TopLine="266"/>
       </Position1>
       <Position2>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="286" Column="91" TopLine="265"/>
+        <Caret Line="293" Column="15" TopLine="271"/>
       </Position2>
       <Position3>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="287" Column="32" TopLine="266"/>
+        <Caret Line="313" Column="35" TopLine="291"/>
       </Position3>
       <Position4>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="293" Column="15" TopLine="271"/>
+        <Caret Line="314" Column="67" TopLine="292"/>
       </Position4>
       <Position5>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="313" Column="35" TopLine="291"/>
+        <Caret Line="292" Column="44" TopLine="287"/>
       </Position5>
       <Position6>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="314" Column="67" TopLine="292"/>
+        <Caret Line="37" Column="35" TopLine="26"/>
       </Position6>
       <Position7>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="292" Column="44" TopLine="287"/>
+        <Caret Line="235" Column="25" TopLine="213"/>
       </Position7>
       <Position8>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="37" Column="35" TopLine="26"/>
+        <Caret Line="251" Column="75" TopLine="229"/>
       </Position8>
       <Position9>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="235" Column="25" TopLine="213"/>
+        <Caret Line="286" Column="27" TopLine="265"/>
       </Position9>
       <Position10>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="251" Column="75" TopLine="229"/>
+        <Caret Line="292" Column="44" TopLine="270"/>
       </Position10>
       <Position11>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="286" Column="27" TopLine="265"/>
+        <Caret Line="37" Column="35" TopLine="26"/>
       </Position11>
       <Position12>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="292" Column="44" TopLine="270"/>
+        <Caret Line="235" Column="25" TopLine="213"/>
       </Position12>
       <Position13>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="37" Column="35" TopLine="26"/>
+        <Caret Line="37" Column="15" TopLine="26"/>
       </Position13>
       <Position14>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="235" Column="25" TopLine="213"/>
+        <Caret Line="367" Column="3" TopLine="352"/>
       </Position14>
       <Position15>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="37" Column="15" TopLine="26"/>
+        <Caret Line="37" Column="35" TopLine="26"/>
       </Position15>
       <Position16>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="367" Column="3" TopLine="352"/>
+        <Caret Line="317" Column="89" TopLine="304"/>
       </Position16>
       <Position17>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="37" Column="35" TopLine="26"/>
+        <Caret Line="246" Column="30" TopLine="239"/>
       </Position17>
       <Position18>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="317" Column="89" TopLine="304"/>
+        <Caret Line="31" Column="22" TopLine="20"/>
       </Position18>
       <Position19>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="246" Column="30" TopLine="239"/>
+        <Caret Line="243" Column="3" TopLine="239"/>
       </Position19>
       <Position20>
-        <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="31" Column="22" TopLine="20"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="30" Column="14" TopLine="16"/>
       </Position20>
       <Position21>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="243" Column="3" TopLine="239"/>
+        <Caret Line="234" Column="3" TopLine="228"/>
       </Position21>
       <Position22>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="30" Column="14" TopLine="16"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="28" Column="15" TopLine="16"/>
       </Position22>
       <Position23>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="234" Column="3" TopLine="228"/>
+        <Caret Line="195" Column="3" TopLine="188"/>
       </Position23>
       <Position24>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="28" Column="15" TopLine="16"/>
+        <Caret Line="35" Column="15" TopLine="24"/>
       </Position24>
       <Position25>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="195" Column="3" TopLine="188"/>
+        <Caret Line="270" Column="3" TopLine="261"/>
       </Position25>
       <Position26>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="35" Column="15" TopLine="24"/>
+        <Caret Line="285" Column="39" TopLine="268"/>
       </Position26>
       <Position27>
-        <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="270" Column="3" TopLine="261"/>
+        <Filename Value="adminhelper_conf.pas"/>
+        <Caret Line="34" Column="66" TopLine="10"/>
       </Position27>
       <Position28>
-        <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="285" Column="39" TopLine="268"/>
+        <Filename Value="adminhelper_conf.pas"/>
+        <Caret Line="26" Column="24" TopLine="10"/>
       </Position28>
+      <Position29>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="74" TopLine="61"/>
+      </Position29>
+      <Position30>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="177" Column="28" TopLine="161"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

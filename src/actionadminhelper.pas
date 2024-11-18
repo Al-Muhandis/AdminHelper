@@ -71,8 +71,6 @@ resourcestring
     'the inspected user who sent this message will be unbanned.';
 
 const
-  _PowerRatePatrol = 11;
-  _PowerRateGuard = _PowerRatePatrol*3;
   _dSpm = 'spam';
   _LvlStndrd='Standard';
   _LvlPatrol='Patrol';  
@@ -173,10 +171,10 @@ var
   aStatus, aMsg: String;
 begin
   aRate:=ORM.UserByID(aMessage.From.ID).Rate;
-  if aRate<_PowerRatePatrol then
+  if aRate<Conf.PatrolRate then
     aStatus:=_LvlStndrd
   else
-    if aRate<_PowerRateGuard then
+    if aRate<Conf.GuardRate then
       aStatus:=_emjPatrol+' '+_LvlPatrol
     else
       aStatus:=_emjSheriff+' '+_LvlGrd;
@@ -271,10 +269,10 @@ begin
   aIsNewbie:=ORM.UserByID(aInspectedUser.ID).IsNewbie;
   aRate:=ORM.UserByID(aComplainant.ID).Rate;
   aDefenderStatus:=dsStandard;
-  if aRate>_PowerRateGuard then
+  if aRate>Conf.GuardRate then
     aDefenderStatus:=dsGuard
   else
-    if aRate>_PowerRatePatrol then
+    if aRate>Conf.PatrolRate then
       aDefenderStatus:=dsPatrol;
   if aDefenderStatus>=dsPatrol then
     if aIsNewbie or (aDefenderStatus>=dsGuard) then
@@ -282,7 +280,7 @@ begin
   ORM.SaveMessage(aInspectedUser.ID, aInspectedChat.ID, aComplainant.ID, aInspectedMessage, aIsNotifyAdmins,
     aSpamStatus);
   if aIsNotifyAdmins then
-    if (aRate<=_PowerRateGuard) or not aIsNewbie then
+    if (aRate<=Conf.GuardRate) or not aIsNewbie then
       SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus=_msSpam);
   ORM.AddComplaint(aComplainant.ID, aInspectedChat.ID, aInspectedMessage); 
   if aSpamStatus=_msSpam then
