@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `user` bigint NOT NULL,
   `executor` bigint NOT NULL,
   `isspam` int NOT NULL,
+  `username` varchar(64) NOT NULL,
   PRIMARY KEY (`chat`,`message`)
 );
 

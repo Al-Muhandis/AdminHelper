@@ -61,6 +61,7 @@ type
     FUser: Int64;
     FIsSpam: Integer;
     FMessage: Integer;
+    FUserName: String;
   public
     procedure Clear; override;
   published
@@ -68,7 +69,8 @@ type
     property Message: Integer read FMessage write FMessage;
     property User: Int64 read FUser write FUser;
     property IsSpam: Integer read FIsSpam write FIsSpam;
-    property Executor: Int64 read FExecutor write FExecutor;
+    property Executor: Int64 read FExecutor write FExecutor;  
+    property UserName: String read FUserName write FUserName;
   end;
 
   { TComplaint }
@@ -127,15 +129,15 @@ type
     destructor Destroy; override;
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
-    procedure SaveMessage(aInspectedUser, aInspectedChat, aExecutor: Int64; aInspectedMessage: Integer;
-      out aIsNotifyAdmins: Boolean; aSpamStatus: Integer = 0);
+    procedure SaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+      aInspectedMessage: Integer; out aIsNotifyAdmins: Boolean; aSpamStatus: Integer = 0);
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean; aExecutor: Int64 = 0): Boolean;
     procedure UpdateRatings(aChatID: Int64; aMsgID: LongInt; aIsSpam: Boolean; aIsRollback: Boolean = False;
       aExecutor: Int64 = 0);
     procedure SaveUserAppearance(aIsNew: Boolean);
-    procedure SaveUserSpamStatus(aUserID: Int64; aIsSpammer: Boolean = True);
+    procedure SaveUserSpamStatus(aUserID: Int64; const aUserName: String; aIsSpammer: Boolean = True);
     procedure SaveUser(aIsNew: Boolean);
     function UserByID(aUserID: Int64): TBotUser;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
@@ -201,6 +203,7 @@ begin
   FUser:=0;
   FIsSpam:=0;
   FExecutor:=0;
+  FUserName:=EmptyStr;
 end;
 
 { TComplaint }
@@ -352,8 +355,8 @@ end;
 
   { You must to notify administrators if there is no yet the inspected message
     or if a spam command is sending by patrol member }
-procedure TBotORM.SaveMessage(aInspectedUser, aInspectedChat, aExecutor: Int64; aInspectedMessage: Integer; out
-  aIsNotifyAdmins: Boolean; aSpamStatus: Integer);
+procedure TBotORM.SaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+  aInspectedMessage: Integer; out aIsNotifyAdmins: Boolean; aSpamStatus: Integer);
 begin
   aIsNotifyAdmins:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
   { No need to save message if there is not a first complaint and SpamStatus is unknown }
@@ -362,6 +365,7 @@ begin
   Message.User:=aInspectedUser;
   Message.IsSpam:=aSpamStatus;
   Message.Executor:=aExecutor;
+  Message.UserName:=aInspectedUserName;
   if aIsNotifyAdmins then
     opMessages.Add(False)
   else
@@ -437,11 +441,12 @@ begin
   SaveUser(aIsNew);
 end;
 
-procedure TBotORM.SaveUserSpamStatus(aUserID: Int64; aIsSpammer: Boolean);
+procedure TBotORM.SaveUserSpamStatus(aUserID: Int64; const aUserName: String; aIsSpammer: Boolean);
 var
   aIsNew: Boolean;
 begin
   aIsNew:=not GetUserByID(aUserID);
+  User.Name:=aUserName;
   if aIsSpammer then
     opUsers.Entity.Spammer:=_msSpam
   else                       
