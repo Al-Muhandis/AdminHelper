@@ -37,7 +37,7 @@ var
 implementation
 
 uses
-  RUtils, dateutils, jsonparser, jsonscanner, tgsendertypes
+  dateutils, jsonparser, jsonscanner, tgsendertypes
   ;
 
 { TConf }
