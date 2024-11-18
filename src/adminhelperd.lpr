@@ -8,8 +8,7 @@ uses
 {$IF DEFINED(UNIX) AND DEFINED(THREADED)}
   CThreads,
 {$ENDIF}
-  Interfaces, BrookApplication, BrookTardigradeBroker,
-  actionadminhelper, adminhelper_conf, brokers
+  Interfaces, BrookApplication, BrookTardigradeBroker, actionadminhelper, adminhelper_conf, brokers
   ;
 
 {$R *.res}

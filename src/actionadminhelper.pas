@@ -28,6 +28,7 @@ type
     procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtRcvChatMemberUpdated({%H-}ASender: TTelegramSender; aChatMemberUpdated: TTelegramChatMemberUpdated);
+    procedure BtRcvMessage({%H-}ASender: TObject; AMessage: TTelegramMessageObj);
     procedure ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64; aIsUserPrivacy: Boolean = False);
     procedure ComfirmationErroneousBan(aInspectedChat: Int64; aInspectedMessage: Integer);
     function GetBotORM: TBotORM;
@@ -163,6 +164,7 @@ begin
   else
     AdminSpamVerdict(aPar, ACallback.ID, aInspectedChat, aCurrentUserID,  aInspectedMessage);
   end;
+  Bot.UpdateProcessed:=True;
 end;
 
 procedure TAdminHelper.BtCmndSettings(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
@@ -180,6 +182,7 @@ begin
       aStatus:=_emjSheriff+' '+_LvlGrd;
   aMsg:=Format(_sYrRtng, [aRate])+LineEnding+Format(_sYrRghts, [aStatus]);
   Bot.sendMessage(aMsg);
+  Bot.UpdateProcessed:=True;
 end;
 
 procedure TAdminHelper.BtCmndSpam(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
@@ -201,6 +204,7 @@ begin
   end
   else
     Bot.deleteMessage(aMessage.MessageId);
+  Bot.UpdateProcessed:=True;
 end;
 
 procedure TAdminHelper.BtCmndUpdate(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
@@ -213,6 +217,7 @@ begin
   aUserID:=aMessage.From.ID;
   Bot.deleteMessage(aChatID, aMsgID);
   UpdateModeratorsForChat(aChatID, aUserID);
+  Bot.UpdateProcessed:=True;
 end;
 
 procedure TAdminHelper.BtRcvChatMemberUpdated(ASender: TTelegramSender; aChatMemberUpdated: TTelegramChatMemberUpdated);
@@ -224,13 +229,28 @@ begin
     Exit;
   aUserID:=aChatMemberUpdated.NewChatMember.User.ID;
   aIsNew:=not ORM.GetUserByID(aUserID);
-  if ORM.User.Spammer=1 then
+  if ORM.User.Spammer=_msSpam then
   begin
     Bot.banChatMember(aChatMemberUpdated.Chat.ID, aUserID);
     SendMessagesToAdmins(0, aChatMemberUpdated.Chat, aChatMemberUpdated.NewChatMember.User, nil, True, True);
     Exit;
   end;
   ORM.SaveUserAppearance(aIsNew);
+end;
+
+procedure TAdminHelper.BtRcvMessage(ASender: TObject; AMessage: TTelegramMessageObj);
+begin
+  if not Assigned(AMessage.From) or (AMessage.From.ID=AMessage.Chat.ID) then
+    Exit; // if there is a private chat of the current user with bot then exit
+  if ORM.UserByID(AMessage.From.ID).IsNewbie then
+  begin
+    if ORM.User.Spammer=_msSpam then
+    begin
+      Bot.deleteMessage(AMessage.Chat.ID, AMessage.MessageId);
+      Bot.banChatMember(AMessage.Chat.ID, AMessage.From.ID);
+      SendMessagesToAdmins(AMessage.MessageId, AMessage.Chat, AMessage.From, nil, True, False);
+    end;
+  end;
 end;
 
 function TAdminHelper.GetBotORM: TBotORM;
@@ -288,8 +308,10 @@ var
       if aIsDefinitelySpam then
       begin
         aInspctdUsr:= 'Banned user: '+CaptionFromUser(aInspectedUser);
-        if not aIsPreventively then
-          aCmplnnt:='Complainant: '+CaptionFromUser(aComplainant);
+        if Assigned(aComplainant) then
+          aCmplnnt:='Complainant: '+CaptionFromUser(aComplainant)
+        else
+          aCmplnnt:='Complainant: the bot';
         if aIsUserPrivacy  then
         begin
           aKB.Add.AddButton(aInspctdUsr,   RouteMsgUsrPrvcy);
@@ -298,8 +320,10 @@ var
         end
         else begin
           aKB.Add.AddButtonUrl(aInspctdUsr,  Format('tg://user?id=%d', [aInspectedUser.ID]));
-          if not aIsPreventively then
-            aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]));
+          if Assigned(aComplainant) then
+            aKB.Add.AddButtonUrl(aCmplnnt, Format('tg://user?id=%d', [aComplainant.ID]))
+          else
+            aKB.Add.AddButtonUrl(aCmplnnt, Format('https://t.me/%s', [Bot.BotUsername]));
         end;
         if not aIsPreventively then
           aKB.Add.AddButton('Is this erroneous ban?',
@@ -418,6 +442,7 @@ begin
     aMsg:='The message not defined';
   end;
   Bot.answerCallbackQuery(ACallback.ID, aMsg, True, EmptyStr, 1000);
+  Bot.UpdateProcessed:=True;
 end;
 
 procedure TAdminHelper.ChangeKeyboardAfterCheckedOut(aIsSpam: Boolean; aInspectedUser: Int64; aIsUserPrivacy: Boolean);
@@ -511,6 +536,7 @@ begin
   Bot.LogDebug:=BotConfig.Debug;
 
   Bot.OnReceiveChatMemberUpdated:=@BtRcvChatMemberUpdated;
+  Bot.OnReceiveMessage:=@BtRcvMessage;
   Bot.CommandHandlers['/spam']:=@BtCmndSpam;
   Bot.CallbackHandlers['m']:=@BtClbckMessage;
   Bot.CallbackHandlers['spam']:=@BtClbckSpam;
