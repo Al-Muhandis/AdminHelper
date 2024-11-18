@@ -282,7 +282,7 @@ begin
   ORM.SaveMessage(aInspectedUser.ID, aInspectedChat.ID, aComplainant.ID, aInspectedMessage, aIsNotifyAdmins,
     aSpamStatus);
   if aIsNotifyAdmins then
-    if (aRate<=_PowerRateGuard) or aIsNewbie then
+    if (aRate<=_PowerRateGuard) or not aIsNewbie then
       SendMessagesToAdmins(aInspectedMessage, aInspectedChat, aInspectedUser, aComplainant, aSpamStatus=_msSpam);
   ORM.AddComplaint(aComplainant.ID, aInspectedChat.ID, aInspectedMessage); 
   if aSpamStatus=_msSpam then
