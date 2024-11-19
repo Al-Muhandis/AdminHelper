@@ -20,6 +20,7 @@ type
     FAdminHelperDB: TDBConf;
     FDebug: TDebugInfo;
     FGuardRate: Integer;
+    FNewbieDays: Integer;
     FPatrolRate: Integer;
     FPort: Integer;
   public
@@ -32,6 +33,7 @@ type
     property Port: Integer read FPort write FPort;
     property PatrolRate: Integer read FPatrolRate write FPatrolRate;
     property GuardRate: Integer read FGuardRate write FGuardRate;
+    property NewbieDays: Integer read FNewbieDays write FNewbieDays;
 
   end;
 
@@ -53,6 +55,7 @@ begin
   FAdminHelperDB:=TDBConf.Create;
   FPatrolRate:=11;
   FGuardRate:=FPatrolRate*3;
+  FNewbieDays:=7;
 end;
 
 destructor TConf.Destroy;

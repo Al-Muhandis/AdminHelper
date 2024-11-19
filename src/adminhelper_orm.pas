@@ -179,10 +179,8 @@ begin
 end;
 
 function TBotUser.IsNewbie: Boolean;
-const
-  _NewbieDays = 7; // one week
 begin
-  Result:=((Now-AppearanceAsDateTime)<=_NewbieDays) and (Rate<1)
+  Result:=((Now-AppearanceAsDateTime)<=Conf.NewbieDays) and (Rate<1)
 end;
 
 { TChatMember }
