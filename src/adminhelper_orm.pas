@@ -131,6 +131,7 @@ type
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
     procedure SaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
       aInspectedMessage: Integer; out aIsNotifyAdmins: Boolean; aSpamStatus: Integer = 0);
+    procedure SaveMessage(aIsSpam: Boolean; aExecutor: Int64);
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean; aExecutor: Int64 = 0): Boolean;
@@ -371,6 +372,17 @@ begin
   opMessages.Apply;
 end;
 
+procedure TBotORM.SaveMessage(aIsSpam: Boolean; aExecutor: Int64);
+begin
+  if aIsSpam then
+    Message.IsSpam:=_msSpam
+  else
+    Message.IsSpam:=_msNotSpam;
+  Message.Executor:=aExecutor;
+  opMessages.Modify(False);
+  opMessages.Apply;
+end;
+
 constructor TBotORM.Create(aDBConf: TDBConf);
 begin
   FDBConfig:=aDBConf;
@@ -482,15 +494,7 @@ function TBotORM.ModifyMessageIfNotChecked(aIsSpam: Boolean; aExecutor: Int64): 
 begin
   Result:=Message.IsSpam=_msUnknown;
   if Result then
-  begin
-    if aIsSpam then
-      Message.IsSpam:=_msSpam
-    else
-      Message.IsSpam:=_msNotSpam;
-    Message.Executor:=aExecutor;
-    opMessages.Modify(False);
-    opMessages.Apply;
-  end;
+    SaveMessage(aIsSpam, aExecutor);
 end;
 
 function TBotORM.GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
