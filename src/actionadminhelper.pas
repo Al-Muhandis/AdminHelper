@@ -39,7 +39,8 @@ type
       aComplainant: TTelegramUserObj; aIsSpam: Boolean; aIsPreventively: Boolean = False);
     procedure RollbackErroneousBan(aInspectedChat, aInspectedUser, aExecutor: Int64; aInspectedMessage: Integer;
       const aInspectedUserName: String);
-    procedure TryRollbackErroneousBan(aInspectedChat: Int64; aInspectedMessage: Integer; const aCallbackID: String);
+    procedure TryRollbackErroneousBan(aInspectedChat: Int64; aInspectedMessage: Integer; const aCallbackID: String;
+      aCallbackMessageID: Integer);
     procedure UpdateModeratorsForChat(aChat, aFrom: Int64);
   protected
     property BotConfig: TBotConf read FBotConfig write FBotConfig;
@@ -160,7 +161,7 @@ begin
   aPar:=NPar(4);
   case aPar of
     'rc': ComfirmationErroneousBan(aInspectedChat, aInspectedMessage);
-    'r': TryRollbackErroneousBan(aInspectedChat, aInspectedMessage, ACallback.ID);
+    'r': TryRollbackErroneousBan(aInspectedChat, aInspectedMessage, ACallback.ID, ACallback.Message.MessageId);
   else
     AdminSpamVerdict(aPar, ACallback.ID, aInspectedChat, aCurrentUserID,  aInspectedMessage);
   end;
@@ -377,12 +378,13 @@ begin
   ORM.UpdateRatings(aInspectedChat, aInspectedMessage, True, True, aExecutor);
   Bot.unbanChatMember(aInspectedChat, aInspectedUser, True);    
   Bot.sendMessage(Bot.CurrentUser.ID, _sBnRlbck);
+  ORM.SaveMessage(False, aExecutor);
   { Resave inspected user as a non spammer }
   ORM.SaveUserSpamStatus(aInspectedUser, aInspectedUserName, False);
 end;
 
 procedure TAdminHelper.TryRollbackErroneousBan(aInspectedChat: Int64; aInspectedMessage: Integer;
-  const aCallbackID: String);
+  const aCallbackID: String; aCallbackMessageID: Integer);
 begin
   if not ORM.GetMessage(aInspectedChat, aInspectedMessage) then
     Exit; { #todo : Why no message? }
@@ -391,6 +393,7 @@ begin
     Bot.answerCallbackQuery(aCallbackID, _sBnAlrdyRlbck, False, EmptyStr, 1000);
     Exit;
   end;
+  Bot.deleteMessage(aCallbackMessageID);
   RollbackErroneousBan(aInspectedChat, ORM.Message.User, ORM.Message.Executor, aInspectedMessage, ORM.Message.UserName);
 end;
 
@@ -482,7 +485,7 @@ begin
         'Yes, rollback ban action', RouteCmdSpamLastChecking(aInspectedChat, aInspectedMessage, False),
         'Close: ban was correct', 'spam hide'
       ]);
-    Bot.EditOrSendMessage(_sCnfrmtnRlbckBn, pmMarkdown, aReplyMarkup, False);
+    Bot.sendMessage(_sCnfrmtnRlbckBn, pmMarkdown, False, aReplyMarkup);
   finally             
     AReplyMarkup.Free;
   end;
