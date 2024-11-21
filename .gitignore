@@ -4,6 +4,7 @@ iamprd.new
 libsagui.*
 console
 ppas.bat
+/src/NaiveBayesClassifier/tests/testconsole
 
 *.log
 *.ini
