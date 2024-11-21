@@ -20,6 +20,7 @@ type
     FHamWords: TWordPairs;
     FSpamCount: Integer;
     FHamCount: Integer;
+    FStorageDir: String;
   public
     constructor Create;
     destructor Destroy; override;
@@ -28,6 +29,7 @@ type
     function Classify(const aMessage: string): Boolean;
     procedure Load;
     procedure Save;
+    property StorageDir: String read FStorageDir write FStorageDir;
   end;
 
 implementation
@@ -97,6 +99,12 @@ var
   aWord, w: string;
   i: Integer;
 begin
+  if (FSpamCount=0) or (FHamCount=0) then
+  begin
+    aHamProbability:=0;
+    aSpamProbability:=0;
+    Exit(False);
+  end;
   aWords := TStringList.Create;
   try
     ExtractStrings([' ', '.', ',', '!', '?'], [], PChar(aMessage), aWords);
@@ -140,12 +148,12 @@ var
   w, s: String;
   i: Integer;
 begin
-  if not (FileExists(_HamFile) and FileExists(_SpamFile)) then
+  if not (FileExists(FStorageDir+_HamFile) and FileExists(FStorageDir+_SpamFile)) then
     Exit;
-  aIni:=TMemIniFile.Create(_FilterIni);
+  aIni:=TMemIniFile.Create(FStorageDir+_FilterIni);
   aWordPairs:=TStringList.Create;
   try
-    aWordPairs.LoadFromFile(_HamFile);
+    aWordPairs.LoadFromFile(FStorageDir+_HamFile);
     for i:=0 to aWordPairs.Count-1 do
     begin
       aWordPairs.GetNameValue(i, w, s);
@@ -153,7 +161,7 @@ begin
     end;
     FHamCount:=aIni.ReadInteger('count', 'ham', 0);
     aWordPairs.Clear;
-    aWordPairs.LoadFromFile(_SpamFile);
+    aWordPairs.LoadFromFile(FStorageDir+_SpamFile);
     for i:=0 to aWordPairs.Count-1 do
     begin
       aWordPairs.GetNameValue(i, w, s);
@@ -172,17 +180,17 @@ var
   i: SizeUInt;    
   aWords: TStringList;
 begin
-  aIni:=TMemIniFile.Create(_FilterIni);
+  aIni:=TMemIniFile.Create(FStorageDir+_FilterIni);
   aWords:=TStringList.Create;
   try
     for i:=0 to FHamWords.Count-1 do
       aWords.AddPair(FHamWords.Keys[i], FHamWords.Data[i].ToString);
-    aWords.SaveToFile(_HamFile);
+    aWords.SaveToFile(FStorageDir+_HamFile);
     aIni.WriteInteger('Count', 'ham', FHamCount);
     aWords.Clear;
     for i:=0 to FSpamWords.Count-1 do
       aWords.AddPair(FSpamWords.Keys[i], FSpamWords.Data[i].ToString);
-    aWords.SaveToFile(_SpamFile);
+    aWords.SaveToFile(FStorageDir+_SpamFile);
     aIni.WriteInteger('Count', 'spam', FSpamCount);
     aIni.UpdateFile;
   finally

@@ -5,7 +5,7 @@ unit spamfilter_implementer;
 interface
 
 uses
-  Classes, SysUtils, spamfilter
+  Classes, SysUtils, spamfilter, adminhelper_conf
   ;
 
 var
@@ -15,6 +15,7 @@ implementation
 
 initialization
   _SpamFilter:=TSpamFilter.Create;
+  _SpamFilter.StorageDir:=ConfDir;
   _SpamFilter.Load;
 
 finalization
