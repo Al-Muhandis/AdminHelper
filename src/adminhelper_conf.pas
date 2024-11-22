@@ -39,6 +39,7 @@ type
 
 var
   Conf: TConf;
+  ConfDir: String;
 
 implementation
 
@@ -70,6 +71,7 @@ initialization
   Conf:=TConf.Create;
   LoadFromJSON(Conf, 'adminhelper.json');
   SaveToJSON(Conf, 'adminhelper.bak.json');
+  ConfDir:=IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
 
 finalization
   FreeAndNil(Conf);
