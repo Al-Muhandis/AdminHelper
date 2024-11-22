@@ -10,16 +10,24 @@ uses
 
 type
 
-  TWordPairs = specialize TFPGMap<String, Integer>;
+  { TCountRec }
+
+  TCountRec = record
+    Spam: Integer;
+    Ham:  Integer;
+  end;
+
+  TWordPairs = specialize TFPGMap<String, TCountRec>;
 
   { TSpamFilter }
 
   TSpamFilter = class
   private
-    FSpamWords: TWordPairs;
-    FHamWords: TWordPairs;
+    FWords: TWordPairs;
     FSpamCount: Integer;
     FHamCount: Integer;
+    FTotalSpamWords: Integer;
+    FTotalHamWords: Integer;
     FStorageDir: String;
   public
     constructor Create;
@@ -27,32 +35,33 @@ type
     procedure Train(Message: string; IsSpam: Boolean);
     function Classify(const aMessage: string; out aHamProbability, aSpamProbability: Double): Boolean;  
     function Classify(const aMessage: string): Boolean;
-    procedure Load;
+    function Load: Boolean;
     procedure Save;
     property StorageDir: String read FStorageDir write FStorageDir;
   end;
 
 implementation
 
+var
+  _50Probability: Double;
+
 const
   _HamFile='hamwords.lst';
   _SpamFile='spamwords.lst'; 
   _FilterIni='messages.ini';
+  _Separators=[' ', '.', ',', '!', '?', '"'];
 
 constructor TSpamFilter.Create;
 begin
-  FSpamWords := TWordPairs.Create;
-  FSpamWords.Sorted:=True;
-  FHamWords := TWordPairs.Create; 
-  FHamWords.Sorted:=True;
+  FWords := TWordPairs.Create;
+  FWords.Sorted:=True;
   FSpamCount := 0;
   FHamCount := 0;
 end;
 
 destructor TSpamFilter.Destroy;
 begin
-  FSpamWords.Free;
-  FHamWords.Free;
+  FWords.Free;
   inherited Destroy;
 end;
 
@@ -61,32 +70,44 @@ var
   aWords: TStringList;
   aWord, w: string;
   i: Integer;
+  aWordRec: TCountRec;
 begin
   aWords := TStringList.Create;
   try
-    ExtractStrings([' ', '.', ',', '!', '?'], [], PChar(Message), aWords);
+    ExtractStrings(_Separators, [], PChar(Message), aWords);
     if IsSpam then
       Inc(FSpamCount)
     else
       Inc(FHamCount);
-
     for w in aWords do
     begin
-      aWord := LowerCase(w);
-      if IsSpam then
+      aWord := AnsiLowerCase(w);
+
+      if FWords.Find(aWord, i) then
       begin
-        if FSpamWords.Find(aWord, i) then
-          FSpamWords.Data[i] := FSpamWords.Data[i] + 1
+        aWordRec:=FWords.Data[i];
+        if IsSpam then
+          aWordRec.Spam := aWordRec.Spam + 1
         else
-          FSpamWords.Add(aWord, 1);
+          aWordRec.Ham  := aWordRec.Ham + 1;
+        FWords.Data[i]:=aWordRec;
       end
-      else
-      begin
-        if FHamWords.Find(aWord, i) then
-          FHamWords.Data[i] := FHamWords.Data[i] + 1
-        else
-          FHamWords.Add(aWord, 1);
+      else begin
+        if IsSpam then
+        begin
+          aWordRec.Spam := 1;
+          aWordRec.Ham  := 0;
+        end
+        else begin            
+          aWordRec.Spam := 0;
+          aWordRec.Ham  := 1;
+        end;
+        FWords.Add(aWord, aWordRec);
       end;
+      if IsSpam then
+        Inc(FTotalSpamWords)
+      else
+        Inc(FTotalHamWords)
     end;
   finally
     aWords.Free;
@@ -101,30 +122,29 @@ var
 begin
   if (FSpamCount=0) or (FHamCount=0) then
   begin
-    aHamProbability:=0;
-    aSpamProbability:=0;
+    aHamProbability:=_50Probability;
+    aSpamProbability:=_50Probability;
     Exit(False);
   end;
   aWords := TStringList.Create;
   try
-    ExtractStrings([' ', '.', ',', '!', '?'], [], PChar(aMessage), aWords);
+    ExtractStrings(_Separators, [], PChar(aMessage), aWords);
 
-    aSpamProbability := FSpamCount / (FSpamCount + FHamCount);
-    aHamProbability := FHamCount / (FSpamCount + FHamCount);
+    aSpamProbability := Ln(FSpamCount / (FSpamCount + FHamCount));
+    aHamProbability := Ln(FHamCount / (FSpamCount + FHamCount));
 
     for w in aWords do
     begin
-      aWord := LowerCase(w);
-      if FSpamWords.Find(aWord, i) then
-        aSpamProbability := aSpamProbability * (FSpamWords.Data[i] / FSpamCount)
-      else
-        aSpamProbability := aSpamProbability * (1 / (FSpamCount + 1));
-
-
-      if FHamWords.Find(aWord, i) then
-        aHamProbability := aHamProbability * (FHamWords.Data[i] / FHamCount)
-      else
-        aHamProbability := aHamProbability * (1 / (FHamCount + 1));
+      aWord := AnsiLowerCase(w);
+      if FWords.Find(aWord, i) then
+      begin
+        aSpamProbability += Ln((FWords.Data[i].Spam+1) / (FWords.Count+FTotalSpamWords));
+        aHamProbability  += Ln((FWords.Data[i].Ham+1)  / (FWords.Count+FTotalHamWords));
+      end
+      else begin
+        aSpamProbability += Ln(1 / (FWords.Count+FTotalSpamWords));
+        aHamProbability  += Ln(1 / (FWords.Count+FTotalHamWords));
+      end;
     end;
 
     Result := aSpamProbability > aHamProbability;
@@ -141,15 +161,16 @@ begin
   Result:=Classify(aMessage, aHamProbability, aSpamProbability);
 end;
 
-procedure TSpamFilter.Load;
+function TSpamFilter.Load: Boolean;
 var
   aIni: TMemIniFile;
   aWordPairs: TStringList;
   w, s: String;
-  i: Integer;
+  i, j: Integer;
+  aWordRec: TCountRec;
 begin
   if not (FileExists(FStorageDir+_HamFile) and FileExists(FStorageDir+_SpamFile)) then
-    Exit;
+    Exit(False);
   aIni:=TMemIniFile.Create(FStorageDir+_FilterIni);
   aWordPairs:=TStringList.Create;
   try
@@ -157,47 +178,67 @@ begin
     for i:=0 to aWordPairs.Count-1 do
     begin
       aWordPairs.GetNameValue(i, w, s);
-      FHamWords.Add(w, s.ToInteger);
+      aWordRec.Ham:=s.ToInteger;
+      aWordRec.Spam:=0;
+      FWords.Add(w, aWordRec);
+      FTotalHamWords+=aWordRec.Ham;
     end;
-    FHamCount:=aIni.ReadInteger('count', 'ham', 0);
-    aWordPairs.Clear;
     aWordPairs.LoadFromFile(FStorageDir+_SpamFile);
     for i:=0 to aWordPairs.Count-1 do
     begin
       aWordPairs.GetNameValue(i, w, s);
-      FSpamWords.Add(w, s.ToInteger);
-    end;                                           
-    FSpamCount:=aIni.ReadInteger('count', 'spam', 0);
+      if FWords.Find(w, j) then
+      begin
+        aWordRec:=FWords.Data[j];
+        aWordRec.Spam:=s.ToInteger;
+        FWords.Data[j]:=aWordRec;
+      end
+      else begin
+        aWordRec.Spam:=s.ToInteger;
+        aWordRec.Ham:=0;
+        FWords.Add(w, aWordRec);
+      end;
+      FTotalSpamWords+=aWordRec.Spam;
+    end;
+
+    FHamCount:=aIni.ReadInteger('Count', 'ham', FHamCount);
+    FSpamCount:=aIni.ReadInteger('Count', 'spam', FSpamCount);
   finally
     aWordPairs.Free;
     aIni.Free;
   end;
+  Result:=True;
 end;
 
 procedure TSpamFilter.Save;
 var
   aIni: TMemIniFile;
   i: SizeUInt;    
-  aWords: TStringList;
+  aSpamWords, aHamWords: TStringList;
 begin
   aIni:=TMemIniFile.Create(FStorageDir+_FilterIni);
-  aWords:=TStringList.Create;
+  aSpamWords:=TStringList.Create;                  
+  aHamWords:=TStringList.Create;
   try
-    for i:=0 to FHamWords.Count-1 do
-      aWords.AddPair(FHamWords.Keys[i], FHamWords.Data[i].ToString);
-    aWords.SaveToFile(FStorageDir+_HamFile);
-    aIni.WriteInteger('Count', 'ham', FHamCount);
-    aWords.Clear;
-    for i:=0 to FSpamWords.Count-1 do
-      aWords.AddPair(FSpamWords.Keys[i], FSpamWords.Data[i].ToString);
-    aWords.SaveToFile(FStorageDir+_SpamFile);
-    aIni.WriteInteger('Count', 'spam', FSpamCount);
+    for i:=0 to FWords.Count-1 do
+    begin
+      aHamWords.AddPair( FWords.Keys[i], FWords.Data[i].Ham.ToString);
+      aSpamWords.AddPair(FWords.Keys[i], FWords.Data[i].Spam.ToString);
+    end;
+    aHamWords.SaveToFile(FStorageDir+_HamFile);
+    aSpamWords.SaveToFile(FStorageDir+_SpamFile);
+    aIni.WriteInteger('Count', 'HamDocs', FHamCount);
+    aIni.WriteInteger('Count', 'SpamDocs', FSpamCount);
     aIni.UpdateFile;
   finally
-    aWords.Free;
+    aSpamWords.Free;
+    aHamWords.Free;
     aIni.Free;
   end;
 end;
+
+initialization
+  _50Probability:=Ln(0.5); // Logarithm of 50 percent probability
 
 end.
 
