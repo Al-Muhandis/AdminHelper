@@ -15,8 +15,16 @@ msgstr ""
 msgid "This ban action has already been rolled back"
 msgstr ""
 
+#: actionadminhelper._sbndusr
+msgid "Banned user"
+msgstr ""
+
 #: actionadminhelper._sbnrlbck
 msgid "The user's ban was rolled back: unbanning and rating returning "
+msgstr ""
+
+#: actionadminhelper._scmplnnt
+msgid "Complainant"
 msgstr ""
 
 #: actionadminhelper._scnfrmtnrlbckbn
@@ -36,6 +44,10 @@ msgstr ""
 "Для того, чтобы бот получил список администраторов в группе или в случае удаления или добавления нового, следует любому из действующих администраторов отправить команду `/update`\n"
 "Благодаря тому, что эти команды мгновенно удаляются самим ботом в группе - репорты и обновления происходит незаметно для пользователей "
 
+#: actionadminhelper._sinspctdmsg
+msgid "Inspected message"
+msgstr ""
+
 #: actionadminhelper._sinspctdmsghsdlt
 msgid "The message was successfully deleted and the spammer was banned"
 msgstr ""
@@ -46,6 +58,10 @@ msgstr ""
 
 #: actionadminhelper._sinspctdmsgwschckdot
 msgid "The message has already been verified"
+msgstr ""
+
+#: actionadminhelper._sinspctdusr
+msgid "Inspected user"
 msgstr ""
 
 #: actionadminhelper._sprvntvlybnd
