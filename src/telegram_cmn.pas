@@ -290,17 +290,17 @@ begin
         aKB.Add.AddButton(aInspctdUsr, RouteMsgUsrPrvcy)
       else
         aKB.Add.AddButtonUrl(aInspctdUsr,  Format(_dTgUsrUrl, [InspectedUser.ID]));
+      if not Assigned(Complainant) then
+        aKB.Add.AddButton(_sBtnBtCmplnnt, RouteMsgCmplnntIsBt);
     end;
     if not Assigned(Complainant) then
-      with aKB.Add do
-      begin
-        AddButton(_sBtnBtCmplnnt, RouteMsgCmplnntIsBt);
-        if SpamFactor>0 then
-          s:=_sMybItsSpm
-        else
-          s:=_sMybItsNtSpm;
-        AddButton(s, RouteMsgPrbblySpm(SpamProbability, HamProbability));
-      end;
+    begin
+      if SpamFactor>0 then
+        s:=_sMybItsSpm
+      else
+        s:=_sMybItsNtSpm;
+      aKB.Add.AddButton(s, RouteMsgPrbblySpm(SpamProbability, HamProbability));
+    end;
     if aIsPreventively then
       Bot.sendMessage(aModerator, Format(_sPrvntvlyBnd, [InspectedUser.ID,
         CaptionFromUser(InspectedUser)]), pmMarkdown, aIsDefinitelySpam, aReplyMarkup)
