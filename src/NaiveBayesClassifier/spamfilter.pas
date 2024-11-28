@@ -5,7 +5,7 @@ unit spamfilter;
 interface
 
 uses
-  Classes, SysUtils, fgl, IniFiles
+  Classes, SysUtils, fgl
   ;
 
 type
@@ -23,6 +23,8 @@ type
 
   TSpamFilter = class
   private
+    FInitialHamMessage: String;
+    FInitialSpamMessage: String;
     FWords: TWordPairs;
     FSpamCount: Integer;
     FHamCount: Integer;
@@ -36,20 +38,31 @@ type
     function Classify(const aMessage: string; out aHamProbability, aSpamProbability: Double): Boolean;  
     function Classify(const aMessage: string): Boolean;
     function Load: Boolean;
+    function LoadJSON: Boolean;
     procedure Save;
+    procedure SaveJSON;
     property StorageDir: String read FStorageDir write FStorageDir;
+    property InitialSpamMessage: String read FInitialSpamMessage write FInitialSpamMessage;
+    property InitialHamMessage: String read FInitialHamMessage write FInitialHamMessage;
   end;
 
 implementation
+
+uses
+  fpjson
+  ;
 
 var
   _50Probability: Double;
 
 const
-  _HamFile='hamwords.lst';
-  _SpamFile='spamwords.lst'; 
-  _FilterIni='messages.ini';
   _Separators=[' ', '.', ',', '!', '?', '"'];
+  _dSpmDcs='SpamDocs';
+  _dHmDcs='HamDocs';
+  _dWrds='words';
+  _dWrd='word';
+  _dSpm='spam';
+  _dHm='ham';
 
 constructor TSpamFilter.Create;
 begin
@@ -162,78 +175,81 @@ begin
 end;
 
 function TSpamFilter.Load: Boolean;
-var
-  aIni: TMemIniFile;
-  aWordPairs: TStringList;
-  w, s: String;
-  i, j: Integer;
-  aWordRec: TCountRec;
 begin
-  if not (FileExists(FStorageDir+_HamFile) and FileExists(FStorageDir+_SpamFile)) then
-    Exit(False);
-  aIni:=TMemIniFile.Create(FStorageDir+_FilterIni);
-  aWordPairs:=TStringList.Create;
-  try
-    aWordPairs.LoadFromFile(FStorageDir+_HamFile);
-    for i:=0 to aWordPairs.Count-1 do
-    begin
-      aWordPairs.GetNameValue(i, w, s);
-      aWordRec.Ham:=s.ToInteger;
-      aWordRec.Spam:=0;
-      FWords.Add(w, aWordRec);
-      FTotalHamWords+=aWordRec.Ham;
-    end;
-    aWordPairs.LoadFromFile(FStorageDir+_SpamFile);
-    for i:=0 to aWordPairs.Count-1 do
-    begin
-      aWordPairs.GetNameValue(i, w, s);
-      if FWords.Find(w, j) then
-      begin
-        aWordRec:=FWords.Data[j];
-        aWordRec.Spam:=s.ToInteger;
-        FWords.Data[j]:=aWordRec;
-      end
-      else begin
-        aWordRec.Spam:=s.ToInteger;
-        aWordRec.Ham:=0;
-        FWords.Add(w, aWordRec);
-      end;
-      FTotalSpamWords+=aWordRec.Spam;
-    end;
+  Result:=LoadJSON;
+end;
 
-    FHamCount:=aIni.ReadInteger('Count', 'ham', FHamCount);
-    FSpamCount:=aIni.ReadInteger('Count', 'spam', FSpamCount);
-  finally
-    aWordPairs.Free;
-    aIni.Free;
+function TSpamFilter.LoadJSON: Boolean;
+var
+  aFile: TStringList;
+  aJSON: TJSONObject;
+  w: TJSONEnum;
+  aCountRec: TCountRec;
+begin
+  FWords.Clear;
+  if not FileExists(FStorageDir+'words.json') then
+  begin
+    Train(FInitialSpamMessage, True);
+    Train(FInitialHamMessage, False);
+    Exit(False);
   end;
-  Result:=True;
+  aFile:=TStringList.Create;
+  try
+    aFile.LoadFromFile(FStorageDir+'words.json');
+    aJSON:=GetJSON(aFile.Text) as TJSONObject;
+    try
+      FSpamCount:=aJSON.Integers[_dSpmDcs];
+      FHamCount:=aJSON.Integers[_dHmDcs];
+      for w in aJSON.Arrays[_dWrds] do
+        with w.Value as TJSONObject do
+        begin
+          aCountRec.Spam:=Integers[_dSpm];
+          aCountRec.Ham:=Integers[_dHm];
+          FWords.Add(Strings[_dWrd], aCountRec);
+        end;
+    finally
+      aJSON.Free;
+    end;
+  finally
+    aFile.Free;
+  end;
 end;
 
 procedure TSpamFilter.Save;
-var
-  aIni: TMemIniFile;
-  i: SizeUInt;    
-  aSpamWords, aHamWords: TStringList;
 begin
-  aIni:=TMemIniFile.Create(FStorageDir+_FilterIni);
-  aSpamWords:=TStringList.Create;                  
-  aHamWords:=TStringList.Create;
+  SaveJSON;
+end;
+
+procedure TSpamFilter.SaveJSON;
+var
+  aJSON, aWord: TJSONObject;
+  aFile: TStringList;
+  i: Integer;
+  aJSONWords: TJSONArray;
+begin
+  aJSON:=TJSONObject.Create;
   try
+    aJSON.Integers[_dSpmDcs]:=FSpamCount;
+    aJSON.Integers[_dHmDcs]:=FHamCount;
+    aJSON.Arrays[_dWrds]:=TJSONArray.Create;
+    aJSONWords:=aJSON.Arrays[_dWrds];
     for i:=0 to FWords.Count-1 do
     begin
-      aHamWords.AddPair( FWords.Keys[i], FWords.Data[i].Ham.ToString);
-      aSpamWords.AddPair(FWords.Keys[i], FWords.Data[i].Spam.ToString);
+      aWord:=TJSONObject.Create;
+      aWord.Strings[_dWrd]:=FWords.Keys[i];
+      aWord.Integers[_dSpm]:=FWords.Data[i].Spam;
+      aWord.Integers[_dHm]:=FWords.Data[i].Ham;
+      aJSONWords.Add(aWord);
     end;
-    aHamWords.SaveToFile(FStorageDir+_HamFile);
-    aSpamWords.SaveToFile(FStorageDir+_SpamFile);
-    aIni.WriteInteger('Count', 'HamDocs', FHamCount);
-    aIni.WriteInteger('Count', 'SpamDocs', FSpamCount);
-    aIni.UpdateFile;
+    aFile:=TStringList.Create;
+    try
+      aFile.Text:=aJSON.FormatJSON();
+      aFile.SaveToFile(FStorageDir+'words.json');
+    finally    
+      aFile.Free;
+    end;
   finally
-    aSpamWords.Free;
-    aHamWords.Free;
-    aIni.Free;
+    aJSON.Free;
   end;
 end;
 

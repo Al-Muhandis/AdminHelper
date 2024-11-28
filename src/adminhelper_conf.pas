@@ -12,6 +12,21 @@ type
 
   EWSWConfig = class(Exception);
 
+  { TSpamFilterConfig }
+
+  TSpamFilterConfig = class
+  private
+    FDefinitelyHam: Double;
+    FDefinitelySpam: Double;
+    FEnabled: Boolean;
+  public
+    constructor Create;
+  published
+    property Enabled: Boolean read FEnabled write FEnabled;
+    property DefinitelySpam: Double read FDefinitelySpam write FDefinitelySpam;
+    property DefinitelyHam: Double read FDefinitelyHam write FDefinitelyHam;
+  end;
+
   { TConf }
 
   TConf = class
@@ -23,6 +38,7 @@ type
     FNewbieDays: Integer;
     FPatrolRate: Integer;
     FPort: Integer;
+    FSpamFilter: TSpamFilterConfig;
   public
     constructor Create;
     destructor Destroy; override;
@@ -30,6 +46,7 @@ type
     property Debug: TDebugInfo read FDebug write FDebug;
     property AdminHelperBot: TBotConf read FAdminHelperBot write FAdminHelperBot;
     property AdminHelperDB: TDBConf read FAdminHelperDB write FAdminHelperDB;
+    property SpamFilter: TSpamFilterConfig read FSpamFilter write FSpamFilter;
     property Port: Integer read FPort write FPort;
     property PatrolRate: Integer read FPatrolRate write FPatrolRate;
     property GuardRate: Integer read FGuardRate write FGuardRate;
@@ -47,6 +64,15 @@ uses
   dateutils, jsonparser, jsonscanner, tgsendertypes
   ;
 
+{ TSpamFilterConfig }
+
+constructor TSpamFilterConfig.Create;
+begin
+  FEnabled:=True;
+  FDefinitelySpam:=30;
+  FDefinitelyHam:=-30;
+end;
+
 { TConf }
 
 constructor TConf.Create;
@@ -54,6 +80,7 @@ begin
   FDebug:=TDebugInfo.Create;
   FAdminHelperBot:=TBotConf.Create;
   FAdminHelperDB:=TDBConf.Create;
+  FSpamFilter:=TSpamFilterConfig.Create;
   FPatrolRate:=11;
   FGuardRate:=FPatrolRate*3;
   FNewbieDays:=7;
@@ -61,6 +88,7 @@ end;
 
 destructor TConf.Destroy;
 begin
+  FSpamFilter.Free;
   FAdminHelperDB.Free;
   FAdminHelperBot.Free;
   FDebug.Free;

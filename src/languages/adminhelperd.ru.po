@@ -12,26 +12,33 @@ msgstr ""
 "X-Generator: Poedit 3.5\n"
 
 #: actionadminhelper._sbnalrdyrlbck
+msgctxt "actionadminhelper._sbnalrdyrlbck"
 msgid "This ban action has already been rolled back"
 msgstr ""
 
-#: actionadminhelper._sbndusr
-msgid "Banned user"
-msgstr ""
-
 #: actionadminhelper._sbnrlbck
+msgctxt "actionadminhelper._sbnrlbck"
 msgid "The user's ban was rolled back: unbanning and rating returning "
 msgstr ""
 
-#: actionadminhelper._scmplnnt
-msgid "Complainant"
+#: actionadminhelper._scmplnntisfldbybt
+msgctxt "actionadminhelper._scmplnntisfldbybt"
+msgid "The complaint is filed by the bot itself"
 msgstr ""
 
 #: actionadminhelper._scnfrmtnrlbckbn
+msgctxt "actionadminhelper._scnfrmtnrlbckbn"
 msgid "Do you think the ban was wrong? If the ban is rolled back, the complainant's rating will be downgraded and the inspected user who sent this message will be unbanned."
 msgstr ""
 
+#: actionadminhelper._sdbgspminf
+#, object-pascal-format
+msgctxt "actionadminhelper._sdbgspminf"
+msgid "Ln spam probability: %n, Ln ham probability: %n. Ln Spam Factor: %n"
+msgstr ""
+
 #: actionadminhelper._shelptext
+msgctxt "actionadminhelper._shelptext"
 msgid "Help Text for TAdminHelper"
 msgstr ""
 "Бот помогает модерировать сообщения и быстро банить спамеров в группах. \n"
@@ -44,42 +51,117 @@ msgstr ""
 "Для того, чтобы бот получил список администраторов в группе или в случае удаления или добавления нового, следует любому из действующих администраторов отправить команду `/update`\n"
 "Благодаря тому, что эти команды мгновенно удаляются самим ботом в группе - репорты и обновления происходит незаметно для пользователей "
 
-#: actionadminhelper._sinspctdmsg
-msgid "Inspected message"
-msgstr ""
-
-#: actionadminhelper._sinspctdmsghsdlt
-msgid "The message was successfully deleted and the spammer was banned"
-msgstr ""
-
-#: actionadminhelper._sinspctdmsgisntspm
-msgid "The message is marked as NOT spam. Erroneous complaint"
-msgstr ""
-
 #: actionadminhelper._sinspctdmsgwschckdot
+msgctxt "actionadminhelper._sinspctdmsgwschckdot"
 msgid "The message has already been verified"
 msgstr ""
 
-#: actionadminhelper._sinspctdusr
-msgid "Inspected user"
-msgstr ""
-
-#: actionadminhelper._sprvntvlybnd
-#, object-pascal-format
-msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
-msgstr ""
-
 #: actionadminhelper._sstarttext
+msgctxt "actionadminhelper._sstarttext"
 msgid "Start Text for TAdminHelper"
 msgstr "Бот помогает быстро и бесшумно банить спамеров. Подробности можно узнать с помощью команды /help"
 
 #: actionadminhelper._syrrghts
 #, object-pascal-format
+msgctxt "actionadminhelper._syrrghts"
 msgid "Status: %s"
 msgstr "Статус: %s"
 
 #: actionadminhelper._syrrtng
 #, object-pascal-format
+msgctxt "actionadminhelper._syrrtng"
 msgid "Your rating is %d"
 msgstr "Ваш рейтинг %d"
+
+#: spamfilter_worker._sbndusr
+msgctxt "spamfilter_worker._sbndusr"
+msgid "Banned user"
+msgstr ""
+
+#: spamfilter_worker._scmplnnt
+msgctxt "spamfilter_worker._scmplnnt"
+msgid "Complainant"
+msgstr ""
+
+#: spamfilter_worker._sinspctdmsg
+msgctxt "spamfilter_worker._sinspctdmsg"
+msgid "Inspected message"
+msgstr ""
+
+#: spamfilter_worker._sinspctdusr
+msgctxt "spamfilter_worker._sinspctdusr"
+msgid "Inspected user"
+msgstr ""
+
+#: spamfilter_worker._sisernsbn
+msgctxt "spamfilter_worker._sisernsbn"
+msgid "Is this erroneous ban?"
+msgstr ""
+
+#: spamfilter_worker._smybitsntspm
+msgctxt "spamfilter_worker._smybitsntspm"
+msgid "Probably it's not a spam"
+msgstr ""
+
+#: spamfilter_worker._smybitsspm
+msgctxt "spamfilter_worker._smybitsspm"
+msgid "Probably it's a spam"
+msgstr ""
+
+#: spamfilter_worker._sprvntvlybnd
+#, object-pascal-format
+msgctxt "spamfilter_worker._sprvntvlybnd"
+msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
+msgstr ""
+
+#: telegram_cmn._sbndusr
+msgctxt "telegram_cmn._sbndusr"
+msgid "Banned user"
+msgstr ""
+
+#: telegram_cmn._scmplnnt
+msgctxt "telegram_cmn._scmplnnt"
+msgid "Complainant"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsg
+msgctxt "telegram_cmn._sinspctdmsg"
+msgid "Inspected message"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsghsdlt
+msgctxt "telegram_cmn._sinspctdmsghsdlt"
+msgid "The message was successfully deleted and the spammer was banned"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsgisntspm
+msgctxt "telegram_cmn._sinspctdmsgisntspm"
+msgid "The message is marked as NOT spam. Erroneous complaint"
+msgstr ""
+
+#: telegram_cmn._sinspctdusr
+msgctxt "telegram_cmn._sinspctdusr"
+msgid "Inspected user"
+msgstr ""
+
+#: telegram_cmn._sisernsbn
+msgctxt "telegram_cmn._sisernsbn"
+msgid "Is this erroneous ban?"
+msgstr ""
+
+#: telegram_cmn._smybitsntspm
+msgctxt "telegram_cmn._smybitsntspm"
+msgid "Probably it's not a spam"
+msgstr ""
+
+#: telegram_cmn._smybitsspm
+msgctxt "telegram_cmn._smybitsspm"
+msgid "Probably it's a spam"
+msgstr ""
+
+#: telegram_cmn._sprvntvlybnd
+#, object-pascal-format
+msgctxt "telegram_cmn._sprvntvlybnd"
+msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
+msgstr ""
 

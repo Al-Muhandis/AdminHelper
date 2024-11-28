@@ -103,6 +103,7 @@ type
   private
     FCon: TdSQLdbConnector;
     FDBConfig: TDBConf;
+    FLogFileName: String;
     FopChatMembers: TopfChatMembers;
     FopComplaints: TopfComplaints;
     FopMessages: TopfMessages;
@@ -129,9 +130,11 @@ type
     destructor Destroy; override;
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
-    procedure SaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
-      aInspectedMessage: Integer; out aIsNotifyAdmins: Boolean; aSpamStatus: Integer = 0);
-    procedure SaveMessage(aIsSpam: Boolean; aExecutor: Int64);
+    procedure GetNSaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+      aInspectedMessage: Integer; out aIsFirstComplaint: Boolean; aSpamStatus: Integer = 0);
+    procedure AddMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+      aInspectedMessage: Integer; aSpamStatus: Integer);
+    procedure ModifyMessage(aIsSpam: Boolean; aExecutor: Int64);
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
     function ModifyMessageIfNotChecked(aIsSpam: Boolean; aExecutor: Int64 = 0): Boolean;
@@ -142,6 +145,7 @@ type
     procedure SaveUser(aIsNew: Boolean);
     function UserByID(aUserID: Int64): TBotUser;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
+    property LogFileName: String read FLogFileName write FLogFileName;
     property Message: TTelegramMessage read GetMessage;
     property User: TBotUser read GetUser;
   end;
@@ -181,7 +185,7 @@ end;
 
 function TBotUser.IsNewbie: Boolean;
 begin
-  Result:=((Now-AppearanceAsDateTime)<=Conf.NewbieDays) and (Rate<1)
+  Result:=((Now-AppearanceAsDateTime)<=Conf.NewbieDays) and (Rate<1) and (Spammer<>_msNotSpam);
 end;
 
 { TChatMember }
@@ -197,8 +201,6 @@ end;
 
 procedure TTelegramMessage.Clear;
 begin
-  FMessage:=0;
-  FChat:=0;
   FUser:=0;
   FIsSpam:=0;
   FExecutor:=0;
@@ -286,7 +288,7 @@ begin
     FCon.Logger.Active := FDBConfig.Logger.Active;
     DBConnect;
     if FDBConfig.Logger.FileName.IsEmpty then
-      FCon.Logger.FileName := aDir+'db_sql.log'
+      FCon.Logger.FileName := aDir+FLogFileName
     else
       FCon.Logger.FileName := aDir+FDBConfig.Logger.FileName;
   end;
@@ -354,25 +356,38 @@ end;
 
   { You must to notify administrators if there is no yet the inspected message
     or if a spam command is sending by patrol member }
-procedure TBotORM.SaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
-  aInspectedMessage: Integer; out aIsNotifyAdmins: Boolean; aSpamStatus: Integer);
+procedure TBotORM.GetNSaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+  aInspectedMessage: Integer; out aIsFirstComplaint: Boolean; aSpamStatus: Integer);
 begin
-  aIsNotifyAdmins:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
+  aIsFirstComplaint:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
   { No need to save message if there is not a first complaint and SpamStatus is unknown }
-  if not aIsNotifyAdmins and (aSpamStatus=_msUnknown) then
+  if not aIsFirstComplaint and (aSpamStatus=Message.IsSpam) then
     Exit;
   Message.User:=aInspectedUser;
   Message.IsSpam:=aSpamStatus;
   Message.Executor:=aExecutor;
   Message.UserName:=aInspectedUserName;
-  if aIsNotifyAdmins then
+  if aIsFirstComplaint then
     opMessages.Add(False)
   else
     opMessages.Modify(False);
   opMessages.Apply;
 end;
 
-procedure TBotORM.SaveMessage(aIsSpam: Boolean; aExecutor: Int64);
+procedure TBotORM.AddMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+  aInspectedMessage: Integer; aSpamStatus: Integer);
+begin
+  Message.Chat:=   aInspectedChat;
+  Message.Message:=aInspectedMessage;
+  Message.User:=aInspectedUser;
+  Message.IsSpam:=aSpamStatus;
+  Message.Executor:=aExecutor;
+  Message.UserName:=aInspectedUserName;
+  opMessages.Add(False);
+  opMessages.Apply;
+end;
+
+procedure TBotORM.ModifyMessage(aIsSpam: Boolean; aExecutor: Int64);
 begin
   if aIsSpam then
     Message.IsSpam:=_msSpam
@@ -386,6 +401,7 @@ end;
 constructor TBotORM.Create(aDBConf: TDBConf);
 begin
   FDBConfig:=aDBConf;
+  FLogFileName:='db_sql.log';
 end;
 
 destructor TBotORM.Destroy;
@@ -494,7 +510,7 @@ function TBotORM.ModifyMessageIfNotChecked(aIsSpam: Boolean; aExecutor: Int64): 
 begin
   Result:=Message.IsSpam=_msUnknown;
   if Result then
-    SaveMessage(aIsSpam, aExecutor);
+    ModifyMessage(aIsSpam, aExecutor);
 end;
 
 function TBotORM.GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
@@ -502,6 +518,8 @@ begin
   Message.Chat:=   aInspectedChat;
   Message.Message:=aInspectedMessage;
   Result:= opMessages.Get();
+  if not Result then
+    Message.Clear;
 end;
 
 procedure TBotORM.GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);

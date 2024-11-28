@@ -5,41 +5,41 @@ unit spamfilter_implementer;
 interface
 
 uses
-  Classes, SysUtils, spamfilter, adminhelper_conf
+  Classes, SysUtils, spamfilter, adminhelper_conf, spamfilter_worker
   ;
 
 type
 
-  { TServerSpamFilter }
+  { TSpamFilterRunner }
 
-  TServerSpamFilter = class(TSpamFilter)
+  TSpamFilterRunner = class
   public
-    procedure ServerStop({%H-}Sender: TObject);
+    class procedure ServerStart({%H-}Sender: TObject);
+    class procedure ServerStop({%H-}Sender: TObject);
   end;
 
 var
-  _SpamFilter: TServerSpamFilter;
+  _SpamFilterWorker: TSpamFilterThread = nil;
 
 implementation
 
-{ TServerSpamFilter }
+{ TSpamFilterRunner }
 
-procedure TServerSpamFilter.ServerStop(Sender: TObject);
+class procedure TSpamFilterRunner.ServerStart(Sender: TObject);
 begin
-  Save;
+  _SpamFilterWorker:=TSpamFilterThread.Create;
+  _SpamFilterWorker.Start;
+  _SpamFilterWorker.Logger.Debug('Worker started');
+  _SpamFilterWorker.Load;                          
+  _SpamFilterWorker.Logger.Debug('Base loaded');
 end;
 
-initialization
-  _SpamFilter:=TServerSpamFilter.Create;
-  _SpamFilter.StorageDir:=ConfDir;
-  if not _SpamFilter.Load then
-  begin
-    _SpamFilter.Train('crypto', True);
-    _SpamFilter.Train('lazarus', False);
-  end;
-
-finalization
-  _SpamFilter.Free;
+class procedure TSpamFilterRunner.ServerStop(Sender: TObject);
+begin 
+  _SpamFilterWorker.Save;
+  _SpamFilterWorker.TerminateWorker;
+  FreeAndNil(_SpamFilterWorker);
+end;
 
 end.
 
