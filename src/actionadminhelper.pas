@@ -144,7 +144,7 @@ end;
 
 procedure TAdminHelper.BtCmndSaveFilters(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
 begin
-  if Bot.CurrentIsAdminUser then
+  if Bot.CurrentChatId=Conf.ServiceAdmin then
     _SpamFilterWorker.Save;
 end;
 

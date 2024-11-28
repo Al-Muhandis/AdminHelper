@@ -38,6 +38,7 @@ type
     FNewbieDays: Integer;
     FPatrolRate: Integer;
     FPort: Integer;
+    FServiceAdmin: Int64;
     FSpamFilter: TSpamFilterConfig;
   public
     constructor Create;
@@ -51,6 +52,7 @@ type
     property PatrolRate: Integer read FPatrolRate write FPatrolRate;
     property GuardRate: Integer read FGuardRate write FGuardRate;
     property NewbieDays: Integer read FNewbieDays write FNewbieDays;
+    property ServiceAdmin: Int64 read FServiceAdmin write FServiceAdmin;
 
   end;
 
