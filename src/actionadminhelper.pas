@@ -144,9 +144,8 @@ end;
 
 procedure TAdminHelper.BtCmndSaveFilters(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
 begin
-  if Bot.CurrentChatId<>0 then
-    Exit;                { #todo : temp hack }
-  _SpamFilterWorker.Save;
+  if Bot.CurrentIsAdminUser then
+    _SpamFilterWorker.Save;
 end;
 
 procedure TAdminHelper.BtCmndSettings(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
