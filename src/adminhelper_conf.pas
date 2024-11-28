@@ -70,7 +70,7 @@ constructor TSpamFilterConfig.Create;
 begin
   FEnabled:=True;
   FDefinitelySpam:=30;
-  FDefinitelyHam:=-30;
+  FDefinitelyHam:=-15;
 end;
 
 { TConf }
