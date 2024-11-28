@@ -234,10 +234,7 @@ begin
     Exit;
   end;
   if not AMessage.Text.IsEmpty and ORM.User.IsNewbie then
-  begin
-    Bot.Logger.Debug('Send to classify a newbie message: '+AMessage.Text);
     _SpamFilterWorker.Classify(Current);
-  end;
 end;
 
 function TAdminHelper.GetBotORM: TBotORM;

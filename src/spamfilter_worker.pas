@@ -142,7 +142,6 @@ end;
 
 procedure TSpamFilterThread.ProcessTask(aTask: TSpamFilterTask);
 begin
-  Logger.Debug(Format('Command: %d', [Ord(aTask.TaskCommand)]));
   try
   aTask.AssignTo(FCurrent);
   case aTask.FTaskCommand of
