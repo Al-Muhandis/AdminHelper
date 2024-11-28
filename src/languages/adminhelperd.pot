@@ -24,7 +24,7 @@ msgstr ""
 #: actionadminhelper._sdbgspminf
 #, object-pascal-format
 msgctxt "actionadminhelper._sdbgspminf"
-msgid "Ln spam probability: %n, Ln ham probability: %n. Ln Spam Factor: %n"
+msgid "Ln spam probability: %n, Ln ham probability: %n. Spam Factor: %n"
 msgstr ""
 
 #: actionadminhelper._shelptext

@@ -68,7 +68,7 @@ resourcestring
     'If the ban is rolled back, the complainant''s rating will be downgraded and '+
     'the inspected user who sent this message will be unbanned.';
   _sCmplnntIsFldByBt=   'The complaint is filed by the bot itself';
-  _sDbgSpmInf=          'Ln spam probability: %n, Ln ham probability: %n. Ln Spam Factor: %n';
+  _sDbgSpmInf=          'Ln spam probability: %n, Ln ham probability: %n. Spam Factor: %n';
 
 const
   _LvlStndrd='Standard';
@@ -332,7 +332,8 @@ begin
   end
   else begin
     Bot.Logger.Error(Format('There is no the message #%d in the chat #%d', [aInspectedMessage, aInspectedChat]));
-    _SpamFilterWorker.Train(Current, aIsSpam);
+    if not Current.InspectedMessage.IsEmpty then
+      _SpamFilterWorker.Train(Current, aIsSpam);
   end;
 end;
 
