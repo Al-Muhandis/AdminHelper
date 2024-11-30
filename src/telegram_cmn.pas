@@ -195,19 +195,23 @@ end;
 
 procedure TCurrentEvent.BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
   aInspectedMessage: LongInt; aIsSpam: Boolean);
+var
+  aMsg: String;
 begin
   ORM.UpdateRatings(aInspectedChat, aInspectedMessage, aIsSpam);
   if aIsSpam then
   begin
     Bot.deleteMessage(aInspectedChat, aInspectedMessage);
     Bot.banChatMember(aInspectedChat, aInspectedUser);
-    Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgHsDlt);
     ORM.SaveUserSpamStatus(aInspectedUser, aInspectedUserName);
+    aMsg:=_sInspctdMsgHsDlt;
   end
   else begin
-    Bot.sendMessage(Bot.CurrentUser.ID, _sInspctdMsgIsNtSpm);
     ORM.SaveUserSpamStatus(aInspectedUser, aInspectedUserName, False);
+    aMsg:=_sInspctdMsgIsNtSpm;
   end;
+  if Assigned(Bot.CurrentUser) then
+    Bot.sendMessage(Bot.CurrentUser.ID, aMsg);
 end;
 
 constructor TCurrentEvent.Create(aBot: TTelegramSender);
