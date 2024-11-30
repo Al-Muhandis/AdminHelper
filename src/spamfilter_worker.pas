@@ -143,13 +143,17 @@ end;
 procedure TSpamFilterThread.ProcessTask(aTask: TSpamFilterTask);
 begin
   try
-  aTask.AssignTo(FCurrent);
-  case aTask.FTaskCommand of
-    ftcTrain:    FCurrent.TrainFromMessage(FSpamFilter, aTask.IsSpam);
-    ftcClassify: FCurrent.ClassifyMessage(FSpamFilter);
-    ftcLoad:     FSpamFilter.Load;                     
-    ftcSave:     FSpamFilter.Save;
-  end;
+    try
+      aTask.AssignTo(FCurrent);
+      case aTask.FTaskCommand of
+        ftcTrain:    FCurrent.TrainFromMessage(FSpamFilter, aTask.IsSpam);
+        ftcClassify: FCurrent.ClassifyMessage(FSpamFilter);
+        ftcLoad:     FSpamFilter.Load;
+        ftcSave:     FSpamFilter.Save;
+      end;
+    finally    
+      aTask.Free;
+    end;
   except
     on E: Exception do Logger.Error(E.ClassName+': '+E.Message);
   end;
