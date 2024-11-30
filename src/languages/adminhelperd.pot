@@ -54,6 +54,47 @@ msgctxt "actionadminhelper._syrrtng"
 msgid "Your rating is %d"
 msgstr ""
 
+#: spamfilter_worker._sbndusr
+msgctxt "spamfilter_worker._sbndusr"
+msgid "Banned user"
+msgstr ""
+
+#: spamfilter_worker._scmplnnt
+msgctxt "spamfilter_worker._scmplnnt"
+msgid "Complainant"
+msgstr ""
+
+#: spamfilter_worker._sinspctdmsg
+msgctxt "spamfilter_worker._sinspctdmsg"
+msgid "Inspected message"
+msgstr ""
+
+#: spamfilter_worker._sinspctdusr
+msgctxt "spamfilter_worker._sinspctdusr"
+msgid "Inspected user"
+msgstr ""
+
+#: spamfilter_worker._sisernsbn
+msgctxt "spamfilter_worker._sisernsbn"
+msgid "Is this erroneous ban?"
+msgstr ""
+
+#: spamfilter_worker._smybitsntspm
+msgctxt "spamfilter_worker._smybitsntspm"
+msgid "Probably it's not a spam"
+msgstr ""
+
+#: spamfilter_worker._smybitsspm
+msgctxt "spamfilter_worker._smybitsspm"
+msgid "Probably it's a spam"
+msgstr ""
+
+#: spamfilter_worker._sprvntvlybnd
+#, object-pascal-format
+msgctxt "spamfilter_worker._sprvntvlybnd"
+msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
+msgstr ""
+
 #: telegram_cmn._sbndusr
 msgctxt "telegram_cmn._sbndusr"
 msgid "Banned user"
