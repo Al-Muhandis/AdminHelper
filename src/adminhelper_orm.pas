@@ -287,10 +287,10 @@ begin
     aDir:=IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
     FCon.Logger.Active := FDBConfig.Logger.Active;
     DBConnect;
-    if FDBConfig.Logger.FileName.IsEmpty then
-      FCon.Logger.FileName := aDir+FLogFileName
+    if FLogFileName.IsEmpty then
+      FCon.Logger.FileName := aDir+FDBConfig.Logger.FileName
     else
-      FCon.Logger.FileName := aDir+FDBConfig.Logger.FileName;
+      FCon.Logger.FileName := aDir+FLogFileName
   end;
   Result := FCon;
 end;
@@ -359,19 +359,24 @@ end;
 procedure TBotORM.GetNSaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
   aInspectedMessage: Integer; out aIsFirstComplaint: Boolean; aSpamStatus: Integer);
 begin
-  aIsFirstComplaint:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
-  { No need to save message if there is not a first complaint and SpamStatus is unknown }
-  if not aIsFirstComplaint and (aSpamStatus=Message.IsSpam) then
-    Exit;
-  Message.User:=aInspectedUser;
-  Message.IsSpam:=aSpamStatus;
-  Message.Executor:=aExecutor;
-  Message.UserName:=aInspectedUserName;
-  if aIsFirstComplaint then
-    opMessages.Add(False)
-  else
-    opMessages.Modify(False);
-  opMessages.Apply;
+  try
+    aIsFirstComplaint:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
+    { No need to save message if there is not a first complaint and SpamStatus is unknown }
+    if not aIsFirstComplaint and (aSpamStatus=Message.IsSpam) then
+      Exit;
+    Message.User:=aInspectedUser;
+    Message.IsSpam:=aSpamStatus;
+    Message.Executor:=aExecutor;
+    Message.UserName:=aInspectedUserName;
+    if aIsFirstComplaint then
+      opMessages.Add(False)
+    else
+      opMessages.Modify(False);
+    opMessages.Apply;
+  except
+    on E: Exception do
+      Con.Logger.Log(ltErrors, 'TBotORM.GetNSaveMessage. '+E.ClassName+': '+E.Message);
+  end;
 end;
 
 procedure TBotORM.AddMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;

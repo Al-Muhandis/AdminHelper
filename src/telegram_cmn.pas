@@ -21,15 +21,20 @@ type
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
     FInspectedUser: TTelegramUserObj;
+    FLogPrefix: String;
     FSpamProbability, FHamProbability: Double;
+    function GetBotORM: TBotORM;
+    procedure SetComplainant(AValue: TTelegramUserObj);
+    procedure SetInspectedChat(AValue: TTelegramChatObj);
+    procedure SetInspectedUser(AValue: TTelegramUserObj);
   protected
     property Bot: TTelegramSender read FBot;
-    property ORM: TBotORM read FBotORM;
   public
     procedure AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
     procedure BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
       aInspectedMessage: LongInt; aIsSpam: Boolean);
-    constructor Create(aBot: TTelegramSender; aBotORM: TBotORM);
+    constructor Create(aBot: TTelegramSender);
+    destructor Destroy; override;
     procedure ProcessComplaint(aCanBeSilentBan: Boolean; aSpamStatus: Integer);
     function IsGroup: Boolean;
     procedure ClassifyMessage(aSpamFilter: TSpamFilter);
@@ -38,13 +43,15 @@ type
     procedure SendMessagesToAdmins(aIsDefinitlySpam: Boolean; aIsPreventively: Boolean = False);
     procedure SendToModerator(aModerator: Int64; aIsDefinitelySpam, aIsPreventively: Boolean;
       var aIsUserPrivacy: Boolean);
-    property InspectedChat: TTelegramChatObj read FInspectedChat write FInspectedChat;
-    property InspectedUser: TTelegramUserObj read FInspectedUser write FInspectedUser;
+    property InspectedChat: TTelegramChatObj read FInspectedChat write SetInspectedChat;
+    property InspectedUser: TTelegramUserObj read FInspectedUser write SetInspectedUser;
     property InspectedMessage: String read FInspectedMessage write FInspectedMessage;
     property InspectedMessageID: Integer read FInspectedMessageID write FInspectedMessageID;
-    property Complainant: TTelegramUserObj read FComplainant write FComplainant;
+    property Complainant: TTelegramUserObj read FComplainant write SetComplainant;
     property SpamProbability: Double read FSpamProbability write FSpamProbability;
-    property HamProbability: Double read FHamProbability write FHamProbability;
+    property HamProbability: Double read FHamProbability write FHamProbability;  
+    property ORM: TBotORM read GetBotORM;
+    property LogPrefix: String read FLogPrefix write FLogPrefix;
   end;
 
 function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String; 
@@ -144,12 +151,46 @@ end;
 
 { TCurrentEvent }
 
+function TCurrentEvent.GetBotORM: TBotORM;
+begin
+  if FBotORM=nil then
+  begin
+    FBotORM:=TBotORM.Create(Conf.AdminHelperDB);
+    FBotORM.LogFileName:=FLogPrefix+'sql.log';
+  end;
+  Result:=FBotORM;
+end;
+
+procedure TCurrentEvent.SetComplainant(AValue: TTelegramUserObj);
+begin
+  if FComplainant=AValue then Exit;
+  FComplainant.Free;
+  if Assigned(AValue) then
+    FComplainant:=AValue.Clone;
+end;
+
+procedure TCurrentEvent.SetInspectedChat(AValue: TTelegramChatObj);
+begin
+  if FInspectedChat=AValue then Exit;
+  FInspectedChat.Free; 
+  if Assigned(AValue) then
+    FInspectedChat:=AValue.Clone;
+end;
+
+procedure TCurrentEvent.SetInspectedUser(AValue: TTelegramUserObj);
+begin
+  if FInspectedUser=AValue then Exit;
+  FInspectedUser.Free;
+  if Assigned(AValue) then
+    FInspectedUser:=AValue.Clone;
+end;
+
 procedure TCurrentEvent.AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
 begin
-  FInspectedMessage:=aMessage.Text;
-  FInspectedChat:=aMessage.Chat;
-  FInspectedUser:=aMessage.From;
-  FInspectedMessageID:=aMessage.MessageId;
+  InspectedMessage:=aMessage.Text;
+  InspectedChat:=aMessage.Chat;
+  InspectedUser:=aMessage.From;
+  InspectedMessageID:=aMessage.MessageId;
 end;
 
 procedure TCurrentEvent.BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
@@ -169,11 +210,19 @@ begin
   end;
 end;
 
-constructor TCurrentEvent.Create(aBot: TTelegramSender; aBotORM: TBotORM);
+constructor TCurrentEvent.Create(aBot: TTelegramSender);
 begin
   FBot:=aBot;
-  FBotORM:=aBotORM;
   inherited Create;
+end;
+
+destructor TCurrentEvent.Destroy;
+begin
+  FInspectedUser.Free;
+  FInspectedChat.Free;
+  FComplainant.Free;
+  FBotORM.Free;
+  inherited Destroy;
 end;
 
 procedure TCurrentEvent.ProcessComplaint(aCanBeSilentBan: Boolean; aSpamStatus: Integer);
@@ -233,11 +282,16 @@ var
 begin
   aChatMembers:=TopfChatMembers.TEntities.Create;
   try
-    ORM.GetModeratorsByChat(FInspectedChat.ID, aChatMembers);
-    aIsUserPrivacy:=False;
-    for aChatMember in aChatMembers do
-      if aChatMember.Moderator then
-        SendToModerator(aChatMember.User, aIsDefinitlySpam, aIsPreventively, aIsUserPrivacy);
+    try
+      ORM.GetModeratorsByChat(FInspectedChat.ID, aChatMembers);
+      aIsUserPrivacy:=False;
+      for aChatMember in aChatMembers do
+        if aChatMember.Moderator then
+          SendToModerator(aChatMember.User, aIsDefinitlySpam, aIsPreventively, aIsUserPrivacy);
+    except
+      on E: Exception do
+        Bot.Logger.Error('TCurrentEvent.SendMessagesToAdmins. '+E.ClassName+': '+E.Message);
+    end;
   finally
     aChatMembers.Free;
   end;

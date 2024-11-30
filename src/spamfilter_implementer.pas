@@ -30,14 +30,15 @@ begin
   _SpamFilterWorker:=TSpamFilterThread.Create;
   _SpamFilterWorker.Start;
   _SpamFilterWorker.Logger.Debug('Worker started');
-  _SpamFilterWorker.Load;                          
-  _SpamFilterWorker.Logger.Debug('Base loaded');
+  _SpamFilterWorker.Load;
 end;
 
 class procedure TSpamFilterRunner.ServerStop(Sender: TObject);
-begin 
+begin                       
+  _SpamFilterWorker.Logger.Debug('Worker finish');
   _SpamFilterWorker.Save;
-  _SpamFilterWorker.TerminateWorker;
+  _SpamFilterWorker.TerminateWorker; 
+  _SpamFilterWorker.WaitFor;
   FreeAndNil(_SpamFilterWorker);
 end;
 

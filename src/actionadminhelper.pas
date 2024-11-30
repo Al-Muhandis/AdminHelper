@@ -225,15 +225,20 @@ begin
   Current.Complainant:=nil;
   if not Current.IsGroup then
     Exit;
-  if ORM.UserByID(AMessage.From.ID).Spammer=_msSpam then
-  begin
-    Bot.deleteMessage(Current.InspectedChat.ID, Current.InspectedMessageID);
-    Bot.banChatMember(Current.InspectedChat.ID, AMessage.From.ID);
-    Current.SendMessagesToAdmins(True, False);
-    Exit;
+  try
+    if ORM.UserByID(AMessage.From.ID).Spammer=_msSpam then
+    begin
+      Bot.deleteMessage(Current.InspectedChat.ID, Current.InspectedMessageID);
+      Bot.banChatMember(Current.InspectedChat.ID, Current.InspectedUser.ID);
+      Current.SendMessagesToAdmins(True, False);
+      Exit;
+    end;
+    if not AMessage.Text.IsEmpty and ORM.User.IsNewbie then
+      _SpamFilterWorker.Classify(Current);
+  except
+    on E: Exception do
+      Bot.Logger.Error('TAdminHelper.BtRcvMessage. '+e.ClassName+': '+e.Message);
   end;
-  if not AMessage.Text.IsEmpty and ORM.User.IsNewbie then
-    _SpamFilterWorker.Classify(Current);
 end;
 
 function TAdminHelper.GetBotORM: TBotORM;
@@ -249,7 +254,10 @@ end;
 function TAdminHelper.GetCurrent: TCurrentEvent;
 begin
   if FCurrent=nil then
-    FCurrent:=TCurrentEvent.Create(Bot, ORM);
+  begin
+    FCurrent:=TCurrentEvent.Create(Bot);
+    FCurrent.LogPrefix:='Action_';
+  end;
   Result:=FCurrent;
 end;
 
@@ -427,12 +435,7 @@ begin
         with (m.Value as TJSONObject).Objects['user'] do
           if not Booleans['is_bot'] then
             aModeratorIDs.Add(Int64s['id']);
-      try
-        ORM.AddChatMembers(aChat, True, aModeratorIDs);
-      except
-        on E: Exception do
-          Bot.Logger.Error('UpdateModeratorsForChat. '+e.ClassName+': '+e.Message);
-      end;
+      ORM.AddChatMembers(aChat, True, aModeratorIDs);
     finally
       aModeratorIDs.Free;
     end;
