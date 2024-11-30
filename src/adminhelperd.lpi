@@ -22,7 +22,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="91"/>
+      <BuildNr Value="93"/>
     </VersionInfo>
     <BuildModes Count="4" Active="Linux">
       <Item1 Name="Default" Default="True"/>
@@ -334,8 +334,8 @@
       <Unit20>
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="123"/>
-        <CursorPos X="41" Y="145"/>
+        <TopLine Value="199"/>
+        <CursorPos X="3" Y="204"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit20>
@@ -418,9 +418,9 @@
         <Filename Value="spamfilter_worker.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="142"/>
-        <CursorPos X="54" Y="152"/>
-        <UsageCount Value="178"/>
+        <TopLine Value="117"/>
+        <CursorPos X="18" Y="122"/>
+        <UsageCount Value="180"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
@@ -442,9 +442,9 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="158"/>
-        <CursorPos X="35" Y="165"/>
-        <UsageCount Value="128"/>
+        <TopLine Value="292"/>
+        <CursorPos X="37" Y="300"/>
+        <UsageCount Value="130"/>
         <Loaded Value="True"/>
       </Unit34>
     </Units>
@@ -452,127 +452,123 @@
       <Define0 Value="UseCThreads"/>
       <Define1 Value="SynapseHTTP"/>
     </OtherDefines>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="34" Column="27" TopLine="16"/>
+        <Caret Line="61" Column="28" TopLine="40"/>
       </Position1>
       <Position2>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="121" Column="25" TopLine="117"/>
-      </Position2>
-      <Position3>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="33" Column="16" TopLine="22"/>
-      </Position3>
-      <Position4>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="112" Column="3" TopLine="109"/>
-      </Position4>
-      <Position5>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="33" Column="17" TopLine="21"/>
-      </Position5>
-      <Position6>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="112" Column="3" TopLine="109"/>
-      </Position6>
-      <Position7>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="30" Column="17" TopLine="21"/>
-      </Position7>
-      <Position8>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="85" Column="3" TopLine="82"/>
-      </Position8>
-      <Position9>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="40" Column="14" TopLine="28"/>
-      </Position9>
-      <Position10>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="26" Column="15" TopLine="12"/>
-      </Position10>
-      <Position11>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="127" Column="3" TopLine="125"/>
-      </Position11>
-      <Position12>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="61" Column="28" TopLine="40"/>
-      </Position12>
-      <Position13>
         <Filename Value="telegram_cmn.pas"/>
         <Caret Line="35" Column="21" TopLine="24"/>
+      </Position2>
+      <Position3>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="210" Column="3" TopLine="205"/>
+      </Position3>
+      <Position4>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="33" Column="15" TopLine="21"/>
+      </Position4>
+      <Position5>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="194" Column="3" TopLine="178"/>
+      </Position5>
+      <Position6>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="30" Column="15" TopLine="18"/>
+      </Position6>
+      <Position7>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="158" Column="3" TopLine="154"/>
+      </Position7>
+      <Position8>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="144" Column="15" TopLine="131"/>
+      </Position8>
+      <Position9>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="474" Column="3" TopLine="468"/>
+      </Position9>
+      <Position10>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="145" Column="15" TopLine="134"/>
+      </Position10>
+      <Position11>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="130" Column="24" TopLine="123"/>
+      </Position11>
+      <Position12>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="409" Column="3" TopLine="406"/>
+      </Position12>
+      <Position13>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="152" Column="54" TopLine="142"/>
       </Position13>
       <Position14>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="210" Column="3" TopLine="205"/>
+        <Caret Line="35" Column="15" TopLine="23"/>
       </Position14>
       <Position15>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="33" Column="15" TopLine="21"/>
+        <Caret Line="210" Column="3" TopLine="205"/>
       </Position15>
       <Position16>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="194" Column="3" TopLine="178"/>
+        <Caret Line="33" Column="15" TopLine="21"/>
       </Position16>
       <Position17>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="30" Column="15" TopLine="18"/>
+        <Caret Line="185" Column="3" TopLine="178"/>
       </Position17>
       <Position18>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="158" Column="3" TopLine="154"/>
+        <Caret Line="30" Column="15" TopLine="18"/>
       </Position18>
       <Position19>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="144" Column="15" TopLine="131"/>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="159" Column="42" TopLine="154"/>
       </Position19>
       <Position20>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="474" Column="3" TopLine="468"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="56" Column="56" TopLine="30"/>
       </Position20>
       <Position21>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="145" Column="15" TopLine="134"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="145" Column="3" TopLine="143"/>
       </Position21>
       <Position22>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="130" Column="24" TopLine="123"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="143" Column="41" TopLine="143"/>
       </Position22>
       <Position23>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="409" Column="3" TopLine="406"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="34" Column="27" TopLine="16"/>
       </Position23>
       <Position24>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="152" Column="54" TopLine="142"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="137" Column="34" TopLine="124"/>
       </Position24>
       <Position25>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="35" Column="15" TopLine="23"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="30" Column="23" TopLine="17"/>
       </Position25>
       <Position26>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="210" Column="3" TopLine="205"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="204" Column="3" TopLine="199"/>
       </Position26>
       <Position27>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="33" Column="15" TopLine="21"/>
+        <Caret Line="38" Column="15" TopLine="25"/>
       </Position27>
       <Position28>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="185" Column="3" TopLine="178"/>
+        <Caret Line="238" Column="3" TopLine="231"/>
       </Position28>
       <Position29>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="30" Column="15" TopLine="18"/>
+        <Caret Line="39" Column="15" TopLine="27"/>
       </Position29>
-      <Position30>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="159" Column="42" TopLine="154"/>
-      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

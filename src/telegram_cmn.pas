@@ -297,7 +297,7 @@ begin
       if not Assigned(Complainant) then
         aKB.Add.AddButton(_sBtnBtCmplnnt, RouteMsgCmplnntIsBt);
     end;
-    if not Assigned(Complainant) then
+    if not (Assigned(Complainant) or aIsPreventively) then
     begin
       if SpamFactor>0 then
         s:=_sMybItsSpm
