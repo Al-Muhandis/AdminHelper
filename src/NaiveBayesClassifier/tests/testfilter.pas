@@ -22,6 +22,7 @@ type
     procedure TrainNClassify;
     procedure Save;   
     procedure Load;
+    procedure Upgrade;
   end;
 
 implementation
@@ -53,6 +54,11 @@ begin
 
   if FSpamFilter.Classify('I learn') then
     Fail('Wrong classify. Must be not a spam');
+end;
+
+procedure TTestFilter.Upgrade;
+begin
+  FSpamFilter.Rebase;
 end;
 
 procedure TTestFilter.SetUp;

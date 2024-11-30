@@ -34,11 +34,12 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    procedure Train(Message: string; IsSpam: Boolean);
+    procedure Train(aMessage: string; IsSpam: Boolean);
     function Classify(const aMessage: string; out aHamProbability, aSpamProbability: Double): Boolean;  
     function Classify(const aMessage: string): Boolean;
     function Load: Boolean;
-    function LoadJSON: Boolean;
+    function LoadJSON(aIsRebase: Boolean = False): Boolean;
+    procedure Rebase;
     procedure Save;
     procedure SaveJSON;
     property StorageDir: String read FStorageDir write FStorageDir;
@@ -56,7 +57,7 @@ var
   _50Probability: Double;
 
 const
-  _Separators=[' ', '.', ',', '!', '?', '"'];
+  _Separators=[' ', '.', ',', '!', '?', ';', ':', '(', ')', '-'];
   _dSpmDcs='SpamDocs';
   _dHmDcs='HamDocs';
   _dWrds='words';
@@ -78,7 +79,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TSpamFilter.Train(Message: string; IsSpam: Boolean);
+procedure TSpamFilter.Train(aMessage: string; IsSpam: Boolean);
 var
   aWords: TStringList;
   aWord, w: string;
@@ -87,7 +88,8 @@ var
 begin
   aWords := TStringList.Create;
   try
-    ExtractStrings(_Separators, [], PChar(Message), aWords);
+    aMessage:=aMessage.Replace('"', ' ');
+    ExtractStrings(_Separators, [], PChar(aMessage), aWords);
     if IsSpam then
       Inc(FSpamCount)
     else
@@ -179,12 +181,36 @@ begin
   Result:=LoadJSON;
 end;
 
-function TSpamFilter.LoadJSON: Boolean;
+function TSpamFilter.LoadJSON(aIsRebase: Boolean): Boolean;
 var
   aFile: TStringList;
   aJSON: TJSONObject;
   w: TJSONEnum;
   aCountRec: TCountRec;
+  aWord: String;
+
+  procedure ExtractSubwords(const aSubWords: String);
+  var
+    aWords: TStrings;
+    i: Integer;
+    s: String;
+  begin
+    aWords:=TStringList.Create;
+    try
+    ExtractStrings(_Separators, [], PChar(aSubWords), aWords);
+    for s in aWords do
+      if FWords.Find(s, i) then
+      begin
+        aCountRec.Spam+=FWords.Data[i].Spam;
+        aCountRec.Ham+=FWords.Data[i].Ham;
+      end
+      else
+        FWords.Add(s, aCountRec);
+    finally
+      aWords.Free;
+    end;
+  end;
+
 begin
   FWords.Clear;
   if not FileExists(FStorageDir+'words.json') then
@@ -205,7 +231,11 @@ begin
         begin
           aCountRec.Spam:=Integers[_dSpm];
           aCountRec.Ham:=Integers[_dHm];
-          FWords.Add(Strings[_dWrd], aCountRec);
+          aWord:=Strings[_dWrd];
+          if aIsRebase then
+            ExtractSubwords(aWord)
+          else
+            FWords.Add(aWord, aCountRec);
         end;
     finally
       aJSON.Free;
@@ -213,6 +243,12 @@ begin
   finally
     aFile.Free;
   end;
+end;
+
+procedure TSpamFilter.Rebase;
+begin
+  LoadJSON(True);
+  Save;
 end;
 
 procedure TSpamFilter.Save;

@@ -22,7 +22,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="93"/>
+      <BuildNr Value="96"/>
     </VersionInfo>
     <BuildModes Count="4" Active="Linux">
       <Item1 Name="Default" Default="True"/>
@@ -334,8 +334,8 @@
       <Unit20>
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="199"/>
-        <CursorPos X="3" Y="204"/>
+        <TopLine Value="251"/>
+        <CursorPos X="42" Y="259"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit20>
@@ -400,9 +400,10 @@
       <Unit29>
         <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="27"/>
-        <CursorPos X="23" Y="40"/>
+        <TopLine Value="79"/>
+        <CursorPos X="32" Y="81"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
       </Unit29>
@@ -420,7 +421,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="117"/>
         <CursorPos X="18" Y="122"/>
-        <UsageCount Value="180"/>
+        <UsageCount Value="183"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
@@ -440,11 +441,10 @@
       <Unit34>
         <Filename Value="telegram_cmn.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="292"/>
-        <CursorPos X="37" Y="300"/>
-        <UsageCount Value="130"/>
+        <TopLine Value="8"/>
+        <CursorPos X="32" Y="296"/>
+        <UsageCount Value="133"/>
         <Loaded Value="True"/>
       </Unit34>
     </Units>
@@ -452,123 +452,127 @@
       <Define0 Value="UseCThreads"/>
       <Define1 Value="SynapseHTTP"/>
     </OtherDefines>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="61" Column="28" TopLine="40"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="130" Column="24" TopLine="123"/>
       </Position1>
       <Position2>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="35" Column="21" TopLine="24"/>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="409" Column="3" TopLine="406"/>
       </Position2>
       <Position3>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="210" Column="3" TopLine="205"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="152" Column="54" TopLine="142"/>
       </Position3>
       <Position4>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="33" Column="15" TopLine="21"/>
+        <Caret Line="35" Column="15" TopLine="23"/>
       </Position4>
       <Position5>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="194" Column="3" TopLine="178"/>
+        <Caret Line="210" Column="3" TopLine="205"/>
       </Position5>
       <Position6>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="30" Column="15" TopLine="18"/>
+        <Caret Line="33" Column="15" TopLine="21"/>
       </Position6>
       <Position7>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="158" Column="3" TopLine="154"/>
+        <Caret Line="185" Column="3" TopLine="178"/>
       </Position7>
       <Position8>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="144" Column="15" TopLine="131"/>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="30" Column="15" TopLine="18"/>
       </Position8>
       <Position9>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="474" Column="3" TopLine="468"/>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="159" Column="42" TopLine="154"/>
       </Position9>
       <Position10>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="145" Column="15" TopLine="134"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="56" Column="56" TopLine="30"/>
       </Position10>
       <Position11>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="130" Column="24" TopLine="123"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="145" Column="3" TopLine="143"/>
       </Position11>
       <Position12>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="409" Column="3" TopLine="406"/>
+        <Filename Value="spamfilter_worker.pas"/>
+        <Caret Line="143" Column="41" TopLine="143"/>
       </Position12>
       <Position13>
         <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="152" Column="54" TopLine="142"/>
+        <Caret Line="34" Column="27" TopLine="16"/>
       </Position13>
       <Position14>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="35" Column="15" TopLine="23"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="137" Column="34" TopLine="124"/>
       </Position14>
       <Position15>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="210" Column="3" TopLine="205"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="30" Column="23" TopLine="17"/>
       </Position15>
       <Position16>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="33" Column="15" TopLine="21"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="204" Column="3" TopLine="199"/>
       </Position16>
       <Position17>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="185" Column="3" TopLine="178"/>
+        <Caret Line="38" Column="15" TopLine="25"/>
       </Position17>
       <Position18>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="30" Column="15" TopLine="18"/>
+        <Caret Line="238" Column="3" TopLine="231"/>
       </Position18>
       <Position19>
         <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="159" Column="42" TopLine="154"/>
+        <Caret Line="39" Column="15" TopLine="27"/>
       </Position19>
       <Position20>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="56" Column="56" TopLine="30"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="206" Column="39" TopLine="199"/>
       </Position20>
       <Position21>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="145" Column="3" TopLine="143"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="31" Column="15" TopLine="17"/>
       </Position21>
       <Position22>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="143" Column="41" TopLine="143"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="28" Column="21" TopLine="22"/>
       </Position22>
       <Position23>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="34" Column="27" TopLine="16"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="173" Column="3" TopLine="167"/>
       </Position23>
       <Position24>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="137" Column="34" TopLine="124"/>
+        <Caret Line="37" Column="15" TopLine="26"/>
       </Position24>
       <Position25>
-        <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="30" Column="23" TopLine="17"/>
+        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
+        <Caret Line="37" Column="19" TopLine="19"/>
       </Position25>
       <Position26>
-        <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="204" Column="3" TopLine="199"/>
+        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
+        <Caret Line="89" Column="57" TopLine="81"/>
       </Position26>
       <Position27>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="38" Column="15" TopLine="25"/>
+        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
+        <Caret Line="83" Column="3" TopLine="81"/>
       </Position27>
       <Position28>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="238" Column="3" TopLine="231"/>
+        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
+        <Caret Line="37" Column="17" TopLine="36"/>
       </Position28>
       <Position29>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="39" Column="15" TopLine="27"/>
+        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
+        <Caret Line="81" Column="32" TopLine="79"/>
       </Position29>
+      <Position30>
+        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
+        <Caret Line="37" Column="29" TopLine="24"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
