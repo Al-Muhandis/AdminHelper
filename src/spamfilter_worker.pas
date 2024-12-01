@@ -155,7 +155,7 @@ begin
       aTask.Free;
     end;
   except
-    on E: Exception do Logger.Error(E.ClassName+': '+E.Message);
+    on E: Exception do Logger.Error('ProcessTask. '+E.ClassName+': '+E.Message);
   end;
 end;
 
