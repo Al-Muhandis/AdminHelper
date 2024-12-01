@@ -413,6 +413,7 @@ var
   aModeratorIDs: TInt64List;
   aChatMember: TTelegramChatMember;
   m: TJSONEnum;
+  aUserID: Int64;
 begin
   if not Bot.getChatMember(aChat, aFrom, aChatMember) or
     not (aChatMember.StatusType in [msCreator, msAdministrator]) then
@@ -426,7 +427,11 @@ begin
       for m in aModerators do
         with (m.Value as TJSONObject).Objects['user'] do
           if not Booleans['is_bot'] then
-            aModeratorIDs.Add(Int64s['id']);
+          begin
+            aUserID:=Int64s['id'];
+            aModeratorIDs.Add(aUserID);
+            ORM.SaveUserSpamStatus(aUserID, Strings['first_name'], False);
+          end;
       try
         ORM.AddChatMembers(aChat, True, aModeratorIDs);
       except
