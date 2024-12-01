@@ -431,8 +431,6 @@ begin
       begin
         aIsNew:=not GetUserByID(aComplaint.Complainant);
         aRate:=opUsers.Entity.Rate;
-        if opUsers.Entity.Appearance=0 then
-          opUsers.Entity.AppearanceAsDateTime:=Now;
         if aIsSpam then
         begin
           if not aIsRollback then
@@ -461,10 +459,7 @@ end;
 procedure TBotORM.SaveUserAppearance(aIsNew: Boolean);
 begin
   if opUsers.Entity.Appearance=0 then
-    opUsers.Entity.AppearanceAsDateTime:=Now
-  else
-    Exit;
-  SaveUser(aIsNew);
+    SaveUser(aIsNew);
 end;
 
 procedure TBotORM.SaveUserSpamStatus(aUserID: Int64; const aUserName: String; aIsSpammer: Boolean);
@@ -482,6 +477,8 @@ end;
 
 procedure TBotORM.SaveUser(aIsNew: Boolean);
 begin
+  if User.Appearance=0 then
+    User.AppearanceAsDateTime:=Now;
   if aIsNew then
     opUsers.Add(False)
   else
