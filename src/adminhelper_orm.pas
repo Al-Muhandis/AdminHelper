@@ -5,7 +5,7 @@ unit adminhelper_orm;
 interface
 
 uses
-  dSQLdbBroker, SysUtils, classes, fgl, mysql80conn, brk_tg_config, fpjson, adminhelper_conf
+  dSQLdbBroker, SysUtils, classes, fgl, brk_tg_config, adminhelper_conf
   ;
 
 type
@@ -160,7 +160,7 @@ const
 implementation
 
 uses
-  dOpf, DateUtils
+  dOpf, DateUtils, SQLDB
   ;
 
 { TBotUser }
@@ -511,10 +511,26 @@ begin
 end;
 
 function TBotORM.GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
+
+  function RetryGet: Boolean;
+  begin
+    Con.Connected:=False;
+    Con.Connected:=True;
+    Result:=opMessages.Get();
+  end;
+
 begin
   Message.Chat:=   aInspectedChat;
   Message.Message:=aInspectedMessage;
-  Result:= opMessages.Get();
+  try
+    Result:= opMessages.Get();
+  except
+    on E: ESQLDatabaseError do
+      if not E.Message.Contains('The client was disconnected by the server because of inactivity') then
+        raise
+      else
+        Result:=RetryGet;
+  end;
   if not Result then
     Message.Clear;
 end;
