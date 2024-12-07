@@ -5,7 +5,7 @@ unit brokers;
 interface
 
 uses
-  BrookTardigradeBroker, BrookUtils, BrookFCLEventLogBroker, sysutils
+  BrookTardigradeBroker, BrookUtils, BrookFCLEventLogBroker, sysutils, mysql80conn
   ;
 
 implementation

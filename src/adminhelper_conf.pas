@@ -5,7 +5,7 @@ unit adminhelper_conf;
 interface
 
 uses
-  Classes, SysUtils, fpjson, brk_tg_config
+  SysUtils, brk_tg_config
   ;
 
 type
@@ -61,10 +61,6 @@ var
   ConfDir: String;
 
 implementation
-
-uses
-  dateutils, jsonparser, jsonscanner, tgsendertypes
-  ;
 
 { TSpamFilterConfig }
 

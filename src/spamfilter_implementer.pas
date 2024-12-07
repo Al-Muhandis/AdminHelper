@@ -5,7 +5,7 @@ unit spamfilter_implementer;
 interface
 
 uses
-  Classes, SysUtils, spamfilter, adminhelper_conf, spamfilter_worker
+  SysUtils, spamfilter_worker
   ;
 
 type
