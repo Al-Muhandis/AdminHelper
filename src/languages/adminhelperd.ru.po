@@ -56,6 +56,10 @@ msgctxt "actionadminhelper._sinspctdmsgwschckdot"
 msgid "The message has already been verified"
 msgstr ""
 
+#: actionadminhelper._sspmbsemj
+msgid "It is identified as a spam based on emojies in the message"
+msgstr ""
+
 #: actionadminhelper._sstarttext
 msgctxt "actionadminhelper._sstarttext"
 msgid "Start Text for TAdminHelper"

@@ -17,6 +17,7 @@ type
     FBot: TTelegramSender;
     FComplainant: TTelegramUserObj;
     FBotORM: TBotORM;
+    FEmojiMarker: Boolean;
     FInspectedChat: TTelegramChatObj;
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
@@ -45,12 +46,13 @@ type
     property Complainant: TTelegramUserObj read FComplainant write FComplainant;
     property SpamProbability: Double read FSpamProbability write FSpamProbability;
     property HamProbability: Double read FHamProbability write FHamProbability;
+    property EmojiMarker: Boolean read FEmojiMarker write FEmojiMarker;
   end;
 
 function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String; 
 function RouteMsgUsrPrvcy: String;                        
 function RouteMsgCmplnntIsBt(): String;   
-function RouteMsgPrbblySpm(aSpamProbability, aHamProbability: Double): String;
+function RouteMsgPrbblySpm(aSpamProbability, aHamProbability: Double; aIsEmojiMarker: Boolean = False): String;
 
 const
   _sBtnPair='%s: %s';
@@ -116,9 +118,11 @@ begin
   Result:='m'+' '+_dtCmplnntIsBt;
 end;
 
-function RouteMsgPrbblySpm(aSpamProbability, aHamProbability: Double): String;
+function RouteMsgPrbblySpm(aSpamProbability, aHamProbability: Double; aIsEmojiMarker: Boolean): String;
 begin
   Result:='m'+' '+_dtPrbblySpm+' '+aSpamProbability.ToString+' '+aHamProbability.ToString;
+  if aIsEmojiMarker then
+    Result+=' '+'emj';
 end;
 
 function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer): String;
@@ -211,6 +215,7 @@ procedure TCurrentEvent.ClassifyMessage(aSpamFilter: TSpamFilter);
 var
   aSpamStatus: Integer;
 begin
+  FEmojiMarker:=False;
   if CountEmojis(InspectedMessage)<Conf.SpamFilter.EmojiLimit then
   begin
     aSpamFilter.Classify(InspectedMessage, FHamProbability, FSpamProbability);
@@ -219,8 +224,12 @@ begin
     else
       aSpamStatus:=_msUnknown;
   end
-  else
+  else begin
+    FHamProbability:=0;
+    FSpamProbability:=0;
+    FEmojiMarker:=True;
     aSpamStatus:=_msSpam;
+  end;
   ProcessComplaint(False, aSpamStatus);
 end;
 
@@ -308,7 +317,7 @@ begin
         s:=_sMybItsSpm
       else
         s:=_sMybItsNtSpm;
-      aKB.Add.AddButton(s, RouteMsgPrbblySpm(SpamProbability, HamProbability));
+      aKB.Add.AddButton(s, RouteMsgPrbblySpm(SpamProbability, HamProbability, EmojiMarker));
     end;
     if aIsPreventively then
       Bot.sendMessage(aModerator, Format(_sPrvntvlyBnd, [InspectedUser.ID,

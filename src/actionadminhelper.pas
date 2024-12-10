@@ -68,7 +68,8 @@ resourcestring
     'If the ban is rolled back, the complainant''s rating will be downgraded and '+
     'the inspected user who sent this message will be unbanned.';
   _sCmplnntIsFldByBt=   'The complaint is filed by the bot itself';
-  _sDbgSpmInf=          'Ln spam probability: %n, Ln ham probability: %n. Spam Factor: %n';
+  _sDbgSpmInf=          'Ln spam probability: %n, Ln ham probability: %n. Spam Factor: %n'; 
+  _sSpmBsEmj=           'It is identified as a spam based on emojies in the message';
 
 const
   _LvlStndrd='Standard';
@@ -341,12 +342,16 @@ var
   var
     aSpamProbability, aHamProbability: Extended;
   begin
-    if not TryStrToFloat(ExtractDelimited(3, ACallback.Data, [' ']), aSpamProbability) or
-      not TryStrToFloat(ExtractDelimited(4, ACallback.Data, [' ']), aHamProbability) then
-      Exit('Error, please write to the developer');
-    Current.SpamProbability:=aSpamProbability;
-    Current.HamProbability:=aHamProbability;
-    Result:=Format(_sDbgSpmInf, [Current.SpamProbability, Current.HamProbability, Current.SpamFactor]);
+    if ExtractDelimited(5, ACallback.Data, [' '])='emj' then
+      Result:=_sSpmBsEmj
+    else begin
+      if not TryStrToFloat(ExtractDelimited(3, ACallback.Data, [' ']), aSpamProbability) or
+        not TryStrToFloat(ExtractDelimited(4, ACallback.Data, [' ']), aHamProbability) then
+        Exit('Error, please write to the developer');
+      Current.SpamProbability:=aSpamProbability;
+      Current.HamProbability:=aHamProbability;
+      Result:=Format(_sDbgSpmInf, [Current.SpamProbability, Current.HamProbability, Current.SpamFactor]);
+    end;
   end;
 
 begin
@@ -354,7 +359,6 @@ begin
     _dtUsrPrvcy:    aMsg:='User privacy for one of the buttons restricted';  
     _dtCmplnntIsBt: aMsg:=_sCmplnntIsFldByBt;
     _dtPrbblySpm:   aMsg:=MessageProbablyItsSpam;
-
   else
     aMsg:='The message not defined';
   end;
