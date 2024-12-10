@@ -163,6 +163,10 @@ uses
   dOpf, DateUtils, SQLDB
   ;
 
+const
+  _sqlE_ClntWsDcnctd='The client was disconnected by the server because of inactivity';
+  _sqlE_LstCnctn='Lost connection to MySQL server during query';
+
 { TBotUser }
 
 procedure TBotUser.SetAppearanceAsDateTime(AValue: TDateTime);
@@ -526,10 +530,13 @@ begin
     Result:= opMessages.Get();
   except
     on E: ESQLDatabaseError do
-      if not E.Message.Contains('The client was disconnected by the server because of inactivity') then
+      if not (E.Message.Contains(_sqlE_ClntWsDcnctd) or E.Message.Contains(_sqlE_LstCnctn)) then
         raise
-      else
+      else begin
+        Con.Logger.LogFmt(ltConnection,
+          'GetMessage. Warning: the error "%s" occurred during connection. Try reconnecting again', [E.Message]);
         Result:=RetryGet;
+      end;
   end;
   if not Result then
     Message.Clear;
