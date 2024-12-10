@@ -18,6 +18,7 @@ type
   private
     FDefinitelyHam: Double;
     FDefinitelySpam: Double;
+    FEmojiLimit: Integer;
     FEnabled: Boolean;
   public
     constructor Create;
@@ -25,6 +26,7 @@ type
     property Enabled: Boolean read FEnabled write FEnabled;
     property DefinitelySpam: Double read FDefinitelySpam write FDefinitelySpam;
     property DefinitelyHam: Double read FDefinitelyHam write FDefinitelyHam;
+    property EmojiLimit: Integer read FEmojiLimit write FEmojiLimit;
   end;
 
   { TConf }
@@ -69,6 +71,7 @@ begin
   FEnabled:=True;
   FDefinitelySpam:=30;
   FDefinitelyHam:=-15;
+  FEmojiLimit:=15;
 end;
 
 { TConf }

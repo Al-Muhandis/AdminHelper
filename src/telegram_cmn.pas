@@ -70,7 +70,7 @@ resourcestring
 implementation
 
 uses
-  StrUtils, tgutils, adminhelper_conf
+  StrUtils, tgutils, adminhelper_conf, emojiutils
   ;
 
 resourcestring
@@ -211,11 +211,16 @@ procedure TCurrentEvent.ClassifyMessage(aSpamFilter: TSpamFilter);
 var
   aSpamStatus: Integer;
 begin
-  aSpamFilter.Classify(InspectedMessage, FHamProbability, FSpamProbability);
-  if SpamFactor>Conf.SpamFilter.DefinitelySpam then
-    aSpamStatus:=_msSpam
+  if CountEmojis(InspectedMessage)<Conf.SpamFilter.EmojiLimit then
+  begin
+    aSpamFilter.Classify(InspectedMessage, FHamProbability, FSpamProbability);
+    if SpamFactor>Conf.SpamFilter.DefinitelySpam then
+      aSpamStatus:=_msSpam
+    else
+      aSpamStatus:=_msUnknown;
+  end
   else
-    aSpamStatus:=_msUnknown;
+    aSpamStatus:=_msSpam;
   ProcessComplaint(False, aSpamStatus);
 end;
 
