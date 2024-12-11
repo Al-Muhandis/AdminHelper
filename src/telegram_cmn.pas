@@ -80,13 +80,14 @@ resourcestring
   _sInspctdMsg=  'Inspected message';
   _sCmplnnt=     'Complainant';
   _sIsErnsBn=    'Is this erroneous ban?';
-  _sMybItsSpm=   'Probably it''s a spam';
-  _sMybItsNtSpm= 'Probably it''s not a spam';   
+  _sMybItsSpm=   '"Probably it''s a spam". More info...';
+  _sMybItsNtSpm= '"Probably it''s not a spam". More info...';
   _sInspctdMsgHsDlt=    'The message was successfully deleted and the spammer was banned';
   _sInspctdMsgIsNtSpm=  'The message is marked as NOT spam. Erroneous complaint';
 
 const
-  _emjbot='🤖';
+  _emjbot='🤖'; 
+  _emjInfrmtn='ℹ️';
 
 var
   _sBtnBtCmplnnt: String;
@@ -313,10 +314,11 @@ begin
     end;
     if not (Assigned(Complainant) or aIsPreventively) then
     begin
-      if SpamFactor>0 then
-        s:=_sMybItsSpm
+      s:=_emjInfrmtn+' ';
+      if (SpamFactor>0) or EmojiMarker then
+        s+= _sMybItsSpm
       else
-        s:=_sMybItsNtSpm;
+        s+=_sMybItsNtSpm;
       aKB.Add.AddButton(s, RouteMsgPrbblySpm(SpamProbability, HamProbability, EmojiMarker));
     end;
     if aIsPreventively then

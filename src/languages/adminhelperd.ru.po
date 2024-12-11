@@ -114,12 +114,12 @@ msgstr ""
 
 #: telegram_cmn._smybitsntspm
 msgctxt "telegram_cmn._smybitsntspm"
-msgid "Probably it's not a spam"
+msgid "\"Probably it's not a spam\". More info..."
 msgstr ""
 
 #: telegram_cmn._smybitsspm
 msgctxt "telegram_cmn._smybitsspm"
-msgid "Probably it's a spam"
+msgid "\"Probably it's a spam\". More info..."
 msgstr ""
 
 #: telegram_cmn._sprvntvlybnd
