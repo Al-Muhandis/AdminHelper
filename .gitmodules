@@ -10,3 +10,9 @@
 [submodule "use/brookfreepascal"]
 	path = use/brookfreepascal
 	url = https://github.com/risoflora/brookfreepascal.git
+[submodule "use/taskworker"]
+	path = use/taskworker
+	url = https://github.com/Al-Muhandis/taskworker.git
+[submodule "use/dopf"]
+	path = use/dopf
+	url = https://github.com/pascal-libs/dopf.git
