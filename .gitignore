@@ -41,6 +41,7 @@ ppas.bat
 backup/
 *.bak
 lib/
+use/*/
 
 # Application bundle for Mac OS
 *.app/
