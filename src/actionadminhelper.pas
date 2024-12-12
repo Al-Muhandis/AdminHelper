@@ -227,10 +227,10 @@ begin
   if not Current.IsGroup then
     Exit;
   if ORM.UserByID(AMessage.From.ID).Spammer=_msSpam then
-  begin
+  begin                   
+    Current.SendMessagesToAdmins(True, False);
     Bot.deleteMessage(Current.InspectedChat.ID, Current.InspectedMessageID);
     Bot.banChatMember(Current.InspectedChat.ID, AMessage.From.ID);
-    Current.SendMessagesToAdmins(True, False);
     Exit;
   end;
   if not AMessage.Text.IsEmpty and ORM.User.IsNewbie then
