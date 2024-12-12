@@ -14,6 +14,12 @@ If the inspected message is incorrectly identified as a spam, the member's ratin
 In order for the bot to receive a list of administrators in a group or in case of deleting or adding a new one, it is necessary to send the `/update` command from any of the current administrators.
 Due to the fact that these commands are instantly deleted by the bot itself in the group, reports and updates occur unnoticed by users
 
+#Spam classifier
+A spam classifier has been added to the bot (you can turn it off in the service config), 
+which can be trained and used to automatically notify administrators (and in the case of high spam probability can be automatically to ban) about suspicious messages. 
+The algorithm of the Naive Bayesian Classifier is used. 
+In addition, messages in which the number of emojis exceeds the specified number can also be automatically marked as spam by this filter
+
 # Architecture
 The software implements the telegram bot as a web server in webhook mode
 
