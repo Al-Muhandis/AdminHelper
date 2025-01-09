@@ -28,5 +28,5 @@
 - fp-telegram (Telegram bots API wrapper) https://github.com/Al-Muhandis/fp-telegram
 - brook-telegram (Телеграм плагин для BrookFoFreePascal) https://github.com/Al-Muhandis/brook-telegram/
 - BrookForFreePascal & BrookFramework (HTTP сервер) https://github.com/risoflora/brookfreepascal & https://github.com/risoflora/brookframework
-- dOPF (ORM) https://github.com/risoflora/brookfreepascal/tree/main/plugins/dopf
+- dOPF (ORM) https://github.com/pascal-libs/dopf
 Заметки: BrookFreePascal может использоваться и без BrookFramework в режиме брокера

@@ -27,5 +27,5 @@ The software implements the telegram bot as a web server in webhook mode
 - fp-telegram (Telegram bots API wrapper) https://github.com/Al-Muhandis/fp-telegram
 - brook-telegram (Plugin for BrookFoFreePascal) https://github.com/Al-Muhandis/brook-telegram/
 - BrookForFreePascal & BrookFramework (HTTP server) https://github.com/risoflora/brookfreepascal & https://github.com/risoflora/brookframework
-- dOPF (ORM) https://github.com/risoflora/brookfreepascal/tree/main/plugins/dopf
+- dOPF (ORM) https://github.com/pascal-libs/dopf
 Notes: BrookFreePascal can be used without BrookFramework in broker mode
