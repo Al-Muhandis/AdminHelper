@@ -163,9 +163,13 @@ uses
   dOpf, DateUtils, SQLDB
   ;
 
+function CheckDisconnectErr(const aErrMessage: string): Boolean;
 const
   _sqlE_ClntWsDcnctd='The client was disconnected by the server because of inactivity';
   _sqlE_LstCnctn='Lost connection to MySQL server during query';
+begin
+  Result:=aErrMessage.Contains(_sqlE_ClntWsDcnctd) or aErrMessage.Contains(_sqlE_LstCnctn);
+end;
 
 { TBotUser }
 
@@ -362,6 +366,16 @@ end;
     or if a spam command is sending by patrol member }
 procedure TBotORM.GetNSaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
   aInspectedMessage: Integer; out aIsFirstComplaint: Boolean; aSpamStatus: Integer);
+
+  procedure RetryAdd;
+  begin
+    Con.Logger.Log(ltCustom,
+      'GetNSaveMessage. Warning: the error occurred during connection. Try reconnecting again');
+    Con.Connected:=False;
+    Con.Connected:=True;
+    opMessages.Add(False);
+  end;
+
 begin
   aIsFirstComplaint:=not GetMessage(aInspectedChat, aInspectedMessage); // Notify if there is a first complaint
   { No need to save message if there is not a first complaint and SpamStatus is unknown }
@@ -372,7 +386,15 @@ begin
   Message.Executor:=aExecutor;
   Message.UserName:=aInspectedUserName;
   if aIsFirstComplaint then
-    opMessages.Add(False)
+    try
+      opMessages.Add(False)
+    except
+      on E: ESQLDatabaseError do
+        if not CheckDisconnectErr(E.Message) then
+          raise
+        else
+          RetryAdd;
+    end
   else
     opMessages.Modify(False);
   opMessages.Apply;
@@ -518,6 +540,8 @@ function TBotORM.GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): 
 
   function RetryGet: Boolean;
   begin
+    Con.Logger.Log(ltCustom,
+      'GetMessage. Warning: the error occurred during connection. Try reconnecting again');
     Con.Connected:=False;
     Con.Connected:=True;
     Result:=opMessages.Get();
@@ -530,13 +554,10 @@ begin
     Result:= opMessages.Get();
   except
     on E: ESQLDatabaseError do
-      if not (E.Message.Contains(_sqlE_ClntWsDcnctd) or E.Message.Contains(_sqlE_LstCnctn)) then
+      if not CheckDisconnectErr(E.Message) then
         raise
-      else begin
-        Con.Logger.LogFmt(ltConnection,
-          'GetMessage. Warning: the error "%s" occurred during connection. Try reconnecting again', [E.Message]);
+      else
         Result:=RetryGet;
-      end;
   end;
   if not Result then
     Message.Clear;
