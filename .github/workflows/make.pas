@@ -19,7 +19,7 @@ var
   Client: TFPHttpClient;
   Output, Line, LPI: ansistring;
   Files: TStringList;
-  Each: String;
+  Each: string;
 
 begin
   if FileExists('.gitmodules') then
@@ -41,24 +41,18 @@ begin
   Files := FindAllFiles(Src, '*.lpi', True);
   try
     for Each in Files do
+    begin
       Writeln(#27'[33m', 'build ', Each, #27'[0m');
       if RunCommand('lazbuild', ['--build-all', '--recursive',
         '--no-write-project', Each], Output) then
-      begin
         for Line in SplitString(Output, LineEnding) do
-        begin
           if Pos('Linking', Line) <> 0 then
-            Writeln(#27'[32m', Line, #27'[0m');
-        end;
-      end
-      else
-      begin
-        for Line in SplitString(Output, LineEnding) do
-        begin
-          if Pos('Fatal', Line) <> 0 and Pos('Error', Line) then
-            Writeln(#27'[31m', Line, #27'[0m');
-        end;
-      end;
+            Writeln(#27'[32m', Line, #27'[0m')
+          else
+            for Line in SplitString(Output, LineEnding) do
+              if Pos('Fatal', Line) <> 0 and Pos('Error', Line) then
+                Writeln(#27'[31m', Line, #27'[0m');
+    end;
   finally
     Files.Free;
   end;
