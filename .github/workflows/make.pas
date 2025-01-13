@@ -13,8 +13,8 @@ uses
   Process;
 
 const
-  Src: string = '.';
-  Use: string = '.';
+  Src: string = 'src';
+  Use: string = 'use';
   Tst: string = 'testconsole.lpi';
   Pkg: array of string = ('PoweredBy', 'splashabout');
 
