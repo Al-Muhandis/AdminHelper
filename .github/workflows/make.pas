@@ -6,6 +6,7 @@ uses
   SysUtils,
   StrUtils,
   FileUtil,
+  Zipper,
   fphttpclient,
   openssl,
   opensslsockets,
@@ -14,11 +15,11 @@ uses
 const
   Src = 'src';
   Use = 'use';
+  Tst = 'testconsole.lpi';
 
 var
-  Client: TFPHttpClient;
-  Output, Line, LPI: ansistring;
-  Files: TStringList;
+  Output, Line: ansistring;
+  List: TStringList;
   Each: string;
 
 begin
@@ -28,32 +29,63 @@ begin
       Writeln(#27'[32m', Output, #27'[0m')
     else
       Writeln(#27'[31m', Output, #27'[0m');
-  Files := FindAllFiles(Use, '*.lpk', True);
+  List := FindAllFiles(Use, '*.lpk', True);
   try
-    for Each in Files do
+    for Each in List do
       if RunCommand('lazbuild', ['--add-package-link', Each], Output) then
         Writeln(#27'[32m', 'added ', Each, #27'[0m')
       else
         Writeln(#27'[31m', 'added ', Each, #27'[0m');
   finally
-    Files.Free;
+    List.Free;
   end;
-  Files := FindAllFiles(Src, '*.lpi', True);
+  ExitCode := 0;
+  List := FindAllFiles('.', Tst, True);
   try
-    for Each in Files do
+    for Each in List do
     begin
       Writeln(#27'[33m', 'build ', Each, #27'[0m');
       if RunCommand('lazbuild', ['--build-all', '--recursive',
         '--no-write-project', Each], Output) then
         for Line in SplitString(Output, LineEnding) do
+        begin
           if Pos('Linking', Line) <> 0 then
-            Writeln(#27'[32m', Line, #27'[0m')
-          else
-            for Line in SplitString(Output, LineEnding) do
-              if Pos('Fatal', Line) <> 0 and Pos('Error', Line) then
-                Writeln(#27'[31m', Line, #27'[0m');
+          begin
+            if not RunCommand('command', [SplitString(Line, ' ')[2],
+              '--all', '--format=plain', '--progress'], Output) then
+              ExitCode += 1;
+            WriteLn(Output);
+          end;
+        end
+      else
+        for Line in SplitString(Output, LineEnding) do
+          if Pos('Fatal', Line) <> 0 and Pos('Error', Line) then
+            Writeln(#27'[31m', Line, #27'[0m');
     end;
   finally
-    Files.Free;
+    List.Free;
+  end;
+  List := FindAllFiles(Src, '*.lpi', True);
+  try
+    for Each in List do
+    begin
+      Writeln(#27'[33m', 'build ', Each, #27'[0m');
+      if RunCommand('lazbuild', ['--build-all', '--recursive',
+        '--no-write-project', Each], Output) then
+        for Line in SplitString(Output, LineEnding) do
+        begin
+          if Pos('Linking', Line) <> 0 then
+            Writeln(#27'[32m', Line, #27'[0m');
+        end
+      else
+      begin
+        ExitCode += 1;
+        for Line in SplitString(Output, LineEnding) do
+          if Pos('Fatal', Line) <> 0 and Pos('Error', Line) then
+            Writeln(#27'[31m', Line, #27'[0m');
+      end;
+    end;
+  finally
+    List.Free;
   end;
 end.
