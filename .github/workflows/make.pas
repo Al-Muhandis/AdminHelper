@@ -111,7 +111,7 @@ var
 
   procedure BuildProject(Path: string);
   begin
-    Write(#27'[33m', 'build from ', Each, #27'[0m');
+    Write(stderr, #27'[33m', 'build from ', Each, #27'[0m');
     try
       if RunCommand('lazbuild', ['--build-all', '--recursive',
         '--no-write-project', Each], Answer.Output) then
@@ -134,7 +134,6 @@ var
       for Each in List do
       begin
         BuildProject(Each);
-        WriteLn(stderr);
         if Answer.Code <> 0 then
         begin
           for Line in SplitString(Answer.Output, LineEnding) do
@@ -149,9 +148,10 @@ var
             if Pos('Linking', Line) <> 0 then
             try
               begin
-                if not RunCommand('command',
-                  [SplitString(Line, ' ')[2], '--all', '--format=plain',
-                  '--progress'], Answer.Output) then
+                Writeln(stderr, #27'[32m', ' to ', SplitString(Line, ' ')[2], #27'[0m');
+                if not RunCommand(ReplaceStr(SplitString(Line, ' ')[2],
+                  SplitString(Tst, '.')[0], './' + SplitString(Tst, '.')[0]),
+                  ['--all', '--format=plain', '--progress'], Answer.Output) then
                   ExitCode += 1;
                 WriteLn(stderr, Answer.Output);
                 break;
@@ -176,7 +176,6 @@ begin
   List := FindAllFiles(Src, '*.lpi', True);
   try
     for Each in List do
-    begin
       if Pos(Tst, Each) = 0 then
       begin
         BuildProject(Each);
@@ -194,7 +193,6 @@ begin
             if Pos('Linking', Line) <> 0 then
               Writeln(stderr, #27'[32m', ' to ', SplitString(Line, ' ')[2], #27'[0m');
       end;
-    end;
   finally
     List.Free;
   end;
