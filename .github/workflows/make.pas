@@ -177,20 +177,23 @@ begin
   try
     for Each in List do
     begin
-      BuildProject(Each);
-      if Answer.Code <> 0 then
+      if Pos(Tst, Each) = 0 then
       begin
-        for Line in SplitString(Answer.Output, LineEnding) do
-          if Pos('Fatal:', Line) <> 0 or Pos('Error:', Line) then
-          begin
-            WriteLn(stderr);
-            Writeln(stderr, #27'[31m', Line, #27'[0m');
-          end;
-      end
-      else
-        for Line in SplitString(Answer.Output, LineEnding) do
-          if Pos('Linking', Line) <> 0 then
-            Writeln(stderr, #27'[32m', ' to ', SplitString(Line, ' ')[2], #27'[0m');
+        BuildProject(Each);
+        if Answer.Code <> 0 then
+        begin
+          for Line in SplitString(Answer.Output, LineEnding) do
+            if Pos('Fatal:', Line) <> 0 or Pos('Error:', Line) then
+            begin
+              WriteLn(stderr);
+              Writeln(stderr, #27'[31m', Line, #27'[0m');
+            end;
+        end
+        else
+          for Line in SplitString(Answer.Output, LineEnding) do
+            if Pos('Linking', Line) <> 0 then
+              Writeln(stderr, #27'[32m', ' to ', SplitString(Line, ' ')[2], #27'[0m');
+      end;
     end;
   finally
     List.Free;
