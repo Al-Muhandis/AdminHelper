@@ -8,6 +8,7 @@ uses
   FileUtil,
   Zipper,
   fphttpclient,
+  RegExpr,
   openssl,
   opensslsockets,
   Process;
@@ -137,10 +138,15 @@ var
         if Answer.Code <> 0 then
         begin
           for Line in SplitString(Answer.Output, LineEnding) do
-            if Pos('Fatal:', Line) <> 0 or Pos('Error:', Line) then
+            with TRegExpr.Create do
             begin
-              WriteLn(stderr);
-              Writeln(stderr, #27'[31m', Line, #27'[0m');
+              Expression := '(Fatal|Error):';
+              if Exec(Line) then
+              begin
+                WriteLn(stderr);
+                Writeln(stderr, #27'[31m', Line, #27'[0m');
+              end;
+              Free;
             end;
         end
         else
@@ -182,10 +188,15 @@ begin
         if Answer.Code <> 0 then
         begin
           for Line in SplitString(Answer.Output, LineEnding) do
-            if Pos('Fatal:', Line) <> 0 or Pos('Error:', Line) then
+            with TRegExpr.Create do
             begin
-              WriteLn(stderr);
-              Writeln(stderr, #27'[31m', Line, #27'[0m');
+              Expression := '(Fatal|Error):';
+              if Exec(Line) then
+              begin
+                WriteLn(stderr);
+                Writeln(stderr, #27'[31m', Line, #27'[0m');
+              end;
+              Free;
             end;
         end
         else
