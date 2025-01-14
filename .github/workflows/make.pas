@@ -19,9 +19,9 @@ const
   Pkg: array of string = ('PoweredBy', 'splashabout');
 
 var
+  Each, Item, PackagePath, TempFile, Url: string;
   Output, Line: ansistring;
   List: TStringList;
-  Each, Item, PackagePath, TempFile, Url: string;
   Zip: TStream;
 
 begin
@@ -146,4 +146,8 @@ begin
   finally
     List.Free;
   end;
+  if ExitCode <> 0 then
+    WriteLn('Errors: ', #27'[31m', ExitCode, #27'[0m')
+  else
+    WriteLn('Errors: ', #27'[32m', ExitCode, #27'[0m');
 end.
