@@ -5,7 +5,7 @@ unit spamfilter;
 interface
 
 uses
-  Classes, SysUtils, fgl
+  Classes, SysUtils, fgl, jsonparser
   ;
 
 type
@@ -41,7 +41,7 @@ type
     constructor Create;
     destructor Destroy; override;
     procedure Train(aMessage: string; IsSpam: Boolean);
-    function Classify(const aMessage: string; out aHamProbability, aSpamProbability: Double): Boolean;  
+    function Classify(const aMessage: string; out aHamProbability, aSpamProbability: Double): Boolean;
     function Classify(const aMessage: string): Boolean;
     function Load: Boolean;
     function LoadJSON(aIsRebase: Boolean = False): Boolean;
@@ -119,7 +119,7 @@ begin
           aWordRec.Spam := 1;
           aWordRec.Ham  := 0;
         end
-        else begin            
+        else begin
           aWordRec.Spam := 0;
           aWordRec.Ham  := 1;
         end;
@@ -287,7 +287,7 @@ begin
     try
       aFile.Text:=aJSON.FormatJSON();
       aFile.SaveToFile(FStorageDir+'words.json');
-    finally    
+    finally
       aFile.Free;
     end;
   finally
