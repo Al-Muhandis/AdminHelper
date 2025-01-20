@@ -31,6 +31,12 @@ type
     FTotalSpamWords: Integer;
     FTotalHamWords: Integer;
     FStorageDir: String;
+  protected
+    property Words: TWordPairs read FWords;
+    property SpamCount: Integer read FSpamCount;
+    property HamCount: Integer read FHamCount;
+    property TotalSpamWords: Integer read FTotalSpamWords;
+    property TotalHamWords: Integer read FTotalHamWords;
   public
     constructor Create;
     destructor Destroy; override;
@@ -50,7 +56,7 @@ type
 implementation
 
 uses
-  fpjson
+  fpjson, LConvEncoding
   ;
 
 var
@@ -231,7 +237,7 @@ begin
         begin
           aCountRec.Spam:=Integers[_dSpm];
           aCountRec.Ham:=Integers[_dHm];
-          aWord:=Strings[_dWrd];
+          aWord:=UTF8Encode(UTF8Decode(Strings[_dWrd]));
           if aIsRebase then
             ExtractSubwords(aWord)
           else

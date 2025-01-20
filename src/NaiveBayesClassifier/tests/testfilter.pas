@@ -47,7 +47,7 @@ end;
 
 procedure TTestFilter.Load;
 begin
-  //Save;
+  Save;
   FSpamFilter.Load;
   if not FSpamFilter.Classify('You have a free phone') then
     Fail('Wrong classify. Must be a spam');
@@ -58,6 +58,7 @@ end;
 
 procedure TTestFilter.Upgrade;
 begin
+  Save;
   FSpamFilter.Rebase;
 end;
 

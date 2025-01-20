@@ -22,7 +22,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="114"/>
+      <BuildNr Value="115"/>
     </VersionInfo>
     <BuildModes Count="4" Active="Linux">
       <Item1 Name="Default" Default="True"/>
@@ -448,7 +448,7 @@
         <EditorIndex Value="4"/>
         <TopLine Value="28"/>
         <CursorPos X="10" Y="12"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="177"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
