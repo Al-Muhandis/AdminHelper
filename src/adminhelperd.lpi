@@ -22,7 +22,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
-      <BuildNr Value="115"/>
+      <BuildNr Value="117"/>
     </VersionInfo>
     <BuildModes Count="4" Active="Linux">
       <Item1 Name="Default" Default="True"/>
