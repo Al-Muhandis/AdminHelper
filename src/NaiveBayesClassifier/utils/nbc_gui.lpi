@@ -55,6 +55,11 @@
               </Win32>
             </Options>
           </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx6058="True" idx3124="True" idx3123="True"/>
+            </CompilerMessages>
+          </Other>
         </CompilerOptions>
       </Item>
       <Item Name="Release">
@@ -111,6 +116,7 @@
         <Filename Value="mainform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit>
       <Unit>

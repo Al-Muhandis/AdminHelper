@@ -30,7 +30,8 @@ type
     FHamCount: Integer;
     FTotalSpamWords: Integer;
     FTotalHamWords: Integer;
-    FStorageDir: String;
+    FStorageDir: String;   
+    procedure ExtractWords(aMessage: String; aWords: TStrings);
   protected
     property Words: TWordPairs read FWords;
     property SpamCount: Integer read FSpamCount;
@@ -56,7 +57,7 @@ type
 implementation
 
 uses
-  fpjson, LConvEncoding
+  fpjson, LConvEncoding, StrUtils
   ;
 
 var
@@ -70,6 +71,13 @@ const
   _dWrd='word';
   _dSpm='spam';
   _dHm='ham';
+
+procedure TSpamFilter.ExtractWords(aMessage: String; aWords: TStrings);
+begin
+  aMessage:=aMessage.Replace('"', ' ');
+  aMessage:=aMessage.Replace('''', ' ');
+  ExtractStrings(_Separators, [], PChar(aMessage), aWords);
+end;
 
 constructor TSpamFilter.Create;
 begin
@@ -94,8 +102,7 @@ var
 begin
   aWords := TStringList.Create;
   try
-    aMessage:=aMessage.Replace('"', ' ');
-    ExtractStrings(_Separators, [], PChar(aMessage), aWords);
+    ExtractWords(aMessage, aWords);
     if IsSpam then
       Inc(FSpamCount)
     else
@@ -149,7 +156,7 @@ begin
   end;
   aWords := TStringList.Create;
   try
-    ExtractStrings(_Separators, [], PChar(aMessage), aWords);
+    ExtractWords(aMessage, aWords);
 
     aSpamProbability := Ln(FSpamCount / (FSpamCount + FHamCount));
     aHamProbability := Ln(FHamCount / (FSpamCount + FHamCount));
@@ -203,15 +210,15 @@ var
   begin
     aWords:=TStringList.Create;
     try
-    ExtractStrings(_Separators, [], PChar(aSubWords), aWords);
-    for s in aWords do
-      if FWords.Find(s, i) then
-      begin
-        aCountRec.Spam+=FWords.Data[i].Spam;
-        aCountRec.Ham+=FWords.Data[i].Ham;
-      end
-      else
-        FWords.Add(s, aCountRec);
+      ExtractWords(aSubWords, aWords);
+      for s in aWords do
+        if FWords.Find(s, i) then
+        begin
+          aCountRec.Spam+=FWords.Data[i].Spam;
+          aCountRec.Ham+=FWords.Data[i].Ham;
+        end
+        else
+          FWords.Add(s, aCountRec);
     finally
       aWords.Free;
     end;

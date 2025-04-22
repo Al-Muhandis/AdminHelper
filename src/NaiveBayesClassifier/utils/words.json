@@ -1,6 +1,6 @@
 {
-  "SpamDocs" : 743,
-  "HamDocs" : 216,
+  "SpamDocs" : 842,
+  "HamDocs" : 237,
   "words" : [
     {
       "word" : "#нетворкинг",
@@ -49,6 +49,11 @@
     },
     {
       "word" : "$1200",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "$150",
       "spam" : 1,
       "ham" : 0
     },
@@ -113,6 +118,11 @@
       "ham" : 0
     },
     {
+      "word" : "$700/неделю",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "$7oo",
       "spam" : 1,
       "ham" : 0
@@ -139,7 +149,7 @@
     },
     {
       "word" : "%",
-      "spam" : 4,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -148,28 +158,13 @@
       "ham" : 2
     },
     {
-      "word" : "'no'",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
-      "word" : "'yes'",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
-      "word" : "'сюда текст ошибки надо'",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
       "word" : "*",
       "spam" : 0,
       "ham" : 2
     },
     {
       "word" : "+",
-      "spam" : 122,
+      "spam" : 136,
       "ham" : 0
     },
     {
@@ -178,7 +173,22 @@
       "ham" : 0
     },
     {
+      "word" : "+1",
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "+2",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "+20",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "+payoneer",
       "spam" : 1,
       "ham" : 0
     },
@@ -194,7 +204,7 @@
     },
     {
       "word" : "/",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -206,6 +216,11 @@
       "word" : "//bellard",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "//gitverse",
+      "spam" : 0,
+      "ham" : 2
     },
     {
       "word" : "//iplwin88",
@@ -238,6 +253,11 @@
       "ham" : 0
     },
     {
+      "word" : "//www",
+      "spam" : 1,
+      "ham" : 1
+    },
+    {
       "word" : "//youtu",
       "spam" : 28,
       "ham" : 1
@@ -258,8 +278,13 @@
       "ham" : 0
     },
     {
+      "word" : "00",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "000",
-      "spam" : 27,
+      "spam" : 28,
       "ham" : 0
     },
     {
@@ -288,8 +313,18 @@
       "ham" : 0
     },
     {
+      "word" : "0ms",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "0бя3ательных",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "0жиʙ",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -299,7 +334,7 @@
     },
     {
       "word" : "0плата",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -318,18 +353,28 @@
       "ham" : 0
     },
     {
+      "word" : "0фис",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "0ᴛ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "0️",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "1",
-      "spam" : 25,
-      "ham" : 4
+      "spam" : 27,
+      "ham" : 6
     },
     {
       "word" : "10",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 1
     },
     {
@@ -339,7 +384,7 @@
     },
     {
       "word" : "100",
-      "spam" : 6,
+      "spam" : 8,
       "ham" : 0
     },
     {
@@ -364,7 +409,7 @@
     },
     {
       "word" : "1000$",
-      "spam" : 7,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -494,7 +539,7 @@
     },
     {
       "word" : "12%",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -509,7 +554,7 @@
     },
     {
       "word" : "1200$",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -519,13 +564,18 @@
     },
     {
       "word" : "125",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
       "word" : "1250",
       "spam" : 3,
       "ham" : 0
+    },
+    {
+      "word" : "125ms",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "13",
@@ -569,7 +619,7 @@
     },
     {
       "word" : "150",
-      "spam" : 16,
+      "spam" : 17,
       "ham" : 0
     },
     {
@@ -593,9 +643,19 @@
       "ham" : 0
     },
     {
+      "word" : "15000руб",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "15o",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "15 000",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "15к$",
@@ -614,12 +674,12 @@
     },
     {
       "word" : "1600$",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "16ooopyб",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -634,17 +694,17 @@
     },
     {
       "word" : "170",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
       "word" : "18",
-      "spam" : 13,
+      "spam" : 17,
       "ham" : 0
     },
     {
       "word" : "18+",
-      "spam" : 10,
+      "spam" : 13,
       "ham" : 0
     },
     {
@@ -734,8 +794,13 @@
     },
     {
       "word" : "2",
-      "spam" : 60,
-      "ham" : 3
+      "spam" : 64,
+      "ham" : 4
+    },
+    {
+      "word" : "2%",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "20",
@@ -744,17 +809,17 @@
     },
     {
       "word" : "20+",
-      "spam" : 4,
+      "spam" : 7,
       "ham" : 0
     },
     {
       "word" : "200",
-      "spam" : 16,
+      "spam" : 19,
       "ham" : 1
     },
     {
       "word" : "200$",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -814,7 +879,7 @@
     },
     {
       "word" : "21+",
-      "spam" : 13,
+      "spam" : 14,
       "ham" : 0
     },
     {
@@ -848,6 +913,11 @@
       "ham" : 0
     },
     {
+      "word" : "226 050",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "23000",
       "spam" : 1,
       "ham" : 0
@@ -864,7 +934,7 @@
     },
     {
       "word" : "24/7",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -888,13 +958,23 @@
       "ham" : 0
     },
     {
+      "word" : "24s",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "24 125",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "25%",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "250",
-      "spam" : 8,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -913,6 +993,11 @@
       "ham" : 0
     },
     {
+      "word" : "268 779 264",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "27/7",
       "spam" : 1,
       "ham" : 0
@@ -921,6 +1006,11 @@
       "word" : "270/two",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "297 757 264",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "2o+",
@@ -959,8 +1049,8 @@
     },
     {
       "word" : "3",
-      "spam" : 22,
-      "ham" : 8
+      "spam" : 24,
+      "ham" : 9
     },
     {
       "word" : "3%",
@@ -984,7 +1074,7 @@
     },
     {
       "word" : "300$",
-      "spam" : 18,
+      "spam" : 21,
       "ham" : 0
     },
     {
@@ -998,7 +1088,22 @@
       "ham" : 0
     },
     {
+      "word" : "320$",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "3200$",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "32bits",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "340",
       "spam" : 1,
       "ham" : 0
     },
@@ -1019,6 +1124,11 @@
     },
     {
       "word" : "350+/two",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "350к",
       "spam" : 1,
       "ham" : 0
     },
@@ -1079,12 +1189,22 @@
     },
     {
       "word" : "3айм",
-      "spam" : 9,
+      "spam" : 14,
       "ham" : 4
     },
     {
-      "word" : "3дpaвcтвyйтe",
+      "word" : "3арабатывать",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "3д",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "3дpaвcтвyйтe",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -1124,8 +1244,18 @@
     },
     {
       "word" : "4",
-      "spam" : 10,
+      "spam" : 11,
       "ham" : 3
+    },
+    {
+      "word" : "4%",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "4/9 эт",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "40",
@@ -1199,11 +1329,21 @@
     },
     {
       "word" : "450к",
-      "spam" : 2,
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "470",
+      "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "4900",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "4 м²",
       "spam" : 1,
       "ham" : 0
     },
@@ -1224,8 +1364,13 @@
     },
     {
       "word" : "5",
-      "spam" : 7,
-      "ham" : 2
+      "spam" : 9,
+      "ham" : 3
+    },
+    {
+      "word" : "5%",
+      "spam" : 2,
+      "ham" : 0
     },
     {
       "word" : "50",
@@ -1244,7 +1389,7 @@
     },
     {
       "word" : "500$",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -1254,6 +1399,11 @@
     },
     {
       "word" : "5000$",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "5000руб",
       "spam" : 1,
       "ham" : 0
     },
@@ -1283,6 +1433,11 @@
       "ham" : 0
     },
     {
+      "word" : "55",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "550",
       "spam" : 1,
       "ham" : 0
@@ -1303,8 +1458,18 @@
       "ham" : 0
     },
     {
+      "word" : "56 947 392",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "5800р",
-      "spam" : 1,
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "584к",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -1320,11 +1485,11 @@
     {
       "word" : "6",
       "spam" : 3,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "600",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -1340,6 +1505,11 @@
     {
       "word" : "60т",
       "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "6300р",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -1375,6 +1545,11 @@
     {
       "word" : "6800р",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "69",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -1438,6 +1613,11 @@
       "ham" : 0
     },
     {
+      "word" : "700$",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "7000$",
       "spam" : 2,
       "ham" : 0
@@ -1464,6 +1644,11 @@
     },
     {
       "word" : "7500",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "7500$",
       "spam" : 1,
       "ham" : 0
     },
@@ -1518,6 +1703,11 @@
       "ham" : 0
     },
     {
+      "word" : "8000",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "8000р",
       "spam" : 2,
       "ham" : 0
@@ -1525,6 +1715,11 @@
     {
       "word" : "800р",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "8400$",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -1569,7 +1764,7 @@
     },
     {
       "word" : "900",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -1603,6 +1798,11 @@
       "ham" : 0
     },
     {
+      "word" : "980к",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "99",
       "spam" : 0,
       "ham" : 1
@@ -1620,7 +1820,7 @@
     {
       "word" : "=",
       "spam" : 1,
-      "ham" : 15
+      "ham" : 24
     },
     {
       "word" : "=@arr",
@@ -1653,6 +1853,11 @@
       "ham" : 0
     },
     {
+      "word" : "@",
+      "spam" : 4,
+      "ham" : 0
+    },
+    {
       "word" : "@alex_osadchy",
       "spam" : 4,
       "ham" : 0
@@ -1669,6 +1874,11 @@
     },
     {
       "word" : "@anastasiacherepah",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "@bigbas",
       "spam" : 1,
       "ham" : 0
     },
@@ -1748,6 +1958,16 @@
       "ham" : 0
     },
     {
+      "word" : "@dmitrybv",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "@dodopizzz_bot",
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
       "word" : "@emiralls",
       "spam" : 2,
       "ham" : 0
@@ -1765,6 +1985,11 @@
     {
       "word" : "@glaz_hgti0m_bot",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "@glaz_ok2svx_bot",
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -1789,6 +2014,11 @@
     },
     {
       "word" : "@hrsmilana",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "@iliyuhasss",
       "spam" : 1,
       "ham" : 0
     },
@@ -1838,6 +2068,16 @@
       "ham" : 0
     },
     {
+      "word" : "@kriss_hr01",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "@krisskr0ss",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "@krristy0✉",
       "spam" : 2,
       "ham" : 0
@@ -1879,7 +2119,7 @@
     },
     {
       "word" : "@lucky",
-      "spam" : 3,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -1914,6 +2154,11 @@
     },
     {
       "word" : "@mihailll7777",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "@nastenaaa777",
       "spam" : 1,
       "ham" : 0
     },
@@ -1998,6 +2243,11 @@
       "ham" : 0
     },
     {
+      "word" : "@solovey_v",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "@tgbonus",
       "spam" : 2,
       "ham" : 0
@@ -2058,6 +2308,16 @@
       "ham" : 0
     },
     {
+      "word" : "@ʍи",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "@б",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "[@cryptogroup64_bot]",
       "spam" : 2,
       "ham" : 0
@@ -2073,9 +2333,29 @@
       "ham" : 2
     },
     {
+      "word" : "_4723701749",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "_4792290559",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "_kvartira_113_m_68_et",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "_kvartira_694_m_49_et",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "a",
-      "spam" : 5,
-      "ham" : 39
+      "spam" : 7,
+      "ham" : 40
     },
     {
       "word" : "ability",
@@ -2098,9 +2378,24 @@
       "ham" : 1
     },
     {
+      "word" : "academic",
+      "spam" : 6570,
+      "ham" : 22963
+    },
+    {
+      "word" : "accepted",
+      "spam" : 16,
+      "ham" : 73
+    },
+    {
       "word" : "according",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "account",
+      "spam" : 3,
+      "ham" : 0
     },
     {
       "word" : "accurate",
@@ -2109,6 +2404,11 @@
     },
     {
       "word" : "active",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "adate",
       "spam" : 0,
       "ham" : 1
     },
@@ -2138,6 +2438,16 @@
       "ham" : 1
     },
     {
+      "word" : "aiming",
+      "spam" : 1024,
+      "ham" : 3687
+    },
+    {
+      "word" : "ajudar",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "alaikum",
       "spam" : 0,
       "ham" : 1
@@ -2149,6 +2459,11 @@
     },
     {
       "word" : "alguien",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "alguém",
       "spam" : 0,
       "ham" : 1
     },
@@ -2178,6 +2493,11 @@
       "ham" : 0
     },
     {
+      "word" : "ams",
+      "spam" : 0,
+      "ham" : 3
+    },
+    {
       "word" : "an",
       "spam" : 0,
       "ham" : 1
@@ -2199,8 +2519,8 @@
     },
     {
       "word" : "and",
-      "spam" : 16,
-      "ham" : 24
+      "spam" : 17,
+      "ham" : 26
     },
     {
       "word" : "another",
@@ -2210,7 +2530,7 @@
     {
       "word" : "any",
       "spam" : 0,
-      "ham" : 15
+      "ham" : 16
     },
     {
       "word" : "anylst",
@@ -2238,6 +2558,11 @@
       "ham" : 1
     },
     {
+      "word" : "appealing",
+      "spam" : 10,
+      "ham" : 57
+    },
+    {
       "word" : "appear",
       "spam" : 0,
       "ham" : 1
@@ -2246,6 +2571,11 @@
       "word" : "applications",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "apply",
+      "spam" : 66,
+      "ham" : 239
     },
     {
       "word" : "apps",
@@ -2303,6 +2633,11 @@
       "ham" : 1
     },
     {
+      "word" : "articles",
+      "spam" : 45,
+      "ham" : 214
+    },
+    {
       "word" : "artist",
       "spam" : 1,
       "ham" : 0
@@ -2323,8 +2658,18 @@
       "ham" : 0
     },
     {
-      "word" : "at",
+      "word" : "assignments",
+      "spam" : 6688,
+      "ham" : 23429
+    },
+    {
+      "word" : "assist",
       "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "at",
+      "spam" : 1,
       "ham" : 6
     },
     {
@@ -2334,6 +2679,16 @@
     },
     {
       "word" : "attractive",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "audience",
+      "spam" : 1429,
+      "ham" : 4982
+    },
+    {
+      "word" : "audiences",
       "spam" : 0,
       "ham" : 1
     },
@@ -2351,6 +2706,11 @@
       "word" : "available",
       "spam" : 1,
       "ham" : 3
+    },
+    {
+      "word" : "avito",
+      "spam" : 1,
+      "ham" : 1
     },
     {
       "word" : "ayтлета",
@@ -2374,7 +2734,7 @@
     },
     {
       "word" : "aшм",
-      "spam" : 16,
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -2384,7 +2744,7 @@
     },
     {
       "word" : "b",
-      "spam" : 7,
+      "spam" : 9,
       "ham" : 6
     },
     {
@@ -2398,9 +2758,19 @@
       "ham" : 1
     },
     {
+      "word" : "ban",
+      "spam" : 5,
+      "ham" : 35
+    },
+    {
       "word" : "banana",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "bank",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "banners",
@@ -2419,7 +2789,7 @@
     },
     {
       "word" : "bass",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -2435,7 +2805,7 @@
     {
       "word" : "be",
       "spam" : 1,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "be/mv9gcsuo",
@@ -2453,14 +2823,34 @@
       "ham" : 6
     },
     {
+      "word" : "beginners",
+      "spam" : 180,
+      "ham" : 235
+    },
+    {
       "word" : "bellow",
       "spam" : 0,
       "ham" : 1
     },
     {
+      "word" : "below",
+      "spam" : 4,
+      "ham" : 13
+    },
+    {
+      "word" : "best",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "beta",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "better",
+      "spam" : 1033,
+      "ham" : 3714
     },
     {
       "word" : "bgracontrols",
@@ -2474,7 +2864,7 @@
     },
     {
       "word" : "big",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -2493,7 +2883,22 @@
       "ham" : 0
     },
     {
+      "word" : "blog",
+      "spam" : 62,
+      "ham" : 240
+    },
+    {
+      "word" : "blogs",
+      "spam" : 1007,
+      "ham" : 3658
+    },
+    {
       "word" : "blum",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "boa",
       "spam" : 0,
       "ham" : 1
     },
@@ -2504,7 +2909,7 @@
     },
     {
       "word" : "bonanza",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -2516,6 +2921,11 @@
       "word" : "bot",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "both",
+      "spam" : 180,
+      "ham" : 235
     },
     {
       "word" : "bots",
@@ -2531,6 +2941,11 @@
       "word" : "br1ohhvriyn2my",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "brand’s",
+      "spam" : 1412,
+      "ham" : 4956
     },
     {
       "word" : "bring",
@@ -2553,6 +2968,11 @@
       "ham" : 2
     },
     {
+      "word" : "buffers",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "build",
       "spam" : 0,
       "ham" : 1
@@ -2568,7 +2988,17 @@
       "ham" : 1
     },
     {
+      "word" : "businesses",
+      "spam" : 2871,
+      "ham" : 10006
+    },
+    {
       "word" : "but",
+      "spam" : 2,
+      "ham" : 1
+    },
+    {
+      "word" : "buy",
       "spam" : 1,
       "ham" : 0
     },
@@ -2604,8 +3034,13 @@
     },
     {
       "word" : "c",
-      "spam" : 24,
-      "ham" : 1
+      "spam" : 27,
+      "ham" : 2
+    },
+    {
+      "word" : "cache",
+      "spam" : 0,
+      "ham" : 2
     },
     {
       "word" : "call",
@@ -2623,6 +3058,11 @@
       "ham" : 1
     },
     {
+      "word" : "candidates",
+      "spam" : 7,
+      "ham" : 41
+    },
+    {
       "word" : "canvas",
       "spam" : 0,
       "ham" : 2
@@ -2638,9 +3078,19 @@
       "ham" : 1
     },
     {
+      "word" : "captivate",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "carrd",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "cash",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "catering",
@@ -2651,6 +3101,11 @@
       "word" : "caмый",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "certificate",
+      "spam" : 30,
+      "ham" : 102
     },
     {
       "word" : "ceкретом",
@@ -2668,6 +3123,11 @@
       "ham" : 1
     },
     {
+      "word" : "chances",
+      "spam" : 30,
+      "ham" : 108
+    },
+    {
       "word" : "channel",
       "spam" : 0,
       "ham" : 1
@@ -2676,6 +3136,11 @@
       "word" : "charge",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "charges",
+      "spam" : 8,
+      "ham" : 53
     },
     {
       "word" : "cheap",
@@ -2688,14 +3153,29 @@
       "ham" : 1
     },
     {
+      "word" : "choice",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "ckрacит",
       "spam" : 1,
       "ham" : 0
     },
     {
+      "word" : "clarity",
+      "spam" : 17675,
+      "ham" : 62015
+    },
+    {
       "word" : "clean",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
+    },
+    {
+      "word" : "clear",
+      "spam" : 81,
+      "ham" : 291
     },
     {
       "word" : "client",
@@ -2728,6 +3208,11 @@
       "ham" : 2
     },
     {
+      "word" : "codes",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "college",
       "spam" : 0,
       "ham" : 2
@@ -2740,7 +3225,7 @@
     {
       "word" : "com",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "com/",
@@ -2758,6 +3243,11 @@
       "ham" : 1
     },
     {
+      "word" : "commerce",
+      "spam" : 1379,
+      "ham" : 4881
+    },
+    {
       "word" : "common",
       "spam" : 1,
       "ham" : 0
@@ -2766,6 +3256,11 @@
       "word" : "community",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "como",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "companies",
@@ -2778,6 +3273,16 @@
       "ham" : 1
     },
     {
+      "word" : "compelling",
+      "spam" : 62,
+      "ham" : 244
+    },
+    {
+      "word" : "competitive",
+      "spam" : 6,
+      "ham" : 34
+    },
+    {
       "word" : "complex",
       "spam" : 0,
       "ham" : 1
@@ -2786,6 +3291,16 @@
       "word" : "comprehensive",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "concise",
+      "spam" : 1281,
+      "ham" : 4531
+    },
+    {
+      "word" : "connected",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "conoce",
@@ -2828,6 +3343,11 @@
       "ham" : 1
     },
     {
+      "word" : "cooбщehия",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "cooбщeнияx",
       "spam" : 1,
       "ham" : 0
@@ -2850,6 +3370,16 @@
     {
       "word" : "count",
       "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "cover",
+      "spam" : 8112,
+      "ham" : 28464
+    },
+    {
+      "word" : "covered",
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -2899,7 +3429,7 @@
     },
     {
       "word" : "coтpуднuчеcтва",
-      "spam" : 5,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -2930,6 +3460,16 @@
     {
       "word" : "coтрудничecтва",
       "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "cp",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "cpeдcтв",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -2968,9 +3508,24 @@
       "ham" : 0
     },
     {
+      "word" : "craft",
+      "spam" : 2876,
+      "ham" : 10010
+    },
+    {
+      "word" : "crafting",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "create",
       "spam" : 0,
       "ham" : 2
+    },
+    {
+      "word" : "creative",
+      "spam" : 43,
+      "ham" : 207
     },
     {
       "word" : "crypto",
@@ -2978,9 +3533,24 @@
       "ham" : 0
     },
     {
-      "word" : "custom",
+      "word" : "cteйkиhг",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "current",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "custom",
+      "spam" : 0,
+      "ham" : 3
+    },
+    {
+      "word" : "cybersecurity",
+      "spam" : 27,
+      "ham" : 73
     },
     {
       "word" : "cytkи",
@@ -3013,6 +3583,11 @@
       "ham" : 0
     },
     {
+      "word" : "cвeжeе",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "cвoбoднoгo",
       "spam" : 3,
       "ham" : 0
@@ -3024,7 +3599,7 @@
     },
     {
       "word" : "cвoбoдный",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -3045,6 +3620,11 @@
     {
       "word" : "cвыше",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "cкaм",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -3173,6 +3753,11 @@
       "ham" : 0
     },
     {
+      "word" : "d",
+      "spam" : 1,
+      "ham" : 14
+    },
+    {
       "word" : "d2bridge",
       "spam" : 0,
       "ham" : 1
@@ -3213,14 +3798,29 @@
       "ham" : 1
     },
     {
+      "word" : "delighted",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "deliver",
+      "spam" : 81,
+      "ham" : 290
+    },
+    {
       "word" : "delphi",
       "spam" : 0,
-      "ham" : 5
+      "ham" : 500
     },
     {
       "word" : "deposited",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "descriptions",
+      "spam" : 62,
+      "ham" : 244
     },
     {
       "word" : "design",
@@ -3235,7 +3835,7 @@
     {
       "word" : "designing",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "desinar",
@@ -3259,7 +3859,7 @@
     },
     {
       "word" : "details",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 3
     },
     {
@@ -3288,9 +3888,24 @@
       "ham" : 1
     },
     {
+      "word" : "direction",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "discuss",
       "spam" : 0,
       "ham" : 3
+    },
+    {
+      "word" : "discussion",
+      "spam" : 10,
+      "ham" : 68
+    },
+    {
+      "word" : "disk",
+      "spam" : 0,
+      "ham" : 2
     },
     {
       "word" : "distinctive",
@@ -3304,8 +3919,8 @@
     },
     {
       "word" : "dm",
-      "spam" : 0,
-      "ham" : 8
+      "spam" : 1,
+      "ham" : 10
     },
     {
       "word" : "dmx",
@@ -3338,7 +3953,7 @@
       "ham" : 1
     },
     {
-      "word" : "don't hesitate to dm me.\nwe can have a further discussion about our future.\nregards.",
+      "word" : "don",
       "spam" : 0,
       "ham" : 1
     },
@@ -3348,9 +3963,29 @@
       "ham" : 3
     },
     {
+      "word" : "don’t",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "double",
       "spam" : 0,
       "ham" : 5
+    },
+    {
+      "word" : "drafts",
+      "spam" : 18682,
+      "ham" : 65673
+    },
+    {
+      "word" : "drives",
+      "spam" : 215,
+      "ham" : 865
+    },
+    {
+      "word" : "dоdо",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "e",
@@ -3379,7 +4014,7 @@
     },
     {
       "word" : "ecли",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -3388,14 +4023,34 @@
       "ham" : 0
     },
     {
+      "word" : "edit",
+      "spam" : 16285,
+      "ham" : 57160
+    },
+    {
+      "word" : "edited",
+      "spam" : 160,
+      "ham" : 642
+    },
+    {
+      "word" : "editing",
+      "spam" : 1,
+      "ham" : 7
+    },
+    {
       "word" : "editor",
       "spam" : 0,
       "ham" : 4
     },
     {
+      "word" : "educational",
+      "spam" : 8098,
+      "ham" : 28396
+    },
+    {
       "word" : "ehlib",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 4
     },
     {
       "word" : "elements",
@@ -3408,6 +4063,11 @@
       "ham" : 2
     },
     {
+      "word" : "email",
+      "spam" : 2876,
+      "ham" : 10010
+    },
+    {
       "word" : "end",
       "spam" : 0,
       "ham" : 7
@@ -3415,7 +4075,7 @@
     {
       "word" : "engaging",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "engineer",
@@ -3423,9 +4083,19 @@
       "ham" : 0
     },
     {
+      "word" : "engines",
+      "spam" : 998,
+      "ham" : 3631
+    },
+    {
       "word" : "english",
       "spam" : 0,
       "ham" : 2
+    },
+    {
+      "word" : "enhance",
+      "spam" : 7,
+      "ham" : 36
     },
     {
       "word" : "entry",
@@ -3441,6 +4111,26 @@
       "word" : "epyндa",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "escrow",
+      "spam" : 16,
+      "ham" : 73
+    },
+    {
+      "word" : "essa",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "essay",
+      "spam" : 160,
+      "ham" : 642
+    },
+    {
+      "word" : "essays",
+      "spam" : 6655,
+      "ham" : 23291
     },
     {
       "word" : "ethereum",
@@ -3564,7 +4254,7 @@
     },
     {
       "word" : "eженедельно",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -3623,6 +4313,11 @@
       "ham" : 1
     },
     {
+      "word" : "final",
+      "spam" : 18682,
+      "ham" : 65673
+    },
+    {
       "word" : "financial",
       "spam" : 0,
       "ham" : 1
@@ -3638,6 +4333,11 @@
       "ham" : 3
     },
     {
+      "word" : "fit",
+      "spam" : 1412,
+      "ham" : 4955
+    },
+    {
       "word" : "flutter",
       "spam" : 0,
       "ham" : 1
@@ -3650,12 +4350,17 @@
     {
       "word" : "fmx",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "folks",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "followers",
+      "spam" : 4,
+      "ham" : 28
     },
     {
       "word" : "following",
@@ -3664,8 +4369,8 @@
     },
     {
       "word" : "for",
-      "spam" : 7,
-      "ham" : 26
+      "spam" : 9,
+      "ham" : 27
     },
     {
       "word" : "formstyle",
@@ -3685,22 +4390,22 @@
     {
       "word" : "free",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "freelancer",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 2
     },
     {
       "word" : "freelancers",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "freepascal",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 1000
     },
     {
       "word" : "friend",
@@ -3714,8 +4419,8 @@
     },
     {
       "word" : "from",
-      "spam" : 1,
-      "ham" : 4
+      "spam" : 2,
+      "ham" : 7
     },
     {
       "word" : "fsmdichild",
@@ -3733,9 +4438,14 @@
       "ham" : 3
     },
     {
+      "word" : "further",
+      "spam" : 10,
+      "ham" : 68
+    },
+    {
       "word" : "future",
-      "spam" : 2,
-      "ham" : 0
+      "spam" : 12,
+      "ham" : 68
     },
     {
       "word" : "game",
@@ -3769,7 +4479,7 @@
     },
     {
       "word" : "get",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 2
     },
     {
@@ -3778,14 +4488,39 @@
       "ham" : 1
     },
     {
-      "word" : "got",
-      "spam" : 1,
+      "word" : "gizbo",
+      "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "glscene",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "glxengine",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "got",
+      "spam" : 2,
+      "ham" : 1
+    },
+    {
+      "word" : "grammar",
+      "spam" : 17658,
+      "ham" : 61989
     },
     {
       "word" : "graphic",
       "spam" : 0,
       "ham" : 6
+    },
+    {
+      "word" : "great",
+      "spam" : 8056,
+      "ham" : 28231
     },
     {
       "word" : "group",
@@ -3798,9 +4533,24 @@
       "ham" : 1
     },
     {
+      "word" : "groups",
+      "spam" : 272,
+      "ham" : 461
+    },
+    {
       "word" : "grow",
       "spam" : 1,
       "ham" : 1
+    },
+    {
+      "word" : "growing",
+      "spam" : 214,
+      "ham" : 342
+    },
+    {
+      "word" : "growth",
+      "spam" : 250,
+      "ham" : 402
     },
     {
       "word" : "gui",
@@ -3840,7 +4590,7 @@
     {
       "word" : "have",
       "spam" : 0,
-      "ham" : 6
+      "ham" : 1
     },
     {
       "word" : "haбиpaю",
@@ -3851,6 +4601,16 @@
       "word" : "haми",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "he",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "hear",
+      "spam" : 2,
+      "ham" : 17
     },
     {
       "word" : "hello",
@@ -3873,9 +4633,14 @@
       "ham" : 4
     },
     {
+      "word" : "hesitate",
+      "spam" : 0,
+      "ham" : 3
+    },
+    {
       "word" : "hey",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "heдeлю",
@@ -3890,12 +4655,12 @@
     {
       "word" : "hi",
       "spam" : 1,
-      "ham" : 8
+      "ham" : 9
     },
     {
       "word" : "high",
       "spam" : 0,
-      "ham" : 3
+      "ham" : 4
     },
     {
       "word" : "hii",
@@ -3911,6 +4676,11 @@
       "word" : "hire",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "his",
+      "spam" : 2,
+      "ham" : 7
     },
     {
       "word" : "hlo",
@@ -3938,6 +4708,11 @@
       "ham" : 1
     },
     {
+      "word" : "homepage",
+      "spam" : 1454,
+      "ham" : 5063
+    },
+    {
       "word" : "hour",
       "spam" : 1,
       "ham" : 0
@@ -3958,6 +4733,11 @@
       "ham" : 2
     },
     {
+      "word" : "ho❗",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "hr",
       "spam" : 0,
       "ham" : 1
@@ -3974,8 +4754,8 @@
     },
     {
       "word" : "https",
-      "spam" : 36,
-      "ham" : 4
+      "spam" : 37,
+      "ham" : 7
     },
     {
       "word" : "hyжeн",
@@ -4029,33 +4809,8 @@
     },
     {
       "word" : "i",
-      "spam" : 4,
-      "ham" : 44
-    },
-    {
-      "word" : "i'll share details",
       "spam" : 0,
-      "ham" : 1
-    },
-    {
-      "word" : "i'm also recommending his services to you reading this post .. contact him via the link below. don't",
-      "spam" : 1,
-      "ham" : 0
-    },
-    {
-      "word" : "i'm in search of someone who can teach me specifically writing and get a certificate issued to me. please anyone who knows someone or can should send a text",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
-      "word" : "i'm interested",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
-      "word" : "i'm social media plugger \n\n\n• video editing \n• thumail editing \n• increasing followers real/fake \n• ban & unban any instgram/whatsapp account \n\n\ncharges are as per the services\n\nescrow accepted",
-      "spam" : 0,
-      "ham" : 1
+      "ham" : 3
     },
     {
       "word" : "ide",
@@ -4063,9 +4818,19 @@
       "ham" : 2
     },
     {
+      "word" : "ideal",
+      "spam" : 391,
+      "ham" : 1471
+    },
+    {
+      "word" : "ideas",
+      "spam" : 188,
+      "ham" : 756
+    },
+    {
       "word" : "if",
       "spam" : 1,
-      "ham" : 16
+      "ham" : 18
     },
     {
       "word" : "im",
@@ -4084,8 +4849,18 @@
     },
     {
       "word" : "in",
+      "spam" : 1,
+      "ham" : 7
+    },
+    {
+      "word" : "incluir",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "increasing",
       "spam" : 4,
-      "ham" : 13
+      "ham" : 28
     },
     {
       "word" : "indian",
@@ -4128,6 +4903,11 @@
       "ham" : 0
     },
     {
+      "word" : "instgram/whatsapp",
+      "spam" : 5,
+      "ham" : 53
+    },
+    {
       "word" : "integer",
       "spam" : 0,
       "ham" : 2
@@ -4135,7 +4915,7 @@
     {
       "word" : "interested",
       "spam" : 1,
-      "ham" : 5
+      "ham" : 7
     },
     {
       "word" : "internet",
@@ -4153,8 +4933,18 @@
       "ham" : 1
     },
     {
+      "word" : "introduce",
+      "spam" : 2871,
+      "ham" : 10006
+    },
+    {
       "word" : "investment",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "irwin",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -4163,19 +4953,29 @@
       "ham" : 17
     },
     {
+      "word" : "issued",
+      "spam" : 30,
+      "ham" : 102
+    },
+    {
+      "word" : "issues",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "it",
       "spam" : 0,
       "ham" : 3
     },
     {
-      "word" : "it's a supply chain management project it will be useful to add in ur resume and u can get high chances to hire",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
       "word" : "it’s",
       "spam" : 1,
       "ham" : 1
+    },
+    {
+      "word" : "i’ve",
+      "spam" : 160,
+      "ham" : 642
     },
     {
       "word" : "job",
@@ -4193,6 +4993,16 @@
       "ham" : 1
     },
     {
+      "word" : "journey",
+      "spam" : 233,
+      "ham" : 376
+    },
+    {
+      "word" : "jpg",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "js",
       "spam" : 0,
       "ham" : 2
@@ -4204,8 +5014,8 @@
     },
     {
       "word" : "k",
-      "spam" : 1,
-      "ham" : 0
+      "spam" : 2,
+      "ham" : 1
     },
     {
       "word" : "kapтa/kpипtа",
@@ -4243,6 +5053,21 @@
       "ham" : 1
     },
     {
+      "word" : "know",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "knowledge",
+      "spam" : 233,
+      "ham" : 376
+    },
+    {
+      "word" : "knows",
+      "spam" : 32,
+      "ham" : 131
+    },
+    {
       "word" : "koмaндa",
       "spam" : 1,
       "ham" : 0
@@ -4266,6 +5091,11 @@
       "word" : "krипте",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "ksan",
+      "spam" : 18,
+      "ham" : 82
     },
     {
       "word" : "ku",
@@ -4303,6 +5133,11 @@
       "ham" : 1
     },
     {
+      "word" : "lancer",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "language",
       "spam" : 0,
       "ham" : 2
@@ -4316,6 +5151,11 @@
       "word" : "lanser",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "laptop",
+      "spam" : 2,
+      "ham" : 0
     },
     {
       "word" : "laravel/express",
@@ -4335,12 +5175,12 @@
     {
       "word" : "lazarus",
       "spam" : 0,
-      "ham" : 20
+      "ham" : 500
     },
     {
       "word" : "lazreport",
       "spam" : 0,
-      "ham" : 20
+      "ham" : 500
     },
     {
       "word" : "learn",
@@ -4353,9 +5193,24 @@
       "ham" : 1
     },
     {
-      "word" : "let's build the future of nft gaming together!!!\n\nrespectfully, ksan!!!",
-      "spam" : 1,
-      "ham" : 0
+      "word" : "let",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "letter",
+      "spam" : 8112,
+      "ham" : 28464
+    },
+    {
+      "word" : "letters",
+      "spam" : 16261,
+      "ham" : 57103
+    },
+    {
+      "word" : "let’s",
+      "spam" : 165,
+      "ham" : 654
     },
     {
       "word" : "lfm",
@@ -4368,9 +5223,24 @@
       "ham" : 1
     },
     {
+      "word" : "life",
+      "spam" : 7,
+      "ham" : 55
+    },
+    {
       "word" : "like",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "link",
+      "spam" : 4,
+      "ham" : 13
+    },
+    {
+      "word" : "ll",
+      "spam" : 0,
+      "ham" : 4
     },
     {
       "word" : "login",
@@ -4408,6 +5278,16 @@
       "ham" : 1
     },
     {
+      "word" : "lzscene",
+      "spam" : 0,
+      "ham" : 2
+    },
+    {
+      "word" : "m",
+      "spam" : 1,
+      "ham" : 3
+    },
+    {
       "word" : "made",
       "spam" : 0,
       "ham" : 1
@@ -4416,6 +5296,11 @@
       "word" : "make",
       "spam" : 1,
       "ham" : 8
+    },
+    {
+      "word" : "management",
+      "spam" : 7,
+      "ham" : 45
     },
     {
       "word" : "manager",
@@ -4441,6 +5326,11 @@
       "word" : "mastering",
       "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "max",
+      "spam" : 0,
+      "ham" : 2
     },
     {
       "word" : "maxab",
@@ -4469,8 +5359,8 @@
     },
     {
       "word" : "me",
-      "spam" : 3,
-      "ham" : 16
+      "spam" : 1,
+      "ham" : 13
     },
     {
       "word" : "me/addlist/0u0vd1lm5m0zzdhi",
@@ -4678,9 +5568,14 @@
       "ham" : 0
     },
     {
+      "word" : "me/y0_b3",
+      "spam" : 154,
+      "ham" : 174
+    },
+    {
       "word" : "media",
-      "spam" : 0,
-      "ham" : 2
+      "spam" : 1,
+      "ham" : 7
     },
     {
       "word" : "mee",
@@ -4693,9 +5588,24 @@
       "ham" : 1
     },
     {
+      "word" : "meetings",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "member",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "memory",
+      "spam" : 0,
+      "ham" : 3
+    },
+    {
+      "word" : "merge",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "mern",
@@ -4704,6 +5614,11 @@
     },
     {
       "word" : "message",
+      "spam" : 1,
+      "ham" : 1
+    },
+    {
+      "word" : "meu",
       "spam" : 0,
       "ham" : 1
     },
@@ -4726,6 +5641,11 @@
       "word" : "minab",
       "spam" : 0,
       "ham" : 4
+    },
+    {
+      "word" : "mind",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "mine",
@@ -4773,9 +5693,29 @@
       "ham" : 1
     },
     {
+      "word" : "month",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "more",
+      "spam" : 49,
+      "ham" : 209
+    },
+    {
+      "word" : "movie",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "mr",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "ms",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "msg",
@@ -4789,7 +5729,7 @@
     },
     {
       "word" : "my",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 3
     },
     {
@@ -4813,7 +5753,17 @@
       "ham" : 0
     },
     {
+      "word" : "narratives",
+      "spam" : 89,
+      "ham" : 329
+    },
+    {
       "word" : "native",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "natural",
       "spam" : 0,
       "ham" : 1
     },
@@ -4825,7 +5775,7 @@
     {
       "word" : "need",
       "spam" : 2,
-      "ham" : 10
+      "ham" : 11
     },
     {
       "word" : "needed",
@@ -4853,14 +5803,24 @@
       "ham" : 3
     },
     {
+      "word" : "newsletter",
+      "spam" : 6113,
+      "ham" : 21258
+    },
+    {
+      "word" : "newsletters",
+      "spam" : 2876,
+      "ham" : 10010
+    },
+    {
       "word" : "next",
       "spam" : 0,
       "ham" : 1
     },
     {
       "word" : "nft",
-      "spam" : 5,
-      "ham" : 0
+      "spam" : 14,
+      "ham" : 82
     },
     {
       "word" : "nice",
@@ -4874,8 +5834,13 @@
     },
     {
       "word" : "no",
-      "spam" : 2,
-      "ham" : 0
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "noite",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "not",
@@ -4889,7 +5854,7 @@
     },
     {
       "word" : "now",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 1
     },
     {
@@ -4914,8 +5879,8 @@
     },
     {
       "word" : "of",
-      "spam" : 11,
-      "ham" : 19
+      "spam" : 1,
+      "ham" : 7
     },
     {
       "word" : "offer",
@@ -4926,6 +5891,11 @@
       "word" : "oh",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "ohлaйh",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "ohлайh",
@@ -4949,7 +5919,7 @@
     },
     {
       "word" : "on",
-      "spam" : 1,
+      "spam" : 3,
       "ham" : 8
     },
     {
@@ -4998,9 +5968,19 @@
       "ham" : 4
     },
     {
-      "word" : "or",
+      "word" : "optimized",
+      "spam" : 45,
+      "ham" : 214
+    },
+    {
+      "word" : "opção",
       "spam" : 0,
-      "ham" : 4
+      "ham" : 1
+    },
+    {
+      "word" : "or",
+      "spam" : 33,
+      "ham" : 138
     },
     {
       "word" : "order",
@@ -5013,14 +5993,19 @@
       "ham" : 1
     },
     {
+      "word" : "original",
+      "spam" : 98,
+      "ham" : 317
+    },
+    {
       "word" : "ot",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "our",
-      "spam" : 7,
-      "ham" : 0
+      "spam" : 12,
+      "ham" : 68
     },
     {
       "word" : "out",
@@ -5034,6 +6019,16 @@
     },
     {
       "word" : "oбcyдим",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "oбpaщaйtecь",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "oбyчaю",
       "spam" : 1,
       "ham" : 0
     },
@@ -5104,7 +6099,7 @@
     },
     {
       "word" : "oзнaкoмить",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -5114,6 +6109,11 @@
     },
     {
       "word" : "oп",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "oпеpaционных",
       "spam" : 1,
       "ham" : 0
     },
@@ -5144,7 +6144,7 @@
     },
     {
       "word" : "oпытa",
-      "spam" : 7,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -5169,11 +6169,16 @@
     },
     {
       "word" : "oт",
-      "spam" : 39,
+      "spam" : 44,
       "ham" : 0
     },
     {
       "word" : "oтвeтcтвeнного",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "oтвeтcтвеhhых",
       "spam" : 1,
       "ham" : 0
     },
@@ -5234,7 +6239,7 @@
     },
     {
       "word" : "oтпрaвляйтe",
-      "spam" : 6,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -5246,6 +6251,11 @@
       "word" : "oх",
       "spam" : 21,
       "ham" : 2
+    },
+    {
+      "word" : "oч",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "oчень",
@@ -5305,7 +6315,7 @@
     {
       "word" : "pascal",
       "spam" : 0,
-      "ham" : 10
+      "ham" : 500
     },
     {
       "word" : "pass",
@@ -5328,7 +6338,17 @@
       "ham" : 1
     },
     {
+      "word" : "pay",
+      "spam" : 6,
+      "ham" : 34
+    },
+    {
       "word" : "payment",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "payoneer",
       "spam" : 1,
       "ham" : 0
     },
@@ -5378,6 +6398,11 @@
       "ham" : 0
     },
     {
+      "word" : "paзницe",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "pdb",
       "spam" : 0,
       "ham" : 1
@@ -5389,12 +6414,22 @@
     },
     {
       "word" : "per",
-      "spam" : 1,
-      "ham" : 0
+      "spam" : 14,
+      "ham" : 65
+    },
+    {
+      "word" : "perfect",
+      "spam" : 998,
+      "ham" : 3631
+    },
+    {
+      "word" : "perfectly",
+      "spam" : 160,
+      "ham" : 642
     },
     {
       "word" : "personal",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -5409,7 +6444,7 @@
     },
     {
       "word" : "peбoвaния",
-      "spam" : 16,
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -5428,9 +6463,59 @@
       "ham" : 2
     },
     {
-      "word" : "please",
+      "word" : "pizza",
       "spam" : 1,
-      "ham" : 6
+      "ham" : 0
+    },
+    {
+      "word" : "plan",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "platforms",
+      "spam" : 1412,
+      "ham" : 4951
+    },
+    {
+      "word" : "please",
+      "spam" : 31,
+      "ham" : 118
+    },
+    {
+      "word" : "plugger",
+      "spam" : 1,
+      "ham" : 7
+    },
+    {
+      "word" : "plzz",
+      "spam" : 20280,
+      "ham" : 71473
+    },
+    {
+      "word" : "pm",
+      "spam" : 47,
+      "ham" : 237
+    },
+    {
+      "word" : "png",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "poderia",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "poems",
+      "spam" : 18767,
+      "ham" : 66055
+    },
+    {
+      "word" : "polished",
+      "spam" : 111,
+      "ham" : 402
     },
     {
       "word" : "popularity",
@@ -5459,8 +6544,8 @@
     },
     {
       "word" : "post",
-      "spam" : 1,
-      "ham" : 2
+      "spam" : 2,
+      "ham" : 10
     },
     {
       "word" : "posts",
@@ -5489,7 +6574,7 @@
     },
     {
       "word" : "price",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 4
     },
     {
@@ -5508,6 +6593,16 @@
       "ham" : 3
     },
     {
+      "word" : "product",
+      "spam" : 62,
+      "ham" : 244
+    },
+    {
+      "word" : "products",
+      "spam" : 1352,
+      "ham" : 4802
+    },
+    {
       "word" : "professional",
       "spam" : 0,
       "ham" : 1
@@ -5519,7 +6614,7 @@
     },
     {
       "word" : "profile",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -5529,13 +6624,33 @@
     },
     {
       "word" : "project",
-      "spam" : 0,
-      "ham" : 2
+      "spam" : 7,
+      "ham" : 45
     },
     {
       "word" : "projects",
       "spam" : 0,
-      "ham" : 3
+      "ham" : 4
+    },
+    {
+      "word" : "promote",
+      "spam" : 258,
+      "ham" : 442
+    },
+    {
+      "word" : "promotions",
+      "spam" : 6122,
+      "ham" : 21285
+    },
+    {
+      "word" : "proofread",
+      "spam" : 16268,
+      "ham" : 57134
+    },
+    {
+      "word" : "proofreading",
+      "spam" : 16267,
+      "ham" : 57125
     },
     {
       "word" : "properties",
@@ -5551,6 +6666,11 @@
       "word" : "public",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "punctuation",
+      "spam" : 17658,
+      "ham" : 61989
     },
     {
       "word" : "python",
@@ -5569,6 +6689,11 @@
     },
     {
       "word" : "pа6",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "pабoтaeм",
       "spam" : 1,
       "ham" : 0
     },
@@ -5593,6 +6718,11 @@
       "ham" : 0
     },
     {
+      "word" : "pиcкoв",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "pисками",
       "spam" : 1,
       "ham" : 0
@@ -5605,7 +6735,7 @@
     {
       "word" : "quality",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "quiz",
@@ -5623,6 +6753,21 @@
       "ham" : 1
     },
     {
+      "word" : "rate",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "rates",
+      "spam" : 6,
+      "ham" : 34
+    },
+    {
+      "word" : "re",
+      "spam" : 1,
+      "ham" : 14
+    },
+    {
       "word" : "reach",
       "spam" : 1,
       "ham" : 0
@@ -5633,14 +6778,29 @@
       "ham" : 1
     },
     {
+      "word" : "reading",
+      "spam" : 2,
+      "ham" : 10
+    },
+    {
       "word" : "readln",
       "spam" : 0,
       "ham" : 1
     },
     {
+      "word" : "reads",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "ready",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "real/fake",
+      "spam" : 4,
+      "ham" : 28
     },
     {
       "word" : "reality",
@@ -5658,9 +6818,39 @@
       "ham" : 0
     },
     {
+      "word" : "recommending",
+      "spam" : 2,
+      "ham" : 7
+    },
+    {
       "word" : "referral",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "regarding",
+      "spam" : 274,
+      "ham" : 473
+    },
+    {
+      "word" : "regards",
+      "spam" : 12,
+      "ham" : 68
+    },
+    {
+      "word" : "regular",
+      "spam" : 413,
+      "ham" : 1536
+    },
+    {
+      "word" : "relevant",
+      "spam" : 259,
+      "ham" : 457
+    },
+    {
+      "word" : "reliable",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "remote",
@@ -5669,6 +6859,11 @@
     },
     {
       "word" : "remotely",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "rental",
       "spam" : 1,
       "ham" : 0
     },
@@ -5683,9 +6878,49 @@
       "ham" : 0
     },
     {
+      "word" : "requirements",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "researched",
+      "spam" : 81,
+      "ham" : 291
+    },
+    {
+      "word" : "resonates",
+      "spam" : 198,
+      "ham" : 839
+    },
+    {
+      "word" : "respect",
+      "spam" : 273,
+      "ham" : 472
+    },
+    {
+      "word" : "respectfully",
+      "spam" : 18,
+      "ham" : 82
+    },
+    {
       "word" : "result",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "results",
+      "spam" : 215,
+      "ham" : 865
+    },
+    {
+      "word" : "resume",
+      "spam" : 9,
+      "ham" : 62
+    },
+    {
+      "word" : "resumes",
+      "spam" : 8116,
+      "ham" : 28501
     },
     {
       "word" : "reverse",
@@ -5700,12 +6935,37 @@
     {
       "word" : "rgb",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "rs300",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "ru/balakovo/kvartiry/3",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "ru/glscene/lzscene",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "ru/glscene/lzscene/content/master/examples/demoz",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "ru/perm/kvartiry/2",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "rules",
+      "spam" : 274,
+      "ham" : 473
     },
     {
       "word" : "run",
@@ -5729,13 +6989,18 @@
     },
     {
       "word" : "s",
-      "spam" : 1,
-      "ham" : 2
+      "spam" : 0,
+      "ham" : 4
     },
     {
       "word" : "s1_1",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "safe",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "same",
@@ -5748,9 +7013,14 @@
       "ham" : 1
     },
     {
-      "word" : "search",
+      "word" : "scripts",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "search",
+      "spam" : 1,
+      "ham" : 7
     },
     {
       "word" : "security",
@@ -5768,6 +7038,16 @@
       "ham" : 1
     },
     {
+      "word" : "select",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "send",
+      "spam" : 35,
+      "ham" : 152
+    },
+    {
       "word" : "sender",
       "spam" : 0,
       "ham" : 1
@@ -5778,14 +7058,19 @@
       "ham" : 1
     },
     {
+      "word" : "seo",
+      "spam" : 45,
+      "ham" : 214
+    },
+    {
       "word" : "server",
       "spam" : 0,
       "ham" : 3
     },
     {
       "word" : "services",
-      "spam" : 0,
-      "ham" : 3
+      "spam" : 2,
+      "ham" : 7
     },
     {
       "word" : "setlength",
@@ -5804,8 +7089,13 @@
     },
     {
       "word" : "share",
-      "spam" : 1,
-      "ham" : 0
+      "spam" : 0,
+      "ham" : 4
+    },
+    {
+      "word" : "sharing",
+      "spam" : 6568,
+      "ham" : 22963
     },
     {
       "word" : "shift",
@@ -5816,6 +7106,16 @@
       "word" : "shop",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "short",
+      "spam" : 18734,
+      "ham" : 65917
+    },
+    {
+      "word" : "should",
+      "spam" : 35,
+      "ham" : 152
     },
     {
       "word" : "show",
@@ -5858,6 +7158,11 @@
       "ham" : 1
     },
     {
+      "word" : "skype",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "smart",
       "spam" : 1,
       "ham" : 0
@@ -5870,12 +7175,12 @@
     {
       "word" : "so",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "social",
-      "spam" : 0,
-      "ham" : 2
+      "spam" : 1,
+      "ham" : 7
     },
     {
       "word" : "solutions",
@@ -5893,6 +7198,11 @@
       "ham" : 2
     },
     {
+      "word" : "someone",
+      "spam" : 1,
+      "ham" : 7
+    },
+    {
       "word" : "source",
       "spam" : 0,
       "ham" : 1
@@ -5908,9 +7218,29 @@
       "ham" : 2
     },
     {
+      "word" : "specialize",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "specific",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "specifically",
+      "spam" : 4,
+      "ham" : 34
+    },
+    {
       "word" : "splash",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
+    },
+    {
+      "word" : "sql",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "stack",
@@ -5923,8 +7253,13 @@
       "ham" : 1
     },
     {
+      "word" : "stand",
+      "spam" : 16264,
+      "ham" : 57109
+    },
+    {
       "word" : "start",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -5958,6 +7293,11 @@
       "ham" : 3
     },
     {
+      "word" : "stories",
+      "spam" : 18734,
+      "ham" : 65917
+    },
+    {
       "word" : "strong",
       "spam" : 0,
       "ham" : 1
@@ -5966,6 +7306,11 @@
       "word" : "student",
       "spam" : 0,
       "ham" : 3
+    },
+    {
+      "word" : "students",
+      "spam" : 8065,
+      "ham" : 28258
     },
     {
       "word" : "studio",
@@ -5998,13 +7343,33 @@
       "ham" : 0
     },
     {
+      "word" : "supply",
+      "spam" : 7,
+      "ham" : 44
+    },
+    {
+      "word" : "support",
+      "spam" : 1,
+      "ham" : 1
+    },
+    {
+      "word" : "support@ehlib",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "sure",
+      "spam" : 273,
+      "ham" : 469
+    },
+    {
       "word" : "sv6aljywey",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "sweet",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -6024,8 +7389,8 @@
     },
     {
       "word" : "t",
-      "spam" : 15,
-      "ham" : 0
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "tackling",
@@ -6053,6 +7418,11 @@
       "ham" : 1
     },
     {
+      "word" : "tariffs",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "task",
       "spam" : 0,
       "ham" : 1
@@ -6066,6 +7436,11 @@
       "word" : "tcp",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "teach",
+      "spam" : 3,
+      "ham" : 21
     },
     {
       "word" : "team",
@@ -6084,7 +7459,7 @@
     },
     {
       "word" : "telegram",
-      "spam" : 8,
+      "spam" : 13,
       "ham" : 4
     },
     {
@@ -6099,8 +7474,8 @@
     },
     {
       "word" : "text",
-      "spam" : 0,
-      "ham" : 1
+      "spam" : 42,
+      "ham" : 192
     },
     {
       "word" : "teлeгрaм️",
@@ -6120,17 +7495,22 @@
     {
       "word" : "that",
       "spam" : 0,
-      "ham" : 10
+      "ham" : 11
     },
     {
       "word" : "the",
-      "spam" : 11,
-      "ham" : 18
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "them",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "themselves",
+      "spam" : 2871,
+      "ham" : 10006
     },
     {
       "word" : "then",
@@ -6154,8 +7534,8 @@
     },
     {
       "word" : "this",
-      "spam" : 0,
-      "ham" : 3
+      "spam" : 2,
+      "ham" : 10
     },
     {
       "word" : "those",
@@ -6168,6 +7548,11 @@
       "ham" : 1
     },
     {
+      "word" : "thumail",
+      "spam" : 2,
+      "ham" : 14
+    },
+    {
       "word" : "thumbnail",
       "spam" : 0,
       "ham" : 3
@@ -6175,7 +7560,7 @@
     {
       "word" : "thumbnails",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "time",
@@ -6188,14 +7573,24 @@
       "ham" : 1
     },
     {
+      "word" : "tips",
+      "spam" : 171,
+      "ham" : 208
+    },
+    {
       "word" : "to",
-      "spam" : 8,
-      "ham" : 23
+      "spam" : 0,
+      "ham" : 3
     },
     {
       "word" : "tobject",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "together",
+      "spam" : 18,
+      "ham" : 82
     },
     {
       "word" : "tokenomics",
@@ -6206,6 +7601,21 @@
       "word" : "too",
       "spam" : 0,
       "ham" : 2
+    },
+    {
+      "word" : "tools",
+      "spam" : 154,
+      "ham" : 182
+    },
+    {
+      "word" : "topic",
+      "spam" : 391,
+      "ham" : 1471
+    },
+    {
+      "word" : "toward",
+      "spam" : 233,
+      "ham" : 376
     },
     {
       "word" : "tpебуюtcя",
@@ -6228,6 +7638,11 @@
       "ham" : 1
     },
     {
+      "word" : "transfer",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "transformation",
       "spam" : 1,
       "ham" : 0
@@ -6243,6 +7658,11 @@
       "ham" : 0
     },
     {
+      "word" : "tutorials",
+      "spam" : 154,
+      "ham" : 182
+    },
+    {
       "word" : "type",
       "spam" : 0,
       "ham" : 3
@@ -6256,6 +7676,11 @@
       "word" : "typist",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "typists",
+      "spam" : 14,
+      "ham" : 50
     },
     {
       "word" : "tе6я",
@@ -6279,8 +7704,8 @@
     },
     {
       "word" : "u",
-      "spam" : 9,
-      "ham" : 0
+      "spam" : 26,
+      "ham" : 88
     },
     {
       "word" : "ua",
@@ -6296,6 +7721,11 @@
       "word" : "ui/ux",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "unban",
+      "spam" : 5,
+      "ham" : 37
     },
     {
       "word" : "understand",
@@ -6328,8 +7758,23 @@
       "ham" : 1
     },
     {
+      "word" : "updates",
+      "spam" : 413,
+      "ham" : 1539
+    },
+    {
+      "word" : "upwork",
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "ur",
+      "spam" : 9,
+      "ham" : 62
+    },
+    {
       "word" : "us",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 1
     },
     {
@@ -6344,12 +7789,12 @@
     },
     {
       "word" : "usdt",
-      "spam" : 5,
+      "spam" : 7,
       "ham" : 0
     },
     {
       "word" : "use",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 2
     },
     {
@@ -6358,8 +7803,18 @@
       "ham" : 2
     },
     {
+      "word" : "useful",
+      "spam" : 8,
+      "ham" : 51
+    },
+    {
       "word" : "using",
       "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "utm_campaign=native&utm_medium=item_page_android&utm_source=soc_sharing",
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -6413,6 +7868,16 @@
       "ham" : 0
     },
     {
+      "word" : "v2",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "valuable",
+      "spam" : 74,
+      "ham" : 161
+    },
+    {
       "word" : "value",
       "spam" : 1,
       "ham" : 0
@@ -6430,7 +7895,27 @@
     {
       "word" : "vcl",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
+    },
+    {
+      "word" : "vcl/lcl",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "ve",
+      "spam" : 0,
+      "ham" : 3
+    },
+    {
+      "word" : "verified",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "versão",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "very",
@@ -6438,9 +7923,14 @@
       "ham" : 2
     },
     {
+      "word" : "via",
+      "spam" : 4,
+      "ham" : 12
+    },
+    {
       "word" : "video",
-      "spam" : 0,
-      "ham" : 6
+      "spam" : 1,
+      "ham" : 7
     },
     {
       "word" : "videos",
@@ -6453,9 +7943,24 @@
       "ham" : 1
     },
     {
+      "word" : "visibility",
+      "spam" : 1035,
+      "ham" : 3715
+    },
+    {
+      "word" : "visually",
+      "spam" : 10,
+      "ham" : 57
+    },
+    {
       "word" : "vmt",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "voice",
+      "spam" : 1412,
+      "ham" : 4956
     },
     {
       "word" : "vtune",
@@ -6464,7 +7969,7 @@
     },
     {
       "word" : "want",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 9
     },
     {
@@ -6479,18 +7984,8 @@
     },
     {
       "word" : "we",
-      "spam" : 4,
-      "ham" : 9
-    },
-    {
-      "word" : "we'd love to hear from you! 🤝\n\ncompetitive pay rates 💸\n\ninterested candidates, please dm me for more information and to apply! 📲 ",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
-      "word" : "we're looking for experienced typists.if anyone interested dm.",
-      "spam" : 0,
-      "ham" : 1
+      "spam" : 1,
+      "ham" : 13
     },
     {
       "word" : "web",
@@ -6510,7 +8005,7 @@
     {
       "word" : "website",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 4
     },
     {
       "word" : "websites",
@@ -6528,13 +8023,18 @@
       "ham" : 1
     },
     {
+      "word" : "we’ve",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "whasup",
       "spam" : 0,
       "ham" : 1
     },
     {
       "word" : "what",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -6554,8 +8054,8 @@
     },
     {
       "word" : "who",
-      "spam" : 2,
-      "ham" : 5
+      "spam" : 1,
+      "ham" : 7
     },
     {
       "word" : "whole",
@@ -6574,8 +8074,8 @@
     },
     {
       "word" : "will",
-      "spam" : 0,
-      "ham" : 7
+      "spam" : 7,
+      "ham" : 48
     },
     {
       "word" : "window",
@@ -6583,9 +8083,19 @@
       "ham" : 2
     },
     {
-      "word" : "with",
+      "word" : "windows",
       "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "with",
+      "spam" : 3,
       "ham" : 11
+    },
+    {
+      "word" : "withdrawals",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "within",
@@ -6593,8 +8103,18 @@
       "ham" : 0
     },
     {
+      "word" : "word",
+      "spam" : 324,
+      "ham" : 1197
+    },
+    {
+      "word" : "words",
+      "spam" : 1361,
+      "ham" : 4802
+    },
+    {
       "word" : "work",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 9
     },
     {
@@ -6638,9 +8158,14 @@
       "ham" : 2
     },
     {
-      "word" : "writing",
+      "word" : "writes",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 1
+    },
+    {
+      "word" : "writing",
+      "spam" : 4,
+      "ham" : 34
     },
     {
       "word" : "wиwки",
@@ -6745,37 +8270,22 @@
     {
       "word" : "yes",
       "spam" : 0,
-      "ham" : 5
+      "ham" : 1
     },
     {
       "word" : "you",
-      "spam" : 1,
-      "ham" : 11
-    },
-    {
-      "word" : "you're a business, student, or creative. from seo-optimized articles and blog posts to compelling product descriptions and social media content, i deliver well-researched, clear, and original writing. need a polished resume or a perfectly edited essay? i’ve got you covered. let’s work together to bring your ideas to life with content that resonates and drives results.                                                                                                                           \n\ncontent writing services\n\n1.blog posts\nwrite a 500-word blog post on any topic. ideal for websites looking for regular content updates.\n\n2.seo articles\ncreate 500-word articles optimized for search engines. perfect for blogs and websites aiming for better online visibility.\n\n3.product descriptions\nwrite clear and concise descriptions for products (50-100 words each). useful for e-commerce websites.\n\n4.social media posts\ndesign 5 engaging posts for social media platforms. tailored to fit the brand’s voice and audience.\n\n5.website content\nwrite content for a homepage or  about us  page (300-500 words). helps businesses introduce themselves online.\n\n6.email newsletters\ncraft a 200-300 word email newsletter for promotions, updates, or information sharing.\n\n7.academic writing\nprovide well-researched essays or assignments (500 words). great for students or educational websites.\n\n8.resume & cover letter writing\ncreate professional resumes or cover letters to help individuals stand out in job applications.\n\n9.proofreading & editing\nproofread and edit 1000 words for grammar, punctuation, and clarity. perfect for final drafts.\n\n10.creative writing\nwrite short stories or poems (500 words) for creative projects or personal use.   \n\nfor more information plzz dm 🙏",
-      "spam" : 0,
-      "ham" : 1
-    },
-    {
-      "word" : "you're interested in the world of programming and cybersecurity and looking for unique and valuable content, join my channel https://t.me/y0_b3, where i share tutorials, tools, and tips for both beginners and professionals.\nbe part of our growing community and start your journey toward knowledge and growth! 🔒💻 \nyou can use this message to promote your channel in relevant telegram groups. make sure to respect the group rules regarding link sharing.",
-      "spam" : 1,
-      "ham" : 0
-    },
-    {
-      "word" : "you're interested send me a pm",
-      "spam" : 0,
-      "ham" : 1
+      "spam" : 2,
+      "ham" : 10
     },
     {
       "word" : "your",
       "spam" : 0,
-      "ham" : 9
+      "ham" : 7
     },
     {
       "word" : "youtube",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "yдaaлeннaя",
@@ -6833,6 +8343,11 @@
       "ham" : 0
     },
     {
+      "word" : "yкpoпaми",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "yндa",
       "spam" : 2,
       "ham" : 0
@@ -6853,13 +8368,23 @@
       "ham" : 0
     },
     {
+      "word" : "yровня",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "yслoвия",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "yслoвиями",
-      "spam" : 4,
+      "spam" : 5,
+      "ham" : 0
+    },
+    {
+      "word" : "yчaстиe",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -6874,6 +8399,11 @@
     },
     {
       "word" : "zeosdb",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "zlib",
       "spam" : 0,
       "ham" : 1
     },
@@ -6908,9 +8438,19 @@
       "ham" : 0
     },
     {
+      "word" : "  ",
+      "spam" : 20222,
+      "ham" : 71236
+    },
+    {
       "word" : "     ",
       "spam" : 5,
       "ham" : 0
+    },
+    {
+      "word" : "                                                                                                                          ",
+      "spam" : 215,
+      "ham" : 865
     },
     {
       "word" : "«+»",
@@ -6928,6 +8468,61 @@
       "ham" : 0
     },
     {
+      "word" : "çƥóчĥò❗",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "øбязãҭęльӈø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "øбӱчęӈиę",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "øплãҭ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "øҭ",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "øҭвęчӱ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ęҏӱӈды",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ǔ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ȇƿундå",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ȍплåт",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ȍт",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "ȯнлαйн",
       "spam" : 1,
       "ham" : 0
@@ -6938,13 +8533,18 @@
       "ham" : 0
     },
     {
+      "word" : "ɜ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "ɯиᴛ",
-      "spam" : 2,
+      "spam" : 5,
       "ham" : 0
     },
     {
       "word" : "ʍ",
-      "spam" : 13,
+      "spam" : 25,
       "ham" : 0
     },
     {
@@ -6959,7 +8559,17 @@
     },
     {
       "word" : "ʙ",
-      "spam" : 6,
+      "spam" : 15,
+      "ham" : 0
+    },
+    {
+      "word" : "ʙ0ʍ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ʙ0ᴩ",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -6989,7 +8599,7 @@
     },
     {
       "word" : "̆",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -6998,8 +8608,13 @@
       "ham" : 0
     },
     {
+      "word" : "οплαт",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "οт",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -7015,11 +8630,11 @@
     {
       "word" : "а",
       "spam" : 13,
-      "ham" : 24
+      "ham" : 28
     },
     {
       "word" : "абочие",
-      "spam" : 16,
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -7033,12 +8648,22 @@
       "ham" : 0
     },
     {
+      "word" : "авт0ризации",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "авто",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "авто/мото",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "автомобилем",
       "spam" : 1,
       "ham" : 0
     },
@@ -7083,6 +8708,11 @@
       "ham" : 0
     },
     {
+      "word" : "активна",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "активных",
       "spam" : 2,
       "ham" : 0
@@ -7093,12 +8723,22 @@
       "ham" : 0
     },
     {
+      "word" : "актуален",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "актуальная",
       "spam" : 3,
       "ham" : 0
     },
     {
       "word" : "актуально",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "акции",
       "spam" : 1,
       "ham" : 0
     },
@@ -7143,6 +8783,16 @@
       "ham" : 1
     },
     {
+      "word" : "апгрейдить",
+      "spam" : 0,
+      "ham" : 2
+    },
+    {
+      "word" : "аппeтита",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "апробированном",
       "spam" : 1,
       "ham" : 0
@@ -7174,7 +8824,17 @@
     },
     {
       "word" : "б",
-      "spam" : 4,
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "б0т",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "б0та",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -7213,8 +8873,13 @@
       "ham" : 0
     },
     {
+      "word" : "бepу",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "бeз",
-      "spam" : 3,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -7224,6 +8889,11 @@
     },
     {
       "word" : "бeрём",
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "бeспл@тная",
       "spam" : 1,
       "ham" : 0
     },
@@ -7239,6 +8909,21 @@
     },
     {
       "word" : "бuзнесᴀ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "бęз",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "бęҏём",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "бȇƿȇм",
       "spam" : 1,
       "ham" : 0
     },
@@ -7278,6 +8963,11 @@
       "ham" : 0
     },
     {
+      "word" : "беρем",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "беглым",
       "spam" : 0,
       "ham" : 1
@@ -7289,8 +8979,8 @@
     },
     {
       "word" : "без",
-      "spam" : 25,
-      "ham" : 4
+      "spam" : 26,
+      "ham" : 5
     },
     {
       "word" : "бездействия",
@@ -7298,8 +8988,18 @@
       "ham" : 0
     },
     {
+      "word" : "беззаботную",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "безнал",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "безопасно",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -7328,6 +9028,11 @@
       "ham" : 0
     },
     {
+      "word" : "берегу",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "берем",
       "spam" : 5,
       "ham" : 0
@@ -7344,7 +9049,7 @@
     },
     {
       "word" : "бесплатно",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -7374,7 +9079,7 @@
     },
     {
       "word" : "бизнес",
-      "spam" : 3,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -7383,13 +9088,18 @@
       "ham" : 0
     },
     {
+      "word" : "билда",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "био",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "биржах",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -7423,6 +9133,11 @@
       "ham" : 1
     },
     {
+      "word" : "блокчейна",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "блокчейне",
       "spam" : 1,
       "ham" : 0
@@ -7435,7 +9150,7 @@
     {
       "word" : "более",
       "spam" : 7,
-      "ham" : 0
+      "ham" : 2
     },
     {
       "word" : "больше",
@@ -7451,6 +9166,11 @@
       "word" : "больших",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "большого",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "большое",
@@ -7469,7 +9189,7 @@
     },
     {
       "word" : "бонус",
-      "spam" : 1,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -7513,6 +9233,11 @@
       "ham" : 0
     },
     {
+      "word" : "боты",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "брeндовые",
       "spam" : 1,
       "ham" : 0
@@ -7535,11 +9260,26 @@
     {
       "word" : "буду",
       "spam" : 12,
-      "ham" : 2
+      "ham" : 3
+    },
+    {
+      "word" : "будут",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "будущее",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "будущем",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "будущиe",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -7560,7 +9300,7 @@
     {
       "word" : "бы",
       "spam" : 0,
-      "ham" : 9
+      "ham" : 10
     },
     {
       "word" : "быctpый",
@@ -7609,7 +9349,7 @@
     },
     {
       "word" : "быстрая",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -7625,7 +9365,7 @@
     {
       "word" : "быстро",
       "spam" : 2,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "быстроe",
@@ -7634,7 +9374,7 @@
     },
     {
       "word" : "быстрое",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -7643,14 +9383,24 @@
       "ham" : 1
     },
     {
+      "word" : "бысҭҏый",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "быть",
       "spam" : 3,
       "ham" : 2
     },
     {
+      "word" : "быᴛ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "бьюсь",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "бьют",
@@ -7659,8 +9409,8 @@
     },
     {
       "word" : "в",
-      "spam" : 851,
-      "ham" : 62
+      "spam" : 934,
+      "ham" : 79
     },
     {
       "word" : "в/зa",
@@ -7683,13 +9433,18 @@
       "ham" : 0
     },
     {
+      "word" : "вaлют",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "вaм",
       "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "вaс",
-      "spam" : 7,
+      "spam" : 8,
       "ham" : 0
     },
     {
@@ -7699,7 +9454,7 @@
     },
     {
       "word" : "вaшeмy",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -7709,7 +9464,7 @@
     },
     {
       "word" : "вceм",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -7729,6 +9484,11 @@
     },
     {
       "word" : "вcем",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "вcю",
       "spam" : 1,
       "ham" : 0
     },
@@ -7754,7 +9514,7 @@
     },
     {
       "word" : "вoзмoжнoсть",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -7803,6 +9563,26 @@
       "ham" : 0
     },
     {
+      "word" : "вãс",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "вåс",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "вƿȇмȇнǔ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "вαс",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "вοзнᴀ",
       "spam" : 1,
       "ham" : 0
@@ -7824,6 +9604,11 @@
     },
     {
       "word" : "вρемени",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "ваc",
       "spam" : 1,
       "ham" : 0
     },
@@ -7844,7 +9629,7 @@
     },
     {
       "word" : "важен",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -7899,7 +9684,7 @@
     },
     {
       "word" : "ваш",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -7929,6 +9714,11 @@
     },
     {
       "word" : "вашому",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "вашу",
       "spam" : 1,
       "ham" : 0
     },
@@ -8000,6 +9790,11 @@
     {
       "word" : "версии",
       "spam" : 0,
+      "ham" : 3
+    },
+    {
+      "word" : "версию",
+      "spam" : 0,
       "ham" : 1
     },
     {
@@ -8008,8 +9803,18 @@
       "ham" : 2
     },
     {
+      "word" : "ветку",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "вечер",
       "spam" : 2,
+      "ham" : 1
+    },
+    {
+      "word" : "вечера",
+      "spam" : 0,
       "ham" : 1
     },
     {
@@ -8034,7 +9839,7 @@
     },
     {
       "word" : "взаимовыгодное",
-      "spam" : 6,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -8074,7 +9879,7 @@
     },
     {
       "word" : "видео",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -8144,7 +9949,7 @@
     },
     {
       "word" : "вместе",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -8188,6 +9993,21 @@
       "ham" : 0
     },
     {
+      "word" : "водитель",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "водителя",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "возм0жн0сть",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "возмoжнoсть",
       "spam" : 2,
       "ham" : 0
@@ -8210,11 +10030,11 @@
     {
       "word" : "возможности",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "возможность",
-      "spam" : 32,
+      "spam" : 37,
       "ham" : 0
     },
     {
@@ -8244,12 +10064,12 @@
     },
     {
       "word" : "вознаграждение",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "возраст",
-      "spam" : 5,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -8259,7 +10079,7 @@
     },
     {
       "word" : "возьму",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -8288,6 +10108,11 @@
       "ham" : 0
     },
     {
+      "word" : "вопросу",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "вопросы",
       "spam" : 7,
       "ham" : 0
@@ -8304,7 +10129,7 @@
     },
     {
       "word" : "врeмeни",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -8334,8 +10159,8 @@
     },
     {
       "word" : "времени",
-      "spam" : 40,
-      "ham" : 2
+      "spam" : 43,
+      "ham" : 3
     },
     {
       "word" : "временного",
@@ -8354,8 +10179,8 @@
     },
     {
       "word" : "время",
-      "spam" : 9,
-      "ham" : 3
+      "spam" : 10,
+      "ham" : 8
     },
     {
       "word" : "вроде",
@@ -8383,18 +10208,28 @@
       "ham" : 0
     },
     {
+      "word" : "всę",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "всęгø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "всȇм",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "все",
-      "spam" : 38,
+      "spam" : 44,
       "ham" : 15
     },
     {
       "word" : "всегда",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 3
     },
     {
@@ -8404,18 +10239,33 @@
     },
     {
       "word" : "всем",
-      "spam" : 29,
-      "ham" : 5
+      "spam" : 39,
+      "ham" : 6
+    },
+    {
+      "word" : "всемм",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "всему",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "всех",
-      "spam" : 14,
+      "spam" : 16,
       "ham" : 1
+    },
+    {
+      "word" : "встраивать",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "встретится",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "встрече",
@@ -8424,7 +10274,7 @@
     },
     {
       "word" : "встречи",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -8444,7 +10294,7 @@
     },
     {
       "word" : "всё",
-      "spam" : 20,
+      "spam" : 21,
       "ham" : 0
     },
     {
@@ -8458,13 +10308,18 @@
       "ham" : 0
     },
     {
+      "word" : "входящих",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "вчера",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "вы",
-      "spam" : 10,
+      "spam" : 14,
       "ham" : 3
     },
     {
@@ -8493,6 +10348,11 @@
       "ham" : 0
     },
     {
+      "word" : "выбор",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "выбора",
       "spam" : 1,
       "ham" : 1
@@ -8501,6 +10361,11 @@
       "word" : "выбранных",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "выбрать",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "выгoднee",
@@ -8569,13 +10434,28 @@
     },
     {
       "word" : "выиграл",
-      "spam" : 61,
+      "spam" : 70,
+      "ham" : 0
+    },
+    {
+      "word" : "выигрывай",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "выигрыш",
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "выйти",
-      "spam" : 3,
+      "spam" : 5,
       "ham" : 0
+    },
+    {
+      "word" : "выкинуть",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "выложила",
@@ -8610,12 +10490,17 @@
     {
       "word" : "выполнения",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "выполнить",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "выполняя",
+      "spam" : 2,
+      "ham" : 0
     },
     {
       "word" : "вырyчкa",
@@ -8639,12 +10524,12 @@
     },
     {
       "word" : "высoкий",
-      "spam" : 8,
+      "spam" : 9,
       "ham" : 0
     },
     {
       "word" : "высокая",
-      "spam" : 1,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -8728,6 +10613,11 @@
       "ham" : 0
     },
     {
+      "word" : "вҏęмęӈи",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "г0д",
       "spam" : 1,
       "ham" : 0
@@ -8769,7 +10659,7 @@
     },
     {
       "word" : "гpaфик",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -8779,6 +10669,11 @@
     },
     {
       "word" : "гu6kuй",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "гøвøҏю",
       "spam" : 1,
       "ham" : 0
     },
@@ -8805,7 +10700,7 @@
     {
       "word" : "где",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "гибкaя",
@@ -8814,7 +10709,7 @@
     },
     {
       "word" : "гибкий",
-      "spam" : 11,
+      "spam" : 13,
       "ham" : 0
     },
     {
@@ -8858,6 +10753,11 @@
       "ham" : 2
     },
     {
+      "word" : "глюков",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "глядишь",
       "spam" : 0,
       "ham" : 1
@@ -8880,7 +10780,7 @@
     {
       "word" : "года",
       "spam" : 2,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "годом",
@@ -8913,8 +10813,13 @@
       "ham" : 0
     },
     {
+      "word" : "горы",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "готов",
-      "spam" : 9,
+      "spam" : 11,
       "ham" : 0
     },
     {
@@ -8949,13 +10854,18 @@
     },
     {
       "word" : "график",
-      "spam" : 22,
+      "spam" : 24,
       "ham" : 0
     },
     {
       "word" : "графике",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
+    },
+    {
+      "word" : "графикой",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "графиком",
@@ -9008,7 +10918,27 @@
       "ham" : 1
     },
     {
+      "word" : "гҏуппе‼",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "д",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "д0м0й",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "д0ставка",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "д0ᴦ",
       "spam" : 1,
       "ham" : 0
     },
@@ -9029,7 +10959,7 @@
     },
     {
       "word" : "дehь",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -9044,7 +10974,7 @@
     },
     {
       "word" : "дeнь",
-      "spam" : 30,
+      "spam" : 33,
       "ham" : 0
     },
     {
@@ -9079,7 +11009,7 @@
     },
     {
       "word" : "дo",
-      "spam" : 8,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -9094,7 +11024,7 @@
     },
     {
       "word" : "дocтoйный",
-      "spam" : 1,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -9204,7 +11134,7 @@
     },
     {
       "word" : "дoхoд",
-      "spam" : 22,
+      "spam" : 23,
       "ham" : 0
     },
     {
@@ -9214,7 +11144,7 @@
     },
     {
       "word" : "дoхoдoм",
-      "spam" : 6,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -9243,6 +11173,41 @@
       "ham" : 0
     },
     {
+      "word" : "дãӈӈый",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "дø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "дøвęдём",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "дęйсҭвиҭęльӈø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "дęлиҭęсь",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "дęӈь",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "дȇнь",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "дσхσд",
       "spam" : 1,
       "ham" : 0
@@ -9250,7 +11215,7 @@
     {
       "word" : "да",
       "spam" : 1,
-      "ham" : 8
+      "ham" : 10
     },
     {
       "word" : "давления",
@@ -9295,7 +11260,7 @@
     {
       "word" : "дальше",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "дам",
@@ -9308,12 +11273,22 @@
       "ham" : 0
     },
     {
-      "word" : "дать",
+      "word" : "дата",
       "spam" : 0,
       "ham" : 1
     },
     {
+      "word" : "дать",
+      "spam" : 2,
+      "ham" : 1
+    },
+    {
       "word" : "даю",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "дающее",
       "spam" : 1,
       "ham" : 0
     },
@@ -9345,7 +11320,7 @@
     {
       "word" : "двигаться",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "движеhие",
@@ -9399,7 +11374,7 @@
     },
     {
       "word" : "девушку",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -9421,6 +11396,11 @@
       "word" : "действие",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "действий",
+      "spam" : 2,
+      "ham" : 0
     },
     {
       "word" : "действительнo",
@@ -9450,7 +11430,7 @@
     {
       "word" : "делает",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "делаешь",
@@ -9463,8 +11443,13 @@
       "ham" : 1
     },
     {
+      "word" : "делами",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "делать",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 4
     },
     {
@@ -9495,20 +11480,25 @@
     {
       "word" : "дельфе",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 500
     },
     {
       "word" : "дельфей",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 500
     },
     {
       "word" : "дельфи",
       "spam" : 0,
-      "ham" : 3
+      "ham" : 500
     },
     {
       "word" : "дельфях",
+      "spam" : 0,
+      "ham" : 500
+    },
+    {
+      "word" : "демосы",
       "spam" : 0,
       "ham" : 1
     },
@@ -9524,12 +11514,12 @@
     },
     {
       "word" : "день",
-      "spam" : 146,
-      "ham" : 2
+      "spam" : 162,
+      "ham" : 4
     },
     {
       "word" : "деньги",
-      "spam" : 13,
+      "spam" : 14,
       "ham" : 1
     },
     {
@@ -9541,6 +11531,11 @@
       "word" : "десятка",
       "spam" : 0,
       "ham" : 2
+    },
+    {
+      "word" : "десяток",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "детaли",
@@ -9559,8 +11554,8 @@
     },
     {
       "word" : "детали",
-      "spam" : 15,
-      "ham" : 0
+      "spam" : 16,
+      "ham" : 1
     },
     {
       "word" : "детальной",
@@ -9649,7 +11644,7 @@
     },
     {
       "word" : "диване",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -9684,7 +11679,7 @@
     },
     {
       "word" : "дистaнциoннaя",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -9724,7 +11719,7 @@
     },
     {
       "word" : "дистанционного",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -9759,13 +11754,18 @@
     },
     {
       "word" : "длр",
-      "spam" : 10,
+      "spam" : 11,
       "ham" : 0
     },
     {
       "word" : "для",
-      "spam" : 178,
-      "ham" : 10
+      "spam" : 199,
+      "ham" : 12
+    },
+    {
+      "word" : "дмитрий",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "днeвнaя",
@@ -9809,8 +11809,8 @@
     },
     {
       "word" : "до",
-      "spam" : 29,
-      "ham" : 1
+      "spam" : 30,
+      "ham" : 3
     },
     {
       "word" : "доcтyп",
@@ -9825,6 +11825,11 @@
     {
       "word" : "доxод",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "доxода",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -9849,8 +11854,8 @@
     },
     {
       "word" : "доброго",
-      "spam" : 1,
-      "ham" : 1
+      "spam" : 4,
+      "ham" : 2
     },
     {
       "word" : "доброе",
@@ -9858,9 +11863,14 @@
       "ham" : 0
     },
     {
+      "word" : "добросовестного",
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
       "word" : "добрый",
-      "spam" : 8,
-      "ham" : 2
+      "spam" : 10,
+      "ham" : 4
     },
     {
       "word" : "доведём",
@@ -9909,7 +11919,7 @@
     },
     {
       "word" : "доллaров",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -9924,12 +11934,12 @@
     },
     {
       "word" : "долларов",
-      "spam" : 48,
+      "spam" : 56,
       "ham" : 0
     },
     {
       "word" : "дома",
-      "spam" : 8,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -9979,12 +11989,12 @@
     },
     {
       "word" : "дополнительные",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 1
     },
     {
       "word" : "дополнительный",
-      "spam" : 9,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -10015,6 +12025,11 @@
     {
       "word" : "достигнем",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "достижения",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -10059,7 +12074,7 @@
     },
     {
       "word" : "доход",
-      "spam" : 73,
+      "spam" : 75,
       "ham" : 0
     },
     {
@@ -10079,12 +12094,12 @@
     },
     {
       "word" : "доходностью",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
       "word" : "доходом",
-      "spam" : 12,
+      "spam" : 13,
       "ham" : 0
     },
     {
@@ -10120,7 +12135,7 @@
     {
       "word" : "другие",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "других",
@@ -10154,6 +12169,11 @@
     },
     {
       "word" : "друзей",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "друзьям@",
       "spam" : 1,
       "ham" : 0
     },
@@ -10229,7 +12249,7 @@
     },
     {
       "word" : "ежедневно",
-      "spam" : 19,
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -10308,6 +12328,11 @@
       "ham" : 0
     },
     {
+      "word" : "ерунды",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "ес",
       "spam" : 1,
       "ham" : 0
@@ -10324,18 +12349,18 @@
     },
     {
       "word" : "если",
-      "spam" : 57,
-      "ham" : 4
+      "spam" : 62,
+      "ham" : 6
     },
     {
       "word" : "есть",
-      "spam" : 81,
-      "ham" : 8
+      "spam" : 92,
+      "ham" : 18
     },
     {
       "word" : "еще",
       "spam" : 2,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "ещё",
@@ -10389,7 +12414,7 @@
     },
     {
       "word" : "ждy",
-      "spam" : 12,
+      "spam" : 13,
       "ham" : 0
     },
     {
@@ -10409,7 +12434,7 @@
     },
     {
       "word" : "жду",
-      "spam" : 28,
+      "spam" : 31,
       "ham" : 0
     },
     {
@@ -10424,7 +12449,7 @@
     },
     {
       "word" : "же",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 3
     },
     {
@@ -10450,7 +12475,7 @@
     {
       "word" : "желательно",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "желаю",
@@ -10469,7 +12494,7 @@
     },
     {
       "word" : "желающих",
-      "spam" : 8,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -10484,7 +12509,7 @@
     },
     {
       "word" : "жизнь",
-      "spam" : 5,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -10503,13 +12528,23 @@
       "ham" : 0
     },
     {
+      "word" : "з@йди",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "з@лог",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "з@нятость",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "зa",
-      "spam" : 19,
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -10544,7 +12579,7 @@
     },
     {
       "word" : "зapaбoтoк",
-      "spam" : 4,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -10583,13 +12618,18 @@
       "ham" : 0
     },
     {
+      "word" : "зaдaчаx",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "зaинтepecoвaлo",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "зaинтepecoвaнныx",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -10748,6 +12788,26 @@
       "ham" : 0
     },
     {
+      "word" : "зã",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "зãҏãбãҭывãęҭę",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "зåƿåбȍтȍκ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "зåκлåдκǔ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "зα",
       "spam" : 2,
       "ham" : 0
@@ -10759,12 +12819,12 @@
     },
     {
       "word" : "зαραбοтοκ",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "за",
-      "spam" : 58,
+      "spam" : 66,
       "ham" : 4
     },
     {
@@ -10779,7 +12839,7 @@
     },
     {
       "word" : "заpабoтoк",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -10803,6 +12863,11 @@
       "ham" : 0
     },
     {
+      "word" : "заблокировали",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "забудь",
       "spam" : 0,
       "ham" : 1
@@ -10810,6 +12875,11 @@
     {
       "word" : "зависит",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "завод",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -10849,6 +12919,11 @@
     },
     {
       "word" : "задачи}",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "задачу",
       "spam" : 0,
       "ham" : 1
     },
@@ -10904,7 +12979,7 @@
     },
     {
       "word" : "заинтересованные",
-      "spam" : 7,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -10924,7 +12999,7 @@
     },
     {
       "word" : "заинтересованы",
-      "spam" : 16,
+      "spam" : 18,
       "ham" : 0
     },
     {
@@ -10949,6 +13024,11 @@
     },
     {
       "word" : "заказов",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "заказы",
       "spam" : 1,
       "ham" : 0
     },
@@ -10986,6 +13066,11 @@
       "word" : "залог",
       "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "заменил",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "заморочек",
@@ -11058,6 +13143,21 @@
       "ham" : 0
     },
     {
+      "word" : "заняты",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "записей",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "записи",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "запихнуть",
       "spam" : 0,
       "ham" : 1
@@ -11066,6 +13166,11 @@
       "word" : "заподробностями",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "заполняю",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "заполучи",
@@ -11088,9 +13193,19 @@
       "ham" : 1
     },
     {
+      "word" : "запроса",
+      "spam" : 0,
+      "ham" : 2
+    },
+    {
       "word" : "запросу",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "запросы",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "запустил",
@@ -11119,7 +13234,7 @@
     },
     {
       "word" : "зарaботок",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -11139,7 +13254,7 @@
     },
     {
       "word" : "зарабатывай",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -11149,7 +13264,12 @@
     },
     {
       "word" : "зарабатывать",
-      "spam" : 29,
+      "spam" : 31,
+      "ham" : 0
+    },
+    {
+      "word" : "зарабатываю",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -11164,7 +13284,7 @@
     },
     {
       "word" : "зарабоtkа",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -11179,12 +13299,12 @@
     },
     {
       "word" : "заработать",
-      "spam" : 6,
+      "spam" : 7,
       "ham" : 0
     },
     {
       "word" : "заработка",
-      "spam" : 27,
+      "spam" : 31,
       "ham" : 0
     },
     {
@@ -11199,7 +13319,7 @@
     },
     {
       "word" : "заработок",
-      "spam" : 30,
+      "spam" : 32,
       "ham" : 0
     },
     {
@@ -11214,6 +13334,16 @@
     },
     {
       "word" : "зарплата",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "затем",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "затрат",
       "spam" : 1,
       "ham" : 0
     },
@@ -11238,6 +13368,11 @@
       "ham" : 0
     },
     {
+      "word" : "заходи",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "зачем",
       "spam" : 0,
       "ham" : 2
@@ -11251,6 +13386,11 @@
       "word" : "заявление",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "заявок",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "заём",
@@ -11294,7 +13434,7 @@
     },
     {
       "word" : "здравствуйте",
-      "spam" : 30,
+      "spam" : 36,
       "ham" : 2
     },
     {
@@ -11338,6 +13478,11 @@
       "ham" : 0
     },
     {
+      "word" : "знаешь",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "знакомых",
       "spam" : 3,
       "ham" : 1
@@ -11360,7 +13505,7 @@
     {
       "word" : "значения",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "значит",
@@ -11368,8 +13513,18 @@
       "ham" : 1
     },
     {
+      "word" : "знаю",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "знают",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "золотые",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -11379,7 +13534,7 @@
     },
     {
       "word" : "зп",
-      "spam" : 9,
+      "spam" : 12,
       "ham" : 0
     },
     {
@@ -11394,8 +13549,8 @@
     },
     {
       "word" : "и",
-      "spam" : 6,
-      "ham" : 0
+      "spam" : 17,
+      "ham" : 7
     },
     {
       "word" : "иcключительно",
@@ -11405,6 +13560,16 @@
     {
       "word" : "иhтеpесhо",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "и ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "иʙᴇ",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -11424,7 +13589,7 @@
     },
     {
       "word" : "играл",
-      "spam" : 23,
+      "spam" : 26,
       "ham" : 0
     },
     {
@@ -11455,7 +13620,7 @@
     {
       "word" : "из",
       "spam" : 32,
-      "ham" : 6
+      "ham" : 8
     },
     {
       "word" : "избавит",
@@ -11476,6 +13641,11 @@
       "word" : "извините",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "извлeкaть",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "извлекает",
@@ -11514,8 +13684,18 @@
     },
     {
       "word" : "или",
-      "spam" : 10,
-      "ham" : 4
+      "spam" : 12,
+      "ham" : 5
+    },
+    {
+      "word" : "им",
+      "spam" : 1,
+      "ham" : 1
+    },
+    {
+      "word" : "имeeтся",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "имeть",
@@ -11548,9 +13728,19 @@
       "ham" : 1
     },
     {
+      "word" : "имеются",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "имея",
       "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "импортозамещения",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "инвeстoрaм",
@@ -11571,6 +13761,11 @@
       "word" : "инвесторов",
       "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "индекс",
+      "spam" : 0,
+      "ham" : 2
     },
     {
       "word" : "индивидуально",
@@ -11609,12 +13804,17 @@
     },
     {
       "word" : "инструмент",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "инструменты",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "интepec",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -11634,7 +13834,7 @@
     },
     {
       "word" : "интepecуeт",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -11658,12 +13858,22 @@
       "ham" : 0
     },
     {
+      "word" : "интeреc",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "интeресно",
       "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "интeс",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "интȇƿȇснȍ",
       "spam" : 1,
       "ham" : 0
     },
@@ -11684,7 +13894,7 @@
     },
     {
       "word" : "интеρеснο",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -11734,12 +13944,12 @@
     },
     {
       "word" : "интересно",
-      "spam" : 51,
+      "spam" : 56,
       "ham" : 0
     },
     {
       "word" : "интересное",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 1
     },
     {
@@ -11755,6 +13965,11 @@
     {
       "word" : "интересует",
       "spam" : 7,
+      "ham" : 1
+    },
+    {
+      "word" : "интересуется",
+      "spam" : 0,
       "ham" : 1
     },
     {
@@ -11794,7 +14009,7 @@
     },
     {
       "word" : "интимных",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -11818,8 +14033,13 @@
       "ham" : 0
     },
     {
+      "word" : "инфopмaцию",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "инфopмaция",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -11854,7 +14074,7 @@
     },
     {
       "word" : "информацией",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -11870,12 +14090,17 @@
     {
       "word" : "информация",
       "spam" : 7,
-      "ham" : 0
+      "ham" : 1
+    },
+    {
+      "word" : "ис",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "искали",
-      "spam" : 1,
-      "ham" : 0
+      "spam" : 2,
+      "ham" : 1
     },
     {
       "word" : "исключением",
@@ -11888,9 +14113,19 @@
       "ham" : 2
     },
     {
+      "word" : "искомого",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "исполнением",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "исполняемый",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "использовал",
@@ -11999,13 +14234,13 @@
     },
     {
       "word" : "ищy",
-      "spam" : 8,
+      "spam" : 10,
       "ham" : 0
     },
     {
       "word" : "ищем",
-      "spam" : 20,
-      "ham" : 0
+      "spam" : 26,
+      "ham" : 1
     },
     {
       "word" : "ищет",
@@ -12024,7 +14259,7 @@
     },
     {
       "word" : "ищу",
-      "spam" : 54,
+      "spam" : 60,
       "ham" : 0
     },
     {
@@ -12034,6 +14269,16 @@
     },
     {
       "word" : "ия⁠",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "иӈвęсҭиций",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "иӈҭęҏęсӈø",
       "spam" : 1,
       "ham" : 0
     },
@@ -12055,7 +14300,7 @@
     {
       "word" : "к",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "к0гдᴀ",
@@ -12094,12 +14339,12 @@
     },
     {
       "word" : "кaк",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "кaпитaлy",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -12138,6 +14383,11 @@
       "ham" : 0
     },
     {
+      "word" : "кoмпьютeрa/тeлeфoнa",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "кoму",
       "spam" : 22,
       "ham" : 0
@@ -12154,6 +14404,26 @@
     },
     {
       "word" : "кpедиты",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "кypcoв",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "кøмӱ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "кλждøгø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "кλсλется",
       "spam" : 1,
       "ham" : 0
     },
@@ -12189,7 +14459,7 @@
     },
     {
       "word" : "каждый",
-      "spam" : 10,
+      "spam" : 11,
       "ham" : 1
     },
     {
@@ -12204,18 +14474,18 @@
     },
     {
       "word" : "казике",
-      "spam" : 11,
+      "spam" : 12,
       "ham" : 0
     },
     {
       "word" : "казино",
-      "spam" : 18,
+      "spam" : 27,
       "ham" : 0
     },
     {
       "word" : "как",
-      "spam" : 8,
-      "ham" : 27
+      "spam" : 15,
+      "ham" : 29
     },
     {
       "word" : "каких",
@@ -12298,6 +14568,11 @@
       "ham" : 0
     },
     {
+      "word" : "квартира",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "квартиру",
       "spam" : 2,
       "ham" : 0
@@ -12326,6 +14601,11 @@
       "word" : "клиента",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "клиенты",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "кликов",
@@ -12360,7 +14640,7 @@
     {
       "word" : "код",
       "spam" : 0,
-      "ham" : 6
+      "ham" : 7
     },
     {
       "word" : "кода",
@@ -12390,7 +14670,7 @@
     {
       "word" : "коллеге",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "коллеги",
@@ -12408,6 +14688,11 @@
       "ham" : 0
     },
     {
+      "word" : "комaнды",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "комаhда",
       "spam" : 1,
       "ham" : 0
@@ -12419,13 +14704,13 @@
     },
     {
       "word" : "команде",
-      "spam" : 9,
+      "spam" : 11,
       "ham" : 0
     },
     {
       "word" : "команду",
       "spam" : 41,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "команды",
@@ -12463,6 +14748,11 @@
       "ham" : 0
     },
     {
+      "word" : "компенсациях",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "компилироваться",
       "spam" : 0,
       "ham" : 1
@@ -12485,7 +14775,7 @@
     {
       "word" : "компонентов",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 3
     },
     {
       "word" : "компоненты",
@@ -12504,8 +14794,8 @@
     },
     {
       "word" : "кому",
-      "spam" : 22,
-      "ham" : 0
+      "spam" : 23,
+      "ham" : 1
     },
     {
       "word" : "комфортное",
@@ -12551,6 +14841,11 @@
       "word" : "контрактов",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "координаты",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "копейки",
@@ -12605,7 +14900,7 @@
     {
       "word" : "которые",
       "spam" : 7,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "который",
@@ -12614,7 +14909,7 @@
     },
     {
       "word" : "которым",
-      "spam" : 1,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -12693,6 +14988,11 @@
       "ham" : 0
     },
     {
+      "word" : "кроме",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "кружок",
       "spam" : 0,
       "ham" : 1
@@ -12718,9 +15018,14 @@
       "ham" : 0
     },
     {
+      "word" : "кстати",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "кто",
       "spam" : 17,
-      "ham" : 6
+      "ham" : 10
     },
     {
       "word" : "купи",
@@ -12764,12 +15069,12 @@
     },
     {
       "word" : "курсу",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "курсы",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -12779,6 +15084,11 @@
     },
     {
       "word" : "кучу",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "кэша",
       "spam" : 0,
       "ham" : 1
     },
@@ -12853,6 +15163,21 @@
       "ham" : 0
     },
     {
+      "word" : "лęгãльӈø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "лęҭ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "лǔчныȇ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "лавандовым",
       "spam" : 0,
       "ham" : 1
@@ -12863,14 +15188,34 @@
       "ham" : 0
     },
     {
+      "word" : "ладно",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "лазарус",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 500
+    },
+    {
+      "word" : "лазарусе",
+      "spam" : 0,
+      "ham" : 500
+    },
+    {
+      "word" : "лазурном",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "лайвхак",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "левой",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "легaльнo",
@@ -12889,7 +15234,7 @@
     },
     {
       "word" : "легально",
-      "spam" : 16,
+      "spam" : 19,
       "ham" : 0
     },
     {
@@ -12933,8 +15278,13 @@
       "ham" : 0
     },
     {
+      "word" : "лежу",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "лет",
-      "spam" : 15,
+      "spam" : 18,
       "ham" : 1
     },
     {
@@ -12968,6 +15318,11 @@
       "ham" : 0
     },
     {
+      "word" : "личhыe",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "личкe",
       "spam" : 1,
       "ham" : 0
@@ -12980,11 +15335,16 @@
     {
       "word" : "личке",
       "spam" : 3,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "личку",
-      "spam" : 24,
+      "spam" : 29,
+      "ham" : 0
+    },
+    {
+      "word" : "личкӱ",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -13009,7 +15369,7 @@
     },
     {
       "word" : "личныe",
-      "spam" : 28,
+      "spam" : 30,
       "ham" : 0
     },
     {
@@ -13019,7 +15379,7 @@
     },
     {
       "word" : "личные",
-      "spam" : 59,
+      "spam" : 61,
       "ham" : 0
     },
     {
@@ -13028,8 +15388,13 @@
       "ham" : 0
     },
     {
+      "word" : "личным",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "личных",
-      "spam" : 36,
+      "spam" : 41,
       "ham" : 0
     },
     {
@@ -13069,8 +15434,8 @@
     },
     {
       "word" : "лс",
-      "spam" : 125,
-      "ham" : 0
+      "spam" : 139,
+      "ham" : 1
     },
     {
       "word" : "лс💚",
@@ -13089,7 +15454,7 @@
     },
     {
       "word" : "лучшему",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -13133,8 +15498,13 @@
       "ham" : 0
     },
     {
-      "word" : "любοй",
+      "word" : "любȍй",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "любοй",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -13164,7 +15534,7 @@
     },
     {
       "word" : "любую",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -13179,22 +15549,22 @@
     },
     {
       "word" : "людeй",
-      "spam" : 26,
+      "spam" : 27,
       "ham" : 0
     },
     {
       "word" : "людu",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "людей",
-      "spam" : 64,
+      "spam" : 67,
       "ham" : 0
     },
     {
       "word" : "люди",
-      "spam" : 29,
+      "spam" : 30,
       "ham" : 0
     },
     {
@@ -13204,7 +15574,7 @@
     },
     {
       "word" : "людяx",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -13288,6 +15658,11 @@
       "ham" : 0
     },
     {
+      "word" : "мeтоды",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "мhе",
       "spam" : 1,
       "ham" : 0
@@ -13299,7 +15674,7 @@
     },
     {
       "word" : "мoгy",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -13319,7 +15694,7 @@
     },
     {
       "word" : "мoй",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -13343,6 +15718,16 @@
       "ham" : 0
     },
     {
+      "word" : "мøмęӈҭ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "мǔƿå",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "магазин",
       "spam" : 1,
       "ham" : 0
@@ -13358,6 +15743,11 @@
       "ham" : 2
     },
     {
+      "word" : "максимального",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "максимальную",
       "spam" : 1,
       "ham" : 0
@@ -13365,7 +15755,7 @@
     {
       "word" : "мало",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "мальчики",
@@ -13428,6 +15818,21 @@
       "ham" : 0
     },
     {
+      "word" : "мебельное",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "мебили",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "медицинской",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "медленные",
       "spam" : 0,
       "ham" : 1
@@ -13464,11 +15869,16 @@
     },
     {
       "word" : "меня",
-      "spam" : 20,
-      "ham" : 6
+      "spam" : 22,
+      "ham" : 7
     },
     {
       "word" : "меняет",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "мере",
       "spam" : 0,
       "ham" : 1
     },
@@ -13489,7 +15899,7 @@
     },
     {
       "word" : "мест",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -13523,6 +15933,11 @@
       "ham" : 0
     },
     {
+      "word" : "метод",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "мечта",
       "spam" : 1,
       "ham" : 0
@@ -13530,6 +15945,11 @@
     {
       "word" : "мечтаете",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "мечтали",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -13554,8 +15974,13 @@
     },
     {
       "word" : "миρα",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "миграции",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "микрозаймы",
@@ -13655,12 +16080,17 @@
     {
       "word" : "мире",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "мириться",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "млн",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "мнe",
@@ -13674,7 +16104,7 @@
     },
     {
       "word" : "мне",
-      "spam" : 56,
+      "spam" : 64,
       "ham" : 8
     },
     {
@@ -13684,7 +16114,7 @@
     },
     {
       "word" : "много",
-      "spam" : 8,
+      "spam" : 10,
       "ham" : 4
     },
     {
@@ -13704,7 +16134,7 @@
     },
     {
       "word" : "мной",
-      "spam" : 6,
+      "spam" : 8,
       "ham" : 1
     },
     {
@@ -13719,13 +16149,18 @@
     },
     {
       "word" : "могу",
-      "spam" : 4,
+      "spam" : 7,
       "ham" : 4
     },
     {
       "word" : "могут",
       "spam" : 0,
       "ham" : 2
+    },
+    {
+      "word" : "модулей",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "моей",
@@ -13740,12 +16175,12 @@
     {
       "word" : "может",
       "spam" : 6,
-      "ham" : 7
+      "ham" : 9
     },
     {
       "word" : "можете",
       "spam" : 2,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "можешь",
@@ -13754,8 +16189,8 @@
     },
     {
       "word" : "можно",
-      "spam" : 16,
-      "ham" : 6
+      "spam" : 17,
+      "ham" : 8
     },
     {
       "word" : "мои",
@@ -13793,13 +16228,18 @@
       "ham" : 1
     },
     {
+      "word" : "мск",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "мусора",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "мы",
-      "spam" : 23,
+      "spam" : 24,
       "ham" : 0
     },
     {
@@ -13824,7 +16264,12 @@
     },
     {
       "word" : "нa",
-      "spam" : 18,
+      "spam" : 20,
+      "ham" : 0
+    },
+    {
+      "word" : "нapкoтuкu",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -13863,6 +16308,11 @@
       "ham" : 0
     },
     {
+      "word" : "нaпepeд",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "нaпpaвлeнии",
       "spam" : 1,
       "ham" : 0
@@ -13874,6 +16324,11 @@
     },
     {
       "word" : "нaпpaвление",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "нaпpавлeние",
       "spam" : 1,
       "ham" : 0
     },
@@ -13918,6 +16373,11 @@
       "ham" : 0
     },
     {
+      "word" : "нaшeй",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "нaшeм",
       "spam" : 2,
       "ham" : 0
@@ -13939,22 +16399,22 @@
     },
     {
       "word" : "нe",
-      "spam" : 22,
+      "spam" : 25,
       "ham" : 0
     },
     {
       "word" : "нeдeлю",
-      "spam" : 9,
+      "spam" : 11,
       "ham" : 0
     },
     {
       "word" : "нeделю",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "нeплохой",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -13974,7 +16434,7 @@
     },
     {
       "word" : "нoвoм",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -14013,6 +16473,16 @@
       "ham" : 0
     },
     {
+      "word" : "нyждaeмся",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "нyждᴀ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "нyжен",
       "spam" : 1,
       "ham" : 0
@@ -14028,14 +16498,29 @@
       "ham" : 0
     },
     {
+      "word" : "нę",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "нǔκåκǔх",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "нȇ",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "нαрkȯтuku",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "на",
-      "spam" : 127,
-      "ham" : 31
+      "spam" : 142,
+      "ham" : 42
     },
     {
       "word" : "набoр",
@@ -14044,13 +16529,18 @@
     },
     {
       "word" : "набираем",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "набираю",
       "spam" : 5,
       "ham" : 0
+    },
+    {
+      "word" : "наблюдаем",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "набоp",
@@ -14079,7 +16569,12 @@
     },
     {
       "word" : "навыков",
-      "spam" : 1,
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "надежного",
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -14090,11 +16585,16 @@
     {
       "word" : "надо",
       "spam" : 0,
-      "ham" : 5
+      "ham" : 2
+    },
+    {
+      "word" : "надёжно",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "надёжные",
-      "spam" : 3,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -14106,6 +16606,11 @@
       "word" : "наиболее",
       "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "найденного",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "найдет",
@@ -14133,6 +16638,16 @@
       "ham" : 0
     },
     {
+      "word" : "найду",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "найдёт",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "найти",
       "spam" : 1,
       "ham" : 1
@@ -14154,7 +16669,12 @@
     },
     {
       "word" : "наличие",
-      "spam" : 6,
+      "spam" : 7,
+      "ham" : 0
+    },
+    {
+      "word" : "наличные",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -14184,7 +16704,7 @@
     },
     {
       "word" : "нами",
-      "spam" : 5,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -14219,7 +16739,7 @@
     },
     {
       "word" : "напиши",
-      "spam" : 8,
+      "spam" : 11,
       "ham" : 0
     },
     {
@@ -14236,6 +16756,11 @@
       "word" : "напр",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "направленuе",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "направление",
@@ -14275,7 +16800,7 @@
     {
       "word" : "нас",
       "spam" : 2,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "настоящего",
@@ -14286,6 +16811,11 @@
       "word" : "настоящих",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "настроeния",
+      "spam" : 2,
+      "ham" : 0
     },
     {
       "word" : "настроение",
@@ -14368,6 +16898,11 @@
       "ham" : 0
     },
     {
+      "word" : "начни",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "наша",
       "spam" : 4,
       "ham" : 0
@@ -14379,7 +16914,7 @@
     },
     {
       "word" : "нашей",
-      "spam" : 7,
+      "spam" : 8,
       "ham" : 0
     },
     {
@@ -14395,7 +16930,7 @@
     {
       "word" : "наших",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "нашу",
@@ -14419,8 +16954,8 @@
     },
     {
       "word" : "не",
-      "spam" : 67,
-      "ham" : 36
+      "spam" : 82,
+      "ham" : 41
     },
     {
       "word" : "неблокирующего",
@@ -14454,8 +16989,8 @@
     },
     {
       "word" : "неделю",
-      "spam" : 45,
-      "ham" : 0
+      "spam" : 52,
+      "ham" : 1
     },
     {
       "word" : "неделю💸💸",
@@ -14469,7 +17004,7 @@
     },
     {
       "word" : "неделя",
-      "spam" : 8,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -14494,13 +17029,13 @@
     },
     {
       "word" : "нейросеть",
-      "spam" : 5,
+      "spam" : 6,
       "ham" : 0
     },
     {
       "word" : "некоторые",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 4
     },
     {
       "word" : "нельзя",
@@ -14508,9 +17043,14 @@
       "ham" : 2
     },
     {
+      "word" : "нем",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "немного",
       "spam" : 0,
-      "ham" : 4
+      "ham" : 5
     },
     {
       "word" : "необходимо",
@@ -14565,7 +17105,7 @@
     {
       "word" : "нет",
       "spam" : 3,
-      "ham" : 4
+      "ham" : 5
     },
     {
       "word" : "нехваткой",
@@ -14583,6 +17123,11 @@
       "ham" : 1
     },
     {
+      "word" : "ниκακих",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "нибудь",
       "spam" : 3,
       "ham" : 14
@@ -14598,8 +17143,13 @@
       "ham" : 2
     },
     {
+      "word" : "нии",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "никaких",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -14625,7 +17175,7 @@
     {
       "word" : "никто",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "нил",
@@ -14644,6 +17194,11 @@
     },
     {
       "word" : "них",
+      "spam" : 1,
+      "ham" : 1
+    },
+    {
+      "word" : "ничeгo",
       "spam" : 1,
       "ham" : 0
     },
@@ -14668,14 +17223,24 @@
       "ham" : 0
     },
     {
+      "word" : "ниᴇ",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "ннaя",
       "spam" : 1,
       "ham" : 0
     },
     {
+      "word" : "ннᴏ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "но",
-      "spam" : 8,
-      "ham" : 16
+      "spam" : 10,
+      "ham" : 19
     },
     {
       "word" : "ноbых",
@@ -14704,7 +17269,7 @@
     },
     {
       "word" : "нового",
-      "spam" : 6,
+      "spam" : 8,
       "ham" : 0
     },
     {
@@ -14729,7 +17294,7 @@
     },
     {
       "word" : "новому",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -14740,7 +17305,7 @@
     {
       "word" : "новую",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "новые",
@@ -14749,12 +17314,12 @@
     },
     {
       "word" : "новый",
-      "spam" : 19,
+      "spam" : 26,
       "ham" : 0
     },
     {
       "word" : "новым",
-      "spam" : 3,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -14814,8 +17379,8 @@
     },
     {
       "word" : "нужен",
-      "spam" : 20,
-      "ham" : 0
+      "spam" : 28,
+      "ham" : 1
     },
     {
       "word" : "нужнo",
@@ -14834,8 +17399,8 @@
     },
     {
       "word" : "нужно",
-      "spam" : 13,
-      "ham" : 5
+      "spam" : 16,
+      "ham" : 6
     },
     {
       "word" : "нужной",
@@ -14844,7 +17409,7 @@
     },
     {
       "word" : "нужны",
-      "spam" : 44,
+      "spam" : 52,
       "ham" : 0
     },
     {
@@ -14890,7 +17455,7 @@
     {
       "word" : "о",
       "spam" : 16,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "о6ученuе",
@@ -14908,9 +17473,19 @@
       "ham" : 1
     },
     {
+      "word" : "обеспечим",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "обеспечить",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "обещать",
+      "spam" : 2,
+      "ham" : 0
     },
     {
       "word" : "обещают",
@@ -14936,6 +17511,16 @@
       "word" : "обнаженных",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "обновил",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "обновление",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "оборотного",
@@ -15019,7 +17604,7 @@
     },
     {
       "word" : "обучаем",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -15028,8 +17613,13 @@
       "ham" : 0
     },
     {
+      "word" : "обучаю",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "обучение",
-      "spam" : 12,
+      "spam" : 13,
       "ham" : 0
     },
     {
@@ -15129,7 +17719,7 @@
     },
     {
       "word" : "огромным",
-      "spam" : 3,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -15160,6 +17750,11 @@
     {
       "word" : "одно",
       "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "одной",
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -15230,7 +17825,7 @@
     {
       "word" : "они",
       "spam" : 0,
-      "ham" : 5
+      "ham" : 6
     },
     {
       "word" : "онлaйн",
@@ -15239,7 +17834,7 @@
     },
     {
       "word" : "онлайн",
-      "spam" : 27,
+      "spam" : 28,
       "ham" : 0
     },
     {
@@ -15284,7 +17879,7 @@
     },
     {
       "word" : "опыт",
-      "spam" : 11,
+      "spam" : 16,
       "ham" : 0
     },
     {
@@ -15301,6 +17896,11 @@
       "word" : "опыта ",
       "spam" : 5,
       "ham" : 0
+    },
+    {
+      "word" : "опытный",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "опытом",
@@ -15373,6 +17973,11 @@
       "ham" : 0
     },
     {
+      "word" : "основным",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "основонoго",
       "spam" : 4,
       "ham" : 0
@@ -15394,12 +17999,12 @@
     },
     {
       "word" : "остались",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
       "word" : "осталось",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 1
     },
     {
@@ -15413,13 +18018,18 @@
       "ham" : 1
     },
     {
+      "word" : "остатков",
+      "spam" : 0,
+      "ham" : 2
+    },
+    {
       "word" : "остаются",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "от",
-      "spam" : 94,
+      "spam" : 114,
       "ham" : 1
     },
     {
@@ -15459,6 +18069,11 @@
     },
     {
       "word" : "ответственные",
+      "spam" : 4,
+      "ham" : 0
+    },
+    {
+      "word" : "ответственный",
       "spam" : 4,
       "ham" : 0
     },
@@ -15551,6 +18166,16 @@
       "word" : "отладчику",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "отличн0го",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "отличная",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "отлично",
@@ -15664,7 +18289,7 @@
     },
     {
       "word" : "официально",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -15689,7 +18314,7 @@
     },
     {
       "word" : "очень",
-      "spam" : 10,
+      "spam" : 12,
       "ham" : 2
     },
     {
@@ -15709,8 +18334,8 @@
     },
     {
       "word" : "ошибки",
-      "spam" : 1,
-      "ham" : 0
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "ошибкой",
@@ -15739,6 +18364,16 @@
     },
     {
       "word" : "п0дhять",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "п0дарки",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "п0сле",
       "spam" : 1,
       "ham" : 0
     },
@@ -15814,7 +18449,7 @@
     },
     {
       "word" : "пaртнёров",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -15889,12 +18524,12 @@
     },
     {
       "word" : "пoдpoбнaя",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
       "word" : "пoдpoбнocтu",
-      "spam" : 7,
+      "spam" : 8,
       "ham" : 0
     },
     {
@@ -15943,6 +18578,11 @@
       "ham" : 0
     },
     {
+      "word" : "пoдрoбнoсти",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "пoдрoбнoстями",
       "spam" : 1,
       "ham" : 0
@@ -15959,6 +18599,11 @@
     },
     {
       "word" : "пoзнakoмимcя",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пoиcк",
       "spam" : 1,
       "ham" : 0
     },
@@ -16008,6 +18653,11 @@
       "ham" : 0
     },
     {
+      "word" : "пoмoщникa",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "пoмимo",
       "spam" : 1,
       "ham" : 0
@@ -16033,12 +18683,27 @@
       "ham" : 0
     },
     {
+      "word" : "пp0дaю",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "пpa3дhики",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "пpeдocтaвляeм",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пpeдocтaвляю",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пpeдoплaт",
       "spam" : 1,
       "ham" : 0
     },
@@ -16159,12 +18824,12 @@
     },
     {
       "word" : "пpиятный",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
       "word" : "пpиятными",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -16208,6 +18873,31 @@
       "ham" : 0
     },
     {
+      "word" : "пåссǔвный",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пøлӱчиҭę",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пøҭøм",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пęҏвый",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пƿȍчåя",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "пȯдрȯбнȯстямu",
       "spam" : 1,
       "ham" : 0
@@ -16219,7 +18909,7 @@
     },
     {
       "word" : "пαссивный",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -16268,9 +18958,14 @@
       "ham" : 1
     },
     {
-      "word" : "пакеты",
+      "word" : "пакетов",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "пакеты",
+      "spam" : 0,
+      "ham" : 2
     },
     {
       "word" : "памяти",
@@ -16289,6 +18984,16 @@
     },
     {
       "word" : "паркета",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "парни",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "пароль",
       "spam" : 0,
       "ham" : 1
     },
@@ -16339,7 +19044,7 @@
     },
     {
       "word" : "партнёров",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -16359,7 +19064,7 @@
     },
     {
       "word" : "пару",
-      "spam" : 11,
+      "spam" : 13,
       "ham" : 2
     },
     {
@@ -16379,12 +19084,17 @@
     },
     {
       "word" : "пассиве",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
       "word" : "пассивно",
       "spam" : 12,
+      "ham" : 0
+    },
+    {
+      "word" : "пассивного",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -16404,7 +19114,7 @@
     },
     {
       "word" : "пассивный",
-      "spam" : 10,
+      "spam" : 12,
       "ham" : 0
     },
     {
@@ -16449,7 +19159,7 @@
     },
     {
       "word" : "перевозчик",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -16559,7 +19269,17 @@
     },
     {
       "word" : "перспективного",
-      "spam" : 2,
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "перспективные",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "перспективы",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -16583,6 +19303,11 @@
       "ham" : 0
     },
     {
+      "word" : "пикселя",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "пикчу",
       "spam" : 0,
       "ham" : 1
@@ -16599,12 +19324,22 @@
     },
     {
       "word" : "писaть",
-      "spam" : 12,
+      "spam" : 13,
       "ham" : 0
     },
     {
       "word" : "писать",
-      "spam" : 28,
+      "spam" : 32,
+      "ham" : 1
+    },
+    {
+      "word" : "письмо",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "пишем",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -16614,7 +19349,7 @@
     },
     {
       "word" : "пиши",
-      "spam" : 83,
+      "spam" : 94,
       "ham" : 1
     },
     {
@@ -16634,8 +19369,8 @@
     },
     {
       "word" : "пишите",
-      "spam" : 121,
-      "ham" : 0
+      "spam" : 132,
+      "ham" : 1
     },
     {
       "word" : "пишите👌",
@@ -16644,6 +19379,11 @@
     },
     {
       "word" : "пишите🔣@mainlivest",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пишиҭę",
       "spam" : 1,
       "ham" : 0
     },
@@ -16668,8 +19408,18 @@
       "ham" : 0
     },
     {
+      "word" : "планирую",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "план🔴",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "плата",
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -16703,6 +19453,11 @@
       "ham" : 0
     },
     {
+      "word" : "плз",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "плохие",
       "spam" : 1,
       "ham" : 0
@@ -16719,7 +19474,7 @@
     },
     {
       "word" : "плюс",
-      "spam" : 26,
+      "spam" : 28,
       "ham" : 0
     },
     {
@@ -16739,8 +19494,8 @@
     },
     {
       "word" : "по",
-      "spam" : 24,
-      "ham" : 5
+      "spam" : 27,
+      "ham" : 10
     },
     {
       "word" : "поcле",
@@ -16793,6 +19548,11 @@
       "ham" : 2
     },
     {
+      "word" : "подeлись",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "подpо6ноcтей",
       "spam" : 1,
       "ham" : 0
@@ -16828,6 +19588,16 @@
       "ham" : 0
     },
     {
+      "word" : "подготовки",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "поддержка",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "поделиться",
       "spam" : 2,
       "ham" : 2
@@ -16853,6 +19623,11 @@
       "ham" : 0
     },
     {
+      "word" : "поднятия",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "поднять",
       "spam" : 1,
       "ham" : 0
@@ -16871,6 +19646,11 @@
       "word" : "подойдёт",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "подписка",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "подписчиками",
@@ -16919,7 +19699,7 @@
     },
     {
       "word" : "подробней",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -16934,17 +19714,17 @@
     },
     {
       "word" : "подробностей",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "подробности",
-      "spam" : 31,
-      "ham" : 0
+      "spam" : 39,
+      "ham" : 1
     },
     {
       "word" : "подробностями",
-      "spam" : 20,
+      "spam" : 23,
       "ham" : 0
     },
     {
@@ -16965,10 +19745,20 @@
     {
       "word" : "подскажите",
       "spam" : 0,
-      "ham" : 4
+      "ham" : 7
     },
     {
       "word" : "подсобные",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "подтягивать",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "подходящий",
       "spam" : 1,
       "ham" : 0
     },
@@ -17015,11 +19805,11 @@
     {
       "word" : "поиск",
       "spam" : 5,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "поиска",
-      "spam" : 5,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -17030,7 +19820,7 @@
     {
       "word" : "поиске",
       "spam" : 12,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "поиском",
@@ -17045,7 +19835,7 @@
     {
       "word" : "пока",
       "spam" : 2,
-      "ham" : 1
+      "ham" : 4
     },
     {
       "word" : "покажет",
@@ -17095,7 +19885,7 @@
     {
       "word" : "поле",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "полезно",
@@ -17108,9 +19898,19 @@
       "ham" : 0
     },
     {
+      "word" : "полис",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "политической",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "полная",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "полное",
@@ -17159,13 +19959,13 @@
     },
     {
       "word" : "получать",
-      "spam" : 23,
+      "spam" : 30,
       "ham" : 0
     },
     {
       "word" : "получение",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "получения",
@@ -17179,7 +19979,7 @@
     },
     {
       "word" : "получить",
-      "spam" : 4,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -17195,12 +19995,22 @@
     {
       "word" : "пользоваться",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
+    },
+    {
+      "word" : "полю",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "поля",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
+    },
+    {
+      "word" : "помoгy",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "поменялось",
@@ -17239,7 +20049,7 @@
     },
     {
       "word" : "помогу",
-      "spam" : 7,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -17318,6 +20128,11 @@
       "ham" : 1
     },
     {
+      "word" : "пообщаться",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "попал",
       "spam" : 0,
       "ham" : 1
@@ -17329,7 +20144,7 @@
     },
     {
       "word" : "попробовать",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 1
     },
     {
@@ -17348,19 +20163,29 @@
       "ham" : 0
     },
     {
+      "word" : "поры",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "порядочных",
       "spam" : 1,
       "ham" : 0
     },
     {
+      "word" : "поскольку",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "после",
       "spam" : 1,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "последней",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 3
     },
     {
       "word" : "последние",
@@ -17408,12 +20233,22 @@
       "ham" : 0
     },
     {
+      "word" : "постоянный",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "постоянных",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "поток",
+      "spam" : 1,
+      "ham" : 1
+    },
+    {
+      "word" : "потока",
       "spam" : 0,
       "ham" : 1
     },
@@ -17440,12 +20275,17 @@
     {
       "word" : "почему",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "почти",
-      "spam" : 0,
+      "spam" : 2,
       "ham" : 2
+    },
+    {
+      "word" : "почту",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "почты",
@@ -17453,8 +20293,18 @@
       "ham" : 1
     },
     {
+      "word" : "поэтому",
+      "spam" : 2,
+      "ham" : 1
+    },
+    {
       "word" : "пояbилacь",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "пр0йди",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -17519,7 +20369,7 @@
     },
     {
       "word" : "прoeктe",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -17613,6 +20463,11 @@
       "ham" : 0
     },
     {
+      "word" : "праздников",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "предл0жеhие",
       "spam" : 1,
       "ham" : 0
@@ -17639,7 +20494,7 @@
     },
     {
       "word" : "предлагаю",
-      "spam" : 22,
+      "spam" : 23,
       "ham" : 0
     },
     {
@@ -17654,12 +20509,17 @@
     },
     {
       "word" : "предложение",
-      "spam" : 24,
+      "spam" : 28,
       "ham" : 0
     },
     {
       "word" : "предложения",
-      "spam" : 2,
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "предложениях",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -17718,6 +20578,11 @@
       "ham" : 0
     },
     {
+      "word" : "прекрасные",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "прелагаю",
       "spam" : 1,
       "ham" : 0
@@ -17730,7 +20595,7 @@
     {
       "word" : "при",
       "spam" : 4,
-      "ham" : 7
+      "ham" : 10
     },
     {
       "word" : "прибыл",
@@ -17778,6 +20643,11 @@
       "ham" : 0
     },
     {
+      "word" : "прибыльность",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "прибыльную",
       "spam" : 1,
       "ham" : 0
@@ -17788,8 +20658,13 @@
       "ham" : 0
     },
     {
+      "word" : "прибыльными",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "прибылью",
-      "spam" : 9,
+      "spam" : 11,
       "ham" : 0
     },
     {
@@ -17799,7 +20674,7 @@
     },
     {
       "word" : "привeт",
-      "spam" : 8,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -17814,8 +20689,8 @@
     },
     {
       "word" : "привет",
-      "spam" : 24,
-      "ham" : 5
+      "spam" : 39,
+      "ham" : 7
     },
     {
       "word" : "приветcтвуетcя",
@@ -17829,7 +20704,7 @@
     },
     {
       "word" : "приветствую",
-      "spam" : 31,
+      "spam" : 33,
       "ham" : 1
     },
     {
@@ -17839,7 +20714,7 @@
     },
     {
       "word" : "приглaшaю",
-      "spam" : 5,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -17849,7 +20724,7 @@
     },
     {
       "word" : "приглашаю",
-      "spam" : 20,
+      "spam" : 21,
       "ham" : 0
     },
     {
@@ -17918,6 +20793,11 @@
       "ham" : 0
     },
     {
+      "word" : "примерах",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "примером",
       "spam" : 0,
       "ham" : 2
@@ -17974,7 +20854,7 @@
     },
     {
       "word" : "присоединиться",
-      "spam" : 8,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -17984,7 +20864,7 @@
     },
     {
       "word" : "присоединяйтесь",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -17996,6 +20876,11 @@
       "word" : "приумножить",
       "spam" : 2,
       "ham" : 0
+    },
+    {
+      "word" : "приходит",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "приходится",
@@ -18013,9 +20898,19 @@
       "ham" : 0
     },
     {
+      "word" : "пришло",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "пришлю",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "приятн0го",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "приятная",
@@ -18024,7 +20919,7 @@
     },
     {
       "word" : "приятной",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -18034,6 +20929,11 @@
     },
     {
       "word" : "приятными",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "про",
       "spam" : 1,
       "ham" : 0
     },
@@ -18050,7 +20950,7 @@
     {
       "word" : "проблемами",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "проблемой",
@@ -18068,13 +20968,23 @@
       "ham" : 0
     },
     {
+      "word" : "проверенный",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "проверить",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "проверок",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "проверь",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -18118,6 +21028,11 @@
       "ham" : 1
     },
     {
+      "word" : "программистов",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "программой",
       "spam" : 0,
       "ham" : 1
@@ -18149,12 +21064,12 @@
     },
     {
       "word" : "проект",
-      "spam" : 19,
-      "ham" : 4
+      "spam" : 26,
+      "ham" : 5
     },
     {
       "word" : "проекта",
-      "spam" : 7,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -18179,12 +21094,22 @@
     },
     {
       "word" : "прозрачно",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "прозрачность",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "производительности",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "производство",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -18229,8 +21154,8 @@
     },
     {
       "word" : "просто",
-      "spam" : 11,
-      "ham" : 8
+      "spam" : 13,
+      "ham" : 9
     },
     {
       "word" : "простой",
@@ -18249,11 +21174,16 @@
     },
     {
       "word" : "простых",
-      "spam" : 0,
+      "spam" : 2,
       "ham" : 1
     },
     {
       "word" : "просьба",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "протестировать",
       "spam" : 0,
       "ham" : 1
     },
@@ -18333,6 +21263,11 @@
       "ham" : 2
     },
     {
+      "word" : "прошлый",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "прошу",
       "spam" : 1,
       "ham" : 0
@@ -18349,7 +21284,7 @@
     },
     {
       "word" : "прямо",
-      "spam" : 9,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -18378,12 +21313,22 @@
       "ham" : 0
     },
     {
+      "word" : "пусто",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "пустой",
       "spam" : 1,
       "ham" : 1
     },
     {
       "word" : "пустопорожнее",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "пусть",
       "spam" : 0,
       "ham" : 1
     },
@@ -18411,6 +21356,26 @@
       "word" : "пытаюсь",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "пҏøхøдиҭ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пҏøчęй",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пҏибыли",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "пҏибыль",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "р",
@@ -18443,6 +21408,11 @@
       "ham" : 0
     },
     {
+      "word" : "рaботой",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "рaботы",
       "spam" : 2,
       "ham" : 0
@@ -18454,6 +21424,11 @@
     },
     {
       "word" : "рaзвития",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "рeбят",
       "spam" : 1,
       "ham" : 0
     },
@@ -18494,7 +21469,7 @@
     },
     {
       "word" : "работа",
-      "spam" : 12,
+      "spam" : 13,
       "ham" : 0
     },
     {
@@ -18504,7 +21479,7 @@
     },
     {
       "word" : "работает",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 2
     },
     {
@@ -18525,7 +21500,7 @@
     {
       "word" : "работать",
       "spam" : 5,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "работающей",
@@ -18539,13 +21514,18 @@
     },
     {
       "word" : "работе",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
       "word" : "работой",
       "spam" : 6,
       "ham" : 0
+    },
+    {
+      "word" : "работоспособность",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "работу",
@@ -18555,6 +21535,11 @@
     {
       "word" : "работы",
       "spam" : 27,
+      "ham" : 1
+    },
+    {
+      "word" : "рабочие",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -18585,7 +21570,7 @@
     {
       "word" : "рада",
       "spam" : 4,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "раждени",
@@ -18595,7 +21580,12 @@
     {
       "word" : "раз",
       "spam" : 1,
-      "ham" : 3
+      "ham" : 4
+    },
+    {
+      "word" : "разбираем",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "разбираетесь",
@@ -18636,6 +21626,11 @@
       "word" : "разгрузки",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "раздел",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "разделяют",
@@ -18679,6 +21674,11 @@
     },
     {
       "word" : "разнорабочие",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "разнорабочий",
       "spam" : 1,
       "ham" : 0
     },
@@ -18694,7 +21694,7 @@
     },
     {
       "word" : "разобраться",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 2
     },
     {
@@ -18708,6 +21708,16 @@
       "ham" : 1
     },
     {
+      "word" : "разработчик",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "разработчиков",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "разрядность",
       "spam" : 0,
       "ham" : 1
@@ -18716,6 +21726,16 @@
       "word" : "разыграем",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "рамках",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "рано",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "раньше",
@@ -18749,13 +21769,18 @@
     },
     {
       "word" : "расскажу",
-      "spam" : 12,
+      "spam" : 19,
       "ham" : 0
     },
     {
       "word" : "рассказываем",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "расчета",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "расшарить",
@@ -18834,11 +21859,31 @@
     },
     {
       "word" : "ребята",
-      "spam" : 6,
+      "spam" : 12,
+      "ham" : 1
+    },
+    {
+      "word" : "регистр@ции",
+      "spam" : 1,
       "ham" : 0
     },
     {
+      "word" : "регистр@цию",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "регистрации",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "регулируете",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "регулярным",
       "spam" : 1,
       "ham" : 0
     },
@@ -18868,7 +21913,17 @@
       "ham" : 0
     },
     {
+      "word" : "результатов",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "результаты",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "рейсе",
       "spam" : 1,
       "ham" : 0
     },
@@ -18876,6 +21931,11 @@
       "word" : "рекрутеры",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "ресурсы",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "речь",
@@ -18974,7 +22034,7 @@
     },
     {
       "word" : "рублей",
-      "spam" : 18,
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -19019,8 +22079,8 @@
     },
     {
       "word" : "с",
-      "spam" : 80,
-      "ham" : 16
+      "spam" : 99,
+      "ham" : 18
     },
     {
       "word" : "сaнкций",
@@ -19058,6 +22118,11 @@
       "ham" : 0
     },
     {
+      "word" : "сotрyдничectво",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "сotрyдничествo",
       "spam" : 1,
       "ham" : 0
@@ -19069,6 +22134,11 @@
     },
     {
       "word" : "сoвeршeннoлетие",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "сoвеpшеннoлетниe",
       "spam" : 1,
       "ham" : 0
     },
@@ -19104,7 +22174,7 @@
     },
     {
       "word" : "сoтрyдничeствy",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -19144,7 +22214,7 @@
     },
     {
       "word" : "сpoчнo",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -19170,7 +22240,7 @@
     {
       "word" : "сам",
       "spam" : 0,
-      "ham" : 3
+      "ham" : 4
     },
     {
       "word" : "самим",
@@ -19191,6 +22261,11 @@
       "word" : "самому",
       "spam" : 0,
       "ham" : 2
+    },
+    {
+      "word" : "самостоятельно",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "самый",
@@ -19259,7 +22334,7 @@
     },
     {
       "word" : "свободное",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -19283,13 +22358,18 @@
       "ham" : 0
     },
     {
+      "word" : "своего",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "своей",
       "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "свои",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 1
     },
     {
@@ -19318,8 +22398,13 @@
       "ham" : 0
     },
     {
+      "word" : "своё",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "свяжитесь",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -19348,6 +22433,11 @@
       "ham" : 0
     },
     {
+      "word" : "связь",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "сгенерированным",
       "spam" : 0,
       "ham" : 1
@@ -19370,7 +22460,7 @@
     {
       "word" : "сделать",
       "spam" : 0,
-      "ham" : 4
+      "ham" : 5
     },
     {
       "word" : "сделки",
@@ -19399,7 +22489,7 @@
     },
     {
       "word" : "сегодня",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -19409,13 +22499,18 @@
     },
     {
       "word" : "сейчас",
-      "spam" : 4,
-      "ham" : 2
+      "spam" : 5,
+      "ham" : 3
     },
     {
       "word" : "секрeтом",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "сеньоры",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "серая",
@@ -19448,6 +22543,11 @@
       "ham" : 1
     },
     {
+      "word" : "серьёзными",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "сети",
       "spam" : 0,
       "ham" : 2
@@ -19464,7 +22564,7 @@
     },
     {
       "word" : "сидя",
-      "spam" : 1,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -19496,6 +22596,11 @@
       "word" : "система",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "системе",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "системно",
@@ -19533,6 +22638,11 @@
       "ham" : 1
     },
     {
+      "word" : "скидки",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "скинy",
       "spam" : 2,
       "ham" : 0
@@ -19544,8 +22654,8 @@
     },
     {
       "word" : "скинуть",
-      "spam" : 2,
-      "ham" : 0
+      "spam" : 3,
+      "ham" : 1
     },
     {
       "word" : "склад",
@@ -19554,7 +22664,12 @@
     },
     {
       "word" : "скорее",
-      "spam" : 3,
+      "spam" : 5,
+      "ham" : 0
+    },
+    {
+      "word" : "скорей",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -19619,7 +22734,7 @@
     },
     {
       "word" : "слоте",
-      "spam" : 11,
+      "spam" : 14,
       "ham" : 0
     },
     {
@@ -19636,6 +22751,11 @@
       "word" : "слышен",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "смãҏҭфøӈ",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "смарт",
@@ -19655,6 +22775,11 @@
     {
       "word" : "смены",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "смогу",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -19684,7 +22809,7 @@
     },
     {
       "word" : "смс",
-      "spam" : 15,
+      "spam" : 17,
       "ham" : 0
     },
     {
@@ -19704,7 +22829,7 @@
     },
     {
       "word" : "со",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 2
     },
     {
@@ -19714,7 +22839,7 @@
     },
     {
       "word" : "соoбщения",
-      "spam" : 9,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -19744,7 +22869,7 @@
     },
     {
       "word" : "совершеннолетние",
-      "spam" : 4,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -19774,7 +22899,7 @@
     },
     {
       "word" : "совмещать",
-      "spam" : 8,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -19843,6 +22968,11 @@
       "ham" : 0
     },
     {
+      "word" : "солью",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "сомнительные",
       "spam" : 1,
       "ham" : 0
@@ -19863,13 +22993,18 @@
       "ham" : 0
     },
     {
+      "word" : "сообщений",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "сообщения",
-      "spam" : 41,
+      "spam" : 42,
       "ham" : 1
     },
     {
       "word" : "сообщениях",
-      "spam" : 21,
+      "spam" : 23,
       "ham" : 0
     },
     {
@@ -19878,12 +23013,22 @@
       "ham" : 0
     },
     {
+      "word" : "сообществе",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "сопровождение",
       "spam" : 6,
       "ham" : 0
     },
     {
       "word" : "сорциами",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "составе",
       "spam" : 0,
       "ham" : 1
     },
@@ -19939,7 +23084,7 @@
     },
     {
       "word" : "сотрудничества",
-      "spam" : 24,
+      "spam" : 29,
       "ham" : 0
     },
     {
@@ -19949,7 +23094,7 @@
     },
     {
       "word" : "сотрудничество",
-      "spam" : 16,
+      "spam" : 20,
       "ham" : 0
     },
     {
@@ -19994,7 +23139,7 @@
     },
     {
       "word" : "специальных",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -20014,7 +23159,7 @@
     },
     {
       "word" : "способ",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -20043,12 +23188,27 @@
       "ham" : 1
     },
     {
+      "word" : "срабатывает",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "сравнение",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "сравнивать",
       "spam" : 0,
       "ham" : 1
     },
     {
       "word" : "среда",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "среднее",
       "spam" : 0,
       "ham" : 1
     },
@@ -20069,7 +23229,7 @@
     },
     {
       "word" : "средства",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -20089,7 +23249,7 @@
     },
     {
       "word" : "срочно",
-      "spam" : 26,
+      "spam" : 27,
       "ham" : 0
     },
     {
@@ -20139,12 +23299,12 @@
     },
     {
       "word" : "стaбильный",
-      "spam" : 8,
+      "spam" : 9,
       "ham" : 0
     },
     {
       "word" : "стaть",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -20173,6 +23333,11 @@
       "ham" : 0
     },
     {
+      "word" : "стабильного",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "стабильное",
       "spam" : 1,
       "ham" : 0
@@ -20189,7 +23354,7 @@
     },
     {
       "word" : "стабильный",
-      "spam" : 15,
+      "spam" : 16,
       "ham" : 0
     },
     {
@@ -20230,7 +23395,7 @@
     {
       "word" : "сталкивался",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "станет",
@@ -20245,6 +23410,11 @@
     {
       "word" : "старт",
       "spam" : 4,
+      "ham" : 0
+    },
+    {
+      "word" : "стартап",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -20274,13 +23444,18 @@
     },
     {
       "word" : "стейкинг",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "стене",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "стесняемся",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "столкнулся",
@@ -20299,8 +23474,13 @@
     },
     {
       "word" : "сторону",
-      "spam" : 0,
+      "spam" : 1,
       "ham" : 4
+    },
+    {
+      "word" : "стрȍгȍ",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "стран",
@@ -20329,11 +23509,16 @@
     },
     {
       "word" : "стратегии",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
       "word" : "стратегиям",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "страховой",
       "spam" : 1,
       "ham" : 0
     },
@@ -20349,7 +23534,7 @@
     },
     {
       "word" : "строго",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -20364,6 +23549,11 @@
     },
     {
       "word" : "строку",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "структуру",
       "spam" : 0,
       "ham" : 1
     },
@@ -20398,8 +23588,13 @@
       "ham" : 0
     },
     {
+      "word" : "супер",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "суток",
-      "spam" : 1,
+      "spam" : 4,
       "ham" : 1
     },
     {
@@ -20418,6 +23613,11 @@
       "ham" : 0
     },
     {
+      "word" : "сфeрa",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "сфeрoй",
       "spam" : 2,
       "ham" : 0
@@ -20425,6 +23625,11 @@
     {
       "word" : "сфeре",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "сфȇƿå",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -20479,8 +23684,23 @@
     },
     {
       "word" : "сюда",
-      "spam" : 11,
+      "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "сҏãзӱ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "сҏøчнø‼",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "сҭãҏҭ",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "т",
@@ -20579,7 +23799,7 @@
     },
     {
       "word" : "тoлькo",
-      "spam" : 1,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -20623,6 +23843,16 @@
       "ham" : 0
     },
     {
+      "word" : "тȇлȇфȍнå/пκ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "тȍчκǔ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "тοч",
       "spam" : 1,
       "ham" : 0
@@ -20634,7 +23864,7 @@
     },
     {
       "word" : "тοчκи",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -20643,19 +23873,29 @@
       "ham" : 0
     },
     {
+      "word" : "таблица",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "тайный",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "так",
-      "spam" : 10,
+      "spam" : 14,
       "ham" : 12
     },
     {
       "word" : "также",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "такие",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "такова",
@@ -20678,9 +23918,24 @@
       "ham" : 2
     },
     {
+      "word" : "такому",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "там",
       "spam" : 0,
-      "ham" : 3
+      "ham" : 4
+    },
+    {
+      "word" : "тарифы",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "тв0й",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "твoегo",
@@ -20719,7 +23974,7 @@
     },
     {
       "word" : "тг",
-      "spam" : 13,
+      "spam" : 17,
       "ham" : 0
     },
     {
@@ -20734,7 +23989,7 @@
     },
     {
       "word" : "тебе",
-      "spam" : 7,
+      "spam" : 8,
       "ham" : 1
     },
     {
@@ -20769,8 +24024,8 @@
     },
     {
       "word" : "телеграм",
-      "spam" : 3,
-      "ham" : 0
+      "spam" : 4,
+      "ham" : 1
     },
     {
       "word" : "телеграмме",
@@ -20784,7 +24039,7 @@
     },
     {
       "word" : "телефοнα/пκ",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -20794,7 +24049,7 @@
     },
     {
       "word" : "телефона",
-      "spam" : 6,
+      "spam" : 7,
       "ham" : 0
     },
     {
@@ -20815,11 +24070,11 @@
     {
       "word" : "тем",
       "spam" : 2,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "тема",
-      "spam" : 1,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -20838,9 +24093,14 @@
       "ham" : 0
     },
     {
+      "word" : "темки",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "теперь",
       "spam" : 0,
-      "ham" : 3
+      "ham" : 4
     },
     {
       "word" : "тету",
@@ -20861,6 +24121,11 @@
       "word" : "технологий",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "техподдержки",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "тильт",
@@ -20884,23 +24149,23 @@
     },
     {
       "word" : "то",
-      "spam" : 8,
-      "ham" : 11
+      "spam" : 9,
+      "ham" : 15
     },
     {
       "word" : "тогда",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 3
     },
     {
       "word" : "того",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "тоже",
       "spam" : 0,
-      "ham" : 3
+      "ham" : 4
     },
     {
       "word" : "толькo",
@@ -20909,7 +24174,7 @@
     },
     {
       "word" : "только",
-      "spam" : 19,
+      "spam" : 24,
       "ham" : 10
     },
     {
@@ -20934,7 +24199,7 @@
     },
     {
       "word" : "торговле",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -20965,11 +24230,11 @@
     {
       "word" : "точки",
       "spam" : 4,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "точно",
-      "spam" : 1,
+      "spam" : 3,
       "ham" : 1
     },
     {
@@ -21024,7 +24289,7 @@
     },
     {
       "word" : "требуется",
-      "spam" : 11,
+      "spam" : 15,
       "ham" : 0
     },
     {
@@ -21034,7 +24299,7 @@
     },
     {
       "word" : "требуются",
-      "spam" : 25,
+      "spam" : 26,
       "ham" : 0
     },
     {
@@ -21099,7 +24364,7 @@
     },
     {
       "word" : "тут",
-      "spam" : 30,
+      "spam" : 31,
       "ham" : 3
     },
     {
@@ -21119,7 +24384,7 @@
     },
     {
       "word" : "тысяч",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -21134,8 +24399,8 @@
     },
     {
       "word" : "у",
-      "spam" : 42,
-      "ham" : 10
+      "spam" : 44,
+      "ham" : 12
     },
     {
       "word" : "уборке",
@@ -21208,6 +24473,11 @@
       "ham" : 0
     },
     {
+      "word" : "уд0б",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "удaлehhый",
       "spam" : 1,
       "ham" : 0
@@ -21268,6 +24538,11 @@
       "ham" : 0
     },
     {
+      "word" : "удåлȇннåя",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "удαленнαя",
       "spam" : 1,
       "ham" : 0
@@ -21279,7 +24554,7 @@
     },
     {
       "word" : "удалeннoгo",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -21314,12 +24589,12 @@
     },
     {
       "word" : "удаленная",
-      "spam" : 14,
+      "spam" : 15,
       "ham" : 0
     },
     {
       "word" : "удаленно",
-      "spam" : 4,
+      "spam" : 9,
       "ham" : 0
     },
     {
@@ -21361,6 +24636,11 @@
       "word" : "удаляет",
       "spam" : 0,
       "ham" : 2
+    },
+    {
+      "word" : "удаляй",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "удаляю",
@@ -21449,7 +24729,7 @@
     },
     {
       "word" : "уднич",
-      "spam" : 3,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -21489,11 +24769,16 @@
     },
     {
       "word" : "уже",
-      "spam" : 5,
-      "ham" : 3
+      "spam" : 6,
+      "ham" : 4
     },
     {
       "word" : "узн",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "узн@й",
       "spam" : 1,
       "ham" : 0
     },
@@ -21514,8 +24799,8 @@
     },
     {
       "word" : "узнать",
-      "spam" : 8,
-      "ham" : 0
+      "spam" : 9,
+      "ham" : 1
     },
     {
       "word" : "уйти",
@@ -21583,6 +24868,11 @@
       "ham" : 2
     },
     {
+      "word" : "уровню",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "усилий",
       "spam" : 4,
       "ham" : 0
@@ -21590,6 +24880,11 @@
     {
       "word" : "усилиях",
       "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "усл0вия",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -21610,6 +24905,11 @@
     {
       "word" : "условиях",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "успeха",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -21638,6 +24938,21 @@
       "ham" : 2
     },
     {
+      "word" : "установишь",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "установки",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
+      "word" : "установленной",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "утверждалось",
       "spam" : 0,
       "ham" : 1
@@ -21661,6 +24976,11 @@
       "word" : "ух",
       "spam" : 19,
       "ham" : 2
+    },
+    {
+      "word" : "участвовать",
+      "spam" : 1,
+      "ham" : 0
     },
     {
       "word" : "участие",
@@ -21728,6 +25048,11 @@
       "ham" : 0
     },
     {
+      "word" : "файл",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "файла",
       "spam" : 0,
       "ham" : 1
@@ -21736,6 +25061,11 @@
       "word" : "файлов",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "файлы",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "факторы",
@@ -21865,7 +25195,7 @@
     {
       "word" : "форму",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "формы",
@@ -21873,8 +25203,13 @@
       "ham" : 1
     },
     {
+      "word" : "форум",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "фото",
-      "spam" : 14,
+      "spam" : 16,
       "ham" : 0
     },
     {
@@ -21914,6 +25249,11 @@
     },
     {
       "word" : "х0р0шие",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "хoрoшeго",
       "spam" : 1,
       "ham" : 0
     },
@@ -21963,13 +25303,23 @@
       "ham" : 0
     },
     {
+      "word" : "хоxлами",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "хор0шего",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "хорoший",
       "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "хорошая",
-      "spam" : 9,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -21984,17 +25334,17 @@
     },
     {
       "word" : "хорошей",
-      "spam" : 10,
+      "spam" : 12,
       "ham" : 0
     },
     {
       "word" : "хорошем",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "хорошие",
-      "spam" : 4,
+      "spam" : 6,
       "ham" : 0
     },
     {
@@ -22009,6 +25359,11 @@
     },
     {
       "word" : "хорошими",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "хороших",
       "spam" : 2,
       "ham" : 0
     },
@@ -22040,7 +25395,7 @@
     {
       "word" : "хотелось",
       "spam" : 0,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "хотите",
@@ -22065,7 +25420,7 @@
     {
       "word" : "хочет",
       "spam" : 7,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "хочется",
@@ -22074,7 +25429,7 @@
     },
     {
       "word" : "хочешь",
-      "spam" : 12,
+      "spam" : 16,
       "ham" : 0
     },
     {
@@ -22123,7 +25478,17 @@
       "ham" : 0
     },
     {
+      "word" : "цвет",
+      "spam" : 0,
+      "ham" : 2
+    },
+    {
       "word" : "цветочный",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "целевые",
       "spam" : 1,
       "ham" : 0
     },
@@ -22144,7 +25509,7 @@
     },
     {
       "word" : "целеустремлены",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -22189,7 +25554,7 @@
     },
     {
       "word" : "чaca",
-      "spam" : 10,
+      "spam" : 11,
       "ham" : 0
     },
     {
@@ -22218,7 +25583,17 @@
       "ham" : 0
     },
     {
+      "word" : "чaсy",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "чaстичнaя",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "чaстью",
       "spam" : 1,
       "ham" : 0
     },
@@ -22293,13 +25668,23 @@
       "ham" : 0
     },
     {
+      "word" : "чãс",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "чåс",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "чȇлȯвȇkα",
       "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "чαс",
-      "spam" : 3,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -22375,7 +25760,7 @@
     {
       "word" : "чате",
       "spam" : 1,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "чеcтно",
@@ -22424,12 +25809,12 @@
     },
     {
       "word" : "человеkа",
-      "spam" : 2,
+      "spam" : 4,
       "ham" : 0
     },
     {
       "word" : "человек",
-      "spam" : 24,
+      "spam" : 30,
       "ham" : 0
     },
     {
@@ -22439,7 +25824,7 @@
     },
     {
       "word" : "человека",
-      "spam" : 21,
+      "spam" : 27,
       "ham" : 0
     },
     {
@@ -22464,6 +25849,16 @@
     },
     {
       "word" : "честность",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "честь",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "четкой",
       "spam" : 1,
       "ham" : 0
     },
@@ -22528,6 +25923,11 @@
       "ham" : 0
     },
     {
+      "word" : "чный",
+      "spam" : 6,
+      "ham" : 0
+    },
+    {
       "word" : "чт0бы",
       "spam" : 1,
       "ham" : 0
@@ -22538,9 +25938,14 @@
       "ham" : 0
     },
     {
+      "word" : "чтений",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "что",
       "spam" : 16,
-      "ham" : 25
+      "ham" : 28
     },
     {
       "word" : "чтоб",
@@ -22579,8 +25984,8 @@
     },
     {
       "word" : "шuм",
-      "spam" : 852,
-      "ham" : 62
+      "spam" : 935,
+      "ham" : 71
     },
     {
       "word" : "шабашка",
@@ -22595,6 +26000,11 @@
     {
       "word" : "шанс",
       "spam" : 6,
+      "ham" : 0
+    },
+    {
+      "word" : "шансом",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -22633,9 +26043,29 @@
       "ham" : 0
     },
     {
+      "word" : "щ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "щас",
       "spam" : 0,
       "ham" : 1
+    },
+    {
+      "word" : "щем",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "щиxᴄ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "щь",
+      "spam" : 29,
+      "ham" : 0
     },
     {
       "word" : "ы",
@@ -22643,7 +26073,17 @@
       "ham" : 0
     },
     {
+      "word" : "ыгодные",
+      "spam" : 20,
+      "ham" : 0
+    },
+    {
       "word" : "ый",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ьнᴏ",
       "spam" : 1,
       "ham" : 0
     },
@@ -22663,6 +26103,11 @@
       "ham" : 1
     },
     {
+      "word" : "экране",
+      "spam" : 0,
+      "ham" : 2
+    },
+    {
       "word" : "экспериментов",
       "spam" : 0,
       "ham" : 1
@@ -22678,6 +26123,11 @@
       "ham" : 1
     },
     {
+      "word" : "эмбаркадеро",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "эт0",
       "spam" : 2,
       "ham" : 0
@@ -22689,7 +26139,17 @@
     },
     {
       "word" : "этo",
+      "spam" : 3,
+      "ham" : 0
+    },
+    {
+      "word" : "этø",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "этøй",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -22724,13 +26184,13 @@
     },
     {
       "word" : "это",
-      "spam" : 13,
+      "spam" : 16,
       "ham" : 20
     },
     {
       "word" : "этого",
       "spam" : 3,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "этой",
@@ -22739,18 +26199,23 @@
     },
     {
       "word" : "этом",
-      "spam" : 15,
+      "spam" : 17,
       "ham" : 3
+    },
+    {
+      "word" : "этому",
+      "spam" : 0,
+      "ham" : 1
     },
     {
       "word" : "этот",
       "spam" : 1,
-      "ham" : 2
+      "ham" : 3
     },
     {
       "word" : "эту",
       "spam" : 0,
-      "ham" : 1
+      "ham" : 2
     },
     {
       "word" : "ю",
@@ -22763,9 +26228,14 @@
       "ham" : 1
     },
     {
+      "word" : "юниты",
+      "spam" : 0,
+      "ham" : 1
+    },
+    {
       "word" : "я",
       "spam" : 2,
-      "ham" : 0
+      "ham" : 1
     },
     {
       "word" : "является",
@@ -22793,12 +26263,82 @@
       "ham" : 1
     },
     {
+      "word" : "ҏãбøҭãęм",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ҏãбøҭы",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "ҏӱчкӱ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "ҕ",
       "spam" : 5,
       "ham" : 0
     },
     {
+      "word" : "ҭøлькø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ҭęбę",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ҭвøęгø",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ӈã",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ӈãми",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ӈãҏкøҭикøв",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ӈøвичкøв",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ӈикãких",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ӈӱжęӈ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "ӊαрkȯтuku",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ӱжę",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ᏼ",
       "spam" : 1,
       "ham" : 0
     },
@@ -22809,6 +26349,11 @@
     },
     {
       "word" : "ᴄ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ᴄ0",
       "spam" : 1,
       "ham" : 0
     },
@@ -22824,7 +26369,7 @@
     },
     {
       "word" : "ᴋ",
-      "spam" : 3,
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -22853,8 +26398,23 @@
       "ham" : 0
     },
     {
+      "word" : "ᴨ0ʍ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ᴨ0д",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "ᴩ",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "​",
-      "spam" : 25,
+      "spam" : 30,
       "ham" : 0
     },
     {
@@ -22874,7 +26434,7 @@
     },
     {
       "word" : "—",
-      "spam" : 31,
+      "spam" : 36,
       "ham" : 0
     },
     {
@@ -22899,8 +26459,8 @@
     },
     {
       "word" : "•",
-      "spam" : 3,
-      "ham" : 0
+      "spam" : 1,
+      "ham" : 7
     },
     {
       "word" : "‼",
@@ -23029,12 +26589,27 @@
     },
     {
       "word" : "✅",
-      "spam" : 15,
+      "spam" : 19,
       "ham" : 0
     },
     {
       "word" : "✅coпрoвoждеhие🟢",
       "spam" : 2,
+      "ham" : 0
+    },
+    {
+      "word" : "✅favorable",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "✅only",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "✅payment",
+      "spam" : 1,
       "ham" : 0
     },
     {
@@ -23098,6 +26673,11 @@
       "ham" : 0
     },
     {
+      "word" : "⤵",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "⬛",
       "spam" : 2,
       "ham" : 0
@@ -23130,6 +26710,11 @@
     {
       "word" : "﻿",
       "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "﻿tpебуютcя",
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -23298,6 +26883,11 @@
       "ham" : 0
     },
     {
+      "word" : "🍕",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "🍬",
       "spam" : 2,
       "ham" : 0
@@ -23418,6 +27008,11 @@
       "ham" : 0
     },
     {
+      "word" : "👉🏼@verymax2025",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "👉🏽@grisha_rio",
       "spam" : 1,
       "ham" : 0
@@ -23429,7 +27024,7 @@
     },
     {
       "word" : "👋",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -23449,6 +27044,11 @@
     },
     {
       "word" : "👐🏼",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "👥",
       "spam" : 1,
       "ham" : 0
     },
@@ -23494,6 +27094,16 @@
     },
     {
       "word" : "💀mеf",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "💁‍",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "💎",
       "spam" : 1,
       "ham" : 0
     },
@@ -23609,7 +27219,7 @@
     },
     {
       "word" : "💰",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -23664,11 +27274,21 @@
     },
     {
       "word" : "💸",
-      "spam" : 4,
+      "spam" : 6,
+      "ham" : 34
+    },
+    {
+      "word" : "💸i",
+      "spam" : 1,
       "ham" : 0
     },
     {
       "word" : "💸неделя",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "💸скупаю",
       "spam" : 1,
       "ham" : 0
     },
@@ -23689,7 +27309,7 @@
     },
     {
       "word" : "💻",
-      "spam" : 1,
+      "spam" : 2,
       "ham" : 0
     },
     {
@@ -23741,6 +27361,11 @@
       "word" : "📱",
       "spam" : 4,
       "ham" : 0
+    },
+    {
+      "word" : "📲",
+      "spam" : 66,
+      "ham" : 239
     },
     {
       "word" : "🔄💙💙💙💙💙",
@@ -23801,6 +27426,11 @@
       "word" : "🔍чиcтый",
       "spam" : 1,
       "ham" : 0
+    },
+    {
+      "word" : "🔒💻",
+      "spam" : 250,
+      "ham" : 402
     },
     {
       "word" : "🔔if",
@@ -23883,6 +27513,11 @@
       "ham" : 0
     },
     {
+      "word" : "🔣",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "🔤",
       "spam" : 3,
       "ham" : 0
@@ -23894,7 +27529,7 @@
     },
     {
       "word" : "🔤🔤🔤",
-      "spam" : 2,
+      "spam" : 3,
       "ham" : 0
     },
     {
@@ -23949,7 +27584,7 @@
     },
     {
       "word" : "🔥",
-      "spam" : 4,
+      "spam" : 10,
       "ham" : 0
     },
     {
@@ -24073,6 +27708,11 @@
       "ham" : 0
     },
     {
+      "word" : "🖥",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "🗣🔤🔤🔤🔤🔤🔤🔤🔤",
       "spam" : 1,
       "ham" : 0
@@ -24149,7 +27789,7 @@
     },
     {
       "word" : "😉",
-      "spam" : 1,
+      "spam" : 4,
       "ham" : 0
     },
     {
@@ -24259,12 +27899,12 @@
     },
     {
       "word" : "🙏",
-      "spam" : 1,
-      "ham" : 0
+      "spam" : 20281,
+      "ham" : 71483
     },
     {
       "word" : "🚀",
-      "spam" : 4,
+      "spam" : 5,
       "ham" : 0
     },
     {
@@ -24318,6 +27958,11 @@
       "ham" : 0
     },
     {
+      "word" : "🟢новая",
+      "spam" : 2,
+      "ham" : 0
+    },
+    {
       "word" : "🤌🤌🤌🤌🤌🤌🤌🤌🤌",
       "spam" : 1,
       "ham" : 0
@@ -24368,14 +28013,19 @@
       "ham" : 1
     },
     {
+      "word" : "🤖",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
       "word" : "🤗👋🏻",
       "spam" : 0,
       "ham" : 1
     },
     {
       "word" : "🤝",
-      "spam" : 2,
-      "ham" : 0
+      "spam" : 6,
+      "ham" : 34
     },
     {
       "word" : "🤝🤝",
@@ -24614,6 +28264,11 @@
     },
     {
       "word" : "🪙oплata",
+      "spam" : 1,
+      "ham" : 0
+    },
+    {
+      "word" : "🪷🪷🪷🪷🪷🪷🪷🪷",
       "spam" : 1,
       "ham" : 0
     },
