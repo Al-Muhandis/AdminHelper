@@ -38,6 +38,7 @@ class procedure TSpamFilterRunner.ServerStop(Sender: TObject);
 begin 
   _SpamFilterWorker.Save;
   _SpamFilterWorker.TerminateWorker;
+  _SpamFilterWorker.WaitFor;
   FreeAndNil(_SpamFilterWorker);
 end;
 
