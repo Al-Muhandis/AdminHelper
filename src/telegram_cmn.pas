@@ -152,6 +152,8 @@ end;
 procedure TCurrentEvent.AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
 begin
   FInspectedMessage:=aMessage.Text;
+  if FInspectedMessage.IsEmpty then
+    FInspectedMessage:=aMessage.Caption;
   FInspectedChat:=aMessage.Chat;
   FInspectedUser:=aMessage.From;
   FInspectedMessageID:=aMessage.MessageId;

@@ -233,7 +233,7 @@ begin
     Bot.banChatMember(Current.InspectedChat.ID, AMessage.From.ID);
     Exit;
   end;
-  if not AMessage.Text.IsEmpty and ORM.User.IsNewbie then
+  if not Current.InspectedMessage.IsEmpty and ORM.User.IsNewbie then
     _SpamFilterWorker.Classify(Current);
 end;
 
