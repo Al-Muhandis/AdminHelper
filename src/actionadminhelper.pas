@@ -233,8 +233,11 @@ begin
     Bot.banChatMember(Current.InspectedChat.ID, AMessage.From.ID);
     Exit;
   end;
-  if not Current.InspectedMessage.IsEmpty and ORM.User.IsNewbie then
-    _SpamFilterWorker.Classify(Current);
+  if ORM.User.IsNewbie then
+    if not Current.InspectedMessage.IsEmpty then
+      _SpamFilterWorker.Classify(Current)
+    else
+      Current.ProcessComplaint(False, _msUnknown);
 end;
 
 function TAdminHelper.GetBotORM: TBotORM;
