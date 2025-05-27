@@ -14,6 +14,14 @@ If the inspected message is incorrectly identified as a spam, the member's ratin
 In order for the bot to receive a list of administrators in a group or in case of deleting or adding a new one, it is necessary to send the `/update` command from any of the current administrators.
 Due to the fact that these commands are instantly deleted by the bot itself in the group, reports and updates occur unnoticed by users
 
+# How to Set Up the bot in Your Group
+How to connect the bot @Moderator_Helper_Robot (or your own instance) to your group:
+
+1. Add the bot to your group.
+2. Grant it admin privileges (with ban and add member permissions).
+3. Run the command /update in the group (or /update@Moderator_Helper_Robot if there are other bots with similar commands in the group).
+4. The bot will start working. All admins must open a chat with the bot so it can send them notifications.
+
 # Spam classifier
 A spam classifier has been added to the bot (you can turn it off in the service config), 
 which can be trained and used to automatically notify administrators (and in the case of high spam probability can be automatically to ban) about suspicious messages. 
