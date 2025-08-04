@@ -264,6 +264,12 @@ begin
   end;
 end;
 
+{ aModerator - The one to whom the message is being sent from the bot
+  aIsDefinitelySpam - True is considered to be a spammer.
+    If not the moderator will be offered the choice to click: is the spammer being inspected or not?
+  aIsPreventively - Means that the user was preemptively banned based on the available information.
+  aIsUserPrivacy - If installed, then someone (the inspected person or the complainant) has strict privacy tg settings.
+  }
 procedure TCurrentEvent.SendToModerator(aModerator: Int64; aIsDefinitelySpam, aIsPreventively: Boolean;
   var aIsUserPrivacy: Boolean);
 var
