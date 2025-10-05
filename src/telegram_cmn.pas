@@ -27,6 +27,7 @@ type
     property Bot: TTelegramSender read FBot;
     property ORM: TBotORM read FBotORM;
   public
+    procedure AddMessage;
     procedure AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
     procedure BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
       aInspectedMessage: LongInt; aIsSpam: Boolean);
@@ -148,6 +149,19 @@ begin
 end;
 
 { TCurrentEvent }
+
+procedure TCurrentEvent.AddMessage;
+var
+  aInspectedUserName: String;
+  aComplainant: Int64;
+begin
+  aInspectedUserName:=CaptionFromUser(InspectedUser);
+  if Assigned(Complainant) then
+    aComplainant:=Complainant.ID
+  else
+    aComplainant:=0;
+  ORM.AddMessage(aInspectedUserName, InspectedUser.ID, InspectedChat.ID, aComplainant, InspectedMessageID, _msSpam);
+end;
 
 procedure TCurrentEvent.AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
 begin

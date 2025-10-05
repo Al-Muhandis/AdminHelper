@@ -380,7 +380,6 @@
       <Unit26>
         <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <TopLine Value="75"/>
         <CursorPos X="3" Y="77"/>
@@ -416,9 +415,10 @@
       <Unit30>
         <Filename Value="telegram_cmn.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="19"/>
-        <CursorPos X="15" Y="30"/>
+        <TopLine Value="151"/>
+        <CursorPos X="88" Y="163"/>
         <UsageCount Value="217"/>
         <Loaded Value="True"/>
       </Unit30>
@@ -457,7 +457,7 @@
       <Define0 Value="UseCThreads"/>
       <Define1 Value="SynapseHTTP"/>
     </OtherDefines>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="adminhelper_orm.pas"/>
         <Caret Line="102" Column="3"/>
@@ -568,16 +568,12 @@
       </Position27>
       <Position28>
         <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="60" Column="66" TopLine="150"/>
+        <Caret Line="34" Column="15" TopLine="21"/>
       </Position28>
       <Position29>
         <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="34" Column="15" TopLine="21"/>
-      </Position29>
-      <Position30>
-        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
         <Caret Line="77" Column="3" TopLine="75"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
