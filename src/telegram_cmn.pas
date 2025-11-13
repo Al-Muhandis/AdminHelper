@@ -22,6 +22,7 @@ type
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
     FInspectedUser: TTelegramUserObj;
+    FIsTextMessage: Boolean;
     FSpamProbability, FHamProbability: Double;
   protected
     property Bot: TTelegramSender read FBot;
@@ -48,6 +49,7 @@ type
     property SpamProbability: Double read FSpamProbability write FSpamProbability;
     property HamProbability: Double read FHamProbability write FHamProbability;
     property EmojiMarker: Boolean read FEmojiMarker write FEmojiMarker;
+    property IsTextMessage: Boolean read FIsTextMessage write FIsTextMessage;
   end;
 
 function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String; 
@@ -166,7 +168,8 @@ end;
 procedure TCurrentEvent.AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
 begin
   FInspectedMessage:=aMessage.Text;
-  if FInspectedMessage.IsEmpty then
+  FIsTextMessage:=not aMessage.Text.IsEmpty;
+  if not FIsTextMessage then
     FInspectedMessage:=aMessage.Caption;
   FInspectedChat:=aMessage.Chat;
   FInspectedUser:=aMessage.From;
@@ -231,12 +234,17 @@ end;
 procedure TCurrentEvent.ClassifyMessage(aSpamFilter: TSpamFilter);
 var
   aSpamStatus: Integer;
+  aMediaFactor: Double;
 begin
   FEmojiMarker:=False;
   if CountEmojis(InspectedMessage)<Conf.SpamFilter.EmojiLimit then
   begin
     aSpamFilter.Classify(InspectedMessage, FHamProbability, FSpamProbability);
-    if SpamFactor>Conf.SpamFilter.DefinitelySpam then
+    if FIsTextMessage then
+      aMediaFactor:=1
+    else
+      aMediaFactor:=0.5; // Reducing the spam factor threshold for auto ban
+    if SpamFactor>Conf.SpamFilter.DefinitelySpam*aMediaFactor then
       aSpamStatus:=_msSpam
     else
       aSpamStatus:=_msUnknown;
