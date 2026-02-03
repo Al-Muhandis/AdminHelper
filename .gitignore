@@ -49,3 +49,4 @@ use/*/
 *.new
 
 tests/users.sqlite3
+*.json

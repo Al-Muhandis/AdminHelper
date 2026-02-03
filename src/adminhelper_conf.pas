@@ -20,6 +20,7 @@ type
     FDefinitelySpam: Double;
     FEmojiLimit: Integer;
     FEnabled: Boolean;
+    FMediaRatio: Double;
   public
     constructor Create;
   published
@@ -27,6 +28,7 @@ type
     property DefinitelySpam: Double read FDefinitelySpam write FDefinitelySpam;
     property DefinitelyHam: Double read FDefinitelyHam write FDefinitelyHam;
     property EmojiLimit: Integer read FEmojiLimit write FEmojiLimit;
+    property MediaRatio: Double read FMediaRatio write FMediaRatio;
   end;
 
   { TConf }
@@ -72,6 +74,7 @@ begin
   FDefinitelySpam:=30;
   FDefinitelyHam:=-15;
   FEmojiLimit:=15;
+  FMediaRatio:=0.5;
 end;
 
 { TConf }

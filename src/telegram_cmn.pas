@@ -243,7 +243,7 @@ begin
     if FIsTextMessage then
       aMediaFactor:=1
     else
-      aMediaFactor:=0.5; // Reducing the spam factor threshold for auto ban
+      aMediaFactor:=Conf.SpamFilter.MediaRatio; // Reducing the spam factor threshold for auto ban
     if SpamFactor>Conf.SpamFilter.DefinitelySpam*aMediaFactor then
       aSpamStatus:=_msSpam
     else
