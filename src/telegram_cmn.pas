@@ -91,6 +91,7 @@ resourcestring
 const
   _emjbot='🤖'; 
   _emjInfrmtn='ℹ️';
+  _emjMonocle='🧐';
 
 var
   _sBtnBtCmplnnt: String;
@@ -129,11 +130,11 @@ begin
     Result+=' '+'emj';
 end;
 
-function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer): String;
+function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer = 0): String;
 const
   _ChatIDPrefix='-100';
 var
-  aTpl, aChatName: String;
+  aTpl, aChatName, aMsgIDStr: String;
 begin
   aChatName:=aChat.Username;
   if aChatName.IsEmpty then
@@ -143,11 +144,15 @@ begin
       aChatName:=RightStr(aChatName, Length(aChatName)-Length(_ChatIDPrefix))
     else
       Exit('https://t.me/'); { #todo : Maybe other handling? }
-    aTpl:='https://t.me/c/%s/%d';
+    aTpl:='https://t.me/c/%s/%s';
   end
   else
-    aTpl:='https://t.me/%s/%d';
-  Result:=Format(aTpl, [aChatName, aMsgID]);
+    aTpl:='https://t.me/%s/%s';
+  if aMsgID<>0 then
+    aMsgIDStr:=aMsgID.ToString
+  else
+    aMsgIDStr:=EmptyStr;
+  Result:=Format(aTpl, [aChatName, aMsgIDStr]);
 end;
 
 { TCurrentEvent }
@@ -342,6 +347,8 @@ begin
       if not Assigned(Complainant) then
         aKB.Add.AddButton(_sBtnBtCmplnnt, RouteMsgCmplnntIsBt);
     end;
+    if Assigned(InspectedChat) then
+      aKB.Add.AddButtonUrl(_emjMonocle+' '+InspectedChat.Username, BuildMsgUrl(InspectedChat));
     if not (Assigned(Complainant) or aIsPreventively) then
     begin
       s:=_emjInfrmtn+' ';
