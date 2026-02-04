@@ -17,12 +17,12 @@ type
     FBot: TTelegramSender;
     FComplainant: TTelegramUserObj;
     FBotORM: TBotORM;
+    FContentType: TContentType;
     FEmojiMarker: Boolean;
     FInspectedChat: TTelegramChatObj;
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
     FInspectedUser: TTelegramUserObj;
-    FIsTextMessage: Boolean;
     FSpamProbability, FHamProbability: Double;
   protected
     property Bot: TTelegramSender read FBot;
@@ -41,6 +41,7 @@ type
     procedure SendMessagesToAdmins(aIsDefinitlySpam: Boolean; aIsPreventively: Boolean = False);
     procedure SendToModerator(aModerator: Int64; aIsDefinitelySpam, aIsPreventively: Boolean;
       var aIsUserPrivacy: Boolean);
+    property ContentType: TContentType read FContentType write FContentType;
     property InspectedChat: TTelegramChatObj read FInspectedChat write FInspectedChat;
     property InspectedUser: TTelegramUserObj read FInspectedUser write FInspectedUser;
     property InspectedMessage: String read FInspectedMessage write FInspectedMessage;
@@ -49,7 +50,6 @@ type
     property SpamProbability: Double read FSpamProbability write FSpamProbability;
     property HamProbability: Double read FHamProbability write FHamProbability;
     property EmojiMarker: Boolean read FEmojiMarker write FEmojiMarker;
-    property IsTextMessage: Boolean read FIsTextMessage write FIsTextMessage;
   end;
 
 function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String; 
@@ -171,11 +171,10 @@ begin
 end;
 
 procedure TCurrentEvent.AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
+var
+  aMedia: String;
 begin
-  FInspectedMessage:=aMessage.Text;
-  FIsTextMessage:=not aMessage.Text.IsEmpty;
-  if not FIsTextMessage then
-    FInspectedMessage:=aMessage.Caption;
+  FContentType:=aMessage.ContentFromMessage(FInspectedMessage, aMedia);
   FInspectedChat:=aMessage.Chat;
   FInspectedUser:=aMessage.From;
   FInspectedMessageID:=aMessage.MessageId;
@@ -245,7 +244,7 @@ begin
   if CountEmojis(InspectedMessage)<Conf.SpamFilter.EmojiLimit then
   begin
     aSpamFilter.Classify(InspectedMessage, FHamProbability, FSpamProbability);
-    if FIsTextMessage then
+    if FContentType=cntText then
       aMediaFactor:=1
     else
       aMediaFactor:=Conf.SpamFilter.MediaRatio; // Reducing the spam factor threshold for auto ban

@@ -226,6 +226,9 @@ begin
   Current.Complainant:=nil;
   if not Current.IsGroup then
     Exit;
+  { Check if there is a service message (without text or media) }
+  if Current.ContentType=cntUnknown then
+    Exit;
   if ORM.UserByID(AMessage.From.ID).Spammer=_msSpam then
   begin
     Current.AddMessage;
