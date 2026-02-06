@@ -17,6 +17,7 @@ type
   TSpamFilterTask = class
   private
     FComplainant: TTelegramUserObj;
+    FContentType: TContentType;
     FInspectedChat: TTelegramChatObj;
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
@@ -32,6 +33,7 @@ type
   public
     constructor Create(aTaskCommand: TFilterTaskCommand; aCurrentEvent: TCurrentEvent=nil; aIsSpam: Boolean = False);
     destructor Destroy; override;
+    property ContentType: TContentType read FContentType write FContentType;
     property InspectedMessage: String read FInspectedMessage write FInspectedMessage;
     property InspectedMessageID: Integer read FInspectedMessageID write FInspectedMessageID;
     { 3 properties below clone its value while assigning because asynchronous handling of the taskworker }
@@ -89,6 +91,7 @@ begin
     InspectedUser:=     nil;
     InspectedMessage:=  EmptyStr;
     InspectedMessageID:=0;
+    ContentType:=       cntUnknown;
     Exit;
   end;
   Complainant:=       aSrc.Complainant;
@@ -96,6 +99,7 @@ begin
   InspectedUser:=     aSrc.InspectedUser;
   InspectedMessage:=  aSrc.InspectedMessage;
   InspectedMessageID:=aSrc.InspectedMessageID;
+  ContentType:=       aSrc.ContentType;
 end;
 
 procedure TSpamFilterTask.AssignTo(aDest: TCurrentEvent);
@@ -105,6 +109,7 @@ begin
   aDest.InspectedUser:=     InspectedUser;
   aDest.InspectedMessage:=  InspectedMessage;
   aDest.InspectedMessageID:=InspectedMessageID;
+  aDest.ContentType:=       ContentType;
 end;
 
 constructor TSpamFilterTask.Create(aTaskCommand: TFilterTaskCommand; aCurrentEvent: TCurrentEvent; aIsSpam: Boolean);

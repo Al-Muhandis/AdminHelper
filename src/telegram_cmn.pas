@@ -244,10 +244,12 @@ begin
   if CountEmojis(InspectedMessage)<Conf.SpamFilter.EmojiLimit then
   begin
     aSpamFilter.Classify(InspectedMessage, FHamProbability, FSpamProbability);
-    if FContentType=cntText then
-      aMediaFactor:=1
+    case FContentType of
+      { Reducing the spam factor threshold for auto ban }
+      cntPhoto, cntVideo, cntAudio, cntVoice: aMediaFactor:=Conf.SpamFilter.MediaRatio;
     else
-      aMediaFactor:=Conf.SpamFilter.MediaRatio; // Reducing the spam factor threshold for auto ban
+      aMediaFactor:=1
+    end;
     if SpamFactor>Conf.SpamFilter.DefinitelySpam*aMediaFactor then
       aSpamStatus:=_msSpam
     else
