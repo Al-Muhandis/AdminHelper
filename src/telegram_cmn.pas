@@ -23,24 +23,30 @@ type
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
     FInspectedUser: TTelegramUserObj;
+    FNewReactions: TTelegramReactionTypeList;
     FSpamProbability, FHamProbability: Double;
   protected
     property Bot: TTelegramSender read FBot;
     property ORM: TBotORM read FBotORM;
   public
-    procedure AddMessage;
+    procedure AddMessage(aIsReaction: Boolean = False);
     procedure AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
+    procedure AssignInspectedFromRctn(aReactionUpdated: TTelegramMessageReactionUpdated);
     procedure BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
       aInspectedMessage: LongInt; aIsSpam: Boolean);
+    procedure BanReactionSpam(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
+      aIsSpam: Boolean);
     constructor Create(aBot: TTelegramSender; aBotORM: TBotORM);
     procedure ProcessComplaint(aCanBeSilentBan: Boolean; aSpamStatus: Integer);
+    procedure ProcessSpamReaction(aCanBeSilentBan: Boolean; aSpamStatus: Integer);
     function IsGroup: Boolean;
     procedure ClassifyMessage(aSpamFilter: TSpamFilter);
     procedure TrainFromMessage(aSpamFilter: TSpamFilter; aIsSpam: Boolean);
     function SpamFactor: Double;
-    procedure SendMessagesToAdmins(aIsDefinitlySpam: Boolean; aIsPreventively: Boolean = False);
+    procedure SendMessagesToAdmins(aIsDefinitlySpam: Boolean; aIsPreventively: Boolean = False;
+      aIsReaction: Boolean = False);
     procedure SendToModerator(aModerator: Int64; aIsDefinitelySpam, aIsPreventively: Boolean;
-      var aIsUserPrivacy: Boolean);
+      var aIsUserPrivacy: Boolean; aIsReaction: Boolean = False);
     property ContentType: TContentType read FContentType write FContentType;
     property InspectedChat: TTelegramChatObj read FInspectedChat write FInspectedChat;
     property InspectedUser: TTelegramUserObj read FInspectedUser write FInspectedUser;
@@ -49,7 +55,11 @@ type
     property Complainant: TTelegramUserObj read FComplainant write FComplainant;
     property SpamProbability: Double read FSpamProbability write FSpamProbability;
     property HamProbability: Double read FHamProbability write FHamProbability;
+{ If the message seems to be spam due mass emojies in it }
     property EmojiMarker: Boolean read FEmojiMarker write FEmojiMarker;
+{ The propery stores emojies list from a TelegramMessageRection update.
+  Do not frees the list in this class. This is just pointer from the telegram update object}
+    property NewReactions: TTelegramReactionTypeList read FNewReactions write FNewReactions;
   end;
 
 function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String; 
@@ -61,12 +71,13 @@ const
   _sBtnPair='%s: %s';
   _dTgUsrUrl='tg://user?id=%d';
   _tgErrBtnUsrPrvcyRstrctd='Bad Request: BUTTON_USER_PRIVACY_RESTRICTED';  
-  _dtUsrPrvcy='UsrPrvcy';      
+  _dtUsrPrvcy=   'UsrPrvcy';
   _dtCmplnntIsBt='CmplnntIsBt'; 
-  _dtPrbblySpm='PrbblySpm'; 
-  _dSpm = 'spam';
-  _dtR= 'r';  // rollback ban action
-  _dtRC='rc'; // confirmation of rollback ban action
+  _dtPrbblySpm=  'PrbblySpm';
+  _dSpm =        'spam';
+  _dRctn =       'reaction';
+  _dtR=          'r';  // rollback ban action
+  _dtRC=         'rc'; // confirmation of rollback ban action
 
 resourcestring
   _sInspctdUsr='Inspected user';
@@ -80,6 +91,8 @@ uses
 
 resourcestring
   _sPrvntvlyBnd= 'The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned';
+  _sSpmRctn=     'Spam reaction';
+  _sIsThsRctnSpm='Is this reaction spam? Emojies: %s';
   _sInspctdMsg=  'Inspected message';
   _sCmplnnt=     'Complainant';
   _sIsErnsBn=    'Is this erroneous ban?';
@@ -100,6 +113,11 @@ var
 function RouteCmdSpam(aChat: Int64; aMsg: Integer; IsSpam: Boolean): String;
 begin
   Result:=_dSpm+' '+aChat.ToString+' '+aMsg.ToString+' '+IsSpam.ToString;
+end;
+
+function RouteCmdReaction(aChat, aUser: Int64; IsSpam: Boolean): String;
+begin
+  Result:=_dSpm+' '+aChat.ToString+' '+aUser.ToString+' '+IsSpam.ToString+' '+'r';
 end;
 
 function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String;
@@ -157,7 +175,7 @@ end;
 
 { TCurrentEvent }
 
-procedure TCurrentEvent.AddMessage;
+procedure TCurrentEvent.AddMessage(aIsReaction: Boolean);
 var
   aInspectedUserName: String;
   aComplainant: Int64;
@@ -167,7 +185,8 @@ begin
     aComplainant:=Complainant.ID
   else
     aComplainant:=0;
-  ORM.AddMessage(aInspectedUserName, InspectedUser.ID, InspectedChat.ID, aComplainant, InspectedMessageID, _msSpam);
+  ORM.AddMessage(aInspectedUserName, InspectedUser.ID, InspectedChat.ID, aComplainant, InspectedMessageID, _msSpam,
+    aIsReaction);
 end;
 
 procedure TCurrentEvent.AssignInspectedFromMsg(aMessage: TTelegramMessageObj);
@@ -178,6 +197,14 @@ begin
   FInspectedChat:=aMessage.Chat;
   FInspectedUser:=aMessage.From;
   FInspectedMessageID:=aMessage.MessageId;
+end;
+
+procedure TCurrentEvent.AssignInspectedFromRctn(aReactionUpdated: TTelegramMessageReactionUpdated);
+begin
+  FInspectedChat:=aReactionUpdated.Chat;
+  FInspectedUser:=aReactionUpdated.User;
+  FInspectedMessageID:=aReactionUpdated.MessageID;
+  FNewReactions:=aReactionUpdated.NewReactions;
 end;
 
 procedure TCurrentEvent.BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
@@ -230,6 +257,28 @@ begin
     BanOrNotToBan(InspectedChat.ID, InspectedUser.ID, aInspectedUserName, InspectedMessageID, True);
 end;
 
+procedure TCurrentEvent.ProcessSpamReaction(aCanBeSilentBan: Boolean; aSpamStatus: Integer);
+var
+  aInspectedUserName: String;
+  aIsFirstReaction: Boolean;
+  aComplainant: Int64;
+begin
+  aInspectedUserName:=CaptionFromUser(InspectedUser);
+  if Assigned(Complainant) then
+    aComplainant:=Complainant.ID
+  else
+    aComplainant:=0;
+  ORM.GetNSaveReaction(aInspectedUserName, InspectedUser.ID, InspectedChat.ID, aComplainant, InspectedMessageID,
+    aIsFirstReaction, aSpamStatus);
+  if aIsFirstReaction then
+    if not aCanBeSilentBan then
+      SendMessagesToAdmins(aSpamStatus=_msSpam, False, True);
+  if Assigned(Complainant) then
+    ORM.AddComplaint(aComplainant, InspectedChat.ID, InspectedMessageID);
+  if aSpamStatus=_msSpam then
+    BanReactionSpam(InspectedChat.ID, InspectedUser.ID, aInspectedUserName, True);
+end;
+
 function TCurrentEvent.IsGroup: Boolean;
 begin
   Result:=Assigned(FInspectedUser) and (FInspectedUser.ID<>FInspectedChat.ID)
@@ -274,7 +323,26 @@ begin
   Result:=FSpamProbability-FHamProbability;
 end;
 
-procedure TCurrentEvent.SendMessagesToAdmins(aIsDefinitlySpam: Boolean; aIsPreventively: Boolean);
+procedure TCurrentEvent.BanReactionSpam(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
+  aIsSpam: Boolean);
+var
+  aMsg: String;
+begin
+  if aIsSpam then
+  begin
+    Bot.banChatMember(aInspectedChat, aInspectedUser);
+    ORM.SaveUserSpamStatus(aInspectedUser, aInspectedUserName);
+    aMsg:=_sInspctdMsgHsDlt;
+  end
+  else begin
+    ORM.SaveUserSpamStatus(aInspectedUser, aInspectedUserName, False);
+    aMsg:=_sInspctdMsgIsNtSpm;
+  end;
+  if Assigned(Bot.CurrentUser) then
+    Bot.sendMessage(Bot.CurrentUser.ID, aMsg);
+end;
+
+procedure TCurrentEvent.SendMessagesToAdmins(aIsDefinitlySpam: Boolean; aIsPreventively: Boolean; aIsReaction: Boolean);
 var
   aChatMembers: TopfChatMembers.TEntities;
   aIsUserPrivacy: Boolean;
@@ -286,7 +354,7 @@ begin
     aIsUserPrivacy:=False;
     for aChatMember in aChatMembers do
       if aChatMember.Moderator then
-        SendToModerator(aChatMember.User, aIsDefinitlySpam, aIsPreventively, aIsUserPrivacy);
+        SendToModerator(aChatMember.User, aIsDefinitlySpam, aIsPreventively, aIsUserPrivacy, aIsReaction);
   finally
     aChatMembers.Free;
   end;
@@ -299,7 +367,7 @@ end;
   aIsUserPrivacy - If installed, then someone (the inspected person or the complainant) has strict privacy tg settings.
   }
 procedure TCurrentEvent.SendToModerator(aModerator: Int64; aIsDefinitelySpam, aIsPreventively: Boolean;
-  var aIsUserPrivacy: Boolean);
+  var aIsUserPrivacy: Boolean; aIsReaction: Boolean);
 var
   aReplyMarkup: TReplyMarkup;
   aKB: TInlineKeyboard;
@@ -335,10 +403,14 @@ begin
           RouteCmdSpamLastChecking(InspectedChat.ID, InspectedMessageID, True))
     end
     else begin
-      aKB.Add.AddButtons(
-        ['It is spam', RouteCmdSpam(InspectedChat.ID, InspectedMessageID, True),
-        'It isn''t spam!', RouteCmdSpam(InspectedChat.ID, InspectedMessageID, False)]
-      );
+      if aIsReaction then
+        aKB.Add.AddButtons(
+          ['Spam', RouteCmdReaction(InspectedChat.ID, InspectedUser.ID, True),
+          'Not spam!', RouteCmdReaction(InspectedChat.ID, InspectedUser.ID, False)])
+      else
+        aKB.Add.AddButtons(
+          ['Spam', RouteCmdSpam(InspectedChat.ID, InspectedMessageID, True),
+          'Not spam!', RouteCmdSpam(InspectedChat.ID, InspectedMessageID, False)]);
       aKB.Add.AddButtonUrl(_sInspctdMsg, BuildMsgUrl(InspectedChat, InspectedMessageID));
       aInspctdUsr:=Format(_sBtnPair, [_sInspctdUsr, CaptionFromUser(InspectedUser)]);
       if aIsUserPrivacy then
@@ -350,7 +422,7 @@ begin
     end;
     if Assigned(InspectedChat) then
       aKB.Add.AddButtonUrl(_emjMonocle+' '+InspectedChat.Username, BuildMsgUrl(InspectedChat));
-    if not (Assigned(Complainant) or aIsPreventively) then
+    if not (aIsReaction or Assigned(Complainant) or aIsPreventively) then
     begin
       s:=_emjInfrmtn+' ';
       if (SpamFactor>0) or EmojiMarker then
@@ -359,11 +431,22 @@ begin
         s+=_sMybItsNtSpm;
       aKB.Add.AddButton(s, RouteMsgPrbblySpm(SpamProbability, HamProbability, EmojiMarker));
     end;
-    if aIsPreventively then
-      Bot.sendMessage(aModerator, Format(_sPrvntvlyBnd, [InspectedUser.ID,
-        CaptionFromUser(InspectedUser)]), pmMarkdown, aIsDefinitelySpam, aReplyMarkup)
-    else
-      Bot.copyMessage(aModerator, InspectedChat.ID, InspectedMessageID, aIsDefinitelySpam, aReplyMarkup);
+    if aIsReaction then
+    begin
+      if aIsPreventively then
+        Bot.sendMessage(aModerator, Format(_sSpmRctn+LineEnding+_sPrvntvlyBnd,
+          [InspectedUser.ID, CaptionFromUser(InspectedUser)]), pmMarkdown, aIsDefinitelySpam, aReplyMarkup)
+      else
+        Bot.sendMessage(aModerator, Format(_sIsThsRctnSpm, [NewReactions.CommaString]), pmDefault, False,
+          aReplyMarkup);
+    end
+    else begin
+      if aIsPreventively then
+        Bot.sendMessage(aModerator, Format(_sPrvntvlyBnd, [InspectedUser.ID, CaptionFromUser(InspectedUser)]),
+          pmMarkdown, aIsDefinitelySpam, aReplyMarkup)
+      else
+          Bot.copyMessage(aModerator, InspectedChat.ID, InspectedMessageID, aIsDefinitelySpam, aReplyMarkup);
+    end;
   finally
     aReplyMarkup.Free;
   end;
@@ -371,7 +454,7 @@ begin
   begin
     aIsUserPrivacy:=(Bot.LastErrorCode=400) and ContainsStr(Bot.LastErrorDescription, _tgErrBtnUsrPrvcyRstrctd);
     if aIsUserPrivacy then
-      SendToModerator(aModerator, aIsDefinitelySpam, aIsPreventively, aIsUserPrivacy);
+      SendToModerator(aModerator, aIsDefinitelySpam, aIsPreventively, aIsUserPrivacy, aIsReaction);
   end;
 end;
 

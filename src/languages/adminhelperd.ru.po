@@ -112,6 +112,11 @@ msgctxt "telegram_cmn._sisernsbn"
 msgid "Is this erroneous ban?"
 msgstr ""
 
+#: telegram_cmn._sisthsrctnspm
+#, object-pascal-format
+msgid "Is this reaction spam? Emojies: %s"
+msgstr ""
+
 #: telegram_cmn._smybitsntspm
 msgctxt "telegram_cmn._smybitsntspm"
 msgid "\"Probably it's not a spam\". More info..."
@@ -126,5 +131,9 @@ msgstr ""
 #, object-pascal-format
 msgctxt "telegram_cmn._sprvntvlybnd"
 msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
+msgstr ""
+
+#: telegram_cmn._sspmrctn
+msgid "Spam reaction"
 msgstr ""
 
