@@ -52,9 +52,9 @@ type
     property Moderator: Boolean read FModerator write FModerator;
   end;
 
-  { TTelegramMessage }
+  { TTelegramMessageRoot }
 
-  TTelegramMessage = class(THelperObjctRoot)
+  TTelegramMessageRoot = class(THelperObjctRoot)
   private
     FChat: Int64;
     FExecutor: Int64;
@@ -69,8 +69,22 @@ type
     property Message: Integer read FMessage write FMessage;
     property User: Int64 read FUser write FUser;
     property IsSpam: Integer read FIsSpam write FIsSpam;
-    property Executor: Int64 read FExecutor write FExecutor;  
+    property Executor: Int64 read FExecutor write FExecutor;
     property UserName: String read FUserName write FUserName;
+  end;
+
+  { TTelegramMessage }
+
+  TTelegramMessage = class(TTelegramMessageRoot)
+  public
+    procedure Clear; override;
+  end;
+
+  { TTelegramReaction }
+
+  TTelegramReaction = class(TTelegramMessageRoot)
+  public
+    procedure Clear; override;
   end;
 
   { TComplaint }
@@ -91,7 +105,8 @@ type
   end;
 
   TopfBotUsers = specialize TdGSQLdbEntityOpf<TBotUser>;  
-  TopfMessages = specialize TdGSQLdbEntityOpf<TTelegramMessage>;  
+  TopfMessages = specialize TdGSQLdbEntityOpf<TTelegramMessage>;
+  TopfReactions = specialize TdGSQLdbEntityOpf<TTelegramReaction>;
   TopfComplaints = specialize TdGSQLdbEntityOpf<TComplaint>;      
   TopfChatMembers = specialize TdGSQLdbEntityOpf<TChatMember>;
 
@@ -107,6 +122,7 @@ type
     FopChatMembers: TopfChatMembers;
     FopComplaints: TopfComplaints;
     FopMessages: TopfMessages;
+    FopReactions: TopfReactions;
     FopUsers: TopfBotUsers;                       
     procedure AddChatMember(aChat, aUser: Int64; aModerator: Boolean); // Without Apply table
     function Con: TdSQLdbConnector;
@@ -115,10 +131,13 @@ type
     function GetopChatMembers: TopfChatMembers;
     function GetopComplaints: TopfComplaints;
     function GetopMessages: TopfMessages;
-    function GetopUsers: TopfBotUsers;                           
+    function GetopReactions: TopfReactions;
+    function GetopUsers: TopfBotUsers;
+    function GetReaction: TTelegramReaction;
     function GetUser: TBotUser;
   protected
     property opMessages: TopfMessages read GetopMessages;
+    property opReactions: TopfReactions read GetopReactions;
     property opComplaints: TopfComplaints read GetopComplaints; 
     property opChatMembers: TopfChatMembers read GetopChatMembers;   
     property opUsers: TopfBotUsers read GetopUsers;
@@ -129,11 +148,14 @@ type
     constructor Create(aDBConf: TDBConf);
     destructor Destroy; override;
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
-    procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
+    procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities); 
+    function GetReaction(aInspectedChat, aInspectedUser: Int64): Boolean;
     procedure GetNSaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
       aInspectedMessage: Integer; out aIsFirstComplaint: Boolean; aSpamStatus: Integer = 0);
+    procedure GetNSaveReaction(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+      aInspectedMessage: Integer; out aIsFirstReaction: Boolean; aSpamStatus: Integer = 0);
     procedure AddMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
-      aInspectedMessage: Integer; aSpamStatus: Integer);
+      aInspectedMessage: Integer; aSpamStatus: Integer; aIsReaction: Boolean = False);
     procedure ModifyMessage(aIsSpam: Boolean; aExecutor: Int64);
     function GetUserByID(aUserID: Int64): Boolean;
     function IsModerator(aChat, aUser: Int64): Boolean;
@@ -146,7 +168,8 @@ type
     function UserByID(aUserID: Int64): TBotUser;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
     property LogFileName: String read FLogFileName write FLogFileName;
-    property Message: TTelegramMessage read GetMessage;
+    property Message: TTelegramMessage read GetMessage;               
+    property Reaction: TTelegramReaction read GetReaction;
     property User: TBotUser read GetUser;
   end;
 
@@ -205,14 +228,29 @@ begin
   FModerator:=False;
 end;
 
-{ TTelegramMessage }
+{ TTelegramMessageRoot }
 
-procedure TTelegramMessage.Clear;
+procedure TTelegramMessageRoot.Clear;
 begin
-  FUser:=0;
   FIsSpam:=0;
   FExecutor:=0;
   FUserName:=EmptyStr;
+end;
+
+{ TTelegramMessage }
+
+procedure TTelegramMessage.Clear;
+begin  
+  inherited Clear;
+  FUser:=0;
+end;
+
+{ TTelegramReaction }
+
+procedure TTelegramReaction.Clear;
+begin
+  inherited Clear;
+  FMessage:=0;
 end;
 
 { TComplaint }
@@ -237,6 +275,11 @@ begin
   Result:=FopUsers;
 end;
 
+function TBotORM.GetReaction: TTelegramReaction;
+begin
+  Result:=opReactions.Entity;
+end;
+
 function TBotORM.GetopMessages: TopfMessages;
 begin
   if not Assigned(FopMessages) then
@@ -246,6 +289,17 @@ begin
     FopMessages.FieldQuote:='`';
   end;
   Result:=FopMessages;
+end;
+
+function TBotORM.GetopReactions: TopfReactions;
+begin
+  if not Assigned(FopReactions) then
+  begin
+    FopReactions:=TopfReactions.Create(Con, 'reactions');
+    FopReactions.Table.PrimaryKeys.DelimitedText:='chat,user';
+    FopReactions.FieldQuote:='`';
+  end;
+  Result:=FopReactions;
 end;
 
 function TBotORM.GetopComplaints: TopfComplaints;
@@ -400,17 +454,70 @@ begin
   opMessages.Apply;
 end;
 
-procedure TBotORM.AddMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
-  aInspectedMessage: Integer; aSpamStatus: Integer);
+
+{ aIsFirstComplain - first reaction of the user in the chat }
+
+procedure TBotORM.GetNSaveReaction(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+  aInspectedMessage: Integer; out aIsFirstReaction: Boolean; aSpamStatus: Integer);
+
+  procedure RetryAdd;
+  begin
+    Con.Logger.Log(ltCustom,
+      'GetNSaveReactions. Warning: the error occurred during connection. Try reconnecting again');
+    Con.Connected:=False;
+    Con.Connected:=True;
+    opReactions.Add(False);
+  end;
+
 begin
-  Message.Chat:=   aInspectedChat;
-  Message.Message:=aInspectedMessage;
-  Message.User:=aInspectedUser;
-  Message.IsSpam:=aSpamStatus;
-  Message.Executor:=aExecutor;
-  Message.UserName:=aInspectedUserName;
-  opMessages.Add(False);
-  opMessages.Apply;
+  aIsFirstReaction:=not GetReaction(aInspectedChat, aInspectedUser); // Notify if there is a first reaction in the chat
+  { No need to save reaction if there is not a first reaction and SpamStatus is unknown }
+  if not aIsFirstReaction and (aSpamStatus=Reaction.IsSpam) then
+    Exit;
+  Reaction.User:=aInspectedUser;
+  Reaction.IsSpam:=aSpamStatus;
+  Reaction.Executor:=aExecutor;
+  Reaction.Message:=aInspectedMessage;
+  Reaction.UserName:=aInspectedUserName;
+  if aIsFirstReaction then
+    try
+      opReactions.Add(False)
+    except
+      on E: ESQLDatabaseError do
+        if not CheckDisconnectErr(E.Message) then
+          raise
+        else
+          RetryAdd;
+    end
+  else
+    opReactions.Modify(False);
+  opReactions.Apply;
+end;
+
+procedure TBotORM.AddMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
+  aInspectedMessage: Integer; aSpamStatus: Integer; aIsReaction: Boolean);
+var
+  aEntity: TTelegramMessageRoot;
+begin
+  if aIsReaction then
+    aEntity:=Reaction
+  else
+    aEntity:=Message;
+  aEntity.Chat:=   aInspectedChat;
+  aEntity.Message:=aInspectedMessage;
+  aEntity.User:=aInspectedUser;
+  aEntity.IsSpam:=aSpamStatus;
+  aEntity.Executor:=aExecutor;
+  aEntity.UserName:=aInspectedUserName;
+  if aIsReaction then
+  begin
+    opReactions.Add(False);
+    opReactions.Apply;
+  end
+  else begin
+    opMessages.Add(False);
+    opMessages.Apply;
+  end;
 end;
 
 procedure TBotORM.ModifyMessage(aIsSpam: Boolean; aExecutor: Int64);
@@ -432,6 +539,7 @@ end;
 
 destructor TBotORM.Destroy;
 begin
+  FopReactions.Free;
   FopChatMembers.Free;
   FopComplaints.Free;
   FopMessages.Free;
@@ -567,6 +675,15 @@ procedure TBotORM.GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers
 begin
   opChatMembers.Entity.Chat:=aChat;
   opChatMembers.Find(aModerators, 'chat=:chat');
+end;
+
+function TBotORM.GetReaction(aInspectedChat, aInspectedUser: Int64): Boolean;
+begin
+  Reaction.Chat:=   aInspectedChat;
+  Reaction.User:=   aInspectedUser;
+  Result:= opReactions.Get();
+  if not Result then
+    Reaction.Clear;
 end;
 
 function TBotORM.UserByID(aUserID: Int64): TBotUser;
