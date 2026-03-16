@@ -194,6 +194,8 @@ var
   aMedia: String;
 begin
   FContentType:=aMessage.ContentFromMessage(FInspectedMessage, aMedia);
+  if Assigned(aMessage.ExternalReply) and Assigned(aMessage.Quote) then
+    FInspectedMessage+=LineEnding+aMessage.Quote.Text;
   FInspectedChat:=aMessage.Chat;
   FInspectedUser:=aMessage.From;
   FInspectedMessageID:=aMessage.MessageId;
