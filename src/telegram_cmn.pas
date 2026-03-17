@@ -374,6 +374,23 @@ var
   aReplyMarkup: TReplyMarkup;
   aKB: TInlineKeyboard;
   aInspctdUsr, aCmplnnt, s: String;
+
+  procedure AddVerdictBtnPair(const aSpmCmd, aHmCmd: String);
+  var
+    aBtn: TInlineKeyboardButton;
+    aLine: TInlineKeyboardButtons;
+  begin                         
+    aLine:=aKB.Add;
+    aBtn:=TInlineKeyboardButton.Create('Spam');
+    aBtn.Style:='danger';
+    aBtn.callback_data:=aSpmCmd;
+    aLine.Add(aBtn);
+    aBtn:=TInlineKeyboardButton.Create('Not Spam');
+    aBtn.Style:='success';
+    aBtn.callback_data:=aHmCmd;
+    aLine.Add(aBtn);
+  end;
+
 begin
   aReplyMarkup:=TReplyMarkup.Create;
   try
@@ -406,13 +423,11 @@ begin
     end
     else begin
       if aIsReaction then
-        aKB.Add.AddButtons(
-          ['Spam', RouteCmdReaction(InspectedChat.ID, InspectedUser.ID, True),
-          'Not spam!', RouteCmdReaction(InspectedChat.ID, InspectedUser.ID, False)])
+        AddVerdictBtnPair(RouteCmdReaction(InspectedChat.ID, InspectedUser.ID, True),
+          RouteCmdReaction(InspectedChat.ID, InspectedUser.ID, False))
       else
-        aKB.Add.AddButtons(
-          ['Spam', RouteCmdSpam(InspectedChat.ID, InspectedMessageID, True),
-          'Not spam!', RouteCmdSpam(InspectedChat.ID, InspectedMessageID, False)]);
+        AddVerdictBtnPair(RouteCmdSpam(InspectedChat.ID, InspectedMessageID, True),
+          RouteCmdSpam(InspectedChat.ID, InspectedMessageID, False));
       aKB.Add.AddButtonUrl(_sInspctdMsg, BuildMsgUrl(InspectedChat, InspectedMessageID));
       aInspctdUsr:=Format(_sBtnPair, [_sInspctdUsr, CaptionFromUser(InspectedUser)]);
       if aIsUserPrivacy then
