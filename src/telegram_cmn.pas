@@ -19,6 +19,7 @@ type
     FBotORM: TBotORM;
     FContentType: TContentType;
     FEmojiMarker: Boolean;
+    FIsExternalReply: Boolean;
     FInspectedChat: TTelegramChatObj;
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
@@ -48,6 +49,7 @@ type
     procedure SendToModerator(aModerator: Int64; aIsDefinitelySpam, aIsPreventively: Boolean;
       var aIsUserPrivacy: Boolean; aIsReaction: Boolean = False);
     property ContentType: TContentType read FContentType write FContentType;
+    property IsExternalReply: Boolean read FIsExternalReply write FIsExternalReply;
     property InspectedChat: TTelegramChatObj read FInspectedChat write FInspectedChat;
     property InspectedUser: TTelegramUserObj read FInspectedUser write FInspectedUser;
     property InspectedMessage: String read FInspectedMessage write FInspectedMessage;
@@ -194,8 +196,9 @@ var
   aMedia: String;
 begin
   FContentType:=aMessage.ContentFromMessage(FInspectedMessage, aMedia);
-  if Assigned(aMessage.ExternalReply) and Assigned(aMessage.Quote) then
-    FInspectedMessage+=LineEnding+aMessage.Quote.Text;
+  FIsExternalReply:=Assigned(aMessage.ExternalReply);
+  if FIsExternalReply and Assigned(aMessage.Quote) then
+      FInspectedMessage+=LineEnding+aMessage.Quote.Text;
   FInspectedChat:=aMessage.Chat;
   FInspectedUser:=aMessage.From;
   FInspectedMessageID:=aMessage.MessageId;
@@ -289,7 +292,7 @@ end;
 procedure TCurrentEvent.ClassifyMessage(aSpamFilter: TSpamFilter);
 var
   aSpamStatus: Integer;
-  aMediaFactor: Double;
+  aAdditionalFactor: Double;
 begin
   FEmojiMarker:=False;
   if CountEmojis(InspectedMessage)<Conf.SpamFilter.EmojiLimit then
@@ -297,11 +300,13 @@ begin
     aSpamFilter.Classify(InspectedMessage, FHamProbability, FSpamProbability);
     case FContentType of
       { Reducing the spam factor threshold for auto ban }
-      cntPhoto, cntVideo, cntAudio, cntVoice: aMediaFactor:=Conf.SpamFilter.MediaRatio;
+      cntPhoto, cntVideo, cntAudio, cntVoice: aAdditionalFactor:=Conf.SpamFilter.MediaRatio;
     else
-      aMediaFactor:=1
+      aAdditionalFactor:=1
     end;
-    if SpamFactor>Conf.SpamFilter.DefinitelySpam*aMediaFactor then
+    if FIsExternalReply then
+      aAdditionalFactor*=0.2;
+    if SpamFactor>Conf.SpamFilter.DefinitelySpam*aAdditionalFactor then
       aSpamStatus:=_msSpam
     else
       aSpamStatus:=_msUnknown;
