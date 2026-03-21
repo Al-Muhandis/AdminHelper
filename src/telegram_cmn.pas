@@ -455,7 +455,7 @@ begin
     end;
     if aIsReaction then
     begin
-      if aIsPreventively then
+      if aIsDefinitelySpam then
         Bot.sendMessage(aModerator, Format(_sSpmRctn+LineEnding+_sPrvntvlyBnd,
           [InspectedUser.ID, CaptionFromUser(InspectedUser)]), pmMarkdown, aIsDefinitelySpam, aReplyMarkup)
       else
