@@ -25,6 +25,16 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`chat`,`message`)
 );
 
+CREATE TABLE IF NOT EXISTS `reactions` (
+  `chat` bigint NOT NULL,
+  `message` int NOT NULL,
+  `user` bigint NOT NULL,
+  `executor` bigint NOT NULL,
+  `isspam` int NOT NULL,
+  `username` varchar(64) NOT NULL,
+  PRIMARY KEY (`chat`,`user`)
+);
+
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint NOT NULL,
   `appearance` bigint NOT NULL,
