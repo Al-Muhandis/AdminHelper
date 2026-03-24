@@ -55,7 +55,7 @@ type
 implementation
 
 uses
-  eventlog, sysutils, StrUtils, adminhelper_conf, tgutils, spamfilter_implementer
+  eventlog, sysutils, StrUtils, adminhelper_conf, tgutils, spamfilter_implementer, global
   ;
 
 resourcestring
@@ -515,7 +515,7 @@ begin
   Bot.Logger.LogType:=ltFile;
   Bot.Logger.AppendContent:=True;
   Bot.BotUsername:=BotConfig.Telegram.UserName;
-  Bot.Logger.FileName:=AppDir+Bot.BotUsername+'.log';
+  Bot.Logger.FileName:=_LogDir+Bot.BotUsername+'.log';
 
   Bot.LogDebug:=BotConfig.Debug;
 

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PACKAGE_NAME="tgadmin"
+CONFIG_FILE="/etc/${PACKAGE_NAME}/tgadmin.json"
+
+DB_NAME="tgadmin"
+DB_USER="tgadmin"
+
+mysql_available() {
+    command -v mysql &>/dev/null && mysqladmin ping --silent 2>/dev/null
+}
+
+case "$1" in
+    purge)
+        # purge = dpkg --purge, полное удаление с данными
+        if mysql_available; then
+            echo "==> Removing database and user for ${DB_NAME}..."
+            mysql -u root <<SQL
+DROP DATABASE IF EXISTS \`${DB_NAME}\`;
+DROP USER IF EXISTS '${DB_USER}'@'localhost';
+FLUSH PRIVILEGES;
+SQL
+        fi
+        rm -f "${CONFIG_FILE}"
+        rmdir --ignore-fail-on-non-empty "/etc/${PACKAGE_NAME}"
+        ;;
+    remove)
+        # remove = dpkg --remove, конфиг и данные остаются
+        ;;
+esac
+
+exit 0

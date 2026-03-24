@@ -50,3 +50,4 @@ use/*/
 
 tests/users.sqlite3
 *.json
+debian/usr/bin/tgadmin
