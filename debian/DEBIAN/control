@@ -3,7 +3,8 @@ Priority: optional
 Maintainer: Renat Suleymanov <mail@Renat.Su>
 Architecture: amd64
 Section: utils
-Depends: dash, libc6 (>= 2.2.5), libsagui2 | libsagui
+Depends: dash, libc6 (>= 2.2.5)
+Recommends: libsagui2 | libsagui
 Origin: https://github.com/al-Muhandis/AdminHelper
 Description: Telegram admin helper
  Telegram bot service for groups' moderation

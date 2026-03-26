@@ -83,6 +83,15 @@ validate_binary() {
     fi
 }
 
+normalize_maintainer_scripts() {
+    local script
+    for script in "${STAGING_DIR}/DEBIAN/postinst" "${STAGING_DIR}/DEBIAN/postrm"; do
+        if [ -f "${script}" ]; then
+            sed -i 's/\r$//' "${script}"
+        fi
+    done
+}
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -99,6 +108,7 @@ mkdir -p "${BUILD_DIR}"
 
 # Copy staging from sources in /tmp — here chmod works correctly
 cp -r "${SCRIPT_DIR}/debian" "${STAGING_DIR}"
+normalize_maintainer_scripts
 
 # Include db_schema.sql — used by postinst to initialize the database
 mkdir -p "${STAGING_DIR}/usr/share/${PACKAGE_NAME}"
@@ -143,7 +153,7 @@ dpkg-deb --root-owner-group --build "${STAGING_DIR}" "${OUTPUT_DEB}"
 
 echo "==> Package built: ${OUTPUT_DEB}"
 
-# Copy ready .deb to needed place
+# Copy ready .DEB to needed place
 mkdir -p "${COPY_TARGET}"
 cp "${OUTPUT_DEB}" "${COPY_TARGET}/"
 echo "==> Copied to: ${COPY_TARGET}/${DEB_NAME}"
