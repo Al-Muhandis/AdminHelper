@@ -15,6 +15,10 @@ mysql_available() {
     command -v mysql &>/dev/null && mysqladmin ping --silent 2>/dev/null
 }
 
+libsagui_available() {
+    command -v ldconfig &>/dev/null && ldconfig -p 2>/dev/null | grep -q 'libsagui\.so'
+}
+
 # Read current value from JSON (return empty string if null or missing)
 json_get() {
     jq -r "$1 // empty" "${CONFIG_FILE}" 2>/dev/null || true
@@ -97,6 +101,12 @@ case "$1" in
             fi
         done
 
+        if ! libsagui_available; then
+            echo "WARNING: libsagui shared library was not found in dynamic linker cache." >&2
+            echo "         The service may fail to start until libsagui is available to the loader." >&2
+            echo "         Install libsagui (package or from source) and run: sudo ldconfig" >&2
+        fi
+
         if [ ! -f "${CONFIG_FILE}" ]; then
             echo "ERROR: config file not found: ${CONFIG_FILE}" >&2
             echo "       Place tgadmin.json into /etc/tgadmin/ before installing." >&2
@@ -111,37 +121,42 @@ case "$1" in
         # Data base
         # ----------------------------------------------------------------
         if mysql_available; then
-            # Take password from config if set (package update)
-            EXISTING_PASS="$(json_get '.AdminHelperDB.Password')"
+            if mysql -u root -e "SELECT 1" >/dev/null 2>&1; then
+                # Take password from config if set (package update)
+                EXISTING_PASS="$(json_get '.AdminHelperDB.Password')"
 
-            if [ -z "${EXISTING_PASS}" ]; then
-                DB_PASS="$(openssl rand -base64 16 | tr -d '/+=' | head -c 20)"
-                echo "==> Generated new database password."
-            else
-                DB_PASS="${EXISTING_PASS}"
-                echo "==> Using existing database password from config."
-            fi
+                if [ -z "${EXISTING_PASS}" ]; then
+                    DB_PASS="$(openssl rand -base64 16 | tr -d '/+=' | head -c 20)"
+                    echo "==> Generated new database password."
+                else
+                    DB_PASS="${EXISTING_PASS}"
+                    echo "==> Using existing database password from config."
+                fi
 
-            echo "==> Configuring MySQL/MariaDB for ${DB_NAME}..."
+                echo "==> Configuring MySQL/MariaDB for ${DB_NAME}..."
 
-            mysql -u root <<SQL
+                mysql -u root <<SQL
 CREATE DATABASE IF NOT EXISTS \`${DB_NAME}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';
 GRANT ALL PRIVILEGES ON \`${DB_NAME}\`.* TO '${DB_USER}'@'localhost';
 FLUSH PRIVILEGES;
 SQL
 
-            # Rolling out the scheme (IF NOT EXISTS — safe when updating)
-            mysql -u root "${DB_NAME}" < "${SCHEMA_FILE}"
+                # Rolling out the scheme (IF NOT EXISTS — safe when updating)
+                mysql -u root "${DB_NAME}" < "${SCHEMA_FILE}"
 
-            # Write credentials to tgadmin.json
-            json_set \
-                --arg user "${DB_USER}" \
-                --arg pass "${DB_PASS}" \
-                --arg db   "${DB_NAME}" \
-                '.AdminHelperDB.User = $user | .AdminHelperDB.Password = $pass | .AdminHelperDB.Database = $db'
+                # Write credentials to tgadmin.json
+                json_set \
+                    --arg user "${DB_USER}" \
+                    --arg pass "${DB_PASS}" \
+                    --arg db   "${DB_NAME}" \
+                    '.AdminHelperDB.User = $user | .AdminHelperDB.Password = $pass | .AdminHelperDB.Database = $db'
 
-            echo "==> Database configured. Credentials saved to ${CONFIG_FILE}"
+                echo "==> Database configured. Credentials saved to ${CONFIG_FILE}"
+            else
+                echo "WARNING: MySQL/MariaDB is running, but root access without password is denied." >&2
+                echo "         Database bootstrap skipped. Configure DB manually and rerun: sudo dpkg-reconfigure ${PACKAGE_NAME}" >&2
+            fi
         else
             echo "WARNING: MySQL/MariaDB not found or not running." >&2
             echo "         Install it, then run: sudo dpkg-reconfigure ${PACKAGE_NAME}" >&2
