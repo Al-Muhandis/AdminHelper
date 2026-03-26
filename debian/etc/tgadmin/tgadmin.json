@@ -1,0 +1,46 @@
+{
+  "AdminHelperBot" : {
+    "Adverts" : [
+    ],
+    "Debug" : true,
+    "FreeLimit" : 0,
+    "Telegram" : {
+      "Payments" : {
+        "Currency" : "",
+        "Disabled" : false,
+        "Price" : 0,
+        "Token" : ""
+      },
+      "Token" : "",
+      "UserName" : "",
+      "Users" : [
+      ]
+    }
+  },
+  "AdminHelperDB" : {
+    "Database" : "",
+    "Driver" : "mysql 8.0",
+    "Host" : "localhost",
+    "Logger" : {
+      "Active" : false,
+      "FileName" : ""
+    },
+    "Password" : "",
+    "User" : ""
+  },
+  "Debug" : {
+    "Enabled" : true
+  },
+  "Port": 80,
+  "NewbieDays" : 14,
+  "GuardRate" : 99,
+  "PatrolRate" : 12,
+  "SpamFilter" : {
+    "DefinitelyHam" : -30,
+    "DefinitelySpam" : 30,
+    "EmojiLimit" : 10,
+    "Enabled" : true,
+    "MediaRatio" : 0.2
+  },
+  "ServiceAdmin" : 0
+}

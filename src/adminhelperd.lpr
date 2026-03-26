@@ -9,7 +9,7 @@ uses
   CThreads,
 {$ENDIF}
   Interfaces, BrookApplication, BrookTardigradeBroker, actionadminhelper, adminhelper_conf, brokers,
-  spamfilter_implementer, telegram_cmn
+  spamfilter_implementer, telegram_cmn, global
   ;
 
 {$R *.res}

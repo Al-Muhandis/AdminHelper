@@ -71,7 +71,7 @@ type
 implementation
 
 uses
-  adminhelper_conf, eventlog
+  adminhelper_conf, eventlog, global
   ;
 
 { TSpamFilterTask }
@@ -179,7 +179,7 @@ begin
   FBot.Logger.LogType:=ltFile;
   FBot.Logger.AppendContent:=True;
   FBot.BotUsername:=Conf.AdminHelperBot.Telegram.UserName;
-  FBot.Logger.FileName:=IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)))+'spamfilter.log';
+  FBot.Logger.FileName:=_LogDir+'spamfilter.log';
   FBot.LogDebug:=Conf.AdminHelperBot.Debug;
 
   FBotORM:=TBotORM.Create(Conf.AdminHelperDB);
@@ -188,7 +188,7 @@ begin
   FCurrent:=TCurrentEvent.Create(FBot, ORM);
 
   FSpamFilter:=TSpamFilter.Create;
-  FSpamFilter.StorageDir:=ConfDir;
+  FSpamFilter.StorageDir:=_DataDir;
   FSpamFilter.InitialSpamMessage:='crypto';
   FSpamFilter.InitialHamMessage:='lazarus and FreePascal/Pascal';
 end;

@@ -1,0 +1,138 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+
+#: actionadminhelper._sbnalrdyrlbck
+msgctxt "actionadminhelper._sbnalrdyrlbck"
+msgid "This ban action has already been rolled back"
+msgstr ""
+
+#: actionadminhelper._sbnrlbck
+msgctxt "actionadminhelper._sbnrlbck"
+msgid "The user's ban was rolled back: unbanning and rating returning "
+msgstr ""
+
+#: actionadminhelper._scmplnntisfldbybt
+msgctxt "actionadminhelper._scmplnntisfldbybt"
+msgid "The complaint is filed by the bot itself"
+msgstr ""
+
+#: actionadminhelper._scnfrmtnrlbckbn
+msgctxt "actionadminhelper._scnfrmtnrlbckbn"
+msgid "Do you think the ban was wrong? If the ban is rolled back, the complainant's rating will be downgraded and the inspected user who sent this message will be unbanned."
+msgstr ""
+
+#: actionadminhelper._sdbgspminf
+#, object-pascal-format
+msgctxt "actionadminhelper._sdbgspminf"
+msgid "Ln spam probability: %n, Ln ham probability: %n. Spam Factor: %n"
+msgstr ""
+
+#: actionadminhelper._shelptext
+msgctxt "actionadminhelper._shelptext"
+msgid "Help Text for TAdminHelper"
+msgstr ""
+"Group members notify administrators of spam messages themselves using the `/spam` command. \n"
+"The command should be sent in response to a spam message.\n"
+"All administrators receive a copy of the inspected message with the ability to check whether the member has correctly pointed to the spam message. \n"
+"If it is indeed a spam message, the member's rating is increased. \n"
+"At a certain number of points, spam messages are automatically deleted without the administrators' approval. \n"
+"If the inspected message is incorrectly identified as a spam, the member's rating is downgraded.\n"
+"In order for the bot to receive a list of administrators in a group or in case of deleting or adding a new one, it is necessary to send the `/update` command from any of the current administrators.\n"
+"Due to the fact that these commands are instantly deleted by the bot itself in the group, reports and updates occur unnoticed by users"
+
+#: actionadminhelper._sinspctdmsgwschckdot
+msgctxt "actionadminhelper._sinspctdmsgwschckdot"
+msgid "The message has already been verified"
+msgstr ""
+
+#: actionadminhelper._sspmbsemj
+msgid "It is identified as a spam based on emojies in the message"
+msgstr ""
+
+#: actionadminhelper._sstarttext
+msgctxt "actionadminhelper._sstarttext"
+msgid "Start Text for TAdminHelper"
+msgstr "The bot helps quickly and silently ban spammers. See details by /help command"
+
+#: actionadminhelper._syrrghts
+#, object-pascal-format
+msgctxt "actionadminhelper._syrrghts"
+msgid "Status: %s"
+msgstr ""
+
+#: actionadminhelper._syrrtng
+#, object-pascal-format
+msgctxt "actionadminhelper._syrrtng"
+msgid "Your rating is %d"
+msgstr ""
+
+#: telegram_cmn._sbndusr
+msgctxt "telegram_cmn._sbndusr"
+msgid "Banned user"
+msgstr ""
+
+#: telegram_cmn._scmplnnt
+msgctxt "telegram_cmn._scmplnnt"
+msgid "Complainant"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsg
+msgctxt "telegram_cmn._sinspctdmsg"
+msgid "Inspected message"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsghsdlt
+msgctxt "telegram_cmn._sinspctdmsghsdlt"
+msgid "The message was successfully deleted and the spammer was banned"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsgisntspm
+msgctxt "telegram_cmn._sinspctdmsgisntspm"
+msgid "The message is marked as NOT spam. Erroneous complaint"
+msgstr ""
+
+#: telegram_cmn._sinspctdusr
+msgctxt "telegram_cmn._sinspctdusr"
+msgid "Inspected user"
+msgstr ""
+
+#: telegram_cmn._sisernsbn
+msgctxt "telegram_cmn._sisernsbn"
+msgid "Is this erroneous ban?"
+msgstr ""
+
+#: telegram_cmn._sisthsrctnspm
+#, object-pascal-format
+msgid "Is this reaction spam? Emojies: %s"
+msgstr ""
+
+#: telegram_cmn._smybitsntspm
+msgctxt "telegram_cmn._smybitsntspm"
+msgid "\"Probably it's not a spam\". More info..."
+msgstr ""
+
+#: telegram_cmn._smybitsspm
+msgctxt "telegram_cmn._smybitsspm"
+msgid "\"Probably it's a spam\". More info..."
+msgstr ""
+
+#: telegram_cmn._sprvntvlybnd
+#, object-pascal-format
+msgctxt "telegram_cmn._sprvntvlybnd"
+msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
+msgstr ""
+
+#: telegram_cmn._sspmrctn
+msgid "Spam reaction"
+msgstr ""
+

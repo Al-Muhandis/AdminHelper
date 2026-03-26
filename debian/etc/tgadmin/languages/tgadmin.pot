@@ -1,0 +1,100 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: actionadminhelper._sbnalrdyrlbck
+msgid "This ban action has already been rolled back"
+msgstr ""
+
+#: actionadminhelper._sbnrlbck
+msgid "The user's ban was rolled back: unbanning and rating returning "
+msgstr ""
+
+#: actionadminhelper._scmplnntisfldbybt
+msgid "The complaint is filed by the bot itself"
+msgstr ""
+
+#: actionadminhelper._scnfrmtnrlbckbn
+msgid "Do you think the ban was wrong? If the ban is rolled back, the complainant's rating will be downgraded and the inspected user who sent this message will be unbanned."
+msgstr ""
+
+#: actionadminhelper._sdbgspminf
+#, object-pascal-format
+msgid "Ln spam probability: %n, Ln ham probability: %n. Spam Factor: %n"
+msgstr ""
+
+#: actionadminhelper._shelptext
+msgid "Help Text for TAdminHelper"
+msgstr ""
+
+#: actionadminhelper._sinspctdmsgwschckdot
+msgid "The message has already been verified"
+msgstr ""
+
+#: actionadminhelper._sspmbsemj
+msgid "It is identified as a spam based on emojies in the message"
+msgstr ""
+
+#: actionadminhelper._sstarttext
+msgid "Start Text for TAdminHelper"
+msgstr ""
+
+#: actionadminhelper._syrrghts
+#, object-pascal-format
+msgid "Status: %s"
+msgstr ""
+
+#: actionadminhelper._syrrtng
+#, object-pascal-format
+msgid "Your rating is %d"
+msgstr ""
+
+#: telegram_cmn._sbndusr
+msgid "Banned user"
+msgstr ""
+
+#: telegram_cmn._scmplnnt
+msgid "Complainant"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsg
+msgid "Inspected message"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsghsdlt
+msgid "The message was successfully deleted and the spammer was banned"
+msgstr ""
+
+#: telegram_cmn._sinspctdmsgisntspm
+msgid "The message is marked as NOT spam. Erroneous complaint"
+msgstr ""
+
+#: telegram_cmn._sinspctdusr
+msgid "Inspected user"
+msgstr ""
+
+#: telegram_cmn._sisernsbn
+msgid "Is this erroneous ban?"
+msgstr ""
+
+#: telegram_cmn._sisthsrctnspm
+#, object-pascal-format
+msgid "Is this reaction spam? Emojies: %s"
+msgstr ""
+
+#: telegram_cmn._smybitsntspm
+msgid "\"Probably it's not a spam\". More info..."
+msgstr ""
+
+#: telegram_cmn._smybitsspm
+msgid "\"Probably it's a spam\". More info..."
+msgstr ""
+
+#: telegram_cmn._sprvntvlybnd
+#, object-pascal-format
+msgid "The user #`%0:d` [%1:s](tg://user?id=%0:d) was preventively banned"
+msgstr ""
+
+#: telegram_cmn._sspmrctn
+msgid "Spam reaction"
+msgstr ""
+

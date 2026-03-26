@@ -1,0 +1,15 @@
+[Unit]
+Description=TGAdmin Telegram moderation daemon
+After=network-online.target mariadb.service mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/tgadmin -r
+WorkingDirectory=/etc/tgadmin/
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

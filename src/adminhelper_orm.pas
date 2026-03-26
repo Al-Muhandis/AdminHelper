@@ -183,7 +183,7 @@ const
 implementation
 
 uses
-  dOpf, DateUtils, SQLDB
+  dOpf, DateUtils, SQLDB, global
   ;
 
 function CheckDisconnectErr(const aErrMessage: string): Boolean;
@@ -330,8 +330,6 @@ begin
 end;
 
 function TBotORM.Con: TdSQLdbConnector;
-var
-  aDir: String;
 
   procedure DBConnect;
   begin
@@ -346,13 +344,12 @@ begin
   if not Assigned(FCon) then
   begin
     FCon := TdSQLdbConnector.Create(nil);
-    aDir:=IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
     FCon.Logger.Active := FDBConfig.Logger.Active;
     DBConnect;
     if FDBConfig.Logger.FileName.IsEmpty then
-      FCon.Logger.FileName := aDir+FLogFileName
+      FCon.Logger.FileName := _LogDir+FLogFileName
     else
-      FCon.Logger.FileName := aDir+FDBConfig.Logger.FileName;
+      FCon.Logger.FileName := _LogDir+FDBConfig.Logger.FileName;
   end;
   Result := FCon;
 end;

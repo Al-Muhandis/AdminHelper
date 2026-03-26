@@ -62,9 +62,11 @@ type
 
 var
   Conf: TConf;
-  ConfDir: String;
 
 implementation
+
+uses
+  global;
 
 { TSpamFilterConfig }
 
@@ -101,9 +103,8 @@ end;
 
 initialization
   Conf:=TConf.Create;
-  LoadFromJSON(Conf, 'adminhelper.json');
-  SaveToJSON(Conf, 'adminhelper.bak.json');
-  ConfDir:=IncludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
+  LoadFromJSON(Conf, _ConfFileName);
+  SaveToJSON(Conf, ChangeFileExt(_ConfFileName, '.bak.json'));
 
 finalization
   FreeAndNil(Conf);
