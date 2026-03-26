@@ -74,11 +74,21 @@ validate_config() {
     fi
 }
 
+validate_binary() {
+    local binary="${SCRIPT_DIR}/debian/usr/bin/tgadmin"
+    if [ ! -x "${binary}" ]; then
+        echo "ERROR: ${binary} is missing or not executable" >&2
+        echo "Build the daemon and place it at debian/usr/bin/tgadmin before packaging." >&2
+        exit 1
+    fi
+}
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 check_deps
 validate_config
+validate_binary
 
 echo "==> Building ${PACKAGE_NAME} v${app_VER}-${app_VERdeb}"
 echo "==> Build dir (Linux fs): ${BUILD_DIR}"
