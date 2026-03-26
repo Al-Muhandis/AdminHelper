@@ -102,9 +102,9 @@ case "$1" in
         done
 
         if ! libsagui_available; then
-            echo "ERROR: libsagui shared library was not found in dynamic linker cache." >&2
-            echo "       Install libsagui (package or from source) and run: sudo ldconfig" >&2
-            exit 1
+            echo "WARNING: libsagui shared library was not found in dynamic linker cache." >&2
+            echo "         The service may fail to start until libsagui is available to the loader." >&2
+            echo "         Install libsagui (package or from source) and run: sudo ldconfig" >&2
         fi
 
         if [ ! -f "${CONFIG_FILE}" ]; then
