@@ -15,6 +15,10 @@ mysql_available() {
     command -v mysql &>/dev/null && mysqladmin ping --silent 2>/dev/null
 }
 
+libsagui_available() {
+    command -v ldconfig &>/dev/null && ldconfig -p 2>/dev/null | grep -q 'libsagui\.so'
+}
+
 # Read current value from JSON (return empty string if null or missing)
 json_get() {
     jq -r "$1 // empty" "${CONFIG_FILE}" 2>/dev/null || true
@@ -96,6 +100,12 @@ case "$1" in
                 exit 1
             fi
         done
+
+        if ! libsagui_available; then
+            echo "ERROR: libsagui shared library was not found in dynamic linker cache." >&2
+            echo "       Install libsagui (package or from source) and run: sudo ldconfig" >&2
+            exit 1
+        fi
 
         if [ ! -f "${CONFIG_FILE}" ]; then
             echo "ERROR: config file not found: ${CONFIG_FILE}" >&2
