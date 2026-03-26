@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="43"/>
+      <BuildNr Value="44"/>
     </VersionInfo>
     <BuildModes Count="4" Active="Linux">
       <Item1 Name="Default" Default="True"/>
@@ -189,7 +189,7 @@
         <MinVersion Release="10" Valid="True"/>
       </Item7>
     </RequiredPackages>
-    <Units Count="27">
+    <Units Count="26">
       <Unit0>
         <Filename Value="adminhelperd.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -203,13 +203,13 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="76" Y="10"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="21"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\brook-telegram\brooktelegramaction.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="3" Y="61"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="44"/>
       </Unit2>
       <Unit3>
         <Filename Value="C:\lazarus-stable\ccr\brookfreepascal\brokers\Tardigrade\brooktardigradebroker.pas"/>
@@ -217,56 +217,56 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="28"/>
         <CursorPos X="14" Y="41"/>
-        <UsageCount Value="98"/>
+        <UsageCount Value="95"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\HelperBots\proxyutils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="50"/>
         <CursorPos X="3" Y="101"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="25"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\taskworker\taskworker.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="24"/>
         <CursorPos X="15" Y="36"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="49"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\HelperBots\actionalgebric.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="715"/>
         <CursorPos X="24" Y="722"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="6"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\brook-telegram\brk_tg_config.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="103"/>
         <CursorPos X="11" Y="116"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="79"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\CurrencyRates\cbrvalutes.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="208"/>
         <CursorPos X="3" Y="92"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="16"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\CurrencyRates\cryptocompare.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="32"/>
         <CursorPos X="3" Y="104"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="16"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\HelperBots\amanex_orm.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="70"/>
         <CursorPos Y="94"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit10>
       <Unit11>
         <Filename Value="adminhelper_orm.pas"/>
@@ -281,14 +281,14 @@
         <Filename Value="..\HelperBots\config_loader.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="10"/>
-        <UsageCount Value="150"/>
+        <UsageCount Value="147"/>
       </Unit12>
       <Unit13>
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="259"/>
-        <CursorPos X="31" Y="270"/>
+        <CursorPos X="43" Y="275"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit13>
@@ -314,7 +314,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="107"/>
         <CursorPos X="43" Y="122"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="26"/>
       </Unit16>
       <Unit17>
         <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
@@ -366,39 +366,32 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1470"/>
         <CursorPos X="20" Y="1481"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="6"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\pascal-libs\dopf\brokers\dsqldbbroker.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="138"/>
         <CursorPos X="28" Y="151"/>
-        <UsageCount Value="104"/>
+        <UsageCount Value="101"/>
       </Unit23>
       <Unit24>
-        <Filename Value="..\..\brook-telegram\use\brooktelegramaction.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="7"/>
-        <CursorPos X="20" Y="24"/>
-        <UsageCount Value="1"/>
-      </Unit24>
-      <Unit25>
         <Filename Value="global.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="10"/>
         <CursorPos X="11" Y="23"/>
-        <UsageCount Value="111"/>
+        <UsageCount Value="138"/>
         <Loaded Value="True"/>
-      </Unit25>
-      <Unit26>
+      </Unit24>
+      <Unit25>
         <Filename Value="..\..\brook-telegram\use\brk_tg_config.pas"/>
         <EditorIndex Value="9"/>
         <TopLine Value="240"/>
         <CursorPos X="3" Y="99"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
-      </Unit26>
+      </Unit25>
     </Units>
     <OtherDefines Count="2">
       <Define0 Value="UseCThreads"/>
