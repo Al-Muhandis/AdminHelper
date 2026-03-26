@@ -153,7 +153,7 @@ dpkg-deb --root-owner-group --build "${STAGING_DIR}" "${OUTPUT_DEB}"
 
 echo "==> Package built: ${OUTPUT_DEB}"
 
-# Copy ready .deb to needed place
+# Copy ready .DEB to needed place
 mkdir -p "${COPY_TARGET}"
 cp "${OUTPUT_DEB}" "${COPY_TARGET}/"
 echo "==> Copied to: ${COPY_TARGET}/${DEB_NAME}"
