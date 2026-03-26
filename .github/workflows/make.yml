@@ -35,3 +35,18 @@ jobs:
       run: |
         sudo bash -c 'apt-get update; apt-get install -y lazarus' >/dev/null
         instantfpc -Fu/usr/lib/lazarus/*/components/lazutils .github/workflows/make.pas
+
+    - name: Build DEB package
+      shell: bash
+      run: |
+        sudo apt-get install -y jq >/dev/null
+        mkdir -p debian/usr/bin
+        cp -f src/adminhelperd debian/usr/bin/tgadmin
+        chmod 0755 debian/usr/bin/tgadmin
+        ./build-deb.sh
+
+    - name: Upload DEB artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: tgadmin-deb
+        path: tgadmin_*.deb
