@@ -42,5 +42,5 @@
     "Enabled" : true,
     "MediaRatio" : 0.2
   },
-  "ServiceAdmin" : user_id
+  "ServiceAdmin" : 0
 }
