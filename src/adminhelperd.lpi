@@ -110,7 +110,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="../deb.staging/usr/bin/tgadmin"/>
+            <Filename Value="../debian/usr/bin/tgadmin"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -287,7 +287,7 @@
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="258"/>
+        <TopLine Value="259"/>
         <CursorPos X="31" Y="270"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
