@@ -1,0 +1,11 @@
+# Service identity used by postinst when configuring tgadmin.service.
+#
+# By default package runs daemon as the system account "tgadmin".
+# Override only if you need a different existing or system account.
+#
+# Example:
+# TGADMIN_SERVICE_USER=mybot
+# TGADMIN_SERVICE_GROUP=mybot
+
+TGADMIN_SERVICE_USER=tgadmin
+TGADMIN_SERVICE_GROUP=tgadmin

@@ -23,6 +23,8 @@ FLUSH PRIVILEGES;
 SQL
         fi
         rm -f "${CONFIG_FILE}"
+        rm -f "/etc/systemd/system/${PACKAGE_NAME}.service.d/10-run-as.conf"
+        rmdir --ignore-fail-on-non-empty "/etc/systemd/system/${PACKAGE_NAME}.service.d"
         rmdir --ignore-fail-on-non-empty "/etc/${PACKAGE_NAME}"
         ;;
     remove)

@@ -4,6 +4,9 @@ set -euo pipefail
 PACKAGE_NAME="tgadmin"
 CONFIG_FILE="/etc/${PACKAGE_NAME}/tgadmin.json"
 SCHEMA_FILE="/usr/share/${PACKAGE_NAME}/db_schema.sql"
+DEFAULTS_FILE="/etc/default/${PACKAGE_NAME}"
+SYSTEMD_DROPIN_DIR="/etc/systemd/system/${PACKAGE_NAME}.service.d"
+SYSTEMD_DROPIN_FILE="${SYSTEMD_DROPIN_DIR}/10-run-as.conf"
 
 DB_NAME="tgadmin"
 DB_USER="tgadmin"
@@ -24,6 +27,63 @@ json_set() {
     jq "$1" "${CONFIG_FILE}" > "${tmp}" && mv "${tmp}" "${CONFIG_FILE}"
 }
 
+resolve_service_identity() {
+    SERVICE_USER="${PACKAGE_NAME}"
+    SERVICE_GROUP="${PACKAGE_NAME}"
+
+    if [ -f "${DEFAULTS_FILE}" ]; then
+        # shellcheck disable=SC1090
+        . "${DEFAULTS_FILE}"
+
+        if [ -n "${TGADMIN_SERVICE_USER:-}" ]; then
+            SERVICE_USER="${TGADMIN_SERVICE_USER}"
+        fi
+        if [ -n "${TGADMIN_SERVICE_GROUP:-}" ]; then
+            SERVICE_GROUP="${TGADMIN_SERVICE_GROUP}"
+        fi
+    fi
+
+    if [ -z "${SERVICE_USER}" ] || [ -z "${SERVICE_GROUP}" ]; then
+        echo "ERROR: TGADMIN_SERVICE_USER and TGADMIN_SERVICE_GROUP must be non-empty." >&2
+        exit 1
+    fi
+}
+
+ensure_service_account() {
+    if ! getent group "${SERVICE_GROUP}" >/dev/null; then
+        groupadd --system "${SERVICE_GROUP}"
+    fi
+
+    if ! id -u "${SERVICE_USER}" >/dev/null 2>&1; then
+        useradd \
+            --system \
+            --gid "${SERVICE_GROUP}" \
+            --no-create-home \
+            --home-dir /nonexistent \
+            --shell /usr/sbin/nologin \
+            "${SERVICE_USER}"
+    fi
+}
+
+configure_systemd_service_user() {
+    if ! command -v systemctl >/dev/null 2>&1; then
+        return
+    fi
+
+    if ! systemctl list-unit-files "${PACKAGE_NAME}.service" >/dev/null 2>&1; then
+        return
+    fi
+
+    mkdir -p "${SYSTEMD_DROPIN_DIR}"
+    cat > "${SYSTEMD_DROPIN_FILE}" <<DROPIN
+[Service]
+User=${SERVICE_USER}
+Group=${SERVICE_GROUP}
+DROPIN
+
+    systemctl daemon-reload || true
+}
+
 case "$1" in
     configure)
         # ----------------------------------------------------------------
@@ -42,6 +102,10 @@ case "$1" in
             echo "       Place tgadmin.json into /etc/tgadmin/ before installing." >&2
             exit 1
         fi
+
+        resolve_service_identity
+        ensure_service_account
+        configure_systemd_service_user
 
         # ----------------------------------------------------------------
         # Data base
@@ -83,8 +147,8 @@ SQL
             echo "         Install it, then run: sudo dpkg-reconfigure ${PACKAGE_NAME}" >&2
         fi
 
-        # Configuration rights — only root and the tgadmin group
-        chown root:${PACKAGE_NAME} "${CONFIG_FILE}" 2>/dev/null || chown root:root "${CONFIG_FILE}"
+        # Configuration rights — only root and the service group
+        chown "root:${SERVICE_GROUP}" "${CONFIG_FILE}" 2>/dev/null || chown root:root "${CONFIG_FILE}"
         chmod 0640 "${CONFIG_FILE}"
         ;;
 esac

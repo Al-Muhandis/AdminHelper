@@ -1,0 +1,14 @@
+[Unit]
+Description=TGAdmin Telegram moderation daemon
+After=network-online.target mariadb.service mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/adminhelperd
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
