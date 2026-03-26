@@ -36,6 +36,16 @@ jobs:
         sudo bash -c 'apt-get update; apt-get install -y lazarus' >/dev/null
         instantfpc -Fu/usr/lib/lazarus/*/components/lazutils .github/workflows/make.pas
 
+    - name: Cache Lazarus
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.lazarus
+          ~/.cache/lazarus
+        key: lazarus-${{ runner.os }}-${{ hashFiles('**/*.lpi', '**/*.pas') }}
+        restore-keys: |
+          lazarus-${{ runner.os }}-
+
     - name: Build DEB package
       shell: bash
       run: |
