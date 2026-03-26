@@ -7,6 +7,8 @@ SCHEMA_FILE="/usr/share/${PACKAGE_NAME}/db_schema.sql"
 DEFAULTS_FILE="/etc/default/${PACKAGE_NAME}"
 SYSTEMD_DROPIN_DIR="/etc/systemd/system/${PACKAGE_NAME}.service.d"
 SYSTEMD_DROPIN_FILE="${SYSTEMD_DROPIN_DIR}/10-run-as.conf"
+LOG_DIR="/var/log/${PACKAGE_NAME}"
+DATA_DIR="/var/lib/${PACKAGE_NAME}"
 
 DB_NAME="tgadmin"
 DB_USER="tgadmin"
@@ -88,6 +90,11 @@ DROPIN
     systemctl daemon-reload || true
 }
 
+ensure_runtime_directories() {
+    install -d -m 0750 -o "${SERVICE_USER}" -g "${SERVICE_GROUP}" "${LOG_DIR}"
+    install -d -m 0750 -o "${SERVICE_USER}" -g "${SERVICE_GROUP}" "${DATA_DIR}"
+}
+
 case "$1" in
     configure)
         # ----------------------------------------------------------------
@@ -115,6 +122,7 @@ case "$1" in
 
         resolve_service_identity
         ensure_service_account
+        ensure_runtime_directories
         configure_systemd_service_user
 
         # ----------------------------------------------------------------
