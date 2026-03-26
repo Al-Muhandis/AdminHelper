@@ -118,7 +118,7 @@ case "$1" in
         configure_systemd_service_user
 
         # ----------------------------------------------------------------
-        # Data base
+        # Data base 
         # ----------------------------------------------------------------
         if mysql_available; then
             if mysql -u root -e "SELECT 1" >/dev/null 2>&1; then

@@ -136,7 +136,7 @@ echo "Version: ${app_VER}.0-${app_VERdeb}" >> "${STAGING_DIR}/DEBIAN/control"
 SIZE_IN_KB="$(du -s "${STAGING_DIR}" | awk '{print $1}')"
 echo "Installed-Size: ${SIZE_IN_KB}" >> "${STAGING_DIR}/DEBIAN/control"
 
-# Changelog
+# Changelog 
 CHANGELOG="${STAGING_DIR}/usr/share/doc/${PACKAGE_NAME}/changelog.Debian"
 DATE=$(date -R)
 {
