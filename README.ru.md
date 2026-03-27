@@ -23,6 +23,51 @@
 3. Выполните команду /update (или /update@Moderator_Helper_Robot, если в группе есть другие боты с похожими командами).
 4. Готово! Бот начнёт работу. Администраторам нужно открыть чат с ботом, чтобы получать уведомления.
 
+# Установка .deb пакета (собственный экземпляр сервиса)
+Если вы хотите использовать не публичного бота, а собственный экземпляр, установите Debian-пакет и запустите демон как системный сервис.
+
+1. Установите зависимости:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install -y mariadb-server jq openssl
+   ```
+2. Установите пакет tgadmin:
+   ```bash
+   sudo dpkg -i ./tgadmin_<version>_amd64.deb
+   ```
+3. Отредактируйте конфигурацию и укажите Telegram-данные:
+   ```bash
+   sudoedit /etc/tgadmin/tgadmin.json
+   ```
+   Заполните как минимум:
+   - `AdminHelperBot.Telegram.Token`
+   - `AdminHelperBot.Telegram.UserName`
+   - `ServiceAdmin` (Telegram user id владельца/админа сервиса)
+4. (Необязательно) Запуск от другого Linux-пользователя:
+   ```bash
+   sudoedit /etc/default/tgadmin
+   ```
+   Поддерживаемые переменные:
+   - `TGADMIN_SERVICE_USER`
+   - `TGADMIN_SERVICE_GROUP`
+5. Включите и запустите сервис:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now tgadmin
+   sudo systemctl status tgadmin --no-pager
+   ```
+6. Если БД не инициализировалась во время установки, выполните:
+   ```bash
+   sudo dpkg-reconfigure tgadmin
+   ```
+
+Полезные пути:
+- Юнит сервиса: `/lib/systemd/system/tgadmin.service`
+- Основная конфигурация: `/etc/tgadmin/tgadmin.json`
+- Переопределение пользователя/группы сервиса: `/etc/default/tgadmin`
+- Каталог данных: `/var/lib/tgadmin`
+- Каталог логов: `/var/log/tgadmin`
+
 # Архитектура
 Бот реализует свою работу на веб-сервер в режиме вебхука
 

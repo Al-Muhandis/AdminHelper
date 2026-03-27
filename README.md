@@ -22,6 +22,51 @@ How to connect the bot @Moderator_Helper_Robot (or your own instance) to your gr
 3. Run the command /update in the group (or /update@Moderator_Helper_Robot if there are other bots with similar commands in the group).
 4. The bot will start working. All admins must open a chat with the bot so it can send them notifications.
 
+# Installing a .deb package (your own service instance)
+If you want to run your own instance instead of the public bot, you can install the Debian package and configure the daemon as a system service.
+
+1. Install required packages:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install -y mariadb-server jq openssl
+   ```
+2. Install tgadmin package:
+   ```bash
+   sudo dpkg -i ./tgadmin_<version>_amd64.deb
+   ```
+3. Edit the bot config and set Telegram credentials:
+   ```bash
+   sudoedit /etc/tgadmin/tgadmin.json
+   ```
+   Fill in at least:
+   - `AdminHelperBot.Telegram.Token`
+   - `AdminHelperBot.Telegram.UserName`
+   - `ServiceAdmin` (Telegram user id of service owner/admin)
+4. (Optional) Run service under a custom Linux account by editing:
+   ```bash
+   sudoedit /etc/default/tgadmin
+   ```
+   Supported keys:
+   - `TGADMIN_SERVICE_USER`
+   - `TGADMIN_SERVICE_GROUP`
+5. Enable and start the service:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now tgadmin
+   sudo systemctl status tgadmin --no-pager
+   ```
+6. If database bootstrap was skipped during installation, run:
+   ```bash
+   sudo dpkg-reconfigure tgadmin
+   ```
+
+Useful paths:
+- Service unit: `/lib/systemd/system/tgadmin.service`
+- Runtime config: `/etc/tgadmin/tgadmin.json`
+- Service identity override: `/etc/default/tgadmin`
+- Data directory: `/var/lib/tgadmin`
+- Logs directory: `/var/log/tgadmin`
+
 # Spam classifier
 A spam classifier has been added to the bot (you can turn it off in the service config), 
 which can be trained and used to automatically notify administrators (and in the case of high spam probability can be automatically to ban) about suspicious messages. 
