@@ -82,4 +82,5 @@
 - brook-telegram (Телеграм плагин для BrookFoFreePascal) https://github.com/Al-Muhandis/brook-telegram/
 - BrookForFreePascal & BrookFramework (HTTP сервер) https://github.com/risoflora/brookfreepascal & https://github.com/risoflora/brookframework
 - dOPF (ORM) https://github.com/pascal-libs/dopf
+- Наивный Байесовский классификатор для FreePascal https://github.com/Al-Muhandis/NaiveBayesClassifier
 Заметки: BrookFreePascal может использоваться и без BrookFramework в режиме брокера

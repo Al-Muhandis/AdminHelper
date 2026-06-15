@@ -36,7 +36,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="NaiveBayesClassifier;Emoji"/>
+            <OtherUnitFiles Value="Emoji"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <Parsing>
@@ -80,7 +80,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="NaiveBayesClassifier;Emoji"/>
+            <OtherUnitFiles Value="Emoji"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -114,7 +114,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="NaiveBayesClassifier;Emoji"/>
+            <OtherUnitFiles Value="Emoji"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -165,31 +165,35 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="8">
       <Item1>
-        <PackageName Value="TaskWorkerPkg"/>
+        <PackageName Value="nbc_rt"/>
+        <MinVersion Release="1" Valid="True"/>
       </Item1>
       <Item2>
-        <PackageName Value="BrookRT"/>
+        <PackageName Value="TaskWorkerPkg"/>
       </Item2>
       <Item3>
-        <PackageName Value="brooktb"/>
+        <PackageName Value="BrookRT"/>
       </Item3>
       <Item4>
-        <PackageName Value="BrookTelegram"/>
+        <PackageName Value="brooktb"/>
       </Item4>
       <Item5>
-        <PackageName Value="dOpfRT"/>
+        <PackageName Value="BrookTelegram"/>
       </Item5>
       <Item6>
-        <PackageName Value="LazUtils"/>
+        <PackageName Value="dOpfRT"/>
       </Item6>
       <Item7>
+        <PackageName Value="LazUtils"/>
+      </Item7>
+      <Item8>
         <PackageName Value="fptelegram"/>
         <MinVersion Release="10" Valid="True"/>
-      </Item7>
+      </Item8>
     </RequiredPackages>
-    <Units Count="25">
+    <Units Count="27">
       <Unit0>
         <Filename Value="adminhelperd.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -265,7 +269,6 @@
         <Filename Value="adminhelper_orm.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="7"/>
-        <TopLine Value="18"/>
         <CursorPos X="14" Y="30"/>
         <UsageCount Value="241"/>
         <Loaded Value="True"/>
@@ -279,8 +282,9 @@
       <Unit12>
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="260"/>
-        <CursorPos X="43" Y="275"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="290"/>
+        <CursorPos X="32" Y="306"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
       </Unit12>
@@ -310,17 +314,15 @@
       </Unit15>
       <Unit16>
         <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="277"/>
-        <CursorPos X="35" Y="296"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="215"/>
+        <CursorPos X="46" Y="229"/>
         <UsageCount Value="208"/>
-        <Loaded Value="True"/>
       </Unit16>
       <Unit17>
         <Filename Value="spamfilter_implementer.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="20"/>
         <CursorPos X="28" Y="42"/>
         <UsageCount Value="208"/>
@@ -329,7 +331,7 @@
       <Unit18>
         <Filename Value="spamfilter_worker.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="178"/>
         <CursorPos X="35" Y="191"/>
         <UsageCount Value="213"/>
@@ -339,15 +341,15 @@
         <Filename Value="telegram_cmn.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="32"/>
-        <CursorPos X="15" Y="42"/>
+        <TopLine Value="174"/>
+        <CursorPos X="47" Y="194"/>
         <UsageCount Value="217"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="Emoji\emojiutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="28"/>
         <CursorPos X="10" Y="12"/>
         <UsageCount Value="256"/>
@@ -370,11 +372,9 @@
       <Unit23>
         <Filename Value="global.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="10"/>
-        <CursorPos X="40" Y="28"/>
-        <UsageCount Value="155"/>
+        <CursorPos X="19" Y="15"/>
+        <UsageCount Value="158"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
@@ -384,132 +384,123 @@
         <CursorPos X="3" Y="99"/>
         <UsageCount Value="67"/>
       </Unit24>
+      <Unit25>
+        <Filename Value="..\..\..\fp-telegram\tgtypes.pas"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="131"/>
+        <CursorPos X="14" Y="141"/>
+        <UsageCount Value="12"/>
+        <Loaded Value="True"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="C:\laz-4.8\fpcsrc\rtl\objpas\fgl.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1421"/>
+        <CursorPos X="3" Y="1431"/>
+        <UsageCount Value="10"/>
+      </Unit26>
     </Units>
     <OtherDefines Count="2">
       <Define0 Value="UseCThreads"/>
       <Define1 Value="SynapseHTTP"/>
     </OtherDefines>
-    <JumpHistory Count="30" HistoryIndex="23">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="global.pas"/>
-        <Caret Line="12" Column="31" TopLine="7"/>
+        <Caret Line="13" Column="35"/>
       </Position1>
       <Position2>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="66" Column="18" TopLine="52"/>
-      </Position2>
-      <Position3>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="212" Column="3" TopLine="203"/>
-      </Position3>
-      <Position4>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="60" Column="15" TopLine="45"/>
-      </Position4>
-      <Position5>
-        <Filename Value="spamfilter_worker.pas"/>
-        <Caret Line="155" Column="3" TopLine="153"/>
-      </Position5>
-      <Position6>
-        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="47" Column="14" TopLine="35"/>
-      </Position6>
-      <Position7>
-        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="194" Column="3" TopLine="191"/>
-      </Position7>
-      <Position8>
-        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="48" Column="14" TopLine="37"/>
-      </Position8>
-      <Position9>
-        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="229" Column="32" TopLine="217"/>
-      </Position9>
-      <Position10>
-        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="237" Column="35" TopLine="218"/>
-      </Position10>
-      <Position11>
-        <Filename Value="NaiveBayesClassifier\spamfilter.pas"/>
-        <Caret Line="296" Column="35" TopLine="277"/>
-      </Position11>
-      <Position12>
-        <Filename Value="global.pas"/>
-        <Caret Line="23" Column="11" TopLine="7"/>
-      </Position12>
-      <Position13>
-        <Filename Value="adminhelper_conf.pas"/>
-        <Caret Line="100" Column="22" TopLine="87"/>
-      </Position13>
-      <Position14>
-        <Filename Value="global.pas"/>
-        <Caret Line="13" Column="35"/>
-      </Position14>
-      <Position15>
         <Filename Value="global.pas"/>
         <Caret Line="20" Column="16"/>
-      </Position15>
-      <Position16>
+      </Position2>
+      <Position3>
         <Filename Value="actionadminhelper.pas"/>
         <Caret Line="549" Column="36" TopLine="533"/>
-      </Position16>
-      <Position17>
+      </Position3>
+      <Position4>
         <Filename Value="actionadminhelper.pas"/>
         <Caret Line="33" Column="15" TopLine="21"/>
-      </Position17>
-      <Position18>
+      </Position4>
+      <Position5>
         <Filename Value="actionadminhelper.pas"/>
         <Caret Line="260" Column="3" TopLine="258"/>
-      </Position18>
-      <Position19>
+      </Position5>
+      <Position6>
         <Filename Value="adminhelper_orm.pas"/>
         <Caret Line="30" Column="14" TopLine="19"/>
+      </Position6>
+      <Position7>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="260" Column="3" TopLine="260"/>
+      </Position7>
+      <Position8>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="30" Column="14" TopLine="18"/>
+      </Position8>
+      <Position9>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="219" Column="3" TopLine="216"/>
+      </Position9>
+      <Position10>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="270" Column="31" TopLine="261"/>
+      </Position10>
+      <Position11>
+        <Filename Value="adminhelper_orm.pas"/>
+        <Caret Line="30" Column="14" TopLine="19"/>
+      </Position11>
+      <Position12>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="270" Column="24" TopLine="260"/>
+      </Position12>
+      <Position13>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="500" Column="63" TopLine="481"/>
+      </Position13>
+      <Position14>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="243" Column="25" TopLine="227"/>
+      </Position14>
+      <Position15>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="34" Column="15" TopLine="22"/>
+      </Position15>
+      <Position16>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="198" Column="3" TopLine="193"/>
+      </Position16>
+      <Position17>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="194" Column="47" TopLine="190"/>
+      </Position17>
+      <Position18>
+        <Filename Value="telegram_cmn.pas"/>
+        <Caret Line="34" Column="37" TopLine="22"/>
+      </Position18>
+      <Position19>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="243" Column="25" TopLine="227"/>
       </Position19>
       <Position20>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="260" Column="3" TopLine="260"/>
+        <Caret Line="184" Column="35" TopLine="172"/>
       </Position20>
       <Position21>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="30" Column="14" TopLine="18"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="50" Column="20" TopLine="36"/>
       </Position21>
       <Position22>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="219" Column="3" TopLine="216"/>
+        <Filename Value="actionadminhelper.pas"/>
+        <Caret Line="512" Column="3" TopLine="509"/>
       </Position22>
       <Position23>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="270" Column="31" TopLine="261"/>
+        <Caret Line="50" Column="17" TopLine="39"/>
       </Position23>
       <Position24>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="30" Column="14" TopLine="19"/>
-      </Position24>
-      <Position25>
         <Filename Value="actionadminhelper.pas"/>
-        <Caret Line="270" Column="31" TopLine="258"/>
-      </Position25>
-      <Position26>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="42" Column="15" TopLine="31"/>
-      </Position26>
-      <Position27>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="271" Column="3" TopLine="264"/>
-      </Position27>
-      <Position28>
-        <Filename Value="telegram_cmn.pas"/>
-        <Caret Line="272" Column="27" TopLine="263"/>
-      </Position28>
-      <Position29>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="155" Column="15" TopLine="144"/>
-      </Position29>
-      <Position30>
-        <Filename Value="adminhelper_orm.pas"/>
-        <Caret Line="470" Column="3" TopLine="460"/>
-      </Position30>
+        <Caret Line="38" Column="14" TopLine="28"/>
+      </Position24>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -520,7 +511,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\IAmBot;NaiveBayesClassifier;Emoji"/>
+      <OtherUnitFiles Value="..\IAmBot;Emoji"/>
     </SearchPaths>
     <Linking>
       <Options>
