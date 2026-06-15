@@ -16,3 +16,6 @@
 [submodule "use/dopf"]
 	path = use/dopf
 	url = https://github.com/pascal-libs/dopf.git
+[submodule "use/nbc_rt"]
+	path = use/nbc_rt
+	url = https://github.com/Al-Muhandis/NaiveBayesClassifier.git
