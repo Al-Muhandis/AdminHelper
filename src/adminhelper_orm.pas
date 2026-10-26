@@ -27,7 +27,6 @@ type
     procedure SetAppearanceAsDateTime(AValue: TDateTime);
   public
     procedure Clear; override;
-    function IsNewbie: Boolean;
     property AppearanceAsDateTime: TDateTime read GetAppearanceAsDateTime write SetAppearanceAsDateTime;
   published
     property ID: Int64 read FId write FId;
@@ -50,6 +49,23 @@ type
     property Chat: Int64 read FChat write FChat;
     property User: Int64 read FUser write FUser;
     property Moderator: Boolean read FModerator write FModerator;
+  end;
+
+  { TMembership }
+  { The per-chat membership: appearance stores when the user was first seen
+    joining this particular chat }
+
+  TMembership = class(THelperObjctRoot)
+  private
+    FAppearance: Int64;
+    FChat: Int64;
+    FUser: Int64;
+  public
+    procedure Clear; override;
+  published
+    property Chat: Int64 read FChat write FChat;
+    property User: Int64 read FUser write FUser;
+    property Appearance: Int64 read FAppearance write FAppearance;
   end;
 
   { TTelegramMessageRoot }
@@ -104,11 +120,12 @@ type
     property Complainant: Int64 read FComplainant write FComplainant;
   end;
 
-  TopfBotUsers = specialize TdGSQLdbEntityOpf<TBotUser>;  
+  TopfBotUsers = specialize TdGSQLdbEntityOpf<TBotUser>;
   TopfMessages = specialize TdGSQLdbEntityOpf<TTelegramMessage>;
   TopfReactions = specialize TdGSQLdbEntityOpf<TTelegramReaction>;
-  TopfComplaints = specialize TdGSQLdbEntityOpf<TComplaint>;      
+  TopfComplaints = specialize TdGSQLdbEntityOpf<TComplaint>;
   TopfChatMembers = specialize TdGSQLdbEntityOpf<TChatMember>;
+  TopfMemberships = specialize TdGSQLdbEntityOpf<TMembership>;
 
   TInt64List = specialize TFPGList<Int64>;
 
@@ -121,15 +138,17 @@ type
     FLogFileName: String;
     FopChatMembers: TopfChatMembers;
     FopComplaints: TopfComplaints;
+    FopMemberships: TopfMemberships;
     FopMessages: TopfMessages;
     FopReactions: TopfReactions;
-    FopUsers: TopfBotUsers;                       
+    FopUsers: TopfBotUsers;
     procedure AddChatMember(aChat, aUser: Int64; aModerator: Boolean); // Without Apply table
     function Con: TdSQLdbConnector;
     class procedure CreateDB({%H-}aConnection: TdSQLdbConnector);
     function GetMessage: TTelegramMessage;
     function GetopChatMembers: TopfChatMembers;
     function GetopComplaints: TopfComplaints;
+    function GetopMemberships: TopfMemberships;
     function GetopMessages: TopfMessages;
     function GetopReactions: TopfReactions;
     function GetopUsers: TopfBotUsers;
@@ -138,8 +157,9 @@ type
   protected
     property opMessages: TopfMessages read GetopMessages;
     property opReactions: TopfReactions read GetopReactions;
-    property opComplaints: TopfComplaints read GetopComplaints; 
-    property opChatMembers: TopfChatMembers read GetopChatMembers;   
+    property opComplaints: TopfComplaints read GetopComplaints;
+    property opChatMembers: TopfChatMembers read GetopChatMembers;
+    property opMemberships: TopfMemberships read GetopMemberships;
     property opUsers: TopfBotUsers read GetopUsers;
   public
     procedure AddChatMembers(aChat: Int64; aModerator: Boolean; aUsers: TInt64List);
@@ -148,8 +168,10 @@ type
     constructor Create(aDBConf: TDBConf);
     destructor Destroy; override;
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
-    procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities); 
+    procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
     function GetReaction(aInspectedChat, aInspectedUser: Int64): Boolean;
+    function IsNewbieInChat(aChat, aUserID: Int64): Boolean;
+    procedure SaveMembershipAppearance(aChat, aUser: Int64);
     procedure GetNSaveMessage(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
       aInspectedMessage: Integer; out aIsFirstComplaint: Boolean; aSpamStatus: Integer = 0);
     procedure GetNSaveReaction(const aInspectedUserName: String; aInspectedUser, aInspectedChat, aExecutor: Int64;
@@ -214,11 +236,6 @@ begin
   FSpammer:=_msUnknown;
 end;
 
-function TBotUser.IsNewbie: Boolean;
-begin
-  Result:=((Now-AppearanceAsDateTime)<=Conf.NewbieDays) and (Rate<1) and (Spammer<>_msNotSpam);
-end;
-
 { TChatMember }
 
 procedure TChatMember.Clear;
@@ -226,6 +243,15 @@ begin
   FChat:=0;
   FUser:=0;
   FModerator:=False;
+end;
+
+{ TMembership }
+
+procedure TMembership.Clear;
+begin
+  FChat:=0;
+  FUser:=0;
+  FAppearance:=0;
 end;
 
 { TTelegramMessageRoot }
@@ -327,6 +353,17 @@ begin
     FopChatMembers.FieldQuote:='`';
   end;
   Result:=FopChatMembers;
+end;
+
+function TBotORM.GetopMemberships: TopfMemberships;
+begin
+  if not Assigned(FopMemberships) then
+  begin
+    FopMemberships:=TopfMemberships.Create(Con, 'memberships');
+    FopMemberships.Table.PrimaryKeys.DelimitedText:='chat,user';
+    FopMemberships.FieldQuote:='`';
+  end;
+  Result:=FopMemberships;
 end;
 
 function TBotORM.Con: TdSQLdbConnector;
@@ -539,6 +576,7 @@ begin
   FopReactions.Free;
   FopChatMembers.Free;
   FopComplaints.Free;
+  FopMemberships.Free;
   FopMessages.Free;
   FopUsers.Free;
   FCon.Free;
@@ -672,6 +710,36 @@ procedure TBotORM.GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers
 begin
   opChatMembers.Entity.Chat:=aChat;
   opChatMembers.Find(aModerators, 'chat=:chat');
+end;
+
+{ Remembers when the user joined the chat for the first time.
+  Repeated joins (leave/join cycles) do not refresh the appearance,
+  so long-time members who rejoin are not treated as newbies }
+procedure TBotORM.SaveMembershipAppearance(aChat, aUser: Int64);
+begin
+  opMemberships.Entity.Chat:=aChat;
+  opMemberships.Entity.User:=aUser;
+  if opMemberships.Get() then
+    Exit;
+  opMemberships.Entity.Appearance:=DateTimeToUnix(Now, False);
+  opMemberships.Add(False);
+  opMemberships.Apply;
+end;
+
+{ A user is a newbie only in the chat they joined recently. Being first seen
+  (or joining another chat) does not make one a newbie here }
+function TBotORM.IsNewbieInChat(aChat, aUserID: Int64): Boolean;
+begin
+  Result:=False;
+  if not GetUserByID(aUserID) then
+    Exit;
+  if (User.Rate>=1) or (User.Spammer=_msNotSpam) then
+    Exit;
+  opMemberships.Entity.Chat:=aChat;
+  opMemberships.Entity.User:=aUserID;
+  if not opMemberships.Get() then
+    Exit;
+  Result:=(Now-UnixToDateTime(opMemberships.Entity.Appearance, False))<=Conf.NewbieDays;
 end;
 
 function TBotORM.GetReaction(aInspectedChat, aInspectedUser: Int64): Boolean;

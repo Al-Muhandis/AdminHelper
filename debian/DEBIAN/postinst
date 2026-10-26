@@ -153,6 +153,12 @@ SQL
                 # Rolling out the scheme (IF NOT EXISTS — safe when updating)
                 mysql -u root "${DB_NAME}" < "${SCHEMA_FILE}"
 
+                # Idempotent migrations for installations created by older packages
+                mysql -u root "${DB_NAME}" <<'SQL'
+ALTER TABLE `messages`  MODIFY `username` varchar(191) NOT NULL;
+ALTER TABLE `reactions` MODIFY `username` varchar(191) NOT NULL;
+SQL
+
                 # Write credentials to tgadmin.json
                 json_set \
                     --arg user "${DB_USER}" \

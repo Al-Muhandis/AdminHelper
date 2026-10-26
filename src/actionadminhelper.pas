@@ -225,6 +225,7 @@ begin
   end;
   ORM.User.Name:=CaptionFromUser(Current.InspectedUser);
   ORM.SaveUserAppearance(aIsNew);
+  ORM.SaveMembershipAppearance(aChatMemberUpdated.Chat.ID, aUserID);
 end;
 
 procedure TAdminHelper.BtRcvMessage(ASender: TObject; AMessage: TTelegramMessageObj);
@@ -246,7 +247,9 @@ begin
     Bot.banChatMember(Current.InspectedChat.ID, Current.InspectedUser.ID);
     Exit;
   end;
-  if ORM.User.IsNewbie then
+  if not Conf.SpamFilter.Enabled then
+    Exit;
+  if ORM.IsNewbieInChat(Current.InspectedChat.ID, AMessage.From.ID) then
     if not Current.InspectedMessage.IsEmpty then
       _SpamFilterWorker.Classify(Current)
     else
@@ -270,7 +273,10 @@ begin
     Bot.banChatMember(Current.InspectedChat.ID, Current.InspectedUser.ID);
     Exit;
   end;
-  if ORM.User.IsNewbie and Bot.getChatMember(Current.InspectedChat.ID, Current.InspectedUser.ID, aChatMember) then
+  if not Conf.SpamFilter.Enabled then
+    Exit;
+  if ORM.IsNewbieInChat(Current.InspectedChat.ID, Current.InspectedUser.ID) and
+    Bot.getChatMember(Current.InspectedChat.ID, Current.InspectedUser.ID, aChatMember) then
     try
       if aChatMember.StatusType<>msMember then
         Current.ProcessSpamReaction(False, _msUnknown);
@@ -303,7 +309,7 @@ var
   aDefenderStatus: TDefenderStatus;
 begin
   aSpamStatus:=_msUnknown;
-  aIsNewbie:=ORM.UserByID(Current.InspectedUser.ID).IsNewbie;
+  aIsNewbie:=ORM.IsNewbieInChat(Current.InspectedChat.ID, Current.InspectedUser.ID);
   aRate:=ORM.UserByID(Current.Complainant.ID).Rate;
   aDefenderStatus:=dsStandard;
   if aRate>Conf.GuardRate then
@@ -479,8 +485,14 @@ begin
   if not Bot.getChatMember(aChat, aFrom, aChatMember) or
     not (aChatMember.StatusType in [msCreator, msAdministrator]) then
       Exit;
-  ORM.ClearModeratorsForChat(aChat);
-  Bot.getChatAdministrators(aChat, aModerators);
+  aModerators:=nil;
+  { Fetch the fresh list first: on API failure keep the stored moderators,
+    otherwise the chat would be left without any notification receiver }
+  if not Bot.getChatAdministrators(aChat, aModerators) then
+  begin
+    Bot.Logger.Error('UpdateModeratorsForChat. Getting the chat administrators failed');
+    Exit;
+  end;
   try
     aModeratorIDs:=TInt64List.Create;
     try
@@ -493,6 +505,7 @@ begin
             aModeratorIDs.Add(aUserID);
             ORM.SaveUserSpamStatus(aUserID, Strings['first_name'], False);
           end;
+      ORM.ClearModeratorsForChat(aChat);
       try
         ORM.AddChatMembers(aChat, True, aModeratorIDs);
       except
@@ -502,7 +515,7 @@ begin
     finally
       aModeratorIDs.Free;
     end;
-  finally  
+  finally
     aModerators.Free;
   end;
 end;
@@ -517,7 +530,7 @@ begin
   Bot.BotUsername:=BotConfig.Telegram.UserName;
   Bot.Logger.FileName:=_LogDir+Bot.BotUsername+'.log';
 
-  Bot.LogDebug:=BotConfig.Debug;
+  Bot.LogDebug:=BotConfig.Debug or Conf.Debug.Enabled;
 
   Bot.OnReceiveChatMemberUpdated:=@BtRcvChatMemberUpdated;
   Bot.OnReceiveMessage:=@BtRcvMessage;
