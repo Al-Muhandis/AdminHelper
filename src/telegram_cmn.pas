@@ -102,6 +102,8 @@ resourcestring
   _sMybItsNtSpm= '"Probably it''s not a spam". More info...';
   _sInspctdMsgHsDlt=    'The message was successfully deleted and the spammer was banned';
   _sInspctdMsgIsNtSpm=  'The message is marked as NOT spam. Erroneous complaint';
+  _sSpmRctnBnd=         'The reaction author has been banned';
+  _sSpmRctnIsNtSpm=     'The reaction is marked as NOT spam. The user was unbanned';
 
 const
   _emjbot='🤖'; 
@@ -309,7 +311,11 @@ begin
     if SpamFactor>Conf.SpamFilter.DefinitelySpam*aAdditionalFactor then
       aSpamStatus:=_msSpam
     else
-      aSpamStatus:=_msUnknown;
+      if SpamFactor<Conf.SpamFilter.DefinitelyHam then
+        { Definitely ham: nothing to store and no reason to bother administrators }
+        Exit
+      else
+        aSpamStatus:=_msUnknown;
   end
   else begin
     FHamProbability:=0;
@@ -339,11 +345,12 @@ begin
   begin
     Bot.banChatMember(aInspectedChat, aInspectedUser);
     ORM.SaveUserSpamStatus(aInspectedUser, aInspectedUserName);
-    aMsg:=_sInspctdMsgHsDlt;
+    aMsg:=_sSpmRctnBnd;
   end
   else begin
     ORM.SaveUserSpamStatus(aInspectedUser, aInspectedUserName, False);
-    aMsg:=_sInspctdMsgIsNtSpm;
+    Bot.unbanChatMember(aInspectedChat, aInspectedUser, True);
+    aMsg:=_sSpmRctnIsNtSpm;
   end;
   if Assigned(Bot.CurrentUser) then
     Bot.sendMessage(Bot.CurrentUser.ID, aMsg);
