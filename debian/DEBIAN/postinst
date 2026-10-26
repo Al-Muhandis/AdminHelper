@@ -30,7 +30,7 @@ json_get() {
 json_set() {
     local tmp
     tmp="$(mktemp)"
-    jq "$1" "${CONFIG_FILE}" > "${tmp}" && mv "${tmp}" "${CONFIG_FILE}"
+    jq "$@" "${CONFIG_FILE}" > "${tmp}" && mv "${tmp}" "${CONFIG_FILE}"
 }
 
 resolve_service_identity() {
@@ -157,6 +157,8 @@ SQL
                 # utf8mb4 is set explicitly: a bare MODIFY would fall back to the
                 # table default (utf8mb3), which cannot hold usernames with emoji.
                 mysql -u root "${DB_NAME}" <<'SQL' || echo "WARNING: schema migration failed; continuing" >&2
+UPDATE `messages`  SET `username` = '' WHERE `username` IS NULL;
+UPDATE `reactions` SET `username` = '' WHERE `username` IS NULL;
 ALTER TABLE `messages`  MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 ALTER TABLE `reactions` MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 SQL
