@@ -132,7 +132,7 @@ chmod 0755 "${STAGING_DIR}/DEBIAN/postrm"
 chmod 0640 "${STAGING_DIR}/etc/${PACKAGE_NAME}/tgadmin.json"
 
 # Version and size in control
-echo "Version: ${app_VER}.0-${app_VERdeb}" >> "${STAGING_DIR}/DEBIAN/control"
+echo "Version: ${app_VER}-${app_VERdeb}" >> "${STAGING_DIR}/DEBIAN/control"
 SIZE_IN_KB="$(du -s "${STAGING_DIR}" | awk '{print $1}')"
 echo "Installed-Size: ${SIZE_IN_KB}" >> "${STAGING_DIR}/DEBIAN/control"
 

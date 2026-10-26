@@ -5,11 +5,15 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/tgadmin -r
+ExecStart=/usr/bin/tgadmin
 WorkingDirectory=/etc/tgadmin/
 Restart=on-failure
 RestartSec=5
 NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/tgadmin /var/log/tgadmin
+PrivateTmp=true
+ProtectHome=true
 
 [Install]
 WantedBy=multi-user.target

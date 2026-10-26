@@ -104,7 +104,9 @@ end;
 initialization
   Conf:=TConf.Create;
   LoadFromJSON(Conf, _ConfFileName);
-  SaveToJSON(Conf, ChangeFileExt(_ConfFileName, '.bak.json'));
+  { The daemon usually runs unprivileged and cannot write next to the config,
+    so the startup backup is kept in the data directory }
+  SaveToJSON(Conf, _DataDir+ExtractFileName(_ConfFileName)+'.bak');
 
 finalization
   FreeAndNil(Conf);
