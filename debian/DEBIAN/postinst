@@ -153,10 +153,12 @@ SQL
                 # Rolling out the scheme (IF NOT EXISTS — safe when updating)
                 mysql -u root "${DB_NAME}" < "${SCHEMA_FILE}"
 
-                # Idempotent migrations for installations created by older packages
-                mysql -u root "${DB_NAME}" <<'SQL'
-ALTER TABLE `messages`  MODIFY `username` varchar(191) NOT NULL;
-ALTER TABLE `reactions` MODIFY `username` varchar(191) NOT NULL;
+                # Idempotent migrations for installations created by older packages.
+                # utf8mb4 is set explicitly: a bare MODIFY would fall back to the
+                # table default (utf8mb3), which cannot hold usernames with emoji.
+                mysql -u root "${DB_NAME}" <<'SQL' || echo "WARNING: schema migration failed; continuing" >&2
+ALTER TABLE `messages`  MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
+ALTER TABLE `reactions` MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 SQL
 
                 # Write credentials to tgadmin.json

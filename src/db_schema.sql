@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `user` bigint NOT NULL,
   `executor` bigint NOT NULL,
   `isspam` int NOT NULL,
-  `username` varchar(191) NOT NULL,
+  `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL,
   PRIMARY KEY (`chat`,`message`)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `reactions` (
   `user` bigint NOT NULL,
   `executor` bigint NOT NULL,
   `isspam` int NOT NULL,
-  `username` varchar(191) NOT NULL,
+  `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL,
   PRIMARY KEY (`chat`,`user`)
 );
 
