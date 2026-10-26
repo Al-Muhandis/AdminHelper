@@ -8,6 +8,12 @@ uses
   Classes, SysUtils, taskworker, spamfilter, tgsendertypes, tgtypes, adminhelper_orm, telegram_cmn
   ;
 
+const
+  { The training base is saved automatically after this many trainings:
+    the graceful shutdown callback is not guaranteed to run (the daemon may be
+    just killed), so periodic saving bounds the possible training loss }
+  AutosaveAfterTrainings = 50;
+
 type
 
   TFilterTaskCommand = (ftcNone, ftcTrain, ftcClassify, ftcLoad, ftcSave);
@@ -56,6 +62,7 @@ type
     FBotORM: TBotORM;
     FSpamFilter: TSpamFilter;
     FCurrent: TCurrentEvent;
+    FTrainedSinceSave: Integer;
   protected
     procedure ProcessTask(aTask: TSpamFilterTask); override;
     property ORM: TBotORM read FBotORM;
@@ -63,7 +70,7 @@ type
     constructor Create; override;
     destructor Destroy; override;
     procedure Classify(aCurrentEvent: TCurrentEvent);
-    procedure Load;              
+    procedure Load;
     procedure Save;
     procedure Train(aCurrentEvent: TCurrentEvent; aIsSpam: Boolean);
   end;
@@ -156,12 +163,25 @@ begin
     try
       aTask.AssignTo(FCurrent);
       case aTask.FTaskCommand of
-        ftcTrain:    FCurrent.TrainFromMessage(FSpamFilter, aTask.IsSpam);
+        ftcTrain:
+          begin
+            FCurrent.TrainFromMessage(FSpamFilter, aTask.IsSpam);
+            Inc(FTrainedSinceSave);
+            if FTrainedSinceSave>=AutosaveAfterTrainings then
+            begin
+              FSpamFilter.Save;
+              FTrainedSinceSave:=0;
+            end;
+          end;
         ftcClassify: FCurrent.ClassifyMessage(FSpamFilter);
         ftcLoad:     FSpamFilter.Load;
-        ftcSave:     FSpamFilter.Save;
+        ftcSave:
+          begin
+            FSpamFilter.Save;
+            FTrainedSinceSave:=0;
+          end;
       end;
-    finally    
+    finally
       aTask.Free;
     end;
   except
@@ -180,7 +200,7 @@ begin
   FBot.Logger.AppendContent:=True;
   FBot.BotUsername:=Conf.AdminHelperBot.Telegram.UserName;
   FBot.Logger.FileName:=_LogDir+'spamfilter.log';
-  FBot.LogDebug:=Conf.AdminHelperBot.Debug;
+  FBot.LogDebug:=Conf.AdminHelperBot.Debug or Conf.Debug.Enabled;
 
   FBotORM:=TBotORM.Create(Conf.AdminHelperDB);
   FBotORM.LogFileName:='worker_db_sql.log';
