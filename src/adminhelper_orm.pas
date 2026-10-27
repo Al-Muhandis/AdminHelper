@@ -45,6 +45,9 @@ type
     FNotifyOk: Boolean;
     FUser: Int64;
   public
+    { Delivered-by-default: a freshly created row must not mark its moderator
+      undeliverable before the first read }
+    constructor Create; reintroduce;
     procedure Clear; override;
   published
     property Chat: Int64 read FChat write FChat;
@@ -198,6 +201,8 @@ type
     procedure SaveUserSpamStatus(aUserID: Int64; const aUserName: String; aIsSpammer: Boolean = True);
     procedure SaveUser(aIsNew: Boolean);
     function UserByID(aUserID: Int64): TBotUser;
+    { Drops and reopens the shared DB connection after CheckDisconnectErr }
+    procedure Reconnect;
     property DBConfig: TDBConf read FDBConfig write FDBConfig;
     property LogFileName: String read FLogFileName write FLogFileName;
     property Message: TTelegramMessage read GetMessage;               
@@ -211,6 +216,12 @@ const
     _msNotSpam = -1;
 
     _Penalty = 6;
+
+{ True for transient connection failures: reconnecting and retrying the query
+  helps; anything else (bad SQL, schema mismatch) must propagate }
+function CheckDisconnectErr(const aErrMessage: string): Boolean;
+{ True when the insert lost a race against a concurrent webhook delivery }
+function CheckDuplicateKeyErr(const aErrMessage: string): Boolean;
 
 implementation
 
@@ -257,6 +268,12 @@ begin
 end;
 
 { TChatMember }
+
+constructor TChatMember.Create;
+begin
+  inherited Create;
+  Clear;
+end;
 
 procedure TChatMember.Clear;
 begin
@@ -412,6 +429,12 @@ begin
       FCon.Logger.FileName := _LogDir+FDBConfig.Logger.FileName;
   end;
   Result := FCon;
+end;
+
+procedure TBotORM.Reconnect;
+begin
+  Con.Connected:=False;
+  Con.Connected:=True;
 end;
 
 class procedure TBotORM.CreateDB(aConnection: TdSQLdbConnector);

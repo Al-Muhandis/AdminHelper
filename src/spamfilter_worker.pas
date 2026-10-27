@@ -81,7 +81,7 @@ type
 implementation
 
 uses
-  adminhelper_conf, eventlog, global
+  SQLDB, adminhelper_conf, eventlog, global
   ;
 
 { TSpamFilterTask }
@@ -161,28 +161,50 @@ end;
 { TSpamFilterThread }
 
 procedure TSpamFilterThread.ProcessTask(aTask: TSpamFilterTask);
-begin
-  try
-    try
-      aTask.AssignTo(FCurrent);
-      case aTask.FTaskCommand of
-        ftcTrain:
-          begin
-            FCurrent.TrainFromMessage(FSpamFilter, aTask.IsSpam);
-            Inc(FTrainedSinceSave);
-            if FTrainedSinceSave>=AutosaveAfterTrainings then
-            begin
-              FSpamFilter.Save;
-              FTrainedSinceSave:=0;
-            end;
-          end;
-        ftcClassify: FCurrent.ClassifyMessage(FSpamFilter);
-        ftcLoad:     FSpamFilter.Load;
-        ftcSave:
+
+  procedure Execute(aTask: TSpamFilterTask);
+  begin
+    aTask.AssignTo(FCurrent);
+    case aTask.FTaskCommand of
+      ftcTrain:
+        begin
+          FCurrent.TrainFromMessage(FSpamFilter, aTask.IsSpam);
+          Inc(FTrainedSinceSave);
+          if FTrainedSinceSave>=AutosaveAfterTrainings then
           begin
             FSpamFilter.Save;
             FTrainedSinceSave:=0;
           end;
+        end;
+      ftcClassify: FCurrent.ClassifyMessage(FSpamFilter);
+      ftcLoad:     FSpamFilter.Load;
+      ftcSave:
+        begin
+          FSpamFilter.Save;
+          FTrainedSinceSave:=0;
+        end;
+    end;
+  end;
+
+begin
+  try
+    try
+      try
+        Execute(aTask);
+      except
+        on E: ESQLDatabaseError do
+          if CheckDisconnectErr(E.Message) then
+          begin
+            { MySQL drops idle connections and restarts: replay the task on a
+              fresh connection once instead of silently dropping it. Replaying
+              is safe: the stored message makes the second pass a non-first
+              complaint, so no duplicate notifications go out }
+            Logger.Error('ProcessTask. DB connection lost: reconnecting and replaying the task');
+            ORM.Reconnect;
+            Execute(aTask);
+          end
+          else
+            raise;
       end;
     finally
       aTask.Free;

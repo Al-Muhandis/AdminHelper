@@ -64,10 +64,13 @@ type
     property NewReactions: TTelegramReactionTypeList read FNewReactions write FNewReactions;
   end;
 
-function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String; 
-function RouteMsgUsrPrvcy: String;                        
-function RouteMsgCmplnntIsBt(): String;   
+function RouteCmdSpam(aChat: Int64; aMsg: Integer; IsSpam: Boolean): String;
+function RouteCmdReaction(aChat, aUser: Int64; IsSpam: Boolean): String;
+function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String;
+function RouteMsgUsrPrvcy: String;
+function RouteMsgCmplnntIsBt(): String;
 function RouteMsgPrbblySpm(aSpamProbability, aHamProbability: Double; aIsEmojiMarker: Boolean = False): String;
+function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer = 0): String;
 
 const
   _sBtnPair='%s: %s';
