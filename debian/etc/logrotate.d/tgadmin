@@ -6,5 +6,10 @@
     notifempty
     compress
     delaycompress
-    copytruncate
+    sharedscripts
+    postrotate
+        # the restart reopens both log files; the daemon shuts down gracefully
+        # and saves the spam filter base on SIGTERM
+        systemctl restart tgadmin >/dev/null 2>&1 || true
+    endscript
 }
