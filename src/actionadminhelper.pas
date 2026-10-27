@@ -10,14 +10,13 @@ uses
 
 type
 
-  TDefenderStatus = (dsUnknown, dsStandard, dsPatrol, dsGuard);
-
   { TAdminHelper }
 
   TAdminHelper = class(TWebhookAction)
   private
     FBotConfig: TBotConf;
     FBotORM: TBotORM;
+    FCommandsSet: Boolean;
     FCurrent: TCurrentEvent;
     procedure AdminSpamVerdict(const aIsSpamStr, aCallbackID: String; aInspectedChat, aExecutor: Int64;
       aInspectedMessage: Integer);
@@ -26,7 +25,7 @@ type
     procedure BtClbckSpam({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);
     procedure BtCmndSaveFilters({%H-}aSender: TObject; const {%H-}ACommand: String; {%H-}aMessage: TTelegramMessageObj);
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
-    procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj); 
+    procedure BtCmndSpam({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtCmndUpdate({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
     procedure BtRcvChatMemberUpdated({%H-}ASender: TTelegramSender; aChatMemberUpdated: TTelegramChatMemberUpdated);
     procedure BtRcvMessage({%H-}ASender: TObject; AMessage: TTelegramMessageObj);
@@ -37,6 +36,9 @@ type
     function GetBotORM: TBotORM;
     function GetCurrent: TCurrentEvent;
     procedure SendComplaint;
+    { Registers the command menu (setMyCommands) in English and Russian;
+      True on success, the caller retries on the next request otherwise }
+    function SetBotCommands: Boolean;
     procedure RollbackErroneousBan(aInspectedChat, aInspectedUser, aExecutor: Int64; aInspectedMessage: Integer;
       const aInspectedUserName: String);
     procedure TryRollbackErroneousBan(aInspectedChat: Int64; aInspectedMessage: Integer; const aCallbackID: String;
@@ -76,12 +78,17 @@ resourcestring
     'After they open the chat, run /update to retry.';
 
 const
-  _LvlStndrd='Standard';
-  _LvlPatrol='Patrol';  
-  _LvlGrd=   'Guard';
-
-  _emjSheriff='🛡'; 
-  _emjPatrol='🚓';
+  { setMyCommands descriptions: plain literals because the resourcestring
+    machinery translates lazily per-user on incoming updates, while the
+    command menu is registered once per language on the Telegram side }
+  _CmdSpamDscrEn=    'Report spam: send as a reply to the spam message';
+  _CmdSpamDscrRu=    'Пожаловаться на спам: отправьте в ответ на сообщение спамера';
+  _CmdUpdTxDscrEn=   'Refresh the chat administrators list (for admins)';
+  _CmdUpdTxDscrRu=   'Обновить список администраторов чата (для админов)';
+  _CmdSttngsDscrEn=  'Show your anti-spam rating and status';
+  _CmdSttngsDscrRu=  'Показать ваш рейтинг и статус в борьбе со спамом';
+  _CmdHlpDscrEn=     'How the bot works';
+  _CmdHlpDscrRu=     'Как устроен бот';
 
 function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer): String;
 const
@@ -160,19 +167,20 @@ end;
 
 procedure TAdminHelper.BtCmndSettings(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
 var
+  aHint, aMsg: String;
   aRate: Integer;
-  aStatus, aMsg: String;
 begin
+  { Keep groups silent as /spam and /update do: remove the command,
+    the answer always goes to the private chat with the member }
+  if aMessage.Chat.ChatType<>ctPrivate then
+    Bot.deleteMessage(aMessage.ChatId, aMessage.MessageId);
   aRate:=ORM.UserByID(aMessage.From.ID).Rate;
-  if aRate<Conf.PatrolRate then
-    aStatus:=_LvlStndrd
-  else
-    if aRate<Conf.GuardRate then
-      aStatus:=_emjPatrol+' '+_LvlPatrol
-    else
-      aStatus:=_emjSheriff+' '+_LvlGrd;
-  aMsg:=Format(_sYrRtng, [aRate])+LineEnding+Format(_sYrRghts, [aStatus]);
-  Bot.sendMessage(aMsg);
+  aMsg:=Format(_sYrRtng, [aRate])+LineEnding+
+    Format(_sYrRghts, [DefenderStatusText(DefenderStatusOf(aRate, Conf.PatrolRate, Conf.GuardRate))]);
+  aHint:=NextRankHint(aRate, Conf.PatrolRate, Conf.GuardRate);
+  if not aHint.IsEmpty then
+    aMsg+=LineEnding+aHint;
+  Bot.sendMessage(aMessage.From.ID, aMsg);
   Bot.UpdateProcessed:=True;
 end;
 
@@ -321,12 +329,7 @@ begin
   aSpamStatus:=_msUnknown;
   aIsNewbie:=ORM.IsNewbieInChat(Current.InspectedChat.ID, Current.InspectedUser.ID);
   aRate:=ORM.UserByID(Current.Complainant.ID).Rate;
-  aDefenderStatus:=dsStandard;
-  if aRate>Conf.GuardRate then
-    aDefenderStatus:=dsGuard
-  else
-    if aRate>Conf.PatrolRate then
-      aDefenderStatus:=dsPatrol;
+  aDefenderStatus:=DefenderStatusOf(aRate, Conf.PatrolRate, Conf.GuardRate);
   if aDefenderStatus>=dsPatrol then
     if aIsNewbie or (aDefenderStatus>=dsGuard) then
     begin
@@ -335,6 +338,7 @@ begin
         _SpamFilterWorker.Train(Current, True);
     end;
   aCanBeSilentBan:=aIsNewbie and (aDefenderStatus>=dsGuard);
+  Current.ComplainantRate:=aRate;
   Current.ProcessComplaint(aCanBeSilentBan, aSpamStatus);
 end;
 
@@ -553,6 +557,51 @@ begin
   end;
 end;
 
+function TAdminHelper.SetBotCommands: Boolean;
+
+  procedure SetScope(const aCmds, aCmdsRu: TBotCommandArray; aScopeType: TCommandScopeType);
+  var
+    aScope: TBotCommandScope;
+  begin
+    aScope:=TBotCommandScope.Create;
+    try
+      aScope.ScopeType:=aScopeType;
+      Result:=Bot.setMyCommands(aCmds, aScope) and Bot.setMyCommands(aCmdsRu, aScope, 'ru');
+    finally
+      aScope.Free;
+    end;
+  end;
+
+var
+  aGroupCmds, aGroupCmdsRu, aPrivateCmds, aPrivateCmdsRu: TBotCommandArray;
+begin
+  Result:=False;
+  aGroupCmds:=TBotCommandArray.Create;
+  aGroupCmdsRu:=TBotCommandArray.Create;
+  aPrivateCmds:=TBotCommandArray.Create;
+  aPrivateCmdsRu:=TBotCommandArray.Create;
+  try
+    aGroupCmds.AddCommand(_dSpm, _CmdSpamDscrEn);
+    aGroupCmds.AddCommand('update', _CmdUpdTxDscrEn);
+    aGroupCmdsRu.AddCommand(_dSpm, _CmdSpamDscrRu);
+    aGroupCmdsRu.AddCommand('update', _CmdUpdTxDscrRu);
+    aPrivateCmds.AddCommand('settings', _CmdSttngsDscrEn);
+    aPrivateCmds.AddCommand('help', _CmdHlpDscrEn);
+    aPrivateCmdsRu.AddCommand('settings', _CmdSttngsDscrRu);
+    aPrivateCmdsRu.AddCommand('help', _CmdHlpDscrRu);
+    SetScope(aGroupCmds, aGroupCmdsRu, stAllGroupChats);
+    if Result then
+      SetScope(aPrivateCmds, aPrivateCmdsRu, stAllPrivateChats);
+    if not Result then
+      Bot.Logger.Error('setMyCommands failed: '+Bot.LastErrorDescription);
+  finally
+    aGroupCmds.Free;
+    aGroupCmdsRu.Free;
+    aPrivateCmds.Free;
+    aPrivateCmdsRu.Free;
+  end;
+end;
+
 constructor TAdminHelper.Create;
 begin
   BotConfig:=Conf.AdminHelperBot;
@@ -593,7 +642,11 @@ begin
   try
     Bot.Token:=Variables.Values['token'];
     if SameStr(Bot.Token, BotConfig.Telegram.Token) then
+    begin
+      if not FCommandsSet then
+        FCommandsSet:=SetBotCommands;
       inherited Post
+    end
     else
       HttpResponse.Code:=404;
   except
