@@ -73,6 +73,7 @@ type
   TTelegramMessageRoot = class(THelperObjctRoot)
   private
     FChat: Int64;
+    FCreatedAt: Int64;
     FExecutor: Int64;
     FUser: Int64;
     FIsSpam: Integer;
@@ -87,6 +88,7 @@ type
     property IsSpam: Integer read FIsSpam write FIsSpam;
     property Executor: Int64 read FExecutor write FExecutor;
     property UserName: String read FUserName write FUserName;
+    property CreatedAt: Int64 read FCreatedAt write FCreatedAt;
   end;
 
   { TTelegramMessage }
@@ -109,6 +111,7 @@ type
   private
     FChat: Int64;
     FComplainant: Int64;
+    FCreatedAt: Int64;
     FID: Integer;
     FMessage: Integer;
   public
@@ -118,6 +121,7 @@ type
     property Chat: Int64 read FChat write FChat;
     property Message: Integer read FMessage write FMessage;
     property Complainant: Int64 read FComplainant write FComplainant;
+    property CreatedAt: Int64 read FCreatedAt write FCreatedAt;
   end;
 
   TopfBotUsers = specialize TdGSQLdbEntityOpf<TBotUser>;
@@ -211,9 +215,19 @@ uses
 function CheckDisconnectErr(const aErrMessage: string): Boolean;
 const
   _sqlE_ClntWsDcnctd='The client was disconnected by the server because of inactivity';
-  _sqlE_LstCnctn='Lost connection to MySQL server during query';
+  _sqlE_LstCntn='Lost connection to MySQL server during query';
 begin
-  Result:=aErrMessage.Contains(_sqlE_ClntWsDcnctd) or aErrMessage.Contains(_sqlE_LstCnctn);
+  Result:=aErrMessage.Contains(_sqlE_ClntWsDcnctd) or aErrMessage.Contains(_sqlE_LstCntn);
+end;
+
+{ Two webhook deliveries racing between the "is it stored?" check and the
+  INSERT hit the same primary key (e.g. two reactions of one spammer);
+  the loser turns its insert into an update }
+function CheckDuplicateKeyErr(const aErrMessage: string): Boolean;
+const
+  _sqlE_DupEntry='Duplicate entry';
+begin
+  Result:=aErrMessage.Contains(_sqlE_DupEntry);
 end;
 
 { TBotUser }
@@ -261,6 +275,7 @@ begin
   FIsSpam:=0;
   FExecutor:=0;
   FUserName:=EmptyStr;
+  FCreatedAt:=0;
 end;
 
 { TTelegramMessage }
@@ -286,6 +301,7 @@ begin
   FChat:=0;
   FComplainant:=0;
   FMessage:=0;
+  FCreatedAt:=0;
 end;
 
 { TBotORM }
@@ -427,6 +443,7 @@ begin
     Entity.Complainant:=aComplainant;
     if Find('chat=:chat AND message=:message AND complainant=:complainant') then
       Exit;
+    Entity.CreatedAt:=DateTimeToUnix(Now, False);
     Add(True);
     Apply;
     Con.Logger.LogFmt(ltCustom, '#DebugInfo: сomplaint (chat #%d, message #%d, complainant #%d) has been added',
@@ -474,14 +491,22 @@ begin
   Message.Executor:=aExecutor;
   Message.UserName:=aInspectedUserName;
   if aIsFirstComplaint then
+    Message.CreatedAt:=DateTimeToUnix(Now, False);
+  if aIsFirstComplaint then
     try
       opMessages.Add(False)
     except
       on E: ESQLDatabaseError do
-        if not CheckDisconnectErr(E.Message) then
-          raise
+        if CheckDuplicateKeyErr(E.Message) then
+        begin
+          { A concurrent webhook stored it first }
+          opMessages.Modify(False)
+        end
         else
-          RetryAdd;
+          if not CheckDisconnectErr(E.Message) then
+            raise
+          else
+            RetryAdd;
     end
   else
     opMessages.Modify(False);
@@ -514,14 +539,22 @@ begin
   Reaction.Message:=aInspectedMessage;
   Reaction.UserName:=aInspectedUserName;
   if aIsFirstReaction then
+    Reaction.CreatedAt:=DateTimeToUnix(Now, False);
+  if aIsFirstReaction then
     try
       opReactions.Add(False)
     except
       on E: ESQLDatabaseError do
-        if not CheckDisconnectErr(E.Message) then
-          raise
+        if CheckDuplicateKeyErr(E.Message) then
+        begin
+          { A concurrent webhook stored it first }
+          opReactions.Modify(False)
+        end
         else
-          RetryAdd;
+          if not CheckDisconnectErr(E.Message) then
+            raise
+          else
+            RetryAdd;
     end
   else
     opReactions.Modify(False);
@@ -532,24 +565,39 @@ procedure TBotORM.AddMessage(const aInspectedUserName: String; aInspectedUser, a
   aInspectedMessage: Integer; aSpamStatus: Integer; aIsReaction: Boolean);
 var
   aEntity: TTelegramMessageRoot;
+  aFound: Boolean;
 begin
   if aIsReaction then
     aEntity:=Reaction
   else
     aEntity:=Message;
+  { Reactions of the same user in the same chat share one primary key row:
+    a second reaction must update the stored one, not fail on a duplicate }
+  if aIsReaction then
+    aFound:=GetReaction(aInspectedChat, aInspectedUser)
+  else
+    aFound:=GetMessage(aInspectedChat, aInspectedMessage);
   aEntity.Chat:=   aInspectedChat;
   aEntity.Message:=aInspectedMessage;
   aEntity.User:=aInspectedUser;
   aEntity.IsSpam:=aSpamStatus;
   aEntity.Executor:=aExecutor;
   aEntity.UserName:=aInspectedUserName;
+  if not aFound then
+    aEntity.CreatedAt:=DateTimeToUnix(Now, False);
   if aIsReaction then
   begin
-    opReactions.Add(False);
+    if aFound then
+      opReactions.Modify(False)
+    else
+      opReactions.Add(False);
     opReactions.Apply;
   end
   else begin
-    opMessages.Add(False);
+    if aFound then
+      opMessages.Modify(False)
+    else
+      opMessages.Add(False);
     opMessages.Apply;
   end;
 end;
