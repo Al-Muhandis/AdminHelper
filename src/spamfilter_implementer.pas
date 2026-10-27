@@ -35,10 +35,12 @@ begin
 end;
 
 class procedure TSpamFilterRunner.ServerStop(Sender: TObject);
-begin 
-  _SpamFilterWorker.Save;
+begin
+  { Terminate the worker first, then save synchronously: a queued save task
+    is dropped by the worker's task cleanup on termination }
   _SpamFilterWorker.TerminateWorker;
   _SpamFilterWorker.WaitFor;
+  _SpamFilterWorker.SaveBase;
   FreeAndNil(_SpamFilterWorker);
 end;
 

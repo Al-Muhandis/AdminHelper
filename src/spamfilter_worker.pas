@@ -72,6 +72,9 @@ type
     procedure Classify(aCurrentEvent: TCurrentEvent);
     procedure Load;
     procedure Save;
+    { Synchronous save for the shutdown path: the worker thread must already
+      be terminated, so the filter is not touched concurrently }
+    procedure SaveBase;
     procedure Train(aCurrentEvent: TCurrentEvent; aIsSpam: Boolean);
   end;
 
@@ -235,6 +238,12 @@ end;
 procedure TSpamFilterThread.Save;
 begin
   PushTask(TSpamFilterTask.Create(ftcSave));
+end;
+
+procedure TSpamFilterThread.SaveBase;
+begin
+  FSpamFilter.Save;
+  FTrainedSinceSave:=0;
 end;
 
 procedure TSpamFilterThread.Train(aCurrentEvent: TCurrentEvent; aIsSpam: Boolean);
