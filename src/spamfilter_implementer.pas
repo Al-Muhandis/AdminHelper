@@ -1,11 +1,11 @@
 unit spamfilter_implementer;
 
-{$mode ObjFPC}{$H+}
+{$mode objfpc}{$H+}
 
 interface
 
 uses
-  SysUtils, spamfilter_worker
+  SysUtils, eventlog, spamfilter_worker
   ;
 
 type
@@ -23,15 +23,33 @@ var
 
 implementation
 
+uses
+  adminhelper_conf, global
+  ;
+
 { TSpamFilterRunner }
 
 class procedure TSpamFilterRunner.ServerStart(Sender: TObject);
+var
+  aLog: TEventLog;
 begin
   _SpamFilterWorker:=TSpamFilterThread.Create;
   _SpamFilterWorker.Start;
   _SpamFilterWorker.Logger.Debug('Worker started');
-  _SpamFilterWorker.Load;                          
+  _SpamFilterWorker.Load;
   _SpamFilterWorker.Logger.Debug('Base loaded');
+  { The per-request bot logger creates its file lazily on the first record:
+    with debug off the file could stay absent for days, hiding the service
+    state; touch it at every start }
+  aLog:=TEventLog.Create(nil);
+  try
+    aLog.LogType:=ltFile;
+    aLog.AppendContent:=True;
+    aLog.FileName:=_LogDir+Conf.AdminHelperBot.Telegram.UserName+'.log';
+    aLog.Info(Format('Server started, built %s %s, debug=%s', [{$I %DATE%}, {$I %TIME%}, BoolToStr(Conf.Debug.Enabled or Conf.AdminHelperBot.Debug, True)]));
+  finally
+    aLog.Free;
+  end;
 end;
 
 class procedure TSpamFilterRunner.ServerStop(Sender: TObject);
