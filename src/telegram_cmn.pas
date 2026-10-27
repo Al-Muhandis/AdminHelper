@@ -106,9 +106,23 @@ resourcestring
   _sSpmRctnIsNtSpm=     'The reaction is marked as NOT spam. The user was unbanned';
 
 const
-  _emjbot='🤖'; 
+  _emjbot='🤖';
   _emjInfrmtn='ℹ️';
   _emjMonocle='🧐';
+
+  _tgErrChatNotFound='chat not found';
+  _tgErrBotBlocked='blocked by the user';
+  _tgErrBotCantInit='can''t initiate conversation';
+
+{ The moderator never opened the chat with the bot or blocked it:
+  sending to him fails and will keep failing until he opens the chat }
+function MessageUnreachable(aBot: TTelegramSender): Boolean;
+begin
+  Result:=(aBot.LastErrorCode in [400,403]) and
+    (ContainsStr(aBot.LastErrorDescription, _tgErrChatNotFound) or
+     ContainsStr(aBot.LastErrorDescription, _tgErrBotBlocked) or
+     ContainsStr(aBot.LastErrorDescription, _tgErrBotCantInit));
+end;
 
 var
   _sBtnBtCmplnnt: String;
@@ -368,7 +382,17 @@ begin
     aIsUserPrivacy:=False;
     for aChatMember in aChatMembers do
       if aChatMember.Moderator then
+      begin
+        { Skip moderators marked unreachable by a previous attempt }
+        if not aChatMember.NotifyOk then
+          Continue;
         SendToModerator(aChatMember.User, aIsDefinitlySpam, aIsPreventively, aIsUserPrivacy, aIsReaction);
+        if MessageUnreachable(Bot) then
+        begin
+          ORM.MarkModeratorUndeliverable(FInspectedChat.ID, aChatMember.User);
+          Bot.Logger.Error(Format('Moderator #%d does not receive notifications (chat not opened or bot blocked); skipped until the next /update', [aChatMember.User]));
+        end;
+      end;
   finally
     aChatMembers.Free;
   end;

@@ -42,6 +42,7 @@ type
   private
     FChat: Int64;
     FModerator: Boolean;
+    FNotifyOk: Boolean;
     FUser: Int64;
   public
     procedure Clear; override;
@@ -49,6 +50,9 @@ type
     property Chat: Int64 read FChat write FChat;
     property User: Int64 read FUser write FUser;
     property Moderator: Boolean read FModerator write FModerator;
+    { False once a notification to this member failed with "chat not found"
+      or the bot blocked; reset on the next /update }
+    property NotifyOk: Boolean read FNotifyOk write FNotifyOk;
   end;
 
   { TMembership }
@@ -173,6 +177,8 @@ type
     destructor Destroy; override;
     function GetMessage(aInspectedChat: Int64; aInspectedMessage: Integer): Boolean;
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
+    procedure GetUndeliverableModerators(aChat: Int64; aUsers: TInt64List);
+    procedure MarkModeratorUndeliverable(aChat, aUser: Int64);
     function GetReaction(aInspectedChat, aInspectedUser: Int64): Boolean;
     function IsNewbieInChat(aChat, aUserID: Int64): Boolean;
     procedure SaveMembershipAppearance(aChat, aUser: Int64);
@@ -257,6 +263,7 @@ begin
   FChat:=0;
   FUser:=0;
   FModerator:=False;
+  FNotifyOk:=True;
 end;
 
 { TMembership }
@@ -758,6 +765,35 @@ procedure TBotORM.GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers
 begin
   opChatMembers.Entity.Chat:=aChat;
   opChatMembers.Find(aModerators, 'chat=:chat');
+end;
+
+{ Moderators marked as unreachable by a previous notification attempt }
+procedure TBotORM.GetUndeliverableModerators(aChat: Int64; aUsers: TInt64List);
+var
+  aModerators: TopfChatMembers.TEntities;
+  aChatMember: TChatMember;
+begin
+  aModerators:=TopfChatMembers.TEntities.Create;
+  try
+    opChatMembers.Entity.Chat:=aChat;
+    if opChatMembers.Find(aModerators, 'chat=:chat') then
+      for aChatMember in aModerators do
+        if aChatMember.Moderator and not aChatMember.NotifyOk then
+          aUsers.Add(aChatMember.User);
+  finally
+    aModerators.Free;
+  end;
+end;
+
+procedure TBotORM.MarkModeratorUndeliverable(aChat, aUser: Int64);
+begin
+  opChatMembers.Entity.Chat:=aChat;
+  opChatMembers.Entity.User:=aUser;
+  if not opChatMembers.Get() then
+    Exit;
+  opChatMembers.Entity.NotifyOk:=False;
+  opChatMembers.Modify(False);
+  opChatMembers.Apply;
 end;
 
 { Remembers when the user joined the chat for the first time.

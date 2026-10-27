@@ -28,11 +28,11 @@ json_get() {
 
 # Add a column only when it does not exist yet (MySQL 8 has no ADD COLUMN IF NOT EXISTS)
 ensure_column() {
-    local table="$1" definition="$2"
+    local table="$1" column="$2" definition="$3"
     local exists
-    exists="$(mysql -N -u root "${DB_NAME}" -e "SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='${DB_NAME}' AND TABLE_NAME='${table}' AND COLUMN_NAME='created_at'")"
+    exists="$(mysql -N -u root "${DB_NAME}" -e "SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='${DB_NAME}' AND TABLE_NAME='${table}' AND COLUMN_NAME='${column}'")"
     if [ "${exists}" = "0" ]; then
-        mysql -u root "${DB_NAME}" -e "ALTER TABLE \`${table}\` ADD COLUMN \`created_at\` bigint NOT NULL DEFAULT 0"
+        mysql -u root "${DB_NAME}" -e "ALTER TABLE \`${table}\` ADD COLUMN \`${column}\` ${definition}"
     fi
 }
 
@@ -172,9 +172,10 @@ UPDATE `reactions` SET `username` = '' WHERE `username` IS NULL;
 ALTER TABLE `messages`  MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 ALTER TABLE `reactions` MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 SQL
-                ensure_column messages
-                ensure_column reactions
-                ensure_column complaints
+                ensure_column messages  created_at "bigint NOT NULL DEFAULT 0"
+                ensure_column reactions created_at "bigint NOT NULL DEFAULT 0"
+                ensure_column complaints created_at "bigint NOT NULL DEFAULT 0"
+                ensure_column chatmembers notify_ok "tinyint(1) NOT NULL DEFAULT 1"
 
                 # Write credentials to tgadmin.json
                 json_set \

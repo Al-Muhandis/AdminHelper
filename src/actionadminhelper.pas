@@ -55,7 +55,7 @@ type
 implementation
 
 uses
-  eventlog, sysutils, StrUtils, adminhelper_conf, tgutils, spamfilter_implementer, global
+  eventlog, Classes, sysutils, StrUtils, adminhelper_conf, tgutils, spamfilter_implementer, global
   ;
 
 resourcestring
@@ -72,6 +72,8 @@ resourcestring
   _sCmplnntIsFldByBt=   'The complaint is filed by the bot itself';
   _sDbgSpmInf=          'Ln spam probability: %n, Ln ham probability: %n. Spam Factor: %n'; 
   _sSpmBsEmj=           'It is identified as a spam based on emojies in the message';
+  _sUndeliverableAdmins= 'These admins do not receive moderation notifications because they never opened the chat with the bot (or blocked it):' + LineEnding + '%s' + LineEnding +
+    'After they open the chat, run /update to retry.';
 
 const
   _LvlStndrd='Standard';
@@ -478,7 +480,9 @@ procedure TAdminHelper.UpdateModeratorsForChat(aChat, aFrom: Int64);
 var
   aModerators: TJSONArray;
   aModeratorIDs: TInt64List;
+  aUndeliverable: TInt64List;
   aChatMember: TTelegramChatMember;
+  aNames: TStringList;
   m: TJSONEnum;
   aUserID: Int64;
 begin
@@ -493,30 +497,51 @@ begin
     Bot.Logger.Error('UpdateModeratorsForChat. Getting the chat administrators failed');
     Exit;
   end;
+  aUndeliverable:=TInt64List.Create;
   try
-    aModeratorIDs:=TInt64List.Create;
+    { Snapshot who was unreachable before the refresh: their rows are
+      recreated below with a clean flag }
+    ORM.GetUndeliverableModerators(aChat, aUndeliverable);
     try
-      aModeratorIDs.Capacity:=aModerators.Count;
-      for m in aModerators do
-        with (m.Value as TJSONObject).Objects['user'] do
-          if not Booleans['is_bot'] then
-          begin
-            aUserID:=Int64s['id'];
-            aModeratorIDs.Add(aUserID);
-            ORM.SaveUserSpamStatus(aUserID, Strings['first_name'], False);
-          end;
-      ORM.ClearModeratorsForChat(aChat);
+      aModeratorIDs:=TInt64List.Create;
       try
-        ORM.AddChatMembers(aChat, True, aModeratorIDs);
-      except
-        on E: Exception do
-          Bot.Logger.Error('UpdateModeratorsForChat. '+e.ClassName+': '+e.Message);
+        aModeratorIDs.Capacity:=aModerators.Count;
+        for m in aModerators do
+          with (m.Value as TJSONObject).Objects['user'] do
+            if not Booleans['is_bot'] then
+            begin
+              aUserID:=Int64s['id'];
+              aModeratorIDs.Add(aUserID);
+              ORM.SaveUserSpamStatus(aUserID, Strings['first_name'], False);
+            end;
+        ORM.ClearModeratorsForChat(aChat);
+        try
+          ORM.AddChatMembers(aChat, True, aModeratorIDs);
+        except
+          on E: Exception do
+            Bot.Logger.Error('UpdateModeratorsForChat. '+e.ClassName+': '+e.Message);
+        end;
+      finally
+        aModeratorIDs.Free;
       end;
     finally
-      aModeratorIDs.Free;
+      aModerators.Free;
+    end;
+    { Tell the invoker which admins will still not receive anything until
+      they open the chat with the bot }
+    if aUndeliverable.Count>0 then
+    begin
+      aNames:=TStringList.Create;
+      try
+        for aUserID in aUndeliverable do
+          aNames.Add(Format('%s (#%d)', [ORM.UserByID(aUserID).Name, aUserID]));
+        Bot.sendMessage(aFrom, Format(_sUndeliverableAdmins, [aNames.Text]));
+      finally
+        aNames.Free;
+      end;
     end;
   finally
-    aModerators.Free;
+    aUndeliverable.Free;
   end;
 end;
 

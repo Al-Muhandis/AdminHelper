@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `chatmembers` (
   `chat` bigint NOT NULL,
   `user` bigint NOT NULL,
   `moderator` tinyint(1) NOT NULL,
+  `notify_ok` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`chat`,`user`),
   KEY `chat` (`chat`)
 );
