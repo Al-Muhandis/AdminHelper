@@ -81,12 +81,29 @@ msgstr ""
 msgid "Is this reaction spam? Emojies: %s"
 msgstr ""
 
+#: telegram_cmn._slvlgrd
+msgid "Guard"
+msgstr ""
+
+#: telegram_cmn._slvlpatrol
+msgid "Patrol"
+msgstr ""
+
+#: telegram_cmn._slvlstndrd
+msgid "Standard"
+msgstr ""
+
 #: telegram_cmn._smybitsntspm
 msgid "\"Probably it's not a spam\". More info..."
 msgstr ""
 
 #: telegram_cmn._smybitsspm
 msgid "\"Probably it's a spam\". More info..."
+msgstr ""
+
+#: telegram_cmn._snxtrnk
+#, object-pascal-format
+msgid "Points to the next status %s: %d"
 msgstr ""
 
 #: telegram_cmn._sprvntvlybnd

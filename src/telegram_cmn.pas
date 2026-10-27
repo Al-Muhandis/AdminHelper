@@ -10,6 +10,8 @@ uses
 
 type
 
+  TDefenderStatus = (dsUnknown, dsStandard, dsPatrol, dsGuard);
+
   { TCurrentEvent }
 
   TCurrentEvent = class
@@ -17,15 +19,19 @@ type
     FBot: TTelegramSender;
     FComplainant: TTelegramUserObj;
     FBotORM: TBotORM;
+    FComplainantRate: Integer;
     FContentType: TContentType;
     FEmojiMarker: Boolean;
+    FInspectedIsNewbie: Boolean;
     FIsExternalReply: Boolean;
     FInspectedChat: TTelegramChatObj;
     FInspectedMessage: String;
     FInspectedMessageID: Integer;
     FInspectedUser: TTelegramUserObj;
     FNewReactions: TTelegramReactionTypeList;
+    FNewbieKnown: Boolean;
     FSpamProbability, FHamProbability: Double;
+    function GetInspectedIsNewbie: Boolean;
   protected
     property Bot: TTelegramSender read FBot;
     property ORM: TBotORM read FBotORM;
@@ -52,9 +58,14 @@ type
     property IsExternalReply: Boolean read FIsExternalReply write FIsExternalReply;
     property InspectedChat: TTelegramChatObj read FInspectedChat write FInspectedChat;
     property InspectedUser: TTelegramUserObj read FInspectedUser write FInspectedUser;
+    { The inspected user joined this chat within NewbieDays; resolved by ORM
+      on the first use and cached for the whole event }
+    property InspectedIsNewbie: Boolean read GetInspectedIsNewbie;
     property InspectedMessage: String read FInspectedMessage write FInspectedMessage;
     property InspectedMessageID: Integer read FInspectedMessageID write FInspectedMessageID;
     property Complainant: TTelegramUserObj read FComplainant write FComplainant;
+    { The complainant rating for the moderation card; negative = not known }
+    property ComplainantRate: Integer read FComplainantRate write FComplainantRate;
     property SpamProbability: Double read FSpamProbability write FSpamProbability;
     property HamProbability: Double read FHamProbability write FHamProbability;
 { If the message seems to be spam due mass emojies in it }
@@ -71,6 +82,13 @@ function RouteMsgUsrPrvcy: String;
 function RouteMsgCmplnntIsBt(): String;
 function RouteMsgPrbblySpm(aSpamProbability, aHamProbability: Double; aIsEmojiMarker: Boolean = False): String;
 function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer = 0): String;
+function DefenderStatusOf(aRate, aPatrolRate, aGuardRate: Integer): TDefenderStatus;
+function DefenderMark(aStatus: TDefenderStatus): String;
+function DefenderStatusText(aStatus: TDefenderStatus): String;
+{ Short caption suffix showing the rank mark and the rate; empty for ordinary members }
+function DefenderTag(aRate, aPatrolRate, aGuardRate: Integer): String;
+{ Human-readable text about the points left to the next rank; empty for Guards }
+function NextRankHint(aRate, aPatrolRate, aGuardRate: Integer): String;
 
 const
   _sBtnPair='%s: %s';
@@ -87,6 +105,10 @@ const
 resourcestring
   _sInspctdUsr='Inspected user';
   _sBndUsr=    'Banned user';
+  _sLvlStndrd= 'Standard';
+  _sLvlPatrol= 'Patrol';
+  _sLvlGrd=    'Guard';
+  _sNxtRnk=    'Points to the next status %s: %d';
 
 implementation
 
@@ -112,6 +134,9 @@ const
   _emjbot='🤖';
   _emjInfrmtn='ℹ️';
   _emjMonocle='🧐';
+  _emjSheriff='🛡';
+  _emjPatrol='🚓';
+  _emjNewbie='🆕';
 
   _tgErrChatNotFound='chat not found';
   _tgErrBotBlocked='blocked by the user';
@@ -195,6 +220,60 @@ begin
   Result:=Format(aTpl, [aChatName, aMsgIDStr]);
 end;
 
+{ The thresholds are inclusive, as /settings shows them: a member with the
+  exact PatrolRate is already a Patrol }
+function DefenderStatusOf(aRate, aPatrolRate, aGuardRate: Integer): TDefenderStatus;
+begin
+  if aRate>=aGuardRate then
+    Result:=dsGuard
+  else
+    if aRate>=aPatrolRate then
+      Result:=dsPatrol
+    else
+      Result:=dsStandard;
+end;
+
+function DefenderMark(aStatus: TDefenderStatus): String;
+begin
+  case aStatus of
+    dsPatrol: Result:=_emjPatrol;
+    dsGuard:  Result:=_emjSheriff;
+  else
+    Result:=EmptyStr;
+  end;
+end;
+
+function DefenderStatusText(aStatus: TDefenderStatus): String;
+begin
+  case aStatus of
+    dsPatrol: Result:=DefenderMark(aStatus)+' '+_sLvlPatrol;
+    dsGuard:  Result:=DefenderMark(aStatus)+' '+_sLvlGrd;
+  else
+    Result:=_sLvlStndrd;
+  end;
+end;
+
+function DefenderTag(aRate, aPatrolRate, aGuardRate: Integer): String;
+var
+  aStatus: TDefenderStatus;
+begin
+  aStatus:=DefenderStatusOf(aRate, aPatrolRate, aGuardRate);
+  if aStatus>=dsPatrol then
+    Result:=' '+DefenderMark(aStatus)+aRate.ToString
+  else
+    Result:=EmptyStr;
+end;
+
+function NextRankHint(aRate, aPatrolRate, aGuardRate: Integer): String;
+begin
+  case DefenderStatusOf(aRate, aPatrolRate, aGuardRate) of
+    dsStandard: Result:=Format(_sNxtRnk, [DefenderStatusText(dsPatrol), aPatrolRate-aRate]);
+    dsPatrol:   Result:=Format(_sNxtRnk, [DefenderStatusText(dsGuard), aGuardRate-aRate]);
+  else
+    Result:=EmptyStr;
+  end;
+end;
+
 { TCurrentEvent }
 
 procedure TCurrentEvent.AddMessage(aIsReaction: Boolean);
@@ -232,6 +311,17 @@ begin
   FNewReactions:=aReactionUpdated.NewReactions;
 end;
 
+function TCurrentEvent.GetInspectedIsNewbie: Boolean;
+begin
+  if not FNewbieKnown then
+  begin
+    FInspectedIsNewbie:=Assigned(FInspectedUser) and Assigned(FInspectedChat) and
+      ORM.IsNewbieInChat(FInspectedChat.ID, FInspectedUser.ID);
+    FNewbieKnown:=True;
+  end;
+  Result:=FInspectedIsNewbie;
+end;
+
 procedure TCurrentEvent.BanOrNotToBan(aInspectedChat, aInspectedUser: Int64; const aInspectedUserName: String;
   aInspectedMessage: LongInt; aIsSpam: Boolean);
 var
@@ -257,6 +347,7 @@ constructor TCurrentEvent.Create(aBot: TTelegramSender; aBotORM: TBotORM);
 begin
   FBot:=aBot;
   FBotORM:=aBotORM;
+  FComplainantRate:=-1;
   inherited Create;
 end;
 
@@ -427,7 +518,7 @@ var
   var
     aBtn: TInlineKeyboardButton;
     aLine: TInlineKeyboardButtons;
-  begin                         
+  begin
     aLine:=aKB.Add;
     aBtn:=TInlineKeyboardButton.Create('Spam');
     aBtn.Style:='danger';
@@ -439,15 +530,24 @@ var
     aLine.Add(aBtn);
   end;
 
+  function InspctdCaption(const aLabel: String): String;
+  begin
+    if InspectedIsNewbie then
+      Result:=_emjNewbie+' '+aLabel
+    else
+      Result:=aLabel;
+  end;
+
 begin
   aReplyMarkup:=TReplyMarkup.Create;
   try
     aKB:=aReplyMarkup.CreateInlineKeyBoard;
     if aIsDefinitelySpam then
     begin
-      aInspctdUsr:= Format(_sBtnPair, [_sBndUsr, CaptionFromUser(InspectedUser)]);
+      aInspctdUsr:= Format(_sBtnPair, [InspctdCaption(_sBndUsr), CaptionFromUser(InspectedUser)]);
       if Assigned(Complainant) then
-        aCmplnnt:=Format(_sBtnPair, [_sCmplnnt, CaptionFromUser(Complainant)])
+        aCmplnnt:=Format(_sBtnPair, [_sCmplnnt, CaptionFromUser(Complainant)])+
+          DefenderTag(FComplainantRate, Conf.PatrolRate, Conf.GuardRate)
       else
         aCmplnnt:=_sBtnBtCmplnnt;
       if aIsUserPrivacy  then
@@ -477,7 +577,7 @@ begin
         AddVerdictBtnPair(RouteCmdSpam(InspectedChat.ID, InspectedMessageID, True),
           RouteCmdSpam(InspectedChat.ID, InspectedMessageID, False));
       aKB.Add.AddButtonUrl(_sInspctdMsg, BuildMsgUrl(InspectedChat, InspectedMessageID));
-      aInspctdUsr:=Format(_sBtnPair, [_sInspctdUsr, CaptionFromUser(InspectedUser)]);
+      aInspctdUsr:=Format(_sBtnPair, [InspctdCaption(_sInspctdUsr), CaptionFromUser(InspectedUser)]);
       if aIsUserPrivacy then
         aKB.Add.AddButton(aInspctdUsr, RouteMsgUsrPrvcy)
       else

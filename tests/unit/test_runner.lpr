@@ -4,7 +4,7 @@ program test_runner;
 
 uses
   Classes, consoletestrunner, fpcunittestinsight,
-  test.schema_entities, test.orm_errors, test.telegram_routes
+  test.schema_entities, test.orm_errors, test.telegram_routes, test.defender_status
   ;
 
 type

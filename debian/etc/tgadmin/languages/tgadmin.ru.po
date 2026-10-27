@@ -117,6 +117,21 @@ msgstr ""
 msgid "Is this reaction spam? Emojies: %s"
 msgstr ""
 
+#: telegram_cmn._slvlgrd
+msgctxt "telegram_cmn._slvlgrd"
+msgid "Guard"
+msgstr "Страж"
+
+#: telegram_cmn._slvlpatrol
+msgctxt "telegram_cmn._slvlpatrol"
+msgid "Patrol"
+msgstr "Патруль"
+
+#: telegram_cmn._slvlstndrd
+msgctxt "telegram_cmn._slvlstndrd"
+msgid "Standard"
+msgstr "Стандарт"
+
 #: telegram_cmn._smybitsntspm
 msgctxt "telegram_cmn._smybitsntspm"
 msgid "\"Probably it's not a spam\". More info..."
@@ -126,6 +141,12 @@ msgstr ""
 msgctxt "telegram_cmn._smybitsspm"
 msgid "\"Probably it's a spam\". More info..."
 msgstr ""
+
+#: telegram_cmn._snxtrnk
+#, object-pascal-format
+msgctxt "telegram_cmn._snxtrnk"
+msgid "Points to the next status %s: %d"
+msgstr "До статуса %s осталось очков: %d"
 
 #: telegram_cmn._sprvntvlybnd
 #, object-pascal-format
