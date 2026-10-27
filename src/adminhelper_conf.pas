@@ -37,6 +37,7 @@ type
   private
     FAdminHelperBot: TBotConf;
     FAdminHelperDB: TDBConf;
+    FBindAddress: String;
     FDebug: TDebugInfo;
     FGuardRate: Integer;
     FNewbieDays: Integer;
@@ -53,6 +54,8 @@ type
     property AdminHelperDB: TDBConf read FAdminHelperDB write FAdminHelperDB;
     property SpamFilter: TSpamFilterConfig read FSpamFilter write FSpamFilter;
     property Port: Integer read FPort write FPort;
+    { Local address to bind to; empty = all interfaces }
+    property BindAddress: String read FBindAddress write FBindAddress;
     property PatrolRate: Integer read FPatrolRate write FPatrolRate;
     property GuardRate: Integer read FGuardRate write FGuardRate;
     property NewbieDays: Integer read FNewbieDays write FNewbieDays;

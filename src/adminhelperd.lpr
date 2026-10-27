@@ -18,7 +18,9 @@ begin
   {$IFDEF THREADED}
   Application.Server.Threaded := True;
   {$ENDIF}
-  Application.Server.ConnectionLimit:=1000;             
+  Application.Server.ConnectionLimit:=1000;
+  if Conf.BindAddress<>'' then
+    Application.Server.HostName:=Conf.BindAddress;
   Application.Server.OnStart:=@(TSpamFilterRunner.ServerStart);
   Application.Server.OnStop:=@(TSpamFilterRunner.ServerStop);
   Application.Initialize;

@@ -32,6 +32,7 @@
     "Enabled" : true
   },
   "Port": 80,
+  "BindAddress": "",
   "NewbieDays" : 14,
   "GuardRate" : 99,
   "PatrolRate" : 12,
