@@ -185,11 +185,19 @@ begin
   begin
     Current.AssignInspectedFromMsg(aInspectedMessage);
     Current.Complainant:=aMessage.From;
-    Bot.deleteMessage(aMessage.MessageId);                                             
+    Bot.deleteMessage(aMessage.MessageId);
+    Bot.Logger.Info(Format('Spam report: chat #%d, reported message #%d by #%d, complainant #%d',
+      [Current.InspectedChat.ID, aInspectedMessage.MessageId, Current.InspectedUser.ID, aMessage.From.ID]));
     SendComplaint;
   end
-  else
+  else begin
+    { The command reached us but Telegram omitted reply_to_message: the target
+      is either deleted already or not visible to the bot. Log enough to
+      diagnose - without it the command just disappears silently }
+    Bot.Logger.Info(Format('Spam report dropped: chat #%d, command #%d by #%d has no reply_to_message',
+      [aMessage.ChatId, aMessage.MessageId, aMessage.From.ID]));
     Bot.deleteMessage(aMessage.MessageId);
+  end;
   Bot.UpdateProcessed:=True;
 end;
 
