@@ -26,6 +26,16 @@ json_get() {
     jq -r "$1 // empty" "${CONFIG_FILE}" 2>/dev/null || true
 }
 
+# Add a column only when it does not exist yet (MySQL 8 has no ADD COLUMN IF NOT EXISTS)
+ensure_column() {
+    local table="$1" definition="$2"
+    local exists
+    exists="$(mysql -N -u root "${DB_NAME}" -e "SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='${DB_NAME}' AND TABLE_NAME='${table}' AND COLUMN_NAME='created_at'")"
+    if [ "${exists}" = "0" ]; then
+        mysql -u root "${DB_NAME}" -e "ALTER TABLE \`${table}\` ADD COLUMN \`created_at\` bigint NOT NULL DEFAULT 0"
+    fi
+}
+
 # Write values to JSON on the spot
 json_set() {
     local tmp
@@ -162,6 +172,9 @@ UPDATE `reactions` SET `username` = '' WHERE `username` IS NULL;
 ALTER TABLE `messages`  MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 ALTER TABLE `reactions` MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 SQL
+                ensure_column messages
+                ensure_column reactions
+                ensure_column complaints
 
                 # Write credentials to tgadmin.json
                 json_set \

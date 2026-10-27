@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `complaints` (
   `chat` bigint NOT NULL,
   `message` int NOT NULL,
   `complainant` bigint NOT NULL,
+  `created_at` bigint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `chat` (`chat`,`message`) USING BTREE
 );
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `executor` bigint NOT NULL,
   `isspam` int NOT NULL,
   `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL,
+  `created_at` bigint NOT NULL DEFAULT 0,
   PRIMARY KEY (`chat`,`message`)
 );
 
@@ -39,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `reactions` (
   `executor` bigint NOT NULL,
   `isspam` int NOT NULL,
   `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL,
+  `created_at` bigint NOT NULL DEFAULT 0,
   PRIMARY KEY (`chat`,`user`)
 );
 
