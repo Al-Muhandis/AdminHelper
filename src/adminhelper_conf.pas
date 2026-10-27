@@ -12,6 +12,10 @@ type
 
   EWSWConfig = class(Exception);
 
+  { Raised during the startup when mandatory settings are missing }
+
+  EConfError = class(EWSWConfig);
+
   { TSpamFilterConfig }
 
   TSpamFilterConfig = class
@@ -107,9 +111,17 @@ end;
 initialization
   Conf:=TConf.Create;
   LoadFromJSON(Conf, _ConfFileName);
-  { The daemon usually runs unprivileged and cannot write next to the config,
-    so the startup backup is kept in the data directory }
+  { The startup config backup is kept in the data directory:
+    the daemon usually runs unprivileged and cannot write next to the config }
   SaveToJSON(Conf, _DataDir+ExtractFileName(_ConfFileName)+'.bak');
+  {$IFDEF UNIX}
+  { A missing or truncated file silently yields defaults; without these
+    checks the daemon starts with an empty token and answers 404 forever }
+  if Conf.AdminHelperBot.Telegram.Token.IsEmpty then
+    raise EConfError.CreateFmt('Telegram bot token is empty: fix %s', [_ConfFileName]);
+  if (Conf.Port<1) or (Conf.Port>65535) then
+    raise EConfError.CreateFmt('Port %d is not usable: fix %s', [Conf.Port, _ConfFileName]);
+  {$ENDIF}
 
 finalization
   FreeAndNil(Conf);
