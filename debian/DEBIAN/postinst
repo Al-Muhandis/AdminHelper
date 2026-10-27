@@ -36,6 +36,19 @@ ensure_column() {
     fi
 }
 
+# The ORM (dOPF) derives column names by lowercasing published property names,
+# so every column must be all-lowercase without underscores: CreatedAt -> createdat.
+# 0.1.4-8 and earlier created them as created_at, which no query could address.
+rename_column() {
+    local table="$1" from="$2" to="$3"
+    local has_from has_to
+    has_from="$(mysql -N -u root "${DB_NAME}" -e "SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='${DB_NAME}' AND TABLE_NAME='${table}' AND COLUMN_NAME='${from}'")"
+    has_to="$(mysql -N -u root "${DB_NAME}" -e "SELECT COUNT(*) FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='${DB_NAME}' AND TABLE_NAME='${table}' AND COLUMN_NAME='${to}'")"
+    if [ "${has_from}" = "1" ] && [ "${has_to}" = "0" ]; then
+        mysql -u root "${DB_NAME}" -e "ALTER TABLE \`${table}\` RENAME COLUMN \`${from}\` TO \`${to}\`"
+    fi
+}
+
 # Write values to JSON on the spot
 json_set() {
     local tmp
@@ -172,9 +185,14 @@ UPDATE `reactions` SET `username` = '' WHERE `username` IS NULL;
 ALTER TABLE `messages`  MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 ALTER TABLE `reactions` MODIFY `username` varchar(191) CHARACTER SET utf8mb4 NOT NULL;
 SQL
-                ensure_column messages  created_at "bigint NOT NULL DEFAULT 0"
-                ensure_column reactions created_at "bigint NOT NULL DEFAULT 0"
-                ensure_column complaints created_at "bigint NOT NULL DEFAULT 0"
+                rename_column messages  created_at createdat
+                rename_column reactions created_at createdat
+                rename_column complaints created_at createdat
+                rename_column chatmembers notify_ok notifyok
+                ensure_column messages  createdat "bigint NOT NULL DEFAULT 0"
+                ensure_column reactions createdat "bigint NOT NULL DEFAULT 0"
+                ensure_column complaints createdat "bigint NOT NULL DEFAULT 0"
+                ensure_column chatmembers notifyok "tinyint(1) NOT NULL DEFAULT 1"
                 ensure_column chatmembers notify_ok "tinyint(1) NOT NULL DEFAULT 1"
 
                 # Write credentials to tgadmin.json
