@@ -118,6 +118,28 @@ ensure_runtime_directories() {
     install -d -m 0750 -o "${SERVICE_USER}" -g "${SERVICE_GROUP}" "${DATA_DIR}"
 }
 
+# Runs last, after the DB migrations and config fixes: the daemon must reopen
+# its connections only when the schema is final, and an upgrade must not keep
+# serving with the old binary (0.1.4-10 kept 0.1.4-9 running until a manual
+# restart)
+restart_service() {
+    if ! command -v systemctl >/dev/null 2>&1; then
+        return
+    fi
+    if ! systemctl list-unit-files "${PACKAGE_NAME}.service" >/dev/null 2>&1; then
+        return
+    fi
+    systemctl daemon-reload || true
+    if [ ! -d /run/systemd/system ]; then
+        return
+    fi
+    if systemctl try-restart "${PACKAGE_NAME}.service"; then
+        echo "==> Service ${PACKAGE_NAME}.service restarted."
+    else
+        echo "WARNING: failed to restart ${PACKAGE_NAME}.service; run: sudo systemctl restart ${PACKAGE_NAME}" >&2
+    fi
+}
+
 case "$1" in
     configure)
         # ----------------------------------------------------------------
@@ -214,6 +236,8 @@ SQL
         # Configuration rights — only root and the service group
         chown "root:${SERVICE_GROUP}" "${CONFIG_FILE}" 2>/dev/null || chown root:root "${CONFIG_FILE}"
         chmod 0640 "${CONFIG_FILE}"
+
+        restart_service
         ;;
 esac
 
