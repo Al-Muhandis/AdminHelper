@@ -118,7 +118,8 @@ const
   sending to him fails and will keep failing until he opens the chat }
 function MessageUnreachable(aBot: TTelegramSender): Boolean;
 begin
-  Result:=(aBot.LastErrorCode in [400,403]) and
+  { Explicit comparisons: FPC sets hold only 0..255, "[400,403]" is not usable }
+  Result:=((aBot.LastErrorCode=400) or (aBot.LastErrorCode=403)) and
     (ContainsStr(aBot.LastErrorDescription, _tgErrChatNotFound) or
      ContainsStr(aBot.LastErrorDescription, _tgErrBotBlocked) or
      ContainsStr(aBot.LastErrorDescription, _tgErrBotCantInit));
@@ -373,10 +374,13 @@ end;
 procedure TCurrentEvent.SendMessagesToAdmins(aIsDefinitlySpam: Boolean; aIsPreventively: Boolean; aIsReaction: Boolean);
 var
   aChatMembers: TopfChatMembers.TEntities;
+  aFailed: TInt64List;
   aIsUserPrivacy: Boolean;
   aChatMember: TChatMember;
+  aUserID: Int64;
 begin
   aChatMembers:=TopfChatMembers.TEntities.Create;
+  aFailed:=TInt64List.Create;
   try
     ORM.GetModeratorsByChat(FInspectedChat.ID, aChatMembers);
     aIsUserPrivacy:=False;
@@ -388,12 +392,17 @@ begin
           Continue;
         SendToModerator(aChatMember.User, aIsDefinitlySpam, aIsPreventively, aIsUserPrivacy, aIsReaction);
         if MessageUnreachable(Bot) then
-        begin
-          ORM.MarkModeratorUndeliverable(FInspectedChat.ID, aChatMember.User);
-          Bot.Logger.Error(Format('Moderator #%d does not receive notifications (chat not opened or bot blocked); skipped until the next /update', [aChatMember.User]));
-        end;
+          aFailed.Add(aChatMember.User);
       end;
+    { Mark only after the iteration: reusing the ORM entity mid-iteration
+      invalidates the list being walked (access violation) }
+    for aUserID in aFailed do
+    begin
+      ORM.MarkModeratorUndeliverable(FInspectedChat.ID, aUserID);
+      Bot.Logger.Error(Format('Moderator #%d does not receive notifications (chat not opened or bot blocked); skipped until the next /update', [aUserID]));
+    end;
   finally
+    aFailed.Free;
     aChatMembers.Free;
   end;
 end;
