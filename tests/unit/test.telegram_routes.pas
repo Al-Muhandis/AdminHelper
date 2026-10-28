@@ -17,6 +17,7 @@ type
     procedure RollbackRoutesUseDistinctSymbols;
     procedure ServiceRoutesFormat;
     procedure ProbablySpamRouteFormat;
+    procedure NotifyRouteFormat;
     procedure MessageUrlForPublicChat;
     procedure MessageUrlForPrivateChat;
     procedure MessageUrlForUnresolvableChat;
@@ -109,6 +110,27 @@ begin
   try
     CheckEquals(5, aParts.Count, 'emoji marker adds one token');
     CheckEquals('emj', aParts[4], 'emoji marker token');
+  finally
+    aParts.Free;
+  end;
+end;
+
+procedure TTestTelegramRoutes.NotifyRouteFormat;
+var
+  aParts: TStringList;
+begin
+  aParts:=SplitRoute(RouteCmdNotify(-1001149179557, True));
+  try
+    CheckEquals(3, aParts.Count, 'notify route must have 3 tokens');
+    CheckEquals('set', aParts[0], 'route prefix');
+    CheckEquals('-1001149179557', aParts[1], 'chat id token');
+    CheckEquals('1', aParts[2], 'on token (Ord form, not FPC BoolToStr)');
+  finally
+    aParts.Free;
+  end;
+  aParts:=SplitRoute(RouteCmdNotify(-1001149179557, False));
+  try
+    CheckEquals('0', aParts[2], 'off token');
   finally
     aParts.Free;
   end;

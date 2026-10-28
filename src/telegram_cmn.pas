@@ -78,6 +78,8 @@ type
 function RouteCmdSpam(aChat: Int64; aMsg: Integer; IsSpam: Boolean): String;
 function RouteCmdReaction(aChat, aUser: Int64; IsSpam: Boolean): String;
 function RouteCmdSpamLastChecking(aChat: Int64; aMsg: Integer; IsConfirmation: Boolean): String;
+{ The /settings flag: the last token is the desired NotifyOn state, 1 or 0 }
+function RouteCmdNotify(aChat: Int64; aOn: Boolean): String;
 function RouteMsgUsrPrvcy: String;
 function RouteMsgCmplnntIsBt(): String;
 function RouteMsgPrbblySpm(aSpamProbability, aHamProbability: Double; aIsEmojiMarker: Boolean = False): String;
@@ -98,6 +100,7 @@ const
   _dtCmplnntIsBt='CmplnntIsBt'; 
   _dtPrbblySpm=  'PrbblySpm';
   _dSpm =        'spam';
+  _dSttngs =     'set'; { callback route of the /settings notification flag }
   _dRctn =       'reaction';
   _dtR=          'r';  // rollback ban action
   _dtRC=         'rc'; // confirmation of rollback ban action
@@ -176,6 +179,12 @@ begin
   else
     aSym:=_dtR;
   Result:=_dSpm+' '+aChat.ToString+' '+aMsg.ToString+' '+aSym;
+end;
+
+{ Ord(Boolean) gives the stable '1'/'0' form: FPC BoolToStr yields '-1'/0 }
+function RouteCmdNotify(aChat: Int64; aOn: Boolean): String;
+begin
+  Result:=_dSttngs+' '+aChat.ToString+' '+Ord(aOn).ToString;
 end;
 
 function RouteMsgUsrPrvcy: String;
@@ -481,8 +490,9 @@ begin
     for aChatMember in aChatMembers do
       if aChatMember.Moderator then
       begin
-        { Skip moderators marked unreachable by a previous attempt }
-        if not aChatMember.NotifyOk then
+        { Skip moderators marked unreachable by a previous attempt and those
+          who opted out in /settings }
+        if (not aChatMember.NotifyOk) or (not aChatMember.NotifyOn) then
           Continue;
         SendToModerator(aChatMember.User, aIsDefinitlySpam, aIsPreventively, aIsUserPrivacy, aIsReaction);
         if MessageUnreachable(Bot) then

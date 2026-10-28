@@ -43,6 +43,7 @@ type
     FChat: Int64;
     FModerator: Boolean;
     FNotifyOk: Boolean;
+    FNotifyOn: Boolean;
     FUser: Int64;
   public
     { Delivered-by-default: a freshly created row must not mark its moderator
@@ -56,6 +57,9 @@ type
     { False once a notification to this member failed with "chat not found"
       or the bot blocked; reset on the next /update }
     property NotifyOk: Boolean read FNotifyOk write FNotifyOk;
+    { The moderator's own opt-in from /settings: survives /update, unlike
+      NotifyOk. A notification is sent only when both are True }
+    property NotifyOn: Boolean read FNotifyOn write FNotifyOn;
   end;
 
   { TMembership }
@@ -182,6 +186,13 @@ type
     procedure GetModeratorsByChat(aChat: Int64; aModerators: TopfChatMembers.TEntities);
     procedure GetUndeliverableModerators(aChat: Int64; aUsers: TInt64List);
     procedure MarkModeratorUndeliverable(aChat, aUser: Int64);
+    { All chats where the user is a moderator, with the notification flags }
+    procedure GetModeratedChats(aUser: Int64; aChats: TopfChatMembers.TEntities);
+    { The /settings flag: turning on also clears NotifyOk, the user is
+      obviously reachable while talking to the bot }
+    procedure SetUserNotify(aChat, aUser: Int64; aOn: Boolean);
+    { Clears stale NotifyOk=False marks: the user has just contacted the bot }
+    procedure ResetNotifyErrors(aUser: Int64);
     function GetReaction(aInspectedChat, aInspectedUser: Int64): Boolean;
     function IsNewbieInChat(aChat, aUserID: Int64): Boolean;
     procedure SaveMembershipAppearance(aChat, aUser: Int64);
@@ -281,6 +292,7 @@ begin
   FUser:=0;
   FModerator:=False;
   FNotifyOk:=True;
+  FNotifyOn:=True;
 end;
 
 { TMembership }
@@ -817,6 +829,61 @@ begin
   opChatMembers.Entity.NotifyOk:=False;
   opChatMembers.Modify(False);
   opChatMembers.Apply;
+end;
+
+procedure TBotORM.GetModeratedChats(aUser: Int64; aChats: TopfChatMembers.TEntities);
+begin
+  opChatMembers.Entity.User:=aUser;
+  opChatMembers.Find(aChats, 'user=:user');
+end;
+
+procedure TBotORM.SetUserNotify(aChat, aUser: Int64; aOn: Boolean);
+begin
+  opChatMembers.Entity.Chat:=aChat;
+  opChatMembers.Entity.User:=aUser;
+  if not opChatMembers.Get() then
+    Exit;
+  opChatMembers.Entity.NotifyOn:=aOn;
+  if aOn then
+    opChatMembers.Entity.NotifyOk:=True;
+  opChatMembers.Modify(False);
+  opChatMembers.Apply;
+end;
+
+{ The rows to fix are collected before any entity reuse: walking TEntities
+  while the shared ORM entity is repositioned corrupts the walk }
+procedure TBotORM.ResetNotifyErrors(aUser: Int64);
+var
+  aChats: TopfChatMembers.TEntities;
+  aStale: TInt64List;
+  aChatMember: TChatMember;
+  aChat: Int64;
+begin
+  aChats:=TopfChatMembers.TEntities.Create;
+  aStale:=TInt64List.Create;
+  try
+    opChatMembers.Entity.User:=aUser;
+    if not opChatMembers.Find(aChats, 'user=:user') then
+      Exit;
+    for aChatMember in aChats do
+      if not aChatMember.NotifyOk then
+        aStale.Add(aChatMember.Chat);
+    for aChat in aStale do
+    begin
+      opChatMembers.Entity.Chat:=aChat;
+      opChatMembers.Entity.User:=aUser;
+      if opChatMembers.Get() then
+      begin
+        opChatMembers.Entity.NotifyOk:=True;
+        opChatMembers.Modify(False);
+      end;
+    end;
+    if aStale.Count>0 then
+      opChatMembers.Apply;
+  finally
+    aStale.Free;
+    aChats.Free;
+  end;
 end;
 
 { Remembers when the user joined the chat for the first time.

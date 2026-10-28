@@ -215,6 +215,7 @@ SQL
                 ensure_column reactions createdat "bigint NOT NULL DEFAULT 0"
                 ensure_column complaints createdat "bigint NOT NULL DEFAULT 0"
                 ensure_column chatmembers notifyok "tinyint(1) NOT NULL DEFAULT 1"
+                ensure_column chatmembers notifyon "tinyint(1) NOT NULL DEFAULT 1"
 
                 # Write credentials to tgadmin.json
                 json_set \

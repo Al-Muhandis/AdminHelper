@@ -29,6 +29,7 @@ type
     procedure SecondComplaintIsNotFirst;
     procedure ComplaintNotDuplicated;
     procedure ModeratorRoundtripKeepsNotifyOk;
+    procedure NotifyPreferencesRoundtrip;
     procedure MembershipNewbieDetection;
     procedure GetMessageReconnectsAfterKill;
   end;
@@ -302,6 +303,64 @@ begin
       aMembers.Free;
     end;
   finally
+    ORM.Free;
+  end;
+end;
+
+procedure TTestORMLive.NotifyPreferencesRoundtrip;
+var
+  ORM: TBotORM;
+  aUsers: TInt64List;
+  aMembers: TopfChatMembers.TEntities;
+
+  procedure ReadBack;
+  begin
+    ORM.GetModeratedChats(4242, aMembers);
+    AssertTrue('one moderated chat expected', aMembers.Count=1);
+  end;
+
+begin
+  if not Enabled then Exit;
+  ORM:=NewORM;
+  aMembers:=TopfChatMembers.TEntities.Create;
+  try
+    aUsers:=TInt64List.Create;
+    try
+      aUsers.Add(4242);
+      ORM.AddChatMembers(-100504, True, aUsers);
+    finally
+      aUsers.Free;
+    end;
+    ReadBack;
+    AssertTrue('opt-in must default to on', aMembers[0].NotifyOn);
+    AssertTrue('reachability must default to ok', aMembers[0].NotifyOk);
+    { The /settings flag off must not touch the reachability mark }
+    ORM.SetUserNotify(-100504, 4242, False);
+    aMembers.Clear;
+    ReadBack;
+    AssertFalse('opt-out must be stored', aMembers[0].NotifyOn);
+    AssertTrue('opt-out must not mark unreachable', aMembers[0].NotifyOk);
+    { The bot-side undeliverable mark must not touch the opt-in }
+    ORM.MarkModeratorUndeliverable(-100504, 4242);
+    aMembers.Clear;
+    ReadBack;
+    AssertFalse('undeliverable must be stored', aMembers[0].NotifyOk);
+    AssertFalse('undeliverable must not flip the opt-in back on', aMembers[0].NotifyOn);
+    { Contacting the bot clears the stale undeliverable marks only }
+    ORM.ResetNotifyErrors(4242);
+    aMembers.Clear;
+    ReadBack;
+    AssertTrue('reset must clear the undeliverable mark', aMembers[0].NotifyOk);
+    AssertFalse('reset must keep the opt-out', aMembers[0].NotifyOn);
+    { Turning the flag back on restores delivery for both flags }
+    ORM.SetUserNotify(-100504, 4242, True);
+    aMembers.Clear;
+    ReadBack;
+    AssertTrue('opt-in must be stored', aMembers[0].NotifyOn);
+    AssertTrue('turning on while talking to the bot must clear unreachable',
+      aMembers[0].NotifyOk);
+  finally
+    aMembers.Free;
     ORM.Free;
   end;
 end;

@@ -60,10 +60,25 @@ msgstr ""
 msgid "It is identified as a spam based on emojies in the message"
 msgstr ""
 
+#: actionadminhelper._snogrps
+msgctxt "actionadminhelper._snogrps"
+msgid "You are not receiving moderation notifications in any group yet"
+msgstr "Вы пока не получаете уведомления модератора ни в одной группе"
+
+#: actionadminhelper._sntflgnd
+msgctxt "actionadminhelper._sntflgnd"
+msgid "🔔 — on, 🔕 — off; tap the flag to toggle. The bot also turns the notifications off itself when it cannot deliver a message to you"
+msgstr "🔔 — включены, 🔕 — выключены; нажмите на флажок, чтобы переключить. Бот и сам отключает уведомления, если не может доставить вам сообщение"
+
 #: actionadminhelper._sstarttext
 msgctxt "actionadminhelper._sstarttext"
 msgid "Start Text for TAdminHelper"
 msgstr "Бот помогает быстро и бесшумно банить спамеров. Подробности можно узнать с помощью команды /help"
+
+#: actionadminhelper._syrgrps
+msgctxt "actionadminhelper._syrgrps"
+msgid "Groups you receive moderation notifications for:"
+msgstr "Группы, в которых вы получаете уведомления модератора:"
 
 #: actionadminhelper._syrrghts
 #, object-pascal-format

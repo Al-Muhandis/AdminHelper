@@ -22,6 +22,7 @@ type
       aInspectedMessage: Integer);
     procedure AdminReactionVerdict(const aIsSpamStr: String; aInspectedChat, aInspectedUser: Int64);
     procedure BtClbckMessage({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);
+    procedure BtClbckSettings({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);
     procedure BtClbckSpam({%H-}ASender: TObject; {%H-}ACallback: TCallbackQueryObj);
     procedure BtCmndSaveFilters({%H-}aSender: TObject; const {%H-}ACommand: String; {%H-}aMessage: TTelegramMessageObj);
     procedure BtCmndSettings({%H-}aSender: TObject; const {%H-}ACommand: String; aMessage: TTelegramMessageObj);
@@ -35,6 +36,10 @@ type
     procedure ComfirmationErroneousBan(aInspectedChat: Int64; aInspectedMessage: Integer);
     function GetBotORM: TBotORM;
     function GetCurrent: TCurrentEvent;
+    { The inline keyboard of /settings: one row per moderated chat with the
+      jump link and the notification flag; appends the section text (header,
+      legend or the no-groups note) to aMsg }
+    function NotifySettingsMarkup(aUser: Int64; var aMsg: String): TReplyMarkup;
     procedure SendComplaint;
     { Registers the command menu (setMyCommands) in English and Russian;
       True on success, the caller retries on the next request otherwise }
@@ -76,6 +81,10 @@ resourcestring
   _sSpmBsEmj=           'It is identified as a spam based on emojies in the message';
   _sUndeliverableAdmins= 'These admins do not receive moderation notifications because they never opened the chat with the bot (or blocked it):' + LineEnding + '%s' + LineEnding +
     'After they open the chat, run /update to retry.';
+  _sYrGrps=             'Groups you receive moderation notifications for:';
+  _sNtfLgnd=            '🔔 — on, 🔕 — off; tap the flag to toggle. '+
+    'The bot also turns the notifications off itself when it cannot deliver a message to you';
+  _sNoGrps=             'You are not receiving moderation notifications in any group yet';
 
 const
   { setMyCommands descriptions: plain literals because the resourcestring
@@ -85,31 +94,13 @@ const
   _CmdSpamDscrRu=    'Пожаловаться на спам: отправьте в ответ на сообщение спамера';
   _CmdUpdTxDscrEn=   'Refresh the chat administrators list (for admins)';
   _CmdUpdTxDscrRu=   'Обновить список администраторов чата (для админов)';
-  _CmdSttngsDscrEn=  'Show your anti-spam rating and status';
-  _CmdSttngsDscrRu=  'Показать ваш рейтинг и статус в борьбе со спамом';
+  _CmdSttngsDscrEn=  'Show your rating, status and notification settings';
+  _CmdSttngsDscrRu=  'Показать ваш рейтинг, статус и настройки уведомлений';
   _CmdHlpDscrEn=     'How the bot works';
   _CmdHlpDscrRu=     'Как устроен бот';
 
-function BuildMsgUrl(aChat: TTelegramChatObj; aMsgID: Integer): String;
-const
-  _ChatIDPrefix='-100';
-var
-  aTpl, aChatName: String;
-begin
-  aChatName:=aChat.Username;
-  if aChatName.IsEmpty then
-  begin
-    aChatName:=aChat.ID.ToString;
-    if StartsStr(_ChatIDPrefix, aChatName) then
-      aChatName:=RightStr(aChatName, Length(aChatName)-Length(_ChatIDPrefix))
-    else
-      Exit('https://t.me/'); { #todo : Maybe other handling? }
-    aTpl:='https://t.me/c/%s/%d';
-  end
-  else
-    aTpl:='https://t.me/%s/%d';
-  Result:=Format(aTpl, [aChatName, aMsgID]);
-end;
+  _emjNtfOn = '🔔';
+  _emjNtfOff= '🔕';
 
 { TAdminHelper }
 
@@ -169,19 +160,126 @@ procedure TAdminHelper.BtCmndSettings(aSender: TObject; const ACommand: String; 
 var
   aHint, aMsg: String;
   aRate: Integer;
+  aMarkup: TReplyMarkup;
 begin
   { Keep groups silent as /spam and /update do: remove the command,
     the answer always goes to the private chat with the member }
   if aMessage.Chat.ChatType<>ctPrivate then
-    Bot.deleteMessage(aMessage.ChatId, aMessage.MessageId);
+    Bot.deleteMessage(aMessage.ChatId, aMessage.MessageId)
+  else
+    { The member demonstrably receives our messages: stale "undeliverable"
+      marks from earlier failed notifications are cleared }
+    ORM.ResetNotifyErrors(aMessage.From.ID);
   aRate:=ORM.UserByID(aMessage.From.ID).Rate;
   aMsg:=Format(_sYrRtng, [aRate])+LineEnding+
     Format(_sYrRghts, [DefenderStatusText(DefenderStatusOf(aRate, Conf.PatrolRate, Conf.GuardRate))]);
   aHint:=NextRankHint(aRate, Conf.PatrolRate, Conf.GuardRate);
   if not aHint.IsEmpty then
     aMsg+=LineEnding+aHint;
-  Bot.sendMessage(aMessage.From.ID, aMsg);
+  aMarkup:=NotifySettingsMarkup(aMessage.From.ID, aMsg);
+  try
+    Bot.sendMessage(aMessage.From.ID, aMsg, pmDefault, False, aMarkup);
+  finally
+    aMarkup.Free;
+  end;
   Bot.UpdateProcessed:=True;
+end;
+
+procedure TAdminHelper.BtClbckSettings(ASender: TObject; ACallback: TCallbackQueryObj);
+var
+  aChat: Int64;
+  aMarkup: TReplyMarkup;
+  aDummy: String;
+  aOn: Boolean;
+begin
+  { RouteCmdNotify: 'set <chat> <1|0>' }
+  if not TryStrToInt64(ExtractDelimited(2, ACallback.Data, [' ']), aChat) then
+    Exit;
+  if not ORM.IsModerator(aChat, ACallback.From.ID) then
+    Exit;
+  aOn:=ExtractDelimited(3, ACallback.Data, [' '])='1';
+  ORM.SetUserNotify(aChat, ACallback.From.ID, aOn);
+  { The flags live in the keyboard only: the text stays, redraw the markup }
+  if Assigned(ACallback.Message) then
+  begin
+    aDummy:=EmptyStr;
+    aMarkup:=NotifySettingsMarkup(ACallback.From.ID, aDummy);
+    try
+      Bot.editMessageReplyMarkup(ACallback.Message.ChatId, ACallback.Message.MessageId, EmptyStr, aMarkup);
+    finally
+      aMarkup.Free;
+    end;
+  end;
+  Bot.UpdateProcessed:=True;
+end;
+
+function TAdminHelper.NotifySettingsMarkup(aUser: Int64; var aMsg: String): TReplyMarkup;
+var
+  aChats: TopfChatMembers.TEntities;
+  aChatMember: TChatMember;
+  aChatObj: TTelegramChatObj;
+  aKB: TInlineKeyboard;
+  aRow: TInlineKeyboardButtons;
+  aName, aURL: String;
+  aHasChats: Boolean;
+
+  { Falls back to what the chat ID alone can tell when the bot is no longer
+    in the chat and getChat fails: t.me/c/ links open for members anyway }
+  procedure GroupButtonData(aChat: Int64; out aName, aURL: String);
+  begin
+    aName:=EmptyStr;
+    aChatObj:=nil;
+    if Bot.getChat(aChat, aChatObj) then
+      try
+        aName:=aChatObj.Title;
+        if aName.IsEmpty then
+          aName:='@'+aChatObj.Username;
+        aURL:=BuildMsgUrl(aChatObj);
+      finally
+        aChatObj.Free;
+      end
+    else begin
+      aName:=aChat.ToString;
+      if StartsStr('-100', aName) then
+        aURL:='https://t.me/c/'+RightStr(aName, Length(aName)-4)
+      else
+        aURL:='https://t.me/';
+      aName:='#'+aName;
+    end;
+    if aName.IsEmpty then
+      aName:='#'+aChat.ToString;
+  end;
+
+begin
+  Result:=TReplyMarkup.Create;
+  aChats:=TopfChatMembers.TEntities.Create;
+  try
+    ORM.GetModeratedChats(aUser, aChats);
+    aHasChats:=False;
+    for aChatMember in aChats do
+      if aChatMember.Moderator then
+      begin
+        if not aHasChats then
+        begin
+          aHasChats:=True;
+          aMsg+=LineEnding+_sYrGrps+LineEnding+_sNtfLgnd;
+          aKB:=Result.CreateInlineKeyBoard;
+        end;
+        GroupButtonData(aChatMember.Chat, aName, aURL);
+        aRow:=aKB.Add;
+        aRow.AddButtonUrl(aName, aURL);
+        { The flag shows the effective state; the callback carries the new
+          NotifyOn value: off for a shown bell, on for a crossed one }
+        if aChatMember.NotifyOn and aChatMember.NotifyOk then
+          aRow.AddButton(_emjNtfOn, RouteCmdNotify(aChatMember.Chat, False))
+        else
+          aRow.AddButton(_emjNtfOff, RouteCmdNotify(aChatMember.Chat, True));
+      end;
+    if not aHasChats then
+      aMsg+=LineEnding+_sNoGrps;
+  finally
+    aChats.Free;
+  end;
 end;
 
 procedure TAdminHelper.BtCmndSpam(aSender: TObject; const ACommand: String; aMessage: TTelegramMessageObj);
@@ -620,6 +718,7 @@ begin
   Bot.CommandHandlers['/'+_dSpm]:=@BtCmndSpam;
   Bot.CallbackHandlers['m']:=@BtClbckMessage;
   Bot.CallbackHandlers[_dSpm]:=@BtClbckSpam;
+  Bot.CallbackHandlers[_dSttngs]:=@BtClbckSettings;
   Bot.CommandHandlers['/update']:=@BtCmndUpdate;
   Bot.CommandHandlers['/settings']:=@BtCmndSettings;
   Bot.CommandHandlers['/savefilter']:=@BtCmndSaveFilters;
