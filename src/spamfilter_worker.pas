@@ -210,7 +210,14 @@ begin
       aTask.Free;
     end;
   except
-    on E: Exception do Logger.Error('ProcessTask. '+E.ClassName+': '+E.Message);
+    on E: Exception do
+    begin
+      Logger.Error('ProcessTask. '+E.ClassName+': '+E.Message);
+      { A fault here indicates corrupted process memory like in the request
+        path: counting it feeds the same halt-for-restart circuit breaker }
+      if (E is EAccessViolation) or (E is EInvalidPointer) then
+        MemoryFaultRegistered('SpamFilterWorker');
+    end;
   end;
 end;
 

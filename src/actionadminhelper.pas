@@ -16,7 +16,6 @@ type
   private
     FBotConfig: TBotConf;
     FBotORM: TBotORM;
-    FCommandsSet: Boolean;
     FCurrent: TCurrentEvent;
     procedure AdminSpamVerdict(const aIsSpamStr, aCallbackID: String; aInspectedChat, aExecutor: Int64;
       aInspectedMessage: Integer);
@@ -62,8 +61,23 @@ type
 implementation
 
 uses
-  eventlog, Classes, sysutils, StrUtils, adminhelper_conf, tgutils, spamfilter_implementer, global
+  eventlog, Classes, sysutils, StrUtils, DateUtils, adminhelper_conf, tgutils,
+  spamfilter_implementer, global
   ;
+
+const
+  { Telegram rate-limits the settings methods for hours after a burst;
+    retrying a failed registration more often than this only prolongs the ban }
+  _CommandsRetryDelaySec = 600;
+
+var
+  { The router creates one TAdminHelper per request and frees it afterwards,
+    so an instance flag would re-register the menu on every incoming update
+    (4 setMyCommands calls each) and drag the bot into daily 429 windows.
+    The registration state is therefore kept process-wide }
+  _CommandsSet: Boolean = False;
+  _CommandsNextTry: TDateTime = 0;
+  _CommandsLock: TRTLCriticalSection;
 
 resourcestring
   _sInspctdMsgWsChckdOt='The message has already been verified';
@@ -742,19 +756,44 @@ begin
     Bot.Token:=Variables.Values['token'];
     if SameStr(Bot.Token, BotConfig.Telegram.Token) then
     begin
-      if not FCommandsSet then
-        FCommandsSet:=SetBotCommands;
+      if not _CommandsSet then
+      begin
+        EnterCriticalSection(_CommandsLock);
+        try
+          if (not _CommandsSet) and (Now>=_CommandsNextTry) then
+          begin
+            if SetBotCommands then
+              _CommandsSet:=True
+            else
+              _CommandsNextTry:=IncSecond(Now, _CommandsRetryDelaySec);
+          end;
+        finally
+          LeaveCriticalSection(_CommandsLock);
+        end;
+      end;
       inherited Post
     end
     else
       HttpResponse.Code:=404;
   except
     on E: Exception do
+    begin
       Bot.Logger.Error('['+Self.ClassName+'] '+e.ClassName+': '+e.Message);
+      { Access violations and invalid pointers mean damaged process memory:
+        every further request dies the same way until the daemon is restarted.
+        Self-terminate instead of serving a broken instance for hours; systemd
+        restarts the service (Restart=on-failure) into a clean process }
+      if (E is EAccessViolation) or (E is EInvalidPointer) then
+        MemoryFaultRegistered(Self.ClassName);
+    end;
   end;
 end;
 
 initialization
+  InitCriticalSection(_CommandsLock);
   TAdminHelper.Register('/adminhelper/:token/');
+
+finalization
+  DoneCriticalSection(_CommandsLock);
 
 end.
