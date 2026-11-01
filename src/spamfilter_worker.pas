@@ -216,7 +216,7 @@ begin
       { A fault here indicates corrupted process memory like in the request
         path: counting it feeds the same halt-for-restart circuit breaker }
       if (E is EAccessViolation) or (E is EInvalidPointer) then
-        MemoryFaultRegistered('SpamFilterWorker');
+        MemoryFaultRegistered('SpamFilterWorker', IntToHex(PtrUInt(ExceptAddr), 16));
     end;
   end;
 end;

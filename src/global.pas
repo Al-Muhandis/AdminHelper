@@ -17,19 +17,27 @@ const
   _MemoryFaultLimit = 5;
   _MemoryFaultWindowSec = 600;
 
-{ Registers a fatal fault (access violation, invalid pointer). When more than
-  _MemoryFaultLimit occur within the window, the process halts with a nonzero
-  exit code so systemd (Restart=on-failure) starts a clean instance: a
-  corrupted heap keeps crashing every request until restarted }
-procedure MemoryFaultRegistered(const aContext: String);
+{ Registers a fatal fault (access violation, invalid pointer) together with
+  the hex address of the raise: it resolves to file:line offline via
+  addr2line against the deployed, unstripped binary. When more than
+  _MemoryFaultLimit occur within the window, the process is killed so systemd
+  (Restart=on-failure) starts a clean instance: a corrupted heap keeps
+  crashing every request until restarted }
+procedure MemoryFaultRegistered(const aContext, aTrace: String);
 
 implementation
+
+{$IFDEF UNIX}
+uses
+  baseunix
+  ;
+{$ENDIF}
 
 var
   _FaultTimes: array of TDateTime;
   _FaultLock: TRTLCriticalSection;
 
-procedure MemoryFaultRegistered(const aContext: String);
+procedure MemoryFaultRegistered(const aContext, aTrace: String);
 var
   aNow, aOldest: TDateTime;
   I, aKept: Integer;
@@ -47,10 +55,18 @@ begin
       end;
     SetLength(_FaultTimes, aKept+1);
     _FaultTimes[aKept]:=aNow;
+    WriteLn(Format('%s [memory fault] %s at %s', [FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', aNow), aContext, aTrace]));
     if aKept+1>=_MemoryFaultLimit then
     begin
       WriteLn(Format('%s [%s] %d memory faults in %d seconds: halting for a systemd restart',
         [FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', aNow), aContext, aKept+1, _MemoryFaultWindowSec]));
+      {$IFDEF UNIX}
+      { Halt from a secondary thread does not reliably terminate the process:
+        the daemon kept serving after Halt(75). SIGABRT's default action kills
+        the process from any thread and counts as a failure for the service
+        unit (Restart=on-failure) }
+      fpKill(SIGABRT, fpGetPid);
+      {$ENDIF}
       { Nonzero exit code: the service unit restarts on failure }
       Halt(75);
     end;

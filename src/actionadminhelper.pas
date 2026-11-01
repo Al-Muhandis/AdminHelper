@@ -784,7 +784,7 @@ begin
         Self-terminate instead of serving a broken instance for hours; systemd
         restarts the service (Restart=on-failure) into a clean process }
       if (E is EAccessViolation) or (E is EInvalidPointer) then
-        MemoryFaultRegistered(Self.ClassName);
+        MemoryFaultRegistered(Self.ClassName, IntToHex(PtrUInt(ExceptAddr), 16));
     end;
   end;
 end;
