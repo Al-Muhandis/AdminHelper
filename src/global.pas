@@ -14,7 +14,7 @@ var
 
 const
   { The daemon serves corrupted memory only until these are exceeded }
-  _MemoryFaultLimit = 5;
+  _MemoryFaultLimit = 2;
   _MemoryFaultWindowSec = 600;
 
 { Registers a fatal fault (access violation, invalid pointer) together with
@@ -29,7 +29,7 @@ implementation
 
 {$IFDEF UNIX}
 uses
-  baseunix
+  baseunix, lnfodwrf
   ;
 {$ENDIF}
 
@@ -40,6 +40,8 @@ var
 procedure MemoryFaultRegistered(const aContext, aTrace: String);
 var
   aNow, aOldest: TDateTime;
+  aDump: Text;
+  aDumpName: String;
   I, aKept: Integer;
 begin
   aNow:=Now;
@@ -55,6 +57,23 @@ begin
       end;
     SetLength(_FaultTimes, aKept+1);
     _FaultTimes[aKept]:=aNow;
+    { The call stack of the first fault carries the evidence: lnfodwrf
+      resolves the frames to file:line while dumping, so the corrupted call
+      site can be found without reproducing anything. Dumped inside the
+      critical section: concurrent faults must not interleave the dumps }
+    aDumpName:=_DataDir+'fault_backtrace.log';
+    AssignFile(aDump, aDumpName);
+    try
+      if FileExists(aDumpName) then
+        Append(aDump)
+      else
+        Rewrite(aDump);
+      WriteLn(aDump, '=== ', FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', aNow), ' ', aContext, ' at ', aTrace, ' ===');
+      DumpExceptionBackTrace(aDump);
+      Flush(aDump);
+    finally
+      CloseFile(aDump);
+    end;
     WriteLn(Format('%s [memory fault] %s at %s', [FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', aNow), aContext, aTrace]));
     if aKept+1>=_MemoryFaultLimit then
     begin

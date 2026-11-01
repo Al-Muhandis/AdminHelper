@@ -237,8 +237,17 @@ function CheckDuplicateKeyErr(const aErrMessage: string): Boolean;
 implementation
 
 uses
-  dOpf, DateUtils, SQLDB, global
+  dOpf, DateUtils, SQLDB, mysql80dyn, global
   ;
+
+var
+  { Serializes every connection setup process-wide: the MySQL client library
+    documents mysql_library_init as not thread-safe, and two concurrent
+    connects poison its globals - the daemon then faults inside libmysql
+    anywhere and at any later time until restarted. Observed exactly this:
+    two requests faulting inside mysql_real_connect 30 ms apart after a
+    burst of updates queued during downtime }
+  _DBConnectLock: TRTLCriticalSection;
 
 function CheckDisconnectErr(const aErrMessage: string): Boolean;
 const
@@ -439,14 +448,28 @@ begin
       FCon.Logger.FileName := _LogDir+FLogFileName
     else
       FCon.Logger.FileName := _LogDir+FDBConfig.Logger.FileName;
+    { Establish the connection right here, serialized process-wide: left to
+      its lazy connect, the first queries of two concurrent requests would
+      run the client library's not-thread-safe initialization together }
+    EnterCriticalSection(_DBConnectLock);
+    try
+      FCon.Connected:=True;
+    finally
+      LeaveCriticalSection(_DBConnectLock);
+    end;
   end;
   Result := FCon;
 end;
 
 procedure TBotORM.Reconnect;
 begin
-  Con.Connected:=False;
-  Con.Connected:=True;
+  EnterCriticalSection(_DBConnectLock);
+  try
+    Con.Connected:=False;
+    Con.Connected:=True;
+  finally
+    LeaveCriticalSection(_DBConnectLock);
+  end;
 end;
 
 class procedure TBotORM.CreateDB(aConnection: TdSQLdbConnector);
@@ -930,6 +953,18 @@ begin
   GetUserByID(aUserID);
   Result:=opUsers.Entity;
 end;
+
+initialization
+  InitCriticalSection(_DBConnectLock);
+  { The client library init is done in this single-threaded context instead
+    of lazily inside whichever worker thread runs the first query. Skipped
+    when the binding unit has not loaded the library yet: the serialized
+    first connect in Con covers that case }
+  if Assigned(mysql80dyn.mysql_library_init) then
+    mysql80dyn.mysql_library_init(0, nil, nil);
+
+finalization
+  DoneCriticalSection(_DBConnectLock);
 
 end.
 
