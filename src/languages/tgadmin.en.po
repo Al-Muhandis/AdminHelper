@@ -55,6 +55,14 @@ msgctxt "actionadminhelper._sinspctdmsgwschckdot"
 msgid "The message has already been verified"
 msgstr ""
 
+#: actionadminhelper._snogrps
+msgid "You are not receiving moderation notifications in any group yet"
+msgstr ""
+
+#: actionadminhelper._sntflgnd
+msgid "🔔 — on, 🔕 — off; tap the flag to toggle. The bot also turns the notifications off itself when it cannot deliver a message to you"
+msgstr ""
+
 #: actionadminhelper._sspmbsemj
 msgid "It is identified as a spam based on emojies in the message"
 msgstr ""
@@ -63,6 +71,18 @@ msgstr ""
 msgctxt "actionadminhelper._sstarttext"
 msgid "Start Text for TAdminHelper"
 msgstr "The bot helps quickly and silently ban spammers. See details by /help command"
+
+#: actionadminhelper._sundeliverableadmins
+#, object-pascal-format
+msgid ""
+"These admins do not receive moderation notifications because they never opened the chat with the bot (or blocked it):\n"
+"%s\n"
+"After they open the chat, run /update to retry."
+msgstr ""
+
+#: actionadminhelper._syrgrps
+msgid "Groups you receive moderation notifications for:"
+msgstr ""
 
 #: actionadminhelper._syrrghts
 #, object-pascal-format
@@ -155,5 +175,13 @@ msgstr ""
 
 #: telegram_cmn._sspmrctn
 msgid "Spam reaction"
+msgstr ""
+
+#: telegram_cmn._sspmrctnbnd
+msgid "The reaction author has been banned"
+msgstr ""
+
+#: telegram_cmn._sspmrctnisntspm
+msgid "The reaction is marked as NOT spam. The user was unbanned"
 msgstr ""
 
