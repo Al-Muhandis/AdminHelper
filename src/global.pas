@@ -43,6 +43,9 @@ var
   aDump: Text;
   aDumpName: String;
   I, aKept: Integer;
+  {$IFDEF UNIX}
+  aSigSet: SigSet;
+  {$ENDIF}
 begin
   aNow:=Now;
   aOldest:=IncSecond(aNow, -_MemoryFaultWindowSec);
@@ -84,6 +87,15 @@ begin
         the daemon kept serving after Halt(75). SIGABRT's default action kills
         the process from any thread and counts as a failure for the service
         unit (Restart=on-failure) }
+      { The faulting thread returns from the SIGSEGV handler through longjmp,
+        so no sigreturn runs and it keeps the handler-entry mask, where the
+        kernel has SIGABRT blocked: raised to the process it can stay pending
+        forever when both worker threads are in this state, and the daemon
+        served a corrupted process for hours. Unblock it on the calling
+        thread, so the kill below is guaranteed to be delivered }
+      fpSigEmptySet(aSigSet);
+      fpSigAddSet(aSigSet, SIGABRT);
+      fpSigProcMask(SIG_UNBLOCK, @aSigSet, nil);
       fpKill(SIGABRT, fpGetPid);
       {$ENDIF}
       { Nonzero exit code: the service unit restarts on failure }
