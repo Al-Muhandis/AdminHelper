@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="4"/>
-      <BuildNr Value="17"/>
+      <BuildNr Value="19"/>
     </VersionInfo>
     <BuildModes Count="4" Active="Linux">
       <Item1 Name="Default" Default="True"/>
@@ -212,7 +212,7 @@
         <Filename Value="actionadminhelper.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="237"/>
+        <TopLine Value="238"/>
         <CursorPos X="35" Y="248"/>
         <UsageCount Value="257"/>
         <Loaded Value="True"/>
