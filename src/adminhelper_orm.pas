@@ -441,19 +441,25 @@ function TBotORM.Con: TdSQLdbConnector;
 begin
   if not Assigned(FCon) then
   begin
-    FCon := TdSQLdbConnector.Create(nil);
-    FCon.Logger.Active := FDBConfig.Logger.Active;
-    DBConnect;
-    if FDBConfig.Logger.FileName.IsEmpty then
-      FCon.Logger.FileName := _LogDir+FLogFileName
-    else
-      FCon.Logger.FileName := _LogDir+FDBConfig.Logger.FileName;
-    { Establish the connection right here, serialized process-wide: left to
-      its lazy connect, the first queries of two concurrent requests would
-      run the client library's not-thread-safe initialization together }
     EnterCriticalSection(_DBConnectLock);
     try
-      FCon.Connected:=True;
+      { Re-check under the lock: a parallel thread can have completed the
+        whole setup while this one waited for the lock }
+      if not Assigned(FCon) then
+      begin
+        FCon := TdSQLdbConnector.Create(nil);
+        FCon.Logger.Active := FDBConfig.Logger.Active;
+        DBConnect;
+        if FDBConfig.Logger.FileName.IsEmpty then
+          FCon.Logger.FileName := _LogDir+FLogFileName
+        else
+          FCon.Logger.FileName := _LogDir+FDBConfig.Logger.FileName;
+        { Establish the connection right here, serialized process-wide: left
+          to its lazy connect, the first queries of two concurrent requests
+          would run the client library's not-thread-safe initialization
+          together }
+        FCon.Connected:=True;
+      end;
     finally
       LeaveCriticalSection(_DBConnectLock);
     end;
@@ -692,7 +698,16 @@ begin
   FopMemberships.Free;
   FopMessages.Free;
   FopUsers.Free;
-  FCon.Free;
+  { The connector destructor releases its client library reference: that
+    decrement must not interleave with a parallel connection setup, so it
+    runs under the same lock. With the startup reference held by global.pas
+    RefCount never reaches zero, hence no unload happens here }
+  EnterCriticalSection(_DBConnectLock);
+  try
+    FCon.Free;
+  finally
+    LeaveCriticalSection(_DBConnectLock);
+  end;
   inherited Destroy;
 end;
 
@@ -956,10 +971,10 @@ end;
 
 initialization
   InitCriticalSection(_DBConnectLock);
-  { The client library init is done in this single-threaded context instead
-    of lazily inside whichever worker thread runs the first query. Skipped
-    when the binding unit has not loaded the library yet: the serialized
-    first connect in Con covers that case }
+  { global's initialization has already run before this one and loaded the
+    binding once for good (InitialiseMysql), so the library is up here and
+    this re-assertion of mysql_library_init is an idempotent no-op, kept
+    only as a fallback if the startup pre-init is ever dropped }
   if Assigned(mysql80dyn.mysql_library_init) then
     mysql80dyn.mysql_library_init(0, nil, nil);
 

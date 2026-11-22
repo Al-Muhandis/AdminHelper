@@ -29,7 +29,7 @@ implementation
 
 {$IFDEF UNIX}
 uses
-  baseunix, lnfodwrf
+  baseunix, lnfodwrf, mysql80dyn
   ;
 {$ENDIF}
 
@@ -121,6 +121,21 @@ initialization
     _ConfFileName:=ChangeFileExt(ParamStr(0), '.json');
   _ConfDir:=IncludeTrailingPathDelimiter(ExtractFileDir(_ConfFileName));
   InitCriticalSection(_FaultLock);
+  {$IFDEF UNIX}
+  { Load and initialise the MySQL client library once, in this single-threaded
+    context, and never release the reference. fcl-db (FPC 3.2.2, mysql.inc) is
+    unsynchronised: TryInitialiseMysql increments RefCount before the ~100
+    function pointers are assigned and before the not-thread-safe
+    mysql_library_init runs, so two threads whose first connect raced there
+    ran the whole load/init together and crashed inside mysql_real_connect.
+    With the reference permanently held the dangerous branch can never run
+    again: every later InitialiseMysql sees RefCount > 0 and only increments
+    the counter, and DoReleaseMysql never reaches the mysql_library_end +
+    dlclose teardown. ReleaseMySQL must stay uncalled for that to hold.
+    A missing client library raises right here on purpose: a daemon without
+    the DB client must not come up at all }
+  mysql80dyn.InitialiseMysql;
+  {$ENDIF}
 
 finalization
   DoneCriticalSection(_FaultLock);
